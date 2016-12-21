@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  qmuidemo
+//
+//  Created by ZhoonChen on 15/4/13.
+//  Copyright (c) 2015年 QMUI Team. All rights reserved.
+//
+
+#ifndef qmuidemo_PrefixHeader_pch
+#define qmuidemo_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif
+
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <QMUIKit/QMUIKit.h>
+
+#import "QDCommonUI.h"
+#import "QDUIHelper.h"
+
+#endif

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>114D2196-E8DC-4D25-B1A0-FDEB6F4E8A5C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>qmuidemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++4031</key>
+		<string>http://gz-svn.tencent.com/gzrd/gzrd_mail_rep/QMUI_proj</string>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++8975</key>
+		<string>http://gz-svn.tencent.com/gzrd/gzrd_mail_rep/QMUI_proj/trunk/qmui_ios_v1.0</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>trunk/qmuidemo_ios_v1.0/qmuidemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++4031</key>
+		<string>../../../..</string>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++8975</key>
+		<string>../../../..trunk/qmuidemo_ios_v1.0/QMUI</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++4031</key>
+		<string>http://gz-svn.tencent.com/gzrd/gzrd_mail_rep</string>
+		<key>c81c12f4-6276-2f43-b71e-88467c5cecd4++8975</key>
+		<string>http://gz-svn.tencent.com/gzrd/gzrd_mail_rep</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://gz-svn.tencent.com/gzrd/gzrd_mail_rep/QMUI_proj/trunk/qmuidemo_ios_v1.0/qmuidemo.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>c81c12f4-6276-2f43-b71e-88467c5cecd4++4031</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>c81c12f4-6276-2f43-b71e-88467c5cecd4++8975</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QMUI</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>c81c12f4-6276-2f43-b71e-88467c5cecd4++4031</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QMUI_proj</string>
+		</dict>
+	</array>
+</dict>
+</plist>

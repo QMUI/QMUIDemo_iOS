@@ -1,0 +1,84 @@
+ //
+//  QDTextViewController.m
+//  qmui
+//
+//  Created by ZhoonChen on 14-8-5.
+//  Copyright (c) 2014年 QMUI Team. All rights reserved.
+//
+
+#import "QDTextViewController.h"
+
+@interface QDTextViewController ()<QMUITextViewDelegate>
+
+@property(nonatomic,strong) QMUITextView *textView;
+@property(nonatomic, assign) CGFloat textViewMinimumHeight;
+@property(nonatomic, assign) CGFloat textViewMaximumHeight;
+
+@property(nonatomic, strong) UILabel *tipsLabel;
+@end
+
+@implementation QDTextViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.textViewMinimumHeight = 96;
+        self.textViewMaximumHeight = 200;
+    }
+    return self;
+}
+
+- (void)initSubviews {
+    [super initSubviews];
+    self.textView = [[QMUITextView alloc] init];
+    self.textView.delegate = self;
+    self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持自动富文本、支持限制文本输入长度";
+    self.textView.autoResizable = YES;
+    self.textView.textContainerInset = UIEdgeInsetsMake(10, 7, 10, 7);
+    
+    // 通过这个属性可以让输入的文字都是用富文本样式
+    self.textView.textAttributes = @{NSFontAttributeName: UIFontMake(15),
+                                     NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:20],
+                                     NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                                     NSUnderlineColorAttributeName: TextFieldTintColor};
+    // 限制可输入的字符长度
+    self.textView.maximumTextLength = 30;
+    
+    self.textView.layer.borderWidth = PixelOne;
+    self.textView.layer.borderColor = UIColorSeparator.CGColor;
+    self.textView.layer.cornerRadius = 4;
+    [self.view addSubview:self.textView];
+    
+    self.tipsLabel = [[UILabel alloc] init];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:16]}];
+    self.tipsLabel.numberOfLines = 0;
+    [self.view addSubview:self.tipsLabel];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    UIEdgeInsets padding = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.navigationBar.frame) + 16, 16, 16, 16);
+    CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
+    
+    CGSize textViewSize = [self.textView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
+    self.textView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), fminf(self.textViewMaximumHeight, fmaxf(textViewSize.height, self.textViewMinimumHeight)));
+    
+    CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
+    self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textView.frame) + 8, contentWidth, tipsLabelHeight);
+}
+
+#pragma mark - <QMUITextViewDelegate>
+
+- (void)textView:(QMUITextView *)textView contentHeightAfterTextChanged:(CGFloat)height {
+    height = fminf(self.textViewMaximumHeight, fmaxf(height, self.textViewMinimumHeight));
+    BOOL needsChangeHeight = CGRectGetHeight(textView.frame) != height;
+    if (needsChangeHeight) {
+        [self.view setNeedsLayout];
+    }
+}
+
+- (void)textView:(QMUITextView *)textView didPreventTextChangeInRange:(NSRange)range replacementText:(NSString *)replacementText {
+    [QMUITips showWithText:[NSString stringWithFormat:@"文字不能超过 %@ 个字符", @(textView.maximumTextLength)] inView:self.view hideAfterDelay:2.0];
+}
+
+@end
