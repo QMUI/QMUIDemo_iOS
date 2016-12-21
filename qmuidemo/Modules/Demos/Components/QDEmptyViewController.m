@@ -7,7 +7,6 @@
 //
 
 #import "QDEmptyViewController.h"
-#import "QMUIEmptyView.h"
 
 @interface QDEmptyViewController ()
 

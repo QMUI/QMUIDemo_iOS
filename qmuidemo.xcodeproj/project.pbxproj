@@ -26,6 +26,8 @@
 		1679E3261DFF9E300072B8A1 /* QDToastListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3251DFF9E300072B8A1 /* QDToastListViewController.m */; };
 		1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */; };
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
+		16CBD6181E0AB68100D1BEC7 /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; };
+		16CBD61B1E0AB91800D1BEC7 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CBD61A1E0AB91800D1BEC7 /* Reveal.framework */; };
 		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
 		6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D03A52F1B4AB63E003BDDE4 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD1229A71DF677AC003B9649 /* QDImagePreviewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229A61DF677AC003B9649 /* QDImagePreviewExampleViewController.m */; };
@@ -109,10 +111,6 @@
 		CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */; };
 		FE775E3C1DF95728007A341F /* QDActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = FE775E3A1DF95728007A341F /* QDActivityIndicator.m */; };
 		FE7DC16A1D2265DC0057A06E /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */; };
-		FE9263801DAA7CB6008452DA /* QMUI_QQEmotion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FE92637E1DAA7CB6008452DA /* QMUI_QQEmotion.bundle */; };
-		FE9263811DAA7CB6008452DA /* QMUIResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FE92637F1DAA7CB6008452DA /* QMUIResources.bundle */; };
-		FE9263871DAA7D0D008452DA /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; };
-		FE9263881DAA7D0D008452DA /* QMUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,28 +128,7 @@
 			remoteGlobalIDString = FE0AFAD11D82B9D8000D21D9;
 			remoteInfo = QMUIKit;
 		};
-		FE9263891DAA7D0D008452DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 16FE87E81AF76C8500289834 /* qmui.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FE0AFAD01D82B9D8000D21D9;
-			remoteInfo = QMUIKit;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FE92638B1DAA7D0D008452DA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FE9263881DAA7D0D008452DA /* QMUIKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		162E44171B1B2A3B006B73CD /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -195,6 +172,7 @@
 		1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCustomToastAnimator.m; sourceTree = "<group>"; };
 		1679E32F1DFFC4610072B8A1 /* QDCustomToastContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCustomToastContentView.h; sourceTree = "<group>"; };
 		1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCustomToastContentView.m; sourceTree = "<group>"; };
+		16CBD61A1E0AB91800D1BEC7 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		16F42C111B1C60A70038B28F /* image0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image0@2x.png"; sourceTree = "<group>"; };
 		16FE87E81AF76C8500289834 /* qmui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = qmui.xcodeproj; path = QMUI/qmui.xcodeproj; sourceTree = SOURCE_ROOT; };
 		6D03A52F1B4AB63E003BDDE4 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -204,7 +182,6 @@
 		CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDImagePreviewViewController1.m; sourceTree = "<group>"; };
 		CD1229B01DF67922003B9649 /* QDImagePreviewViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDImagePreviewViewController2.h; sourceTree = "<group>"; };
 		CD1229B11DF67922003B9649 /* QDImagePreviewViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDImagePreviewViewController2.m; sourceTree = "<group>"; };
-		CD828F0F1C22802B006481C5 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		CD9207241DD49CD100AE32C0 /* QDFloatLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFloatLayoutViewController.h; sourceTree = "<group>"; };
 		CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFloatLayoutViewController.m; sourceTree = "<group>"; };
 		CDB8C9371DCC815A00769DF0 /* QMUIConfigurationTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplate.h; sourceTree = "<group>"; };
@@ -351,8 +328,6 @@
 		FE775E3A1DF95728007A341F /* QDActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActivityIndicator.m; sourceTree = "<group>"; };
 		FE775E3B1DF95728007A341F /* QDActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActivityIndicator.h; sourceTree = "<group>"; };
 		FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
-		FE92637E1DAA7CB6008452DA /* QMUI_QQEmotion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMUI_QQEmotion.bundle; path = QMUI/QMUIKit/UIResources/QMUI_QQEmotion.bundle; sourceTree = SOURCE_ROOT; };
-		FE92637F1DAA7CB6008452DA /* QMUIResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMUIResources.bundle; path = QMUI/QMUIKit/UIResources/QMUIResources.bundle; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,15 +335,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16CBD6181E0AB68100D1BEC7 /* QMUIKit.framework in Frameworks */,
 				CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */,
 				CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */,
 				CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */,
 				CDE50AD91DAA6ED9000D5414 /* Security.framework in Frameworks */,
 				CDE50AD31DAA6E6F000D5414 /* libz.tbd in Frameworks */,
 				FE7DC16A1D2265DC0057A06E /* libxml2.2.tbd in Frameworks */,
+				16CBD61B1E0AB91800D1BEC7 /* Reveal.framework in Frameworks */,
 				6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */,
 				162E44181B1B2A3B006B73CD /* MediaPlayer.framework in Frameworks */,
-				FE9263871DAA7D0D008452DA /* QMUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,8 +399,8 @@
 				FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */,
 				6D03A52F1B4AB63E003BDDE4 /* Photos.framework */,
 				162E44171B1B2A3B006B73CD /* MediaPlayer.framework */,
+				16CBD61A1E0AB91800D1BEC7 /* Reveal.framework */,
 				1661A2211CF6C4EB00F9BA30 /* Masonry */,
-				CD828F0F1C22802B006481C5 /* Reveal.framework */,
 				16FE87E81AF76C8500289834 /* qmui.xcodeproj */,
 			);
 			path = Framewroks;
@@ -450,8 +426,6 @@
 		165F43551ADB71E90057EF6A /* images */ = {
 			isa = PBXGroup;
 			children = (
-				FE92637E1DAA7CB6008452DA /* QMUI_QQEmotion.bundle */,
-				FE92637F1DAA7CB6008452DA /* QMUIResources.bundle */,
 				16F42C111B1C60A70038B28F /* image0@2x.png */,
 				165F43561ADB71FF0057EF6A /* image1@2x.png */,
 				CDD0D81A1E0A88B600A38B96 /* image2@2x.png */,
@@ -752,12 +726,10 @@
 				165F42ED1ADB60180057EF6A /* Frameworks */,
 				165F42EE1ADB60180057EF6A /* Resources */,
 				CD454B891D913A2E00BE3804 /* Run Script */,
-				FE92638B1DAA7D0D008452DA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FE92638A1DAA7D0D008452DA /* PBXTargetDependency */,
 			);
 			name = qmuidemo;
 			productName = qmuidemo;
@@ -831,8 +803,6 @@
 				CDD0D8201E0A88B600A38B96 /* image3@2x.png in Resources */,
 				CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */,
 				165F435F1ADB71FF0057EF6A /* image1@2x.png in Resources */,
-				FE9263811DAA7CB6008452DA /* QMUIResources.bundle in Resources */,
-				FE9263801DAA7CB6008452DA /* QMUI_QQEmotion.bundle in Resources */,
 				165F43041ADB60180057EF6A /* LaunchScreen.xib in Resources */,
 				CDD0D8231E0A88B600A38B96 /* image6@2x.png in Resources */,
 				CDD0D8221E0A88B600A38B96 /* image5@2x.png in Resources */,
@@ -956,14 +926,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		FE92638A1DAA7D0D008452DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QMUIKit;
-			targetProxy = FE9263891DAA7D0D008452DA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		165F43021ADB60180057EF6A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
@@ -1070,21 +1032,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = FP989NU38H;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/qmuidemo/Framewroks/**",
-					"$(PROJECT_DIR)/qmuidemo/Framewroks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/qmuidemo/Framewroks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/QMUI/**",
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = qmuidemo/Info.plist;
@@ -1109,21 +1064,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = FP989NU38H;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/qmuidemo/Framewroks/**",
-					"$(PROJECT_DIR)/qmuidemo/Framewroks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/qmuidemo/Framewroks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/QMUI/**",
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = qmuidemo/Info.plist;

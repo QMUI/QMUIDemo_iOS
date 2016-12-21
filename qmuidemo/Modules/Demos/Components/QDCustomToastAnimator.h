@@ -6,8 +6,6 @@
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QMUIToastAnimator.h"
-
 @interface QDCustomToastAnimator : QMUIToastAnimator
 
 @end
