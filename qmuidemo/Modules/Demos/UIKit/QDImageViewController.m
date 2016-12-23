@@ -307,13 +307,13 @@
     
     UILabel *afterLabel = [[UILabel alloc] init];
     [afterLabel setTheSameAppearanceAsLabel:originImageLabel];
-    afterLabel.text = @"将图片改为红色";
+    afterLabel.text = @"将图片换个颜色";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
     [self.contentScrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
-    UIImage *afterImage = [originImageView.image imageWithTintColor:UIColorRed];
+    UIImage *afterImage = [originImageView.image imageWithTintColor:[QDCommonUI randomThemeColor]];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
@@ -325,7 +325,7 @@
 
 - (CGFloat)generateExampleViewForImageWithImageAbove {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -360,7 +360,7 @@
 
 - (CGFloat)generateExampleViewForImageWithSpacingExtensionInsets {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图（UIImageView带边框）";
     [originImageLabel sizeToFit];
@@ -370,7 +370,7 @@
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.layer.borderWidth = PixelOne;
-    originImageView.layer.borderColor = UIColorRed.CGColor;
+    originImageView.layer.borderColor = [QDCommonUI randomThemeColor].CGColor;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
@@ -397,7 +397,7 @@
 - (CGFloat)generateExampleViewForImageWithClippedRect {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -406,7 +406,7 @@
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
-    originImageView.contentMode = UIViewContentModeCenter;
+    originImageView.contentMode = UIViewContentModeScaleAspectFit;
     [originImageView sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
@@ -434,7 +434,7 @@
 - (CGFloat)generateExampleViewForImageWithScaleToSize {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -443,7 +443,7 @@
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
-    originImageView.contentMode = UIViewContentModeCenter;
+    originImageView.contentMode = UIViewContentModeScaleAspectFit;
     [originImageView sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
@@ -470,7 +470,7 @@
 
 - (CGFloat)generateExampleViewForImageWithDirection {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -510,7 +510,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorder {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -534,7 +534,7 @@
     CGFloat lineWidth = PixelOne;
     UIBezierPath *roundedBorderPath = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(CGRectMakeWithSize(originImageView.image.size), lineWidth / 2.0, lineWidth / 2.0) cornerRadius:4];
     roundedBorderPath.lineWidth = lineWidth;
-    UIImage *afterImage = [originImageView.image imageWithBorderColor:[UIColor redColor] path:roundedBorderPath];
+    UIImage *afterImage = [originImageView.image imageWithBorderColor:[QDCommonUI randomThemeColor] path:roundedBorderPath];
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
@@ -546,7 +546,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadius {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -568,7 +568,7 @@
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     CGFloat dashedLengths[] = {2,4};
-    UIImage *afterImage = [originImageView.image imageWithBorderColor:[UIColor redColor] borderWidth:PixelOne cornerRadius:4 dashedLengths:dashedLengths];
+    UIImage *afterImage = [originImageView.image imageWithBorderColor:[QDCommonUI randomThemeColor] borderWidth:PixelOne cornerRadius:4 dashedLengths:dashedLengths];
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
@@ -580,7 +580,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadiusAndPosition {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -601,7 +601,7 @@
     [self.contentScrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
-    UIImage *afterImage = [originImageView.image imageWithBorderColor:[UIColor redColor] borderWidth:PixelOne borderPosition:QMUIImageBorderPositionBottom];
+    UIImage *afterImage = [originImageView.image imageWithBorderColor:[QDCommonUI randomThemeColor] borderWidth:PixelOne borderPosition:QMUIImageBorderPositionBottom];
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
@@ -614,7 +614,7 @@
 - (CGFloat)generateExampleViewForImageWithMaskImage {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -695,15 +695,15 @@
 - (CGFloat)generateExampleViewForImageWithColor {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
-    originImageLabel.text = @"生成一张红色圆角图片";
+    originImageLabel.text = @"生成一张圆角图片";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImage *originImage = [UIImage imageWithColor:UIColorTestRed size:CGSizeMake(contentWidth / 2, 40) cornerRadius:10];
+    UIImage *originImage = [UIImage imageWithColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) cornerRadius:10];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -715,15 +715,15 @@
 - (CGFloat)generateExampleViewForImageWithColorAndCornerRadiusArray {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
-    originImageLabel.text = @"生成一张红色图片，右边带圆角";
+    originImageLabel.text = @"生成一张图片，右边带圆角";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImage *originImage = [UIImage imageWithColor:UIColorTestRed size:CGSizeMake(contentWidth / 2, 40) cornerRadiusArray:@[@0, @0, @10, @10]];
+    UIImage *originImage = [UIImage imageWithColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) cornerRadiusArray:@[@0, @0, @10, @10]];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -735,7 +735,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndPath {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"用椭圆路径生成一张图";
     [originImageLabel sizeToFit];
@@ -746,7 +746,7 @@
     CGFloat lineWidth = 1.0f;
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(lineWidth / 2.0, lineWidth / 2.0, contentWidth / 2 - lineWidth, 40 - lineWidth)];
     path.lineWidth = lineWidth;
-    UIImage *originImage = [UIImage imageWithStrokeColor:[UIColor redColor] size:CGSizeMake(contentWidth / 2, 40) path:path addClip:NO];
+    UIImage *originImage = [UIImage imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) path:path addClip:NO];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -758,7 +758,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndCornerRadius {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在给定的大小里绘制一条带圆角的路径";
     [originImageLabel sizeToFit];
@@ -766,7 +766,7 @@
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImage *originImage = [UIImage imageWithStrokeColor:[UIColor redColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 cornerRadius:10];
+    UIImage *originImage = [UIImage imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 cornerRadius:10];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -778,7 +778,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndBorderPosition {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在左、下、右绘制一条边框";
     [originImageLabel sizeToFit];
@@ -786,7 +786,7 @@
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImage *originImage = [UIImage imageWithStrokeColor:[UIColor redColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 borderPosition:QMUIImageBorderPositionLeft|QMUIImageBorderPositionRight|QMUIImageBorderPositionBottom];
+    UIImage *originImage = [UIImage imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 borderPosition:QMUIImageBorderPositionLeft|QMUIImageBorderPositionRight|QMUIImageBorderPositionBottom];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -798,7 +798,7 @@
 - (CGFloat)generateExampleViewForImageWithShape {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *titleLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     titleLabel.text = @"生成预设的形状图片";
     [titleLabel sizeToFit];
@@ -840,7 +840,7 @@
 
 - (CGFloat)generateExampleViewForImageWithAttributedString {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-
+    
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"将NSAttributedString生成为一张图";
     [originImageLabel sizeToFit];
@@ -848,7 +848,7 @@
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 16;
     
-    NSDictionary *attributes = @{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorRed};
+    NSDictionary *attributes = @{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: [QDCommonUI randomThemeColor]};
     NSAttributedString *attributedString1 = [[NSAttributedString alloc] initWithString:@"这是UILabel的显示效果" attributes:attributes];
     NSAttributedString *attributedString2 = [[NSAttributedString alloc] initWithString:@"这是UIImage的显示效果" attributes:attributes];
     

@@ -36,7 +36,7 @@ static CGFloat const kContentMarginBotom = 10;
 
 - (void)initSubviews {
     
-    UIImage *avatarImage = [UIImage imageWithStrokeColor:[UIColor randomColor] size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
+    UIImage *avatarImage = [UIImage imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
     [self.contentView addSubview:self.avatarImageView];
     

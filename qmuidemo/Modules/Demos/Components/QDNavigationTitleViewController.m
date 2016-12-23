@@ -48,6 +48,11 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.titleView.active = NO;
+}
+
 - (void)initDataSource {
     self.dataSource = @[@"显示左边的 loading",
                         @"显示右边的 accessoryView",
