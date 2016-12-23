@@ -4,6 +4,7 @@
 
 qmuidemo.xcodeproj/project.xcworkspace/xcshareddata/
 qmuidemo.xcodeproj/project.xcworkspace/xcuserdata/
+.DS_Store
 
 ## Build generated
 build/
