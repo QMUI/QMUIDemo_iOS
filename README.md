@@ -1,2 +1,2 @@
 # QMUIDemo_iOS
-Sample Demo for QMUI iOS http://qmuiteam.com/ios
+Sample Code for QMUI iOS http://qmuiteam.com/ios
