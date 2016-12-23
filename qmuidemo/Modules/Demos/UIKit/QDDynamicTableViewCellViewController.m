@@ -65,6 +65,8 @@ static CGFloat const kContentMarginBotom = 10;
     self.contentLabel.attributedText = [self attributeStringWithString:contentText lineHeight:26];
     self.timeLabel.text = @"昨天 18:24";
     
+    self.contentLabel.textAlignment = NSTextAlignmentJustified;
+    
     [self setNeedsLayout];
 }
 
@@ -126,8 +128,8 @@ static CGFloat const kContentMarginBotom = 10;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.names = @[@"粽子", @"zhoonchen", @"橙黄", @"chantchen", @"茉莉", @"MoLice", @"TQ", @"产品经理", @"谷哥", @"KayoLi", @"飞哥"];
-    self.contents = @[@"QMUI Web 是一个专注 Web UI 开发，帮助开发者快速实现特定的一整套设计的框架。", @"框架主要由一个强大的 SASS 方法合集与内置的工作流构成。", @"通过 QMUI Web，开发者可以很轻松地提高 Web UI 开发的效率，同时保持了项目的高可维护性与稳健。如果你需要方便地控制项目的整体样式，或者需要应对频繁的界面变动，那么 QMUI Web 框架将会是你最好的解决方案。", @"通过内置的公共组件和对应的 SASS 配置表，你只需修改简单的配置即可快速实现所需样式的组件。（QMUI SASS 配置表和公共组件如何帮忙开发者快速搭建项目基础 UI？）", @"QMUI Web 包含70个 SASS mixin/function/extend，涉及布局、外观、动画、设备适配、数值计算以及 SASS 原生能力增强等多个方面，可以大幅提升开发效率。", @"QMUI Web 内置的工作流拥有从初始化项目到变更文件的各种自动化处理，包含了模板引擎，图片集中管理与自动压缩，静态资源合并、压缩与变更以及冗余文件清理等功能。", @"推荐配合使用的桌面 App：QMUI Web Desktop", @"感谢你的支持和贡献", @"另外为了方便调试，QMUI Web 带有 Debug 模式", @"通过 GUI 界面处理 QMUI Web 的服务开启/关闭，使框架的使用变得更加便捷", @"推荐使用 Yeoman 脚手架 generator-qmui 安装和配置 QMUI Web。该工具可以帮助你完成 QMUI Web 的所有安装和配置。"];
+    self.names = @[@"张三 的想法", @"李四 的想法", @"张三 的想法", @"李四 的想法", @"张三 的想法", @"李四 的想法", @"张三 的想法", @"李四 的想法", @"张三 的想法", @"李四 的想法", @"张三 的想法"];
+    self.contents = @[@"全局 UI 配置：只需要修改一份配置表就可以调整 App 的全局样式，包括颜色、导航栏、输入框、列表等。一处修改，全局生效。", @"UIKit 拓展及版本兼容：拓展多个 UIKit 的组件，提供更加丰富的特性和功能，提高开发效率；解决不同 iOS 版本常见的兼容性问题。", @"丰富的 UI 控件：提供丰富且常用的 UI 控件，使用方便灵活，并且支持自定义控件的样式。", @"高效的工具方法及宏：提供高效的工具方法，包括设备信息、动态字体、键盘管理、状态栏管理等，可以解决各种常见场景并大幅度提升开发效率。", @"iOS UI 解决方案：QMUI iOS 的设计目的是用于辅助快速搭建一个具备基本设计还原效果的 iOS 项目，同时利用自身提供的丰富控件及兼容处理，让开发者能专注于业务需求而无需耗费精力在基础代码的设计上。不管是新项目的创建，或是已有项目的维护，均可使开发效率和项目质量得到大幅度提升。", @"全局 UI 配置：只需要修改一份配置表就可以调整 App 的全局样式，包括颜色、导航栏、输入框、列表等。一处修改，全局生效。", @"UIKit 拓展及版本兼容：拓展多个 UIKit 的组件，提供更加丰富的特性和功能，提高开发效率；解决不同 iOS 版本常见的兼容性问题。", @"丰富的 UI 控件：提供丰富且常用的 UI 控件，使用方便灵活，并且支持自定义控件的样式。", @"高效的工具方法及宏：提供高效的工具方法，包括设备信息、动态字体、键盘管理、状态栏管理等，可以解决各种常见场景并大幅度提升开发效率。", @"iOS UI 解决方案：QMUI iOS 的设计目的是用于辅助快速搭建一个具备基本设计还原效果的 iOS 项目，同时利用自身提供的丰富控件及兼容处理，让开发者能专注于业务需求而无需耗费精力在基础代码的设计上。不管是新项目的创建，或是已有项目的维护，均可使开发效率和项目质量得到大幅度提升。"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
