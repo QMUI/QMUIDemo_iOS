@@ -70,8 +70,7 @@
 
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView renderZoomImageView:(QMUIZoomImageView *)zoomImageView atIndex:(NSUInteger)index {
     
-    // 让图片撑满容器（即便图片比容器小）
-    zoomImageView.contentMode = UIViewContentModeScaleAspectFill;
+    zoomImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (index == 1) {
         

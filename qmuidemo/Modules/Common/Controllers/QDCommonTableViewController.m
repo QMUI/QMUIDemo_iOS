@@ -14,11 +14,4 @@
 
 @implementation QDCommonTableViewController
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    if (self = [super initWithStyle:style]) {
-        self.supportedOrientationMask = UIInterfaceOrientationMaskAll;
-    }
-    return self;
-}
-
 @end

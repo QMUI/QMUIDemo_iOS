@@ -9,7 +9,7 @@
 #import "QDCustomToastContentView.h"
 
 static UIEdgeInsets const kInsets = {12, 12, 12, 12};
-static CGFloat const kImageViewSize = 100;
+static CGFloat const kImageViewHeight = 86;
 static CGFloat const kImageViewMarginRight = 12;
 static CGFloat const kTextLabelMarginBottom = 4;
 
@@ -60,18 +60,20 @@ static CGFloat const kTextLabelMarginBottom = 4;
 
 - (CGSize)sizeThatFits:(CGSize)size {
     CGFloat width = fminf(size.width, [QMUIHelper screenSizeFor55Inch].width);
-    CGFloat height = kImageViewSize + UIEdgeInsetsGetVerticalValue(kInsets);
+    CGFloat height = kImageViewHeight + UIEdgeInsetsGetVerticalValue(kInsets);
     return CGSizeMake(fminf(size.width, width), fminf(size.height, height));
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];;
+    [super layoutSubviews];
+    
+    [self.imageView sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(CGFLOAT_MAX, kImageViewHeight)];
     
     CGFloat contentWidth = CGRectGetWidth(self.bounds);
     CGFloat maxContentWidth = contentWidth - UIEdgeInsetsGetHorizontalValue(kInsets);
-    CGFloat labelWidth = maxContentWidth - kImageViewSize - kImageViewMarginRight;
+    CGFloat labelWidth = maxContentWidth - CGRectGetWidth(self.imageView.frame) - kImageViewMarginRight;
     
-    self.imageView.frame = CGRectFlatMake(kInsets.left, kInsets.top, kImageViewSize, kImageViewSize);
+    self.imageView.frame = CGRectSetXY(self.imageView.frame, kInsets.left, kInsets.top);
     
     self.textLabel.frame = CGRectFlatMake(CGRectGetMaxX(self.imageView.frame) + kImageViewMarginRight, CGRectGetMinY(self.imageView.frame) + 5, labelWidth, CGRectGetHeight(self.textLabel.bounds));
     

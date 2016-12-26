@@ -69,7 +69,7 @@
         QDCustomToastAnimator *customAnimator = [[QDCustomToastAnimator alloc] initWithToastView:tips];
         tips.toastAnimator = customAnimator;
         QDCustomToastContentView *customContentView = [[QDCustomToastContentView alloc] init];
-        [customContentView renderWithImage:UIImageMake(@"icon_emotion") text:@"什么是QMUIToastView" detailText:@"QMUIToastView用于临时显示某些信息，并且会在数秒后自动消失。这些信息通常是轻量级操作的成功信息。"];
+        [customContentView renderWithImage:UIImageMake(@"image0") text:@"什么是QMUIToastView" detailText:@"QMUIToastView用于临时显示某些信息，并且会在数秒后自动消失。这些信息通常是轻量级操作的成功信息。"];
         tips.contentView = customContentView;
         [tips showAnimated:YES];
         [tips hideAnimated:YES afterDelay:4];

@@ -62,7 +62,6 @@
         self.imagePreviewViewController = [[QMUIImagePreviewViewController alloc] init];
         self.imagePreviewViewController.imagePreviewView.delegate = self;
         self.imagePreviewViewController.imagePreviewView.currentImageIndex = 2;// 默认查看的图片的 index
-        self.imagePreviewViewController.supportedOrientationMask = UIInterfaceOrientationMaskAll;// 支持所有方向的旋转
     }
     [self.imagePreviewViewController startPreviewFromRectInScreen:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil]];
 }
