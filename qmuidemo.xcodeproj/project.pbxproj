@@ -16,13 +16,14 @@
 		1679E3261DFF9E300072B8A1 /* QDToastListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3251DFF9E300072B8A1 /* QDToastListViewController.m */; };
 		1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */; };
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
-		16CBD6181E0AB68100D1BEC7 /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; };
 		16CBD61B1E0AB91800D1BEC7 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CBD61A1E0AB91800D1BEC7 /* Reveal.framework */; };
 		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
 		6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D03A52F1B4AB63E003BDDE4 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD1229A71DF677AC003B9649 /* QDImagePreviewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229A61DF677AC003B9649 /* QDImagePreviewExampleViewController.m */; };
 		CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */; };
 		CD1229B21DF67922003B9649 /* QDImagePreviewViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229B11DF67922003B9649 /* QDImagePreviewViewController2.m */; };
+		CD1C28781E10E14100A93ACA /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; };
+		CD1C28791E10E14100A93ACA /* QMUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE0AFB841D82BC4F000D21D9 /* QMUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */; };
 		CDB8C9D01DCC815A00769DF0 /* QMUIConfigurationTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9381DCC815A00769DF0 /* QMUIConfigurationTemplate.m */; };
 		CDB8C9D11DCC815A00769DF0 /* QDCommonGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C93B1DCC815A00769DF0 /* QDCommonGridViewController.m */; };
@@ -111,6 +112,13 @@
 			remoteGlobalIDString = 16E46D4A1B00D8C2002B7DB8;
 			remoteInfo = QMUI;
 		};
+		CD1C287A1E10E14100A93ACA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16FE87E81AF76C8500289834 /* qmui.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FE0AFAD01D82B9D8000D21D9;
+			remoteInfo = QMUIKit;
+		};
 		FE0AFB831D82BC4F000D21D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 16FE87E81AF76C8500289834 /* qmui.xcodeproj */;
@@ -119,6 +127,20 @@
 			remoteInfo = QMUIKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CD1C287C1E10E14100A93ACA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CD1C28791E10E14100A93ACA /* QMUIKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		162E44171B1B2A3B006B73CD /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -300,7 +322,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16CBD6181E0AB68100D1BEC7 /* QMUIKit.framework in Frameworks */,
 				CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */,
 				CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */,
 				CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */,
@@ -310,6 +331,7 @@
 				16CBD61B1E0AB91800D1BEC7 /* Reveal.framework in Frameworks */,
 				6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */,
 				162E44181B1B2A3B006B73CD /* MediaPlayer.framework in Frameworks */,
+				CD1C28781E10E14100A93ACA /* QMUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,10 +680,12 @@
 				165F42ED1ADB60180057EF6A /* Frameworks */,
 				165F42EE1ADB60180057EF6A /* Resources */,
 				CD454B891D913A2E00BE3804 /* Run Script */,
+				CD1C287C1E10E14100A93ACA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CD1C287B1E10E14100A93ACA /* PBXTargetDependency */,
 			);
 			name = qmuidemo;
 			productName = qmuidemo;
@@ -847,6 +871,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD1C287B1E10E14100A93ACA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QMUIKit;
+			targetProxy = CD1C287A1E10E14100A93ACA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		165F43021ADB60180057EF6A /* LaunchScreen.xib */ = {
