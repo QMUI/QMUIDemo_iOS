@@ -46,15 +46,6 @@
     self.titleView.title = title;
 }
 
-- (void)loadViewIfNeeded {
-    if ([[UIViewController class] instancesRespondToSelector:@selector(loadViewIfNeeded)]) {
-        [super loadViewIfNeeded];
-    } else {
-        // 主动调用self.view，从而触发loadView，以模拟iOS9.0以下的系统loadViewIfNeeded行为
-        QMUILog(@"%@", self.view);
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColorForBackground;

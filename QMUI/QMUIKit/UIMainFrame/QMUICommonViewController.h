@@ -26,8 +26,6 @@
  *
  *  5. 配合 `QMUINavigationController` 使用时，可以得到 `willPopViewController`、`didPopViewController` 这两个时机
  *
- *  6. 对 iOS 9 以下的版本也支持 `loadViewIfNeeded` 方法
- *
  *  @warning 指定的 init 方法是 `initWithNibName:bundle:`，子类继承请重写这个方法
  *
  *  @see QMUINavigationTitleView
