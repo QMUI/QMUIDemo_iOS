@@ -342,6 +342,12 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     contentView.backgroundColor = UIColorWhite;
     contentView.layer.cornerRadius = 6;
     
+    self.modalViewControllerForAddSubview = [[QMUIModalPresentationViewController alloc] init];
+    self.modalViewControllerForAddSubview.contentView = contentView;
+    self.modalViewControllerForAddSubview.view.frame = modalRect;
+    // 以 addSubview 的形式显示，此时需要retain住modalPresentationViewController，防止提前被释放
+    [self.modalViewControllerForAddSubview showInView:self.view animated:YES completion:nil];
+    
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle paragraphStyleWithLineHeight:24];
@@ -358,12 +364,6 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
     CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
     label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
-    
-    self.modalViewControllerForAddSubview = [[QMUIModalPresentationViewController alloc] init];
-    self.modalViewControllerForAddSubview.contentView = contentView;
-    self.modalViewControllerForAddSubview.view.frame = modalRect;
-    // 以 addSubview 的形式显示，此时需要retain住modalPresentationViewController，防止提前被释放
-    [self.modalViewControllerForAddSubview showInView:self.view animated:YES completion:nil];
 }
 
 @end

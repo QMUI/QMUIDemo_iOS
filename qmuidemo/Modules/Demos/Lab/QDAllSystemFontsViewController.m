@@ -18,17 +18,18 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         self.allFonts = [[NSMutableArray alloc] init];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            for (NSString *familyName in [UIFont familyNames]) {
+                for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+                    [self.allFonts addObject:[UIFont fontWithName:fontName size:16]];
+                }
+            }
+            if ([self isViewLoaded]) {
+                [self.tableView reloadData];
+            }
+        });
     }
     return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    for (NSString *familyName in [UIFont familyNames]) {
-        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
-            [self.allFonts addObject:[UIFont fontWithName:fontName size:16]];
-        }
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -56,7 +57,7 @@
     
     UIFont *font = self.allFonts[indexPath.row];
     cell.textLabel.font = font;
-    cell.textLabel.text = font.fontName;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @(indexPath.row + 1), font.fontName];
     cell.detailTextLabel.font = font;
     cell.detailTextLabel.text = @"中文的效果";
     
