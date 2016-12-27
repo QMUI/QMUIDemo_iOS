@@ -325,7 +325,7 @@
 
 - (CGFloat)generateExampleViewForImageWithImageAbove {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -360,7 +360,7 @@
 
 - (CGFloat)generateExampleViewForImageWithSpacingExtensionInsets {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图（UIImageView带边框）";
     [originImageLabel sizeToFit];
@@ -397,7 +397,7 @@
 - (CGFloat)generateExampleViewForImageWithClippedRect {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -434,7 +434,7 @@
 - (CGFloat)generateExampleViewForImageWithScaleToSize {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -470,7 +470,7 @@
 
 - (CGFloat)generateExampleViewForImageWithDirection {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -510,7 +510,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorder {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -546,7 +546,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadius {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -580,7 +580,7 @@
 
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadiusAndPosition {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -614,7 +614,7 @@
 - (CGFloat)generateExampleViewForImageWithMaskImage {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
@@ -695,7 +695,7 @@
 - (CGFloat)generateExampleViewForImageWithColor {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"生成一张圆角图片";
     [originImageLabel sizeToFit];
@@ -715,7 +715,7 @@
 - (CGFloat)generateExampleViewForImageWithColorAndCornerRadiusArray {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"生成一张图片，右边带圆角";
     [originImageLabel sizeToFit];
@@ -735,7 +735,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndPath {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"用椭圆路径生成一张图";
     [originImageLabel sizeToFit];
@@ -758,7 +758,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndCornerRadius {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在给定的大小里绘制一条带圆角的路径";
     [originImageLabel sizeToFit];
@@ -778,7 +778,7 @@
 - (CGFloat)generateExampleViewForImageWithStrokeColorAndBorderPosition {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在左、下、右绘制一条边框";
     [originImageLabel sizeToFit];
@@ -798,7 +798,7 @@
 - (CGFloat)generateExampleViewForImageWithShape {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *titleLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     titleLabel.text = @"生成预设的形状图片";
     [titleLabel sizeToFit];
@@ -840,7 +840,7 @@
 
 - (CGFloat)generateExampleViewForImageWithAttributedString {
     CGFloat minY = [self contentViewLayoutStartingMinY];
-    
+
     UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"将NSAttributedString生成为一张图";
     [originImageLabel sizeToFit];
