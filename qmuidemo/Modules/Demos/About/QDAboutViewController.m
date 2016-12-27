@@ -51,11 +51,6 @@
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [QMUIHelper renderStatusBarStyleDark];
-}
-
 - (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
     [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
     self.title = @"关于";
