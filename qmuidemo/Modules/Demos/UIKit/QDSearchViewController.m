@@ -12,7 +12,7 @@
 
 @property(nonatomic,strong) NSArray<NSString *> *keywords;
 @property(nonatomic,strong) NSMutableArray<NSString *> *searchResultsKeywords;
-@property(nonatomic,strong) QMUISearchController *searchController;
+@property(nonatomic,strong) QMUISearchController *mySearchController;
 @end
 
 @implementation QDSearchViewController
@@ -27,12 +27,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.searchController = [[QMUISearchController alloc] initWithContentsViewController:self];
-    self.searchController.searchResultsDelegate = self;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.mySearchController = [[QMUISearchController alloc] initWithContentsViewController:self];
+    self.mySearchController.searchResultsDelegate = self;
+    self.tableView.tableHeaderView = self.mySearchController.searchBar;
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>
+
+- (BOOL)shouldShowSearchBarInTableView:(QMUITableView *)tableView {
+    return YES;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableView) {
@@ -54,7 +58,7 @@
     } else {
         NSString *keyword = self.searchResultsKeywords[indexPath.row];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-        NSRange range = [keyword rangeOfString:self.searchController.searchBar.text];
+        NSRange range = [keyword rangeOfString:self.mySearchController.searchBar.text];
         if (range.location != NSNotFound) {
             [attributedString addAttributes:@{NSForegroundColorAttributeName: UIColorBlue} range:range];
         }
