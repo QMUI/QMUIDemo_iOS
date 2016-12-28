@@ -11,7 +11,11 @@
 #define QDActivityIndicatorAnimationKey @"lineAnimations"
 #define AnimationDuration 1.5
 
+#ifdef IOS10_SDK_ALLOWED
 @interface QDActivityIndicator ()<CAAnimationDelegate>
+#else
+@interface QDActivityIndicator ()
+#endif
 
 @end
 
