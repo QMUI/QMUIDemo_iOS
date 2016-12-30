@@ -66,7 +66,7 @@
 }
 
 - (void)handleTitleViewTouchEvent {
-    [self.collectionView scrollToTopAnimated:YES];
+    [self.collectionView qmui_scrollToTopAnimated:YES];
 }
 
 - (void)handleDebugItemEvent {
@@ -74,11 +74,11 @@
     
     self.collectionViewLayout.sectionInset = [self sectionInset];
     [self.collectionViewLayout invalidateLayout];
-    [self.collectionView scrollToTopAnimated:YES];
+    [self.collectionView qmui_scrollToTopAnimated:YES];
     
     if (self.debug) {
         self.debugLayer = [CALayer layer];
-        [self.debugLayer removeDefaultAnimations];
+        [self.debugLayer qmui_removeDefaultAnimations];
         self.debugLayer.backgroundColor = UIColorRed.CGColor;
         [self.view.layer addSublayer:self.debugLayer];
     }else {
@@ -112,7 +112,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contentLabel.text = [NSString stringWithNSInteger:indexPath.item];
+    cell.contentLabel.text = [NSString qmui_stringWithNSInteger:indexPath.item];
     cell.backgroundColor = [QDCommonUI randomThemeColor];
     [cell setNeedsLayout];
     return cell;

@@ -27,9 +27,9 @@
         UIBarButtonItem *item3 = [QMUIToolbarButton barButtonItemWithType:QMUIToolbarButtonTypeRed title:@"删除" target:self action:NULL];
         self.toolbarItems = @[item1, flexibleItem, item2, flexibleItem, item3];
     } else if ([title isEqualToString:@"图标工具栏按钮"]) {
-        UIImage *image1 = [UIImage imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
-        UIImage *image2 = [UIImage imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
-        UIImage *image3 = [UIImage imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
+        UIImage *image1 = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
+        UIImage *image2 = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
+        UIImage *image3 = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(18, 18) lineWidth:2 cornerRadius:4];
         // item有默认的tintColor，不受图片颜色的影响。如果需要自定义tintColor，需要设置item的titnColor属性
         UIBarButtonItem *item1 = [QMUIToolbarButton barButtonItemWithImage:image1 target:self action:NULL];
         UIBarButtonItem *item2 = [QMUIToolbarButton barButtonItemWithImage:image2 target:self action:NULL];
@@ -39,7 +39,7 @@
         self.toolbarItems = @[item1, flexibleItem, item2, flexibleItem, item3];
     }
     [self.navigationController setToolbarHidden:NO animated:YES];
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

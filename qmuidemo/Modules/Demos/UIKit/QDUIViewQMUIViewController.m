@@ -32,7 +32,7 @@
     self.contentScrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.contentScrollView];
     
-    NSMutableAttributedString *describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 borderPosition、borderWidth 和 borderColor 给任意的 UIView 加边框" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:22]}];
+    NSMutableAttributedString *describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_borderPosition、qmui_borderWidth 和 qmui_borderColor 给任意的 UIView 加边框" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
     [describeAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [describeAttributedString addAttributes:codeAttributes range:codeRange];
@@ -41,10 +41,10 @@
     _descriptionLabel1 = [[UILabel alloc] init];
     self.descriptionLabel1.attributedText = describeAttributedString;
     self.descriptionLabel1.numberOfLines = 0;
-    self.descriptionLabel1.borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
+    self.descriptionLabel1.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
     [self.contentScrollView addSubview:self.descriptionLabel1];
     
-    describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:22]}];
+    describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
     [describeAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [describeAttributedString addAttributes:codeAttributes range:codeRange];
@@ -57,8 +57,8 @@
     
     _contentView = [[UIView alloc] init];
     self.contentView.backgroundColor = UIColorGrayLighten;
-    self.contentView.shouldShowDebugColor = YES;
-    self.contentView.needsDifferentDebugColor = YES;
+    self.contentView.qmui_shouldShowDebugColor = YES;
+    self.contentView.qmui_needsDifferentDebugColor = YES;
     [self.contentScrollView addSubview:self.contentView];
     
     _contentLabel1 = [[UILabel alloc] init];

@@ -39,7 +39,7 @@
 - (void)didSelectCellWithTitle:(NSString *)title {
     
     // 利用 [UITabBarItem imageView] 方法获取到某个 UITabBarItem 内的图片容器
-    UIImageView *imageViewInTabBarItem = self.tabBar.items.firstObject.imageView;
+    UIImageView *imageViewInTabBarItem = self.tabBar.items.firstObject.qmui_imageView;
     
     if ([title isEqualToString:@"在屏幕底部的 UITabBarItem 上显示未读数"]) {
         
@@ -54,7 +54,7 @@
         
     }
     
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 - (QMUILabel *)generateMessageNumberLabelWithInteger:(NSInteger)integer inView:(UIView *)view {
@@ -69,7 +69,7 @@
         numberLabel.tag = labelTag;
         [view addSubview:numberLabel];
     }
-    numberLabel.text = [NSString stringWithNSInteger:integer];
+    numberLabel.text = [NSString qmui_stringWithNSInteger:integer];
     [numberLabel sizeToFit];
     if (numberLabel.text.length == 1) {
         // 一位数字时，保证宽高相等（因为有些字符可能宽度比较窄）

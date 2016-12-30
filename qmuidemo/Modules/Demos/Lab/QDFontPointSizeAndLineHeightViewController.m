@@ -30,12 +30,12 @@
 - (void)initSubviews {
     [super initSubviews];
     self.fontPointSizeLabel = [[UILabel alloc] initWithFont:UIFontMake(18) textColor:UIColorGray1];
-    [self.fontPointSizeLabel calculateHeightAfterSetAppearance];
+    [self.fontPointSizeLabel qmui_calculateHeightAfterSetAppearance];
     [self.view addSubview:self.fontPointSizeLabel];
     
     self.lineHeightLabel = [[UILabel alloc] init];
-    [self.lineHeightLabel setTheSameAppearanceAsLabel:self.fontPointSizeLabel];
-    [self.lineHeightLabel calculateHeightAfterSetAppearance];
+    [self.lineHeightLabel qmui_setTheSameAppearanceAsLabel:self.fontPointSizeLabel];
+    [self.lineHeightLabel qmui_calculateHeightAfterSetAppearance];
     [self.view addSubview:self.lineHeightLabel];
     
     self.fontPointSizeSlider = [[UISlider alloc] init];

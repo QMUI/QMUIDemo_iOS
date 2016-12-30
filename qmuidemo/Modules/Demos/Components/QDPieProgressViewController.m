@@ -34,9 +34,9 @@
     [super initSubviews];
     
     self.section1 = [[UIView alloc] init];
-    self.section1.borderColor = UIColorSeparator;
-    self.section1.borderPosition = QMUIBorderViewPositionBottom;
-    self.section1.borderWidth = PixelOne;
+    self.section1.qmui_borderColor = UIColorSeparator;
+    self.section1.qmui_borderPosition = QMUIBorderViewPositionBottom;
+    self.section1.qmui_borderWidth = PixelOne;
     [self.view addSubview:self.section1];
     
     self.progressView1 = [[QMUIPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
@@ -44,7 +44,7 @@
     [self.section1 addSubview:self.progressView1];
     
     self.titleLabel1 = [[UILabel alloc] initWithFont:UIFontMake(13) textColor:UIColorBlue];
-    [self.titleLabel1 calculateHeightAfterSetAppearance];
+    [self.titleLabel1 qmui_calculateHeightAfterSetAppearance];
     self.titleLabel1.textAlignment = NSTextAlignmentCenter;
     [self.section1 addSubview:self.titleLabel1];
     
@@ -55,9 +55,9 @@
     [self.section1 addSubview:self.slider];
     
     self.section2 = [[UIView alloc] init];
-    self.section2.borderColor = UIColorSeparator;
-    self.section2.borderPosition = QMUIBorderViewPositionBottom;
-    self.section2.borderWidth = PixelOne;
+    self.section2.qmui_borderColor = UIColorSeparator;
+    self.section2.qmui_borderPosition = QMUIBorderViewPositionBottom;
+    self.section2.qmui_borderWidth = PixelOne;
     [self.view addSubview:self.section2];
     
     self.progressView2 = [[QMUIPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];

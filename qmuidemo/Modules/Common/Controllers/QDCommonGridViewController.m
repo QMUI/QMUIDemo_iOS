@@ -71,7 +71,7 @@
 
 - (QDCommonGridButton *)generateButtonAtIndex:(NSInteger)index {
     NSString *keyName = self.dataSource.allKeys[index];
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:keyName attributes:@{NSForegroundColorAttributeName: UIColorGray6, NSFontAttributeName: UIFontMake(11), NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:12 lineBreakMode:NSLineBreakByTruncatingTail textAlignment:NSTextAlignmentCenter]}];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:keyName attributes:@{NSForegroundColorAttributeName: UIColorGray6, NSFontAttributeName: UIFontMake(11), NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:12 lineBreakMode:NSLineBreakByTruncatingTail textAlignment:NSTextAlignmentCenter]}];
     UIImage *image = (UIImage *)[self.dataSource objectForKey:keyName];
     
     QDCommonGridButton *button = [[QDCommonGridButton alloc] init];
@@ -110,8 +110,8 @@
         self.imageView.contentMode = UIViewContentModeCenter;
         self.titleLabel.numberOfLines = 2;
         self.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
-        self.needsTakeOverTouchEvent = YES;
-        self.borderPosition = QMUIBorderViewPositionRight | QMUIImageBorderPositionBottom;
+        self.qmui_needsTakeOverTouchEvent = YES;
+        self.qmui_borderPosition = QMUIBorderViewPositionRight | QMUIImageBorderPositionBottom;
     }
     return self;
 }

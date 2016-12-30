@@ -24,7 +24,7 @@
 
 #pragma mark - 生命周期函数
 
-///TODO @hughkli 应该要增加 setTheSameAppearanceAsLabel 的示例，但还没想好怎么去表现
+///TODO @hughkli 应该要增加 qmui_setTheSameAppearanceAsLabel 的示例，但还没想好怎么去表现
 
 - (void)initSubviews {
     [super initSubviews];
@@ -48,7 +48,7 @@
     
     _label3 = [[QMUILabel alloc] init];
     self.label3.text = @"复制上面第二个label的样式";
-    [self.label3 setTheSameAppearanceAsLabel:self.label2];
+    [self.label3 qmui_setTheSameAppearanceAsLabel:self.label2];
     [self.label3 sizeToFit];
     [self.view addSubview:self.label3];
     

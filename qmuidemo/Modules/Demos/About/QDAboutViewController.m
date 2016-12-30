@@ -36,18 +36,18 @@
     [self.scrollView addSubview:self.versionLabel];
     
     self.websiteButton = [self generateCellButtonWithTitle:@"访问官网"];
-    self.websiteButton.borderPosition = QMUIBorderViewPositionTop;
+    self.websiteButton.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.websiteButton addTarget:self action:@selector(handleWebsiteButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.websiteButton];
     
     self.gitHubButton = [self generateCellButtonWithTitle:@"GitHub"];
-    self.gitHubButton.borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
+    self.gitHubButton.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
     [self.gitHubButton addTarget:self action:@selector(handleGitHubButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.gitHubButton];
     
     self.copyrightLabel = [[UILabel alloc] init];
     self.copyrightLabel.numberOfLines = 0;
-    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2017 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray5, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2017 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray5, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
@@ -62,10 +62,10 @@
     [button setTitleColor:TableViewCellTitleLabelColor forState:UIControlStateNormal];
     button.titleLabel.font = UIFontMake(15);
     button.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
-    button.borderColor = TableViewSeparatorColor;
+    button.qmui_borderColor = TableViewSeparatorColor;
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     button.contentEdgeInsets = UIEdgeInsetsMake(0, 16, 0, 0);
-    button.needsTakeOverTouchEvent = YES;
+    button.qmui_needsTakeOverTouchEvent = YES;
     return button;
 }
 

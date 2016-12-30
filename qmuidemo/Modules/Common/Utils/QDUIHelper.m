@@ -107,3 +107,20 @@
 }
 
 @end
+
+
+@implementation QDUIHelper (Calculate)
+
++ (NSString *)humanReadableFileSize:(long long)size {
+    NSString * strSize = nil;
+    if (size >= 1048576.0) {
+        strSize = [NSString stringWithFormat:@"%.2fM", size / 1048576.0f];
+    } else if (size >= 1024.0) {
+        strSize = [NSString stringWithFormat:@"%.2fK", size / 1024.0f];
+    } else {
+        strSize = [NSString stringWithFormat:@"%.2fB", size / 1.0f];
+    }
+    return strSize;
+}
+
+@end

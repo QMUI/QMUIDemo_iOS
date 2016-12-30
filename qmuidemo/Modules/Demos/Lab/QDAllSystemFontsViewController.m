@@ -38,7 +38,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *fontName = self.allFonts[indexPath.row].fontName;
-    if ([fontName includesString:@"Zapfino"]) {
+    if ([fontName qmui_includesString:@"Zapfino"]) {
         // 这个字体很飘逸，不够高是显示不全的
         return TableViewCellNormalHeight + 60;
     }

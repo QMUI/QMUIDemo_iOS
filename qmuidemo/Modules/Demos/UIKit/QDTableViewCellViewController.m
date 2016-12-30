@@ -24,7 +24,7 @@
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
     UIViewController *viewController = nil;
     NSString *dataString = title;
     if ([dataString isEqualToString:@"设置insets"]) {

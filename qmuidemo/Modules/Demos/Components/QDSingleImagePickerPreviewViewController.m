@@ -17,7 +17,7 @@
 - (void)initSubviews {
     [super initSubviews];
     _confirmButton = [[QMUIButton alloc] init];
-    _confirmButton.outsideEdge = UIEdgeInsetsMake(-6, -6, -6, -6);
+    _confirmButton.qmui_outsideEdge = UIEdgeInsetsMake(-6, -6, -6, -6);
     [_confirmButton setTitleColor:self.toolBarTintColor forState:UIControlStateNormal];
     [_confirmButton setTitle:@"使用" forState:UIControlStateNormal];
     [_confirmButton addTarget:self action:@selector(handleUserAvatarButtonClick:) forControlEvents:UIControlEventTouchUpInside];

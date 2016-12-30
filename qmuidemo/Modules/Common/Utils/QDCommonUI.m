@@ -44,7 +44,7 @@ static NSArray<UIColor *> *themeColors = nil;
 
 + (CALayer *)generateSeparatorLayer {
     CALayer *layer = [CALayer layer];
-    [layer removeDefaultAnimations];
+    [layer qmui_removeDefaultAnimations];
     layer.backgroundColor = UIColorSeparator.CGColor;
     return layer;
 }

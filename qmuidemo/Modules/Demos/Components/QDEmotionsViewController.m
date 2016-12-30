@@ -25,7 +25,7 @@
     
     self.descriptionLabel = [[UILabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIQQEmotionManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIQQEmotionManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:22]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIQQEmotionManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIQQEmotionManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -34,7 +34,7 @@
     [self.view addSubview:self.descriptionLabel];
     
     self.toolbar = [[UIView alloc] init];
-    self.toolbar.borderPosition = QMUIBorderViewPositionTop;
+    self.toolbar.qmui_borderPosition = QMUIBorderViewPositionTop;
     self.toolbar.backgroundColor = UIColorWhite;
     [self.view addSubview:self.toolbar];
     
@@ -44,7 +44,7 @@
     
     self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
     self.qqEmotionManager.boundTextField = self.textField;
-    self.qqEmotionManager.emotionView.borderPosition = QMUIBorderViewPositionTop;
+    self.qqEmotionManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.view addSubview:self.qqEmotionManager.emotionView];
 }
 

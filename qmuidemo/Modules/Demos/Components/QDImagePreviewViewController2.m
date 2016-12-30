@@ -41,7 +41,7 @@
     [self.view addSubview:self.imageButton];
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"点击图片后可左右滑动，期间也可尝试横竖屏" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"点击图片后可左右滑动，期间也可尝试横竖屏" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }

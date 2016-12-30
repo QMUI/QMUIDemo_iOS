@@ -78,7 +78,7 @@
 
 - (void)setTintColor:(UIColor *)tintColor {
     [super setTintColor:tintColor];
-    _image = [_originImage imageWithTintColor:tintColor];
+    _image = [_originImage qmui_imageWithTintColor:tintColor];
     for (CALayer *line in _lines) {
         line.backgroundColor = tintColor.CGColor;
     }

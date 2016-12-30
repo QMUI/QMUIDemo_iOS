@@ -33,7 +33,7 @@
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
     
     if ([title isEqualToString:@"普通样式"]) {
         _index = 0;

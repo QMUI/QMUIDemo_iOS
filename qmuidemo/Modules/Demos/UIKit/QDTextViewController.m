@@ -38,7 +38,7 @@
     
     // 通过这个属性可以让输入的文字都是用富文本样式
     self.textView.textAttributes = @{NSFontAttributeName: UIFontMake(15),
-                                     NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:20],
+                                     NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20],
                                      NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
                                      NSUnderlineColorAttributeName: TextFieldTintColor};
     // 限制可输入的字符长度
@@ -50,7 +50,7 @@
     [self.view addSubview:self.textView];
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:16]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }

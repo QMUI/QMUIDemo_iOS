@@ -63,7 +63,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *keyName = [self keyNameAtIndexPath:indexPath];
     [self didSelectCellWithTitle:keyName];
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 #pragma mark - DataSource

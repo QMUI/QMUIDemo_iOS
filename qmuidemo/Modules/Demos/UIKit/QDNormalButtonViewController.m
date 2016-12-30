@@ -29,7 +29,7 @@
     [self.view addSubview:self.normalButton];
     
     self.separatorLayer = [CALayer layer];
-    [self.separatorLayer removeDefaultAnimations];
+    [self.separatorLayer qmui_removeDefaultAnimations];
     self.separatorLayer.backgroundColor = UIColorSeparator.CGColor;
     [self.view.layer addSublayer:self.separatorLayer];
     
@@ -46,7 +46,7 @@
     [self.imagePositionButton1 setTitle:@"图片在上方的按钮" forState:UIControlStateNormal];
     [self.imagePositionButton1 setTitleColor:UIColorBlue forState:UIControlStateNormal];
     self.imagePositionButton1.titleLabel.font = UIFontMake(11);
-    self.imagePositionButton1.borderPosition = QMUIImageBorderPositionTop | QMUIImageBorderPositionRight | QMUIImageBorderPositionBottom;
+    self.imagePositionButton1.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionRight | QMUIBorderViewPositionBottom;
     [self.view addSubview:self.imagePositionButton1];
     
     self.imagePositionButton2 = [[QMUIButton alloc] init];
@@ -56,7 +56,7 @@
     [self.imagePositionButton2 setTitle:@"图片在下方的按钮" forState:UIControlStateNormal];
     [self.imagePositionButton2 setTitleColor:UIColorBlue forState:UIControlStateNormal];
     self.imagePositionButton2.titleLabel.font = UIFontMake(11);
-    self.imagePositionButton2.borderPosition = QMUIImageBorderPositionTop | QMUIImageBorderPositionBottom;
+    self.imagePositionButton2.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
     [self.view addSubview:self.imagePositionButton2];
 }
 
