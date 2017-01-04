@@ -36,7 +36,7 @@
         if (!cell) {
             cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withReuseIdentifier:identifierNormal];
         }
-        cell.imageView.image = [UIImage imageWithStrokeColor:UIColorRed size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
+        cell.imageView.image = [UIImage qmui_imageWithStrokeColor:UIColorRed size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
         cell.textLabel.text = @"QMUITableViewCell";
         cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
         [cell updateCellAppearanceWithIndexPath:indexPath];
@@ -47,7 +47,7 @@
         if (!cell) {
             cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withReuseIdentifier:identifierImageInsets];
         }
-        cell.imageView.image = [UIImage imageWithStrokeColor:UIColorBlue size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
+        cell.imageView.image = [UIImage qmui_imageWithStrokeColor:UIColorBlue size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
         cell.textLabel.text = @"QMUITableViewCell";
         cell.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
         cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
@@ -59,7 +59,7 @@
         if (!cell) {
             cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withReuseIdentifier:identifierTitleLabelInsets];
         }
-        cell.imageView.image = [UIImage imageWithStrokeColor:UIColorGreen size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
+        cell.imageView.image = [UIImage qmui_imageWithStrokeColor:UIColorGreen size:CGSizeMake(16, 16) lineWidth:2 cornerRadius:8];
         cell.textLabel.text = @"QMUITableViewCell";
         cell.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
         cell.textLabelEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);

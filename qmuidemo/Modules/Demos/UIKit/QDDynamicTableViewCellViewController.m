@@ -36,7 +36,7 @@ static CGFloat const kContentMarginBotom = 10;
 
 - (void)initSubviews {
     
-    UIImage *avatarImage = [UIImage imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
+    UIImage *avatarImage = [UIImage qmui_imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
     [self.contentView addSubview:self.avatarImageView];
     
@@ -71,8 +71,8 @@ static CGFloat const kContentMarginBotom = 10;
 }
 
 - (NSAttributedString *)attributeStringWithString:(NSString *)textString lineHeight:(CGFloat)lineHeight {
-    if (!textString.trim && textString.trim.length <= 0) return nil;
-    NSAttributedString *attriString = [[NSAttributedString alloc] initWithString:textString attributes:@{NSParagraphStyleAttributeName:[NSMutableParagraphStyle paragraphStyleWithLineHeight:lineHeight lineBreakMode:NSLineBreakByTruncatingTail]}];
+    if (!textString.qmui_trim && textString.qmui_trim.length <= 0) return nil;
+    NSAttributedString *attriString = [[NSAttributedString alloc] initWithString:textString attributes:@{NSParagraphStyleAttributeName:[NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:lineHeight lineBreakMode:NSLineBreakByTruncatingTail]}];
     return attriString;
 }
 
@@ -142,7 +142,7 @@ static CGFloat const kContentMarginBotom = 10;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cell";
-    return [self.tableView heightForCellWithIdentifier:cellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+    return [self.tableView qmui_heightForCellWithIdentifier:cellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
         [cell renderWithNameText:[self.names objectAtIndex:indexPath.row] contentText:[self.contents objectAtIndex:indexPath.row]];
     }];
 }
@@ -164,7 +164,7 @@ static CGFloat const kContentMarginBotom = 10;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 @end

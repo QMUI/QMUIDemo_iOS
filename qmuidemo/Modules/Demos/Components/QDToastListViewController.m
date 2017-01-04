@@ -82,7 +82,7 @@
         
     }
     
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 @end

@@ -35,7 +35,7 @@
     if (!self.popupContainerView) {
         self.popupContainerView = [[QMUIPopupContainerView alloc] init];
         self.popupContainerView.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;
-        self.popupContainerView.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"分类1\n分类2\n分类3\n真实情况请搭配 UITableView" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray2, NSParagraphStyleAttributeName: [NSMutableParagraphStyle paragraphStyleWithLineHeight:40 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter], NSBaselineOffsetAttributeName: @5}];
+        self.popupContainerView.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"分类1\n分类2\n分类3\n真实情况请搭配 UITableView" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray2, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:40 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter], NSBaselineOffsetAttributeName: @5}];
         self.popupContainerView.hidden = YES;
         [self.navigationController.view addSubview:self.popupContainerView];
     }

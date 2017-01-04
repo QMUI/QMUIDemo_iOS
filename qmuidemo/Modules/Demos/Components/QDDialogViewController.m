@@ -44,7 +44,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
     
     if ([title isEqualToString:@"普通弹窗"]) {
         [self showNormalDialogViewController];
@@ -127,7 +127,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     dialogViewController.headerFooterSeparatorColor = UIColorClear;
     dialogViewController.titleTintColor = UIColorWhite;
     dialogViewController.titleView.horizontalTitleFont = UIFontBoldMake(17);
-    [dialogViewController.submitButton setImage:[UIImageMake(@"icon_emotion") imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] forState:UIControlStateNormal];
+    [dialogViewController.submitButton setImage:[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] forState:UIControlStateNormal];
     dialogViewController.submitButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
     [dialogViewController show];

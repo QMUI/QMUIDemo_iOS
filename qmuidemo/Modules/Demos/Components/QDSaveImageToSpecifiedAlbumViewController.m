@@ -92,8 +92,8 @@
 
 - (UIImage *)randomImage {
     UIImage *resultImage = [self imageFromText:[self randomText] textColor:UIColorWhite];
-    UIImage *resultBackgroundImage = [UIImage imageWithShape:QMUIImageShapeOval size:CGSizeMake(TestImageSize.width, TestImageSize.height) tintColor:[QDCommonUI randomThemeColor]];
-    resultImage = [resultBackgroundImage imageWithImageAbove:resultImage atPoint:CGPointMake(CGFloatGetCenter(resultBackgroundImage.size.width, resultImage.size.width), CGFloatGetCenter(resultBackgroundImage.size.height, resultImage.size.height))];
+    UIImage *resultBackgroundImage = [UIImage qmui_imageWithShape:QMUIImageShapeOval size:CGSizeMake(TestImageSize.width, TestImageSize.height) tintColor:[QDCommonUI randomThemeColor]];
+    resultImage = [resultBackgroundImage qmui_imageWithImageAbove:resultImage atPoint:CGPointMake(CGFloatGetCenter(resultBackgroundImage.size.width, resultImage.size.width), CGFloatGetCenter(resultBackgroundImage.size.height, resultImage.size.height))];
     return resultImage;
 }
 

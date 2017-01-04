@@ -156,13 +156,13 @@
     [super initSubviews];
     self.titleLabel.text = @"通过HEX创建";
 
-    UIColor *resultColor = [UIColor colorWithHexString:@"#cddc39"]; // 关键方法
+    UIColor *resultColor = [UIColor qmui_colorWithHexString:@"#cddc39"]; // 关键方法
     
     _circle = [self generateCircleWithColor:resultColor];
     [self.contentView addSubview:_circle];
     
     _label = [[QMUILabel alloc] init];
-    _label.text = @"[UIColor colorWithHexString:@\"#cddc39\"]";
+    _label.text = @"[UIColor qmui_colorWithHexString:@\"#cddc39\"]";
     _label.font = UIFontMake(12);
     [_label sizeToFit];
     _label.textColor = UIColorGray7;
@@ -191,17 +191,17 @@
     
     _labels = [NSMutableArray array];
     
-    UIColor *rawColor = [[UIColor colorWithHexString:@"#e69832"] colorWithAlphaComponent:0.75];
+    UIColor *rawColor = [[UIColor qmui_colorWithHexString:@"#e69832"] colorWithAlphaComponent:0.75];
     // 关键方法
-    CGFloat alpha = [rawColor alpha];
-    CGFloat red = [rawColor red];
-    CGFloat green = [rawColor green];
-    CGFloat blue = [rawColor blue];
-    CGFloat hue = [rawColor hue];
-    CGFloat saturation = [rawColor saturation];
-    CGFloat brightness = [rawColor brightness];
-    NSString *hex = [rawColor hexString];
-    BOOL isDark = [rawColor colorIsDark];
+    CGFloat alpha = [rawColor qmui_alpha];
+    CGFloat red = [rawColor qmui_red];
+    CGFloat green = [rawColor qmui_green];
+    CGFloat blue = [rawColor qmui_blue];
+    CGFloat hue = [rawColor qmui_hue];
+    CGFloat saturation = [rawColor qmui_saturation];
+    CGFloat brightness = [rawColor qmui_brightness];
+    NSString *hex = [rawColor qmui_hexString];
+    BOOL isDark = [rawColor qmui_colorIsDark];
     
     _circle = [self generateCircleWithColor:rawColor];
     [self.contentView addSubview:_circle];
@@ -275,7 +275,7 @@
     self.titleLabel.text = @"去除alpha通道";
     
     UIColor *rawColor = [UIColorMakeWithHex(@"#e91e63") colorWithAlphaComponent:0.6];
-    UIColor *resultColor = rawColor.colorWithoutAlpha;  // 关键方法
+    UIColor *resultColor = rawColor.qmui_colorWithoutAlpha;  // 关键方法
     
     _circle1 = [self generateCircleWithColor:rawColor];
     [self.contentView addSubview:_circle1];
@@ -295,7 +295,7 @@
     
     _label2 = [[QMUILabel alloc] init];
     _label2.text = @"1.0 ALPHA";
-    [_label2 setTheSameAppearanceAsLabel:_label1];
+    [_label2 qmui_setTheSameAppearanceAsLabel:_label1];
     [_label2 sizeToFit];
     [self.contentView addSubview:_label2];
 }
@@ -325,7 +325,7 @@
     self.titleLabel.text = @"计算反色";
     
     UIColor *rawColor = UIColorMakeWithHex(@"#ff9800");
-    UIColor *resultColor = [rawColor inverseColor]; // 关键方法
+    UIColor *resultColor = [rawColor qmui_inverseColor]; // 关键方法
     
     _circle1 = [self generateCircleWithColor:rawColor];
     [self.contentView addSubview:_circle1];
@@ -363,7 +363,7 @@
     
     UIColor *rawColor1 = UIColorMakeWithHex(@"#b1dcff");
     UIColor *rawColor2 = UIColorMakeWithHex(@"#0e4068");
-    UIColor *resultColor = [UIColor colorFromColor:rawColor1 toColor:rawColor2 progress:0.5]; // 关键方法
+    UIColor *resultColor = [UIColor qmui_colorFromColor:rawColor1 toColor:rawColor2 progress:0.5]; // 关键方法
     
     _circle1 = [self generateCircleWithColor:rawColor1];
     [self.contentView addSubview:_circle1];
@@ -408,7 +408,7 @@
     
     UIColor *rawColor1 = UIColorMakeWithHex(@"#68a0ce");
     UIColor *rawColor2 = [UIColorMakeWithHex(@"#e91e63") colorWithAlphaComponent:0.5];
-    UIColor *resultColor = [UIColor colorWithBackendColor:rawColor1 frontColor:rawColor2];  // 关键方法
+    UIColor *resultColor = [UIColor qmui_colorWithBackendColor:rawColor1 frontColor:rawColor2];  // 关键方法
     
     _circle1 = [self generateCircleWithColor:rawColor1];
     [self.contentView addSubview:_circle1];
@@ -450,7 +450,7 @@
     
     UIColor *rawColor1 = UIColorMakeWithHex(@"#795548");
     UIColor *rawColor2 = UIColorMakeWithHex(@"#cddc39");
-    UIColor *resultColor = [rawColor1 colorWithAlpha:0.5 backgroundColor:rawColor2];    // 关键方法
+    UIColor *resultColor = [rawColor1 qmui_colorWithAlpha:0.5 backgroundColor:rawColor2];    // 关键方法
     
     _circle1 = [self generateCircleWithColor:rawColor1];
     [self.contentView addSubview:_circle1];

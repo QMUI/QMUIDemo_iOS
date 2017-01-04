@@ -30,7 +30,7 @@
     } else if ([title isEqualToString:@"加粗导航栏按钮"]) {
         self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeBold title:@"完成(5)" position:QMUINavigationButtonPositionRight target:self action:NULL];
     } else if ([title isEqualToString:@"图标导航栏按钮"]) {
-        UIImage *image = [UIImage imageWithStrokeColor:UIColorWhite size:CGSizeMake(20, 20) lineWidth:3 cornerRadius:10];
+        UIImage *image = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(20, 20) lineWidth:3 cornerRadius:10];
         self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithImage:image position:QMUINavigationButtonPositionRight target:self action:NULL];
     } else if ([title isEqualToString:@"关闭导航栏按钮(支持手势返回)"]) {
         self.forceEnableBackGesture = YES;
@@ -40,7 +40,7 @@
         QMUINavigationButton *backButton = [[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeBack title:@"返回"];
         self.navigationItem.leftBarButtonItem = [QMUINavigationButton barButtonItemWithNavigationButton:backButton position:QMUINavigationButtonPositionLeft target:self action:@selector(handleBackButtonEvent:)];
     }
-    [self.tableView clearsSelection];
+    [self.tableView qmui_clearsSelection];
 }
 
 - (void)handleCloseButtonEvent:(id)sender {

@@ -164,7 +164,7 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeOnlyPh
 
 #pragma mark - <QMUIImagePickerViewControllerDelegate>
 
-- (void)imagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController didFinishPickingImageWithImagesAssetArray:(NSMutableArray *)imagesAssetArray {
+- (void)imagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController didFinishPickingImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
     // 储存最近选择了图片的相册，方便下次直接进入该相册
     [QMUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerViewController.assetsGroup ablumContentType:kAlbumContentType userIdentify:nil];
     // 显示 loading
@@ -220,13 +220,19 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeOnlyPh
 
 #pragma mark - <QDMultipleImagePickerPreviewViewControllerDelegate>
 
-- (void)imagePickerPreviewViewController:(QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController sendImageWithImagesAssetArray:(NSMutableArray *)imagesAssetArray {
+- (void)imagePickerPreviewViewController:(QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController sendImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
     // 储存最近选择了图片的相册，方便下次直接进入该相册
     [QMUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerPreviewViewController.assetsGroup ablumContentType:kAlbumContentType userIdentify:nil];
     // 显示 loading
     [self startLoading];
     // 使用 delay 模拟网络请求时长
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%lu张图片", (unsigned long)[imagesAssetArray count]] afterDelay:1.5];
+    NSString *succeedTip;
+    if (imagePickerPreviewViewController.shouldUseOriginImage) {
+        succeedTip = @"成功发送%lu张原图";
+    } else {
+        succeedTip = @"成功发送%lu张图片";
+    }
+    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:succeedTip, (unsigned long)[imagesAssetArray count]] afterDelay:1.5];
 }
 
 #pragma mark - <QDSingleImagePickerPreviewViewControllerDelegate>

@@ -75,7 +75,7 @@
     [self.searchResultsKeywords removeAllObjects];
     
     for (NSString *keyword in self.keywords) {
-        if ([keyword includesString:searchString]) {
+        if ([keyword qmui_includesString:searchString]) {
             [self.searchResultsKeywords addObject:keyword];
         }
     }

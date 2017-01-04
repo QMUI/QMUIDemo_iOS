@@ -67,7 +67,7 @@ static CGFloat const kTextLabelMarginBottom = 4;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [self.imageView sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(CGFLOAT_MAX, kImageViewHeight)];
+    [self.imageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(CGFLOAT_MAX, kImageViewHeight)];
     
     CGFloat contentWidth = CGRectGetWidth(self.bounds);
     CGFloat maxContentWidth = contentWidth - UIEdgeInsetsGetHorizontalValue(kInsets);

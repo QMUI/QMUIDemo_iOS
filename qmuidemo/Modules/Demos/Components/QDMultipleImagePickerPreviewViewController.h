@@ -11,7 +11,7 @@
 @protocol QDMultipleImagePickerPreviewViewControllerDelegate <QMUIImagePickerPreviewViewControllerDelegate>
 
 @required
-- (void)imagePickerPreviewViewController:(QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController sendImageWithImagesAssetArray:(NSMutableArray *)imagesAssetArray;
+- (void)imagePickerPreviewViewController:(QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController sendImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray;
 
 @end
 
@@ -20,5 +20,6 @@
 @property(nonatomic, weak) id<QDMultipleImagePickerPreviewViewControllerDelegate> delegate;
 @property(nonatomic, strong) QMUILabel *imageCountLabel;
 @property(nonatomic, strong) QMUIAssetsGroup *assetsGroup;
+@property(nonatomic, assign) BOOL shouldUseOriginImage;
 
 @end

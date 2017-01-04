@@ -54,3 +54,10 @@
 + (void)showAlertWhenSavedPhotoFailureByPermissionDenied;
 
 @end
+
+
+@interface QDUIHelper (Calculate)
+
++ (NSString *)humanReadableFileSize:(long long)size;
+    
+@end

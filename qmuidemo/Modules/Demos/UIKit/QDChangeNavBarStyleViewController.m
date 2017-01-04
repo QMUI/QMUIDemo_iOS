@@ -65,7 +65,7 @@
     } else if (self.barStyle == QDNavigationBarStyleLight) {
         return nil; // nil则用系统默认颜色（带磨砂）
     } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return [UIImage imageWithColor:UIColorMake(66, 66, 66)];
+        return [UIImage qmui_imageWithColor:UIColorMake(66, 66, 66)];
     } else {
         return NavBarBackgroundImage;
     }
@@ -77,7 +77,7 @@
     } else if (self.barStyle == QDNavigationBarStyleLight) {
         return nil; // nil则用系统默认颜色
     } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return [UIImage imageWithColor:UIColorMake(99, 99, 99) size:CGSizeMake(10, PixelOne) cornerRadius:0];
+        return [UIImage qmui_imageWithColor:UIColorMake(99, 99, 99) size:CGSizeMake(10, PixelOne) cornerRadius:0];
     } else {
         return NavBarShadowImage;
     }

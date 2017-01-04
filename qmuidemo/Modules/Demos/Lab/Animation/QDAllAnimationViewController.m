@@ -56,17 +56,17 @@
     
     self.line1 = [CALayer layer];
     self.line1.backgroundColor = UIColorSeparator.CGColor;
-    [self.line1 removeDefaultAnimations];
+    [self.line1 qmui_removeDefaultAnimations];
     [self.scrollView.layer addSublayer:self.line1];
     
     self.line2 = [CALayer layer];
     self.line2.backgroundColor = UIColorSeparator.CGColor;
-    [self.line2 removeDefaultAnimations];
+    [self.line2 qmui_removeDefaultAnimations];
     [self.scrollView.layer addSublayer:self.line2];
     
     self.line3 = [CALayer layer];
     self.line3.backgroundColor = UIColorSeparator.CGColor;
-    [self.line3 removeDefaultAnimations];
+    [self.line3 qmui_removeDefaultAnimations];
     [self.scrollView.layer addSublayer:self.line3];
     
     self.shapeView1 = [[UIView alloc] init];
