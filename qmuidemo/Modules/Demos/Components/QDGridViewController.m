@@ -27,6 +27,7 @@
     self.gridView.separatorDashed = NO;
     [self.view addSubview:self.gridView];
     
+    // 将要布局的 item 以 addSubview: 的方式添加进去即可自动布局
     for (int i = 0; i < 10; i++) {
         UIView *view = [[UIView alloc] init];
         view.backgroundColor = [[QDCommonUI randomThemeColor] colorWithAlphaComponent:.6];
