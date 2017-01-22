@@ -35,6 +35,8 @@
     self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持自动富文本、支持限制文本输入长度";
     self.textView.autoResizable = YES;
     self.textView.textContainerInset = UIEdgeInsetsMake(10, 7, 10, 7);
+    self.textView.returnKeyType = UIReturnKeySend;
+    self.textView.enablesReturnKeyAutomatically = YES;
     
     // 通过这个属性可以让输入的文字都是用富文本样式
     self.textView.textAttributes = @{NSFontAttributeName: UIFontMake(15),
@@ -79,6 +81,15 @@
 
 - (void)textView:(QMUITextView *)textView didPreventTextChangeInRange:(NSRange)range replacementText:(NSString *)replacementText {
     [QMUITips showWithText:[NSString stringWithFormat:@"文字不能超过 %@ 个字符", @(textView.maximumTextLength)] inView:self.view hideAfterDelay:2.0];
+}
+
+// 可以利用这个 delegate 来监听发送按钮的事件，当然，如果你习惯以前的方式的话，也可以继续在 textView:shouldChangeTextInRange:replacementText: 里处理
+- (BOOL)textViewShouldReturn:(QMUITextView *)textView {
+    [QMUITips showSucceed:[NSString stringWithFormat:@"成功发送文字：%@", textView.text] inView:self.view hideAfterDelay:3.0];
+    textView.text = nil;
+    
+    // return YES 表示这次 return 按钮的点击是为了触发“发送”，而不是为了输入一个换行符
+    return YES;
 }
 
 @end
