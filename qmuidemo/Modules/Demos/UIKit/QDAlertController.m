@@ -152,6 +152,13 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:UIAlertControllerStyleActionSheet];
         [alertController addAction:action2];
         [alertController addAction:action1];
+        if (IS_IPAD) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:2];
+            CGRect cellRect = [self.tableView rectForRowAtIndexPath:indexPath];
+            CGRect cellRectInSelfView = [self.view convertRect:cellRect fromView:self.tableView];
+            alertController.popoverPresentationController.sourceView = self.view;
+            alertController.popoverPresentationController.sourceRect = cellRectInSelfView;
+        }
         [self presentViewController:alertController animated:YES completion:NULL];
         return;
     }
