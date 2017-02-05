@@ -163,7 +163,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *aDialogViewController) {
         QMUIDialogSelectionViewController *d = (QMUIDialogSelectionViewController *)aDialogViewController;
         if (d.selectedItemIndex == QMUIDialogSelectionViewControllerSelectedItemIndexNone) {
-            [aDialogViewController hide];
+            [QMUITips showError:@"请至少选一个" inView:d.modalPresentedViewController.view hideAfterDelay:1.2];
             return;
         }
         NSString *city = d.items[d.selectedItemIndex];
