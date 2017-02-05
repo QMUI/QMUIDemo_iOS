@@ -162,6 +162,10 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *aDialogViewController) {
         QMUIDialogSelectionViewController *d = (QMUIDialogSelectionViewController *)aDialogViewController;
+        if (d.selectedItemIndex == QMUIDialogSelectionViewControllerSelectedItemIndexNone) {
+            [QMUITips showError:@"请至少选一个" inView:d.modalPresentedViewController.view hideAfterDelay:1.2];
+            return;
+        }
         NSString *city = d.items[d.selectedItemIndex];
         NSString *resultString = (NSString *)[citys objectForKey:city];
         [aDialogViewController hideWithAnimated:YES completion:^(BOOL finished) {
