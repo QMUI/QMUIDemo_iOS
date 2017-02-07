@@ -154,7 +154,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
                                     @"北京", @"吃到的第一个菜肯定是烤鸭吧！",
                                     @"广东", @"听说那里的人一日三餐都吃🐍🐸🐛🦂😋",
                                     @"上海", @"好像现在全世界的蟹都叫大闸蟹？",
-                                    @"成都", @"你分得清冒菜和麻辣烫、龙抄手和混沌吗？",
+                                    @"成都", @"你分得清冒菜和麻辣烫、龙抄手和馄饨吗？",
                                     nil];
     QMUIDialogSelectionViewController *dialogViewController = [[QMUIDialogSelectionViewController alloc] init];
     dialogViewController.title = @"你去过哪里？";
