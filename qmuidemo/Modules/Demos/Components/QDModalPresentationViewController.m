@@ -432,7 +432,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.textLabel.frame) + padding.bottom);
 }
 
-#pragma mark - <QMUIModalPresentationContentViewProtocol>
+#pragma mark - <QMUIModalPresentationContentViewControllerProtocol>
 
 - (CGSize)preferredContentSizeInModalPresentationViewController:(QMUIModalPresentationViewController *)controller limitSize:(CGSize)limitSize {
     // 高度无穷大表示不显示高度，则默认情况下会保证你的浮层高度不超过QMUIModalPresentationViewController的高度减去contentViewMargins
