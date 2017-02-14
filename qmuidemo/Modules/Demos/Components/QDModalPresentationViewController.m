@@ -12,7 +12,7 @@
 static NSString * const kSectionTitleForUsing = @"使用方式";
 static NSString * const kSectionTitleForStyling = @"内容及动画";
 
-@interface QDModalContentViewController : UIViewController<QMUIModalPresentationContentViewProtocol>
+@interface QDModalContentViewController : UIViewController<QMUIModalPresentationContentViewControllerProtocol>
 
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIImageView *imageView;
