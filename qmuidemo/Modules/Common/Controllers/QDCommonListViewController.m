@@ -30,7 +30,7 @@
         if (self.dataSourceWithDetailText) {
             cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
         } else {
-            cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleDefault reuseIdentifier:identifierNormal];
+            cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifierNormal];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

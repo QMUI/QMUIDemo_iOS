@@ -11,6 +11,7 @@
 @interface QDNavigationTitleViewController ()<QMUINavigationTitleViewDelegate>
 
 @property(nonatomic, strong) QMUIPopupContainerView *popupContainerView;
+@property(nonatomic, assign) UIControlContentHorizontalAlignment horizontalAlignment;
 @end
 
 @implementation QDNavigationTitleViewController
@@ -18,6 +19,8 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         self.titleView.needsLoadingView = YES;
+        self.titleView.qmui_needsDifferentDebugColor = YES;
+        self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
     }
     return self;
 }
@@ -58,8 +61,10 @@
                         @"显示右边的 accessoryView",
                         @"显示副标题",
                         @"切换为上下两行显示",
+                        @"水平方向的对齐方式",
                         @"模拟标题的 loading 状态切换",
-                        @"标题搭配浮层使用的示例"];
+                        @"标题搭配浮层使用的示例",
+                        @"显示 Debug 背景色"];
 }
 
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
@@ -96,6 +101,29 @@
             self.titleView.subtitle = self.titleView.style == QMUINavigationTitleViewStyleSubTitleVertical ? @"(副标题)" : self.titleView.subtitle;
             break;
         case 4:
+            // 水平对齐方式
+        {
+            QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"水平对齐方式" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"左对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+                self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
+                [self.tableView reloadData];
+            }]];
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"居中对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+                self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+                self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
+                [self.tableView reloadData];
+            }]];
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"右对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+                self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+                self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
+                [self.tableView reloadData];
+            }]];
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:nil]];
+            [alertController showWithAnimated:YES];
+        }
+            break;
+        case 5:
             // 模拟不同状态之间的切换
         {
             self.titleView.loadingViewHidden = NO;
@@ -111,7 +139,7 @@
             });
         }
             break;
-        case 5:
+        case 6:
             // 标题搭配浮层的使用示例
         {
             self.titleView.userInteractionEnabled = YES;// 要titleView支持点击，需要打开它的 userInteractionEnabled，这个属性默认是 NO
@@ -121,6 +149,10 @@
             [self initPopupContainerViewIfNeeded];
         }
             break;
+        case 7:
+            // Debug 背景色
+            self.titleView.qmui_shouldShowDebugColor = YES;
+            break;
     }
     
     [tableView reloadData];
@@ -129,7 +161,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     QMUITableViewCell *cell = (QMUITableViewCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.detailTextLabel.text = nil;
     
     switch (indexPath.row) {
         case 0:
@@ -143,6 +175,9 @@
             break;
         case 3:
             cell.textLabel.text = self.titleView.style == QMUINavigationTitleViewStyleDefault ? @"切换为上下两行显示" : @"切换为水平一行显示";
+            break;
+        case 4:
+            cell.detailTextLabel.text = (self.horizontalAlignment == UIControlContentHorizontalAlignmentLeft ? @"左对齐" : (self.horizontalAlignment == UIControlContentHorizontalAlignmentRight ? @"右对齐" : @"居中对齐"));
             break;
     }
     return cell;

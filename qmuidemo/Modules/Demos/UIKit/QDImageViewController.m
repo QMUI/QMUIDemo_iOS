@@ -460,7 +460,8 @@
     [self.contentScrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
-    UIImage *afterImage = [originImageView.image qmui_imageWithScaleToSize:CGSizeMake(80, 80) contentMode:UIViewContentModeScaleAspectFit];
+    // 对原图进行缩放操作
+    UIImage *afterImage = [originImageView.image qmui_imageWithScaleToSize:CGSizeMake(80, 80)];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
