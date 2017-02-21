@@ -8,7 +8,7 @@
 
 #import "QDEmotionsViewController.h"
 
-@interface QDEmotionsViewController ()
+@interface QDEmotionsViewController ()<QMUITextFieldDelegate>
 
 @property(nonatomic, strong) UILabel *descriptionLabel;
 @property(nonatomic, strong) UIView *toolbar;
@@ -40,6 +40,7 @@
     
     self.textField = [[QMUITextField alloc] init];
     self.textField.placeholder = @"请输入文字";
+    self.textField.delegate = self;
     [self.toolbar addSubview:self.textField];
     
     self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
@@ -84,7 +85,6 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    self.qqEmotionManager.selectedRangeForBoundTextInput = self.textField.selectedRange;
     [self.view endEditing:YES];
 }
 
@@ -116,6 +116,14 @@
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
     } completion:nil];
+}
+
+#pragma mark - <QMUITextFieldDelegate>
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    // 告诉 qqEmotionManager 输入框的光标位置发生变化，以保证表情插入在光标之后
+    self.qqEmotionManager.selectedRangeForBoundTextInput = self.textField.selectedRange;
+    return YES;
 }
 
 @end
