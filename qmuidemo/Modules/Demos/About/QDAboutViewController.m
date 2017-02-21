@@ -79,7 +79,7 @@
     self.scrollView.frame = CGRectSetHeight(self.view.bounds, CGRectGetHeight(self.view.bounds) - tabBarHeight);
     
     if (IS_IPHONE && IS_LANDSCAPE) {
-        CGFloat leftWidth = flatf(CGRectGetWidth(self.scrollView.bounds) / 2);
+        CGFloat leftWidth = flat(CGRectGetWidth(self.scrollView.bounds) / 2);
         CGFloat rightWidth = CGRectGetWidth(self.scrollView.bounds) - leftWidth;
         
         CGFloat leftHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionLabel.frame);

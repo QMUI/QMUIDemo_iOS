@@ -93,7 +93,7 @@
         CGFloat diameter = fmaxf(CGRectGetWidth(numberLabel.bounds), CGRectGetHeight(numberLabel.bounds));
         numberLabel.frame = CGRectMake(CGRectGetMinX(numberLabel.frame), CGRectGetMinY(numberLabel.frame), diameter, diameter);
     }
-    numberLabel.layer.cornerRadius = flatf(CGRectGetHeight(numberLabel.bounds) / 2.0);
+    numberLabel.layer.cornerRadius = flat(CGRectGetHeight(numberLabel.bounds) / 2.0);
     return numberLabel;
 }
 

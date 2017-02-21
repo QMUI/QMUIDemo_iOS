@@ -189,7 +189,7 @@
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
-    originImageView.frame = CGRectMake(0, minY, contentWidth, flatf(contentWidth * originImageView.image.size.height / originImageView.image.size.width));
+    originImageView.frame = CGRectMake(0, minY, contentWidth, flat(contentWidth * originImageView.image.size.height / originImageView.image.size.width));
     [self.contentScrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
@@ -274,7 +274,7 @@
     
     UIImage *imageAddedAlpha = [originImageView.image qmui_imageWithAlpha:.5];
     CGSize imageViewSize = CGSizeMake(CGRectGetWidth(originImageView.frame) - 20, 0);
-    imageViewSize.height = flatf(imageViewSize.width * CGRectGetHeight(originImageView.frame) / CGRectGetWidth(originImageView.frame));
+    imageViewSize.height = flat(imageViewSize.width * CGRectGetHeight(originImageView.frame) / CGRectGetWidth(originImageView.frame));
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, minY, imageViewSize.width, imageViewSize.height)];
     afterImageView.contentMode = originImageView.contentMode;
