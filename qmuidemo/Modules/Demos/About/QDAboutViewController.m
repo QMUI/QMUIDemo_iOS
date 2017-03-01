@@ -14,6 +14,7 @@
 @property(nonatomic, strong) UIImageView *logoImageView;
 @property(nonatomic, strong) UILabel *versionLabel;
 @property(nonatomic, strong) QMUIButton *websiteButton;
+@property(nonatomic, strong) QMUIButton *documentButton;
 @property(nonatomic, strong) QMUIButton *gitHubButton;
 @property(nonatomic, strong) UILabel *copyrightLabel;
 @end
@@ -39,6 +40,11 @@
     self.websiteButton.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.websiteButton addTarget:self action:@selector(handleWebsiteButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.websiteButton];
+    
+    self.documentButton = [self generateCellButtonWithTitle:@"功能列表"];
+    self.documentButton.qmui_borderPosition = QMUIBorderViewPositionTop;
+    [self.documentButton addTarget:self action:@selector(handleDocumentButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:self.documentButton];
     
     self.gitHubButton = [self generateCellButtonWithTitle:@"GitHub"];
     self.gitHubButton.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
@@ -89,7 +95,8 @@
         
         CGFloat contentWidthInRight = rightWidth - UIEdgeInsetsGetHorizontalValue(padding);
         self.websiteButton.frame = CGRectMake(leftWidth + padding.left, CGRectGetMinY(self.logoImageView.frame) + 10, contentWidthInRight, buttonHeight);
-        self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
+        self.documentButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.websiteButton.frame));
+        self.gitHubButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(contentWidthInRight, CGFLOAT_MAX)].height;
         self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
@@ -107,7 +114,8 @@
         self.versionLabel.frame = CGRectSetXY(self.versionLabel.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.versionLabel.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
         self.websiteButton.frame = CGRectMake(0, CGRectGetMaxY(self.versionLabel.frame) + buttonMarginTop, CGRectGetWidth(self.scrollView.bounds), buttonHeight);
-        self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
+        self.documentButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
+        self.gitHubButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
         CGFloat copyrightLabelWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(copyrightLabelWidth, CGFLOAT_MAX)].height;
@@ -119,6 +127,10 @@
 
 - (void)handleWebsiteButtonEvent:(QMUIButton *)button {
     [self openUrlString:@"http://www.qmuiteam.com/ios"];
+}
+
+- (void)handleDocumentButtonEvent:(QMUIButton *)button {
+    [self openUrlString:@"http://qmuiteam.com/ios/page/document.html"];
 }
 
 - (void)handleGitHubButtonEvent:(QMUIButton *)button {

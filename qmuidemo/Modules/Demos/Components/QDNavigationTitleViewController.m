@@ -10,7 +10,7 @@
 
 @interface QDNavigationTitleViewController ()<QMUINavigationTitleViewDelegate>
 
-@property(nonatomic, strong) QMUIPopupContainerView *popupContainerView;
+@property(nonatomic, strong) QMUIPopupMenuView *popupMenuView;
 @property(nonatomic, assign) UIControlContentHorizontalAlignment horizontalAlignment;
 @end
 
@@ -35,25 +35,25 @@
 }
 
 - (void)initPopupContainerViewIfNeeded {
-    if (!self.popupContainerView) {
-        self.popupContainerView = [[QMUIPopupContainerView alloc] init];
-        self.popupContainerView.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;
-        self.popupContainerView.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"分类1\n分类2\n分类3\n真实情况请搭配 UITableView" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray2, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:40 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter], NSBaselineOffsetAttributeName: @5}];
-        self.popupContainerView.hidden = YES;
-        [self.navigationController.view addSubview:self.popupContainerView];
+    if (!self.popupMenuView) {
+        self.popupMenuView = [[QMUIPopupMenuView alloc] init];
+        self.popupMenuView.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;
+        self.popupMenuView.maximumWidth = 220;
+        self.popupMenuView.items = @[[QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 1" handler:nil],
+                                     [QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 2" handler:nil],
+                                     [QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 3" handler:nil]];
+        __weak __typeof(self)weakSelf = self;
+        self.popupMenuView.didHideBlock = ^(BOOL hidesByUserTap) {
+            weakSelf.titleView.active = NO;
+        };
     }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (self.popupContainerView.isShowing) {
-        [self.popupContainerView layoutWithReferenceItemRectInSuperview:[self.popupContainerView.superview convertRect:self.titleView.frame fromView:self.titleView.superview]];
+    if (self.popupMenuView.isShowing) {
+        [self.popupMenuView layoutWithTargetView:self.titleView];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.titleView.active = NO;
 }
 
 - (void)initDataSource {
@@ -70,13 +70,6 @@
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // 如果出现浮层的情况下，要先让浮层消失
-    // 注意让浮层消失的方式是更改titleView.active状态，而非直接调用浮层的hide方法
-    if (self.titleView.active) {
-        self.titleView.active = NO;
-        return;
-    }
     
     // 因为有第 6 行的存在，所以每次都要重置一下这几个属性，避免影响其他 Demo 的展示
     self.titleView.userInteractionEnabled = NO;
@@ -187,10 +180,8 @@
 
 - (void)didChangedActive:(BOOL)active forTitleView:(QMUINavigationTitleView *)titleView {
     if (active) {
-        [self.popupContainerView layoutWithReferenceItemRectInSuperview:[self.popupContainerView.superview convertRect:self.titleView.frame fromView:self.titleView.superview]];
-        [self.popupContainerView showWithAnimated:YES];
-    } else {
-        [self.popupContainerView hideWithAnimated:YES];
+        [self.popupMenuView layoutWithTargetView:self.titleView];
+        [self.popupMenuView showWithAnimated:YES];
     }
 }
 

@@ -24,8 +24,6 @@
 
 #pragma mark - 生命周期函数
 
-///TODO @hughkli 应该要增加 qmui_setTheSameAppearanceAsLabel 的示例，但还没想好怎么去表现
-
 - (void)initSubviews {
     [super initSubviews];
 
