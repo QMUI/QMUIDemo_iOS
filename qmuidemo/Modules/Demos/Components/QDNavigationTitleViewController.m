@@ -37,6 +37,7 @@
 - (void)initPopupContainerViewIfNeeded {
     if (!self.popupMenuView) {
         self.popupMenuView = [[QMUIPopupMenuView alloc] init];
+        self.popupMenuView.automaticallyHidesWhenUserTap = YES;// 点击空白地方自动消失
         self.popupMenuView.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;
         self.popupMenuView.maximumWidth = 220;
         self.popupMenuView.items = @[[QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 1" handler:nil],
