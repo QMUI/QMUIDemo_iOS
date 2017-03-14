@@ -44,7 +44,7 @@
                                      NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
                                      NSUnderlineColorAttributeName: TextFieldTintColor};
     // 限制可输入的字符长度
-    self.textView.maximumTextLength = 30;
+    self.textView.maximumTextLength = 100;
     
     self.textView.layer.borderWidth = PixelOne;
     self.textView.layer.borderColor = UIColorSeparator.CGColor;
@@ -71,7 +71,7 @@
 
 #pragma mark - <QMUITextViewDelegate>
 
-- (void)textView:(QMUITextView *)textView contentHeightAfterTextChanged:(CGFloat)height {
+- (void)textView:(QMUITextView *)textView newHeightAfterTextChanged:(CGFloat)height {
     height = fminf(self.textViewMaximumHeight, fmaxf(height, self.textViewMinimumHeight));
     BOOL needsChangeHeight = CGRectGetHeight(textView.frame) != height;
     if (needsChangeHeight) {
