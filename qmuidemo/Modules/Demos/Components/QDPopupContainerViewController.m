@@ -95,9 +95,9 @@
     // 使用方法 2，以 UIWindow 的形式显示到界面上，这种无需默认隐藏，也无需 add 到某个 UIView 上
     self.popupView2 = [[QMUIPopupMenuView alloc] init];
     self.popupView2.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
+    self.popupView3.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
     self.popupView2.maximumWidth = 180;
     self.popupView2.shouldShowItemSeparator = YES;
-    self.popupView2.maskViewBackgroundColor = UIColorMask;// 用方法 2 可以修改背景遮罩的颜色
     self.popupView2.separatorInset = UIEdgeInsetsMake(0, self.popupView2.padding.left, 0, self.popupView2.padding.right);
     self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_tabbar_uikit") title:@"QMUIKit" handler:^{
                                   [weakSelf.popupView2 hideWithAnimated:YES];
@@ -124,6 +124,15 @@
     self.popupView3.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button3 setTitle:@"显示自定义浮层" forState:UIControlStateNormal];
     };
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // popupView3 使用方法 2 显示，并且没有打开 automaticallyHidesWhenUserTap，则需要手动隐藏
+    if (self.popupView3.isShowing) {
+        [self.popupView3 hideWithAnimated:animated];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
