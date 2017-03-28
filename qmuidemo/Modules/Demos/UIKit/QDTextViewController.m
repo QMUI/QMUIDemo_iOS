@@ -1,4 +1,4 @@
- //
+//
 //  QDTextViewController.m
 //  qmui
 //
@@ -32,17 +32,15 @@
     [super initSubviews];
     self.textView = [[QMUITextView alloc] init];
     self.textView.delegate = self;
-    self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持自动富文本、支持限制文本输入长度";
+    self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持限制文本输入长度";
+    self.textView.placeholderColor = UIColorPlaceholder; // 自定义 placeholder 的颜色
     self.textView.autoResizable = YES;
     self.textView.textContainerInset = UIEdgeInsetsMake(10, 7, 10, 7);
     self.textView.returnKeyType = UIReturnKeySend;
     self.textView.enablesReturnKeyAutomatically = YES;
-    
-    // 通过这个属性可以让输入的文字都是用富文本样式
-    self.textView.textAttributes = @{NSFontAttributeName: UIFontMake(15),
-                                     NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20],
-                                     NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                                     NSUnderlineColorAttributeName: TextFieldTintColor};
+    self.textView.typingAttributes = @{NSFontAttributeName: UIFontMake(15),
+                                       NSForegroundColorAttributeName: UIColorGray1,
+                                       NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]};
     // 限制可输入的字符长度
     self.textView.maximumTextLength = 100;
     
@@ -52,7 +50,7 @@
     [self.view addSubview:self.textView];
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字。\n会自动监听回车键，触发发送逻辑。", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }
