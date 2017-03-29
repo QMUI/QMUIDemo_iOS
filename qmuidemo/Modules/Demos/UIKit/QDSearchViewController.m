@@ -69,6 +69,10 @@
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
+        
+        // 这个属性默认就是 NO，这里依然写出来只是为了提醒 QMUICommonTableViewController 默认就集成了 QMUISearchController，如果你的界面本身就是 QMUICommonTableViewController 的子类，则也可以直接通过将这个属性改为 YES 来创建 QMUISearchController
+        self.shouldShowSearchBar = NO;
+        
         self.keywords = @[@"Helps", @"Maintain", @"Liver", @"Health", @"Function", @"Supports", @"Healthy", @"Fat", @"Metabolism", @"Nuturally"];
         self.searchResultsKeywords = [[NSMutableArray alloc] init];
     }
@@ -85,11 +89,6 @@
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>
-
-- (BOOL)shouldShowSearchBarInTableView:(QMUITableView *)tableView {
-    // 这个方法默认就是返回 NO，这里实现这个 delegate 只是为了说明 QMUICommonTableViewController 默认就集成了 QMUISearchController，如果你的界面本身就是 QMUICommonTableViewController 的子类，则也可以直接通过在这个 delegate 里返回 YES 来使用 QMUISearchController
-    return NO;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableView) {

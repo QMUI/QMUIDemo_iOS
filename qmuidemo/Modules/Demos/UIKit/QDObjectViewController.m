@@ -19,6 +19,8 @@
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
+        self.shouldShowSearchBar = YES;
+        
         self.autocompletionClasses = [[NSMutableArray alloc] init];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -86,10 +88,6 @@
 }
 
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
-
-- (BOOL)shouldShowSearchBarInTableView:(QMUITableView *)tableView {
-    return YES;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.autocompletionClasses.count;

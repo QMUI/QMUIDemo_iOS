@@ -16,7 +16,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
-        
+        self.shouldShowSearchBar = YES;
     }
     return self;
 }
@@ -36,11 +36,7 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - TableView Delegate & DataSource
-
-- (BOOL)shouldShowSearchBarInTableView:(QMUITableView *)tableView {
-    return YES;
-}
+#pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.emptyViewShowing ? 0 : 4;
@@ -79,6 +75,16 @@
         [self showEmptyViewWithImage:UIImageMake(@"image1") text:nil detailText:@"图片间距可通过imageInsets来调整" buttonTitle:nil buttonAction:NULL];
     }
     [self.tableView reloadData];
+}
+
+#pragma mark - <QMUISearchControllerDelegate>
+
+- (void)willPresentSearchController:(QMUISearchController *)searchController {
+    [QMUIHelper renderStatusBarStyleDark];
+}
+
+- (void)willDismissSearchController:(QMUISearchController *)searchController {
+    [QMUIHelper renderStatusBarStyleLight];
 }
 
 @end
