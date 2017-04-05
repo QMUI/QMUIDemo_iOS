@@ -7,9 +7,7 @@
 //
 
 #import "QMUIConfigurationTemplate.h"
-
-// 如果这里找不到QMUIKit.h，请尝试替换为 #import <QMUIKit/QMUIKit.h>
-#import "QMUIKit.h"
+#import <QMUIKit/QMUIKit.h>
 
 @implementation QMUIConfigurationTemplate
 
@@ -22,7 +20,7 @@
     
     // === 修改配置值 === //
     
-#pragma mark - Global Color
+    #pragma mark - Global Color
     
     //- QMUICMI.clearColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0];                                  // UIColorClear
     //- QMUICMI.whiteColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];                                  // UIColorWhite
