@@ -21,6 +21,7 @@
 #import "QDUIViewQMUIViewController.h"
 #import "QDCollectionListViewController.h"
 #import "QDAboutViewController.h"
+#import "QDObjectViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -39,6 +40,7 @@
                        @"UIColor+QMUI", UIImageMake(@"icon_grid_color"),
                        @"UIImage+QMUI", UIImageMake(@"icon_grid_image"),
                        @"UIView+QMUI", UIImageMake(@"icon_grid_view"),
+                       @"NSObject+QMUI", UIImageMake(@"icon_grid_nsobject"),
                        nil];
 }
 
@@ -88,6 +90,9 @@
     }
     else if ([title isEqualToString:@"UIView+QMUI"]) {
         viewController = [[QDUIViewQMUIViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"NSObject+QMUI"]) {
+        viewController = [[QDObjectViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

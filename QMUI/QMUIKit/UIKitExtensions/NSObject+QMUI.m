@@ -8,17 +8,18 @@
 
 #import "NSObject+QMUI.h"
 #import <objc/message.h>
+#import <objc/runtime.h>
 
 @implementation NSObject (QMUI)
 
 - (BOOL)qmui_hasOverrideMethod:(SEL)selector ofSuperclass:(Class)superclass {
     if (![[self class] isSubclassOfClass:superclass]) {
-        NSLog(@"%s, %@ 并非 %@ 的父类", __func__, NSStringFromClass(superclass), NSStringFromClass([self class]));
+//        NSLog(@"%s, %@ 并非 %@ 的父类", __func__, NSStringFromClass(superclass), NSStringFromClass([self class]));
         return NO;
     }
     
     if (![superclass instancesRespondToSelector:selector]) {
-        NSLog(@"%s, 父类 %@ 自己本来就无法响应 %@ 方法", __func__, NSStringFromClass(superclass), NSStringFromSelector(selector));
+//        NSLog(@"%s, 父类 %@ 自己本来就无法响应 %@ 方法", __func__, NSStringFromClass(superclass), NSStringFromSelector(selector));
         return NO;
     }
     
@@ -46,6 +47,23 @@
     
     id (*objc_superAllocTyped)(struct objc_super *, SEL, ...) = (void *)&objc_msgSendSuper;
     return (*objc_superAllocTyped)(&mySuper, aSelector, object);
+}
+
+- (void)qmui_enumrateInstanceMethodsUsingBlock:(void (^)(SEL))block {
+    [NSObject qmui_enumrateInstanceMethodsOfClass:self.class usingBlock:block];
+}
+
++ (void)qmui_enumrateInstanceMethodsOfClass:(Class)aClass usingBlock:(void (^)(SEL selector))block {
+    unsigned int methodCount = 0;
+    Method *methods = class_copyMethodList(aClass, &methodCount);
+    
+    for (unsigned int i = 0; i < methodCount; i++) {
+        Method method = methods[i];
+        SEL selector = method_getName(method);
+        if (block) block(selector);
+    }
+    
+    free(methods);
 }
 
 + (void)qmui_enumerateProtocolMethods:(Protocol *)protocol usingBlock:(void (^)(SEL))block {

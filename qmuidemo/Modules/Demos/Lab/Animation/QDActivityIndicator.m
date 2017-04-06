@@ -138,8 +138,8 @@
                                   @[@0.0f, @(20.0f / 90.0f), @(35.0f / 90.0f), @((54.0f) / 90.0f), @(70.0f / 90.0f), @1.0f]];
     
     CALayer *line = _lines[index];
-    CGFloat x = floorf((CGRectGetWidth(self.bounds) / 2 - lineWidth) / 2 + CGRectGetWidth(self.bounds) / 2 * (index / 3) + (index / 3 > 0 ? 0 : 1));
-    CGFloat y = floorf(lineBaseY + (lineHeight + lineSpacing) * (index % 3));
+    CGFloat x = floor((CGRectGetWidth(self.bounds) / 2 - lineWidth) / 2 + CGRectGetWidth(self.bounds) / 2 * (index / 3) + (index / 3 > 0 ? 0 : 1));
+    CGFloat y = floor(lineBaseY + (lineHeight + lineSpacing) * (index % 3));
     line.frame = CGRectMake(x, y, 0, lineHeight);
     
     NSArray *keyTimes = keyTimesForLines[index];

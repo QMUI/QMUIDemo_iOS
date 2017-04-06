@@ -43,12 +43,12 @@
 }
 
 - (void)didInitialized {
-    self.separatorColor = UIColorSeparator;
-    
     self.separatorLayer = [CAShapeLayer layer];
     [self.separatorLayer qmui_removeDefaultAnimations];
     self.separatorLayer.hidden = YES;
     [self.layer addSublayer:self.separatorLayer];
+    
+    self.separatorColor = UIColorSeparator;
 }
 
 - (void)setSeparatorWidth:(CGFloat)separatorWidth {
@@ -64,7 +64,7 @@
 
 // 返回最接近平均列宽的值，保证其为整数，因此所有columnWidth加起来可能比总宽度要小
 - (CGFloat)stretchColumnWidth {
-    return floorf((CGRectGetWidth(self.bounds) - self.separatorWidth * (self.columnCount - 1)) / self.columnCount);
+    return floor((CGRectGetWidth(self.bounds) - self.separatorWidth * (self.columnCount - 1)) / self.columnCount);
 }
 
 - (NSInteger)rowCount {

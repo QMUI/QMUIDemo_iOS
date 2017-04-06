@@ -45,21 +45,21 @@
     
     if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor55Inch].width) {
         self.gridView.columnCount = 3;
-        CGFloat itemWidth = flatf(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+        CGFloat itemWidth = flat(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
         self.gridView.rowHeight = itemWidth;
     } else {
-        CGFloat minimumItemWidth = flatf([QMUIHelper screenSizeFor55Inch].width / 3.0);
-        CGFloat maximumItemWidth = flatf(CGRectGetWidth(self.view.bounds) / 5.0);
-        CGFloat freeSpacingWhenDisplayingMinimumCount = CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth - floorf(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
-        CGFloat freeSpacingWhenDisplayingMaximumCount = CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth - floorf(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
+        CGFloat minimumItemWidth = flat([QMUIHelper screenSizeFor55Inch].width / 3.0);
+        CGFloat maximumItemWidth = flat(CGRectGetWidth(self.view.bounds) / 5.0);
+        CGFloat freeSpacingWhenDisplayingMinimumCount = CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth - floor(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
+        CGFloat freeSpacingWhenDisplayingMaximumCount = CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth - floor(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
         if (freeSpacingWhenDisplayingMinimumCount < freeSpacingWhenDisplayingMaximumCount) {
             // 按每行最少item的情况来布局的话，空间利用率会更高，所以按最少item来
-            self.gridView.columnCount = floorf(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
-            CGFloat itemWidth = floorf(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+            self.gridView.columnCount = floor(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
+            CGFloat itemWidth = floor(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
             self.gridView.rowHeight = itemWidth;
         } else {
-            self.gridView.columnCount = floorf(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
-            CGFloat itemWidth = floorf(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+            self.gridView.columnCount = floor(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
+            CGFloat itemWidth = floor(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
             self.gridView.rowHeight = itemWidth;
         }
     }
@@ -125,7 +125,7 @@
     }
     
     CGSize contentSize = CGSizeMake(CGRectGetWidth(self.bounds) - UIEdgeInsetsGetHorizontalValue(self.contentEdgeInsets), CGRectGetHeight(self.bounds) - UIEdgeInsetsGetVerticalValue(self.contentEdgeInsets));
-    CGPoint center = CGPointMake(flatf(self.contentEdgeInsets.left + contentSize.width / 2), flatf(self.contentEdgeInsets.top + contentSize.height / 2));
+    CGPoint center = CGPointMake(flat(self.contentEdgeInsets.left + contentSize.width / 2), flat(self.contentEdgeInsets.top + contentSize.height / 2));
     
     self.imageView.center = CGPointMake(center.x, center.y - 12);
     

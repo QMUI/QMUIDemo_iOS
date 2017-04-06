@@ -85,8 +85,6 @@
     [window addSubview:launchScreenView];
     
     UIImageView *backgroundImageView = launchScreenView.subviews[0];
-    backgroundImageView.translatesAutoresizingMaskIntoConstraints = YES;
-    backgroundImageView.frame = launchScreenView.bounds;
     backgroundImageView.clipsToBounds = YES;
     
     UIImageView *logoImageView = launchScreenView.subviews[1];
@@ -96,8 +94,19 @@
     maskView.backgroundColor = UIColorWhite;
     [launchScreenView insertSubview:maskView belowSubview:backgroundImageView];
     
+    [launchScreenView layoutIfNeeded];
+    
+    
+    [launchScreenView.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.identifier isEqualToString:@"bottomAlign"]) {
+            obj.active = NO;
+            [NSLayoutConstraint constraintWithItem:backgroundImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:launchScreenView attribute:NSLayoutAttributeTop multiplier:1 constant:NavigationContentTop].active = YES;
+            *stop = YES;
+        }
+    }];
+    
     [UIView animateWithDuration:.15 delay:0.9 options:QMUIViewAnimationOptionsCurveOut animations:^{
-        backgroundImageView.frame = CGRectMake(0, 0, CGRectGetWidth(backgroundImageView.bounds), 64);
+        [launchScreenView layoutIfNeeded];
         logoImageView.alpha = 0.0;
         copyrightLabel.alpha = 0;
     } completion:nil];

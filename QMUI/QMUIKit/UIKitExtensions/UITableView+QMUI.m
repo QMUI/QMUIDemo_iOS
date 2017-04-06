@@ -14,7 +14,15 @@
 @implementation UITableView (QMUI)
 
 - (void)qmui_styledAsQMUITableView {
-    self.backgroundColor = self.style == UITableViewStylePlain ? TableViewBackgroundColor : TableViewGroupedBackgroundColor;
+    UIColor *backgroundColor = nil;
+    if (self.style == UITableViewStylePlain) {
+        backgroundColor = TableViewBackgroundColor;
+    } else {
+        backgroundColor = TableViewGroupedBackgroundColor;
+    }
+    if (backgroundColor) {
+        self.backgroundColor = backgroundColor;
+    }
     self.separatorColor = TableViewSeparatorColor;
     self.tableFooterView = [[UIView alloc] init];// 去掉尾部空cell
     self.backgroundView = [[UIView alloc] init];// 设置一个空的backgroundView，去掉系统的，以使backgroundColor生效
@@ -343,7 +351,7 @@
     return templateCell;
 }
 
-- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier configuration:(void (^)(id cell))configuration {
+- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier configuration:(void (^)(__kindof UITableViewCell *))configuration {
     if (!identifier || CGRectIsEmpty(self.bounds)) {
         return 0;
     }
@@ -361,11 +369,11 @@
         }
         fitSize = [cell sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     }
-    return ceilf(fitSize.height);
+    return ceil(fitSize.height);
 }
 
 // 通过indexPath缓存高度
-- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration {
+- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(__kindof UITableViewCell *))configuration {
     if (!identifier || !indexPath || CGRectIsEmpty(self.bounds)) {
         return 0;
     }
@@ -378,7 +386,7 @@
 }
 
 // 通过key缓存高度
-- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier cacheByKey:(id<NSCopying>)key configuration:(void (^)(id cell))configuration {
+- (CGFloat)qmui_heightForCellWithIdentifier:(NSString *)identifier cacheByKey:(id<NSCopying>)key configuration:(void (^)(__kindof UITableViewCell *))configuration {
     if (!identifier || !key || CGRectIsEmpty(self.bounds)) {
         return 0;
     }

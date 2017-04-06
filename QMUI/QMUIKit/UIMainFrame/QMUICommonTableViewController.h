@@ -23,11 +23,11 @@ extern const UIEdgeInsets QMUICommonTableViewControllerInitialContentInsetNotSet
  *
  *  提供的功能包括：
  *
- *  1. 集成 `QMUISearchController`，可通过在 `shouldShowSearchBarInTableView:` 里返回 `YES` 来快速为列表生成一个搜索框。
+ *  1. 集成 `QMUISearchController`，可通过属性 `shouldShowSearchBar` 来快速为列表生成一个 searchBar 及 searchController，具体请查看 QMUICommonTableViewController (Search)。
  *
  *  2. 通过属性 `tableViewInitialContentInset` 和 `tableViewInitialScrollIndicatorInsets` 来提供对界面初始状态下的列表 `contentInset`、`contentOffset` 的调整能力，一般在系统的 `automaticallyAdjustsScrollViewInsets` 属性无法满足需求时使用。
  *
- *  @warning 在 `QMUICommonTableViewController` 里的 emptyView 将会以 `tableFooterView` 的方式显示出来，所以如果你的界面拥有自己的 `tableFooterView`，则需要重写 `showEmptyView`、`hideEmptyView` 来处理你的 footerView 和 emptyView 的显隐冲突问题。
+ *  @note emptyView 会从 tableHeaderView 的下方开始布局到 tableView 最底部，因此它会遮挡 tableHeaderView 之外的部分（比如 tableFooterView 和 cells ），你可以重写 layoutEmptyView 来改变这个布局方式
  *
  *  @see QMUISearchController
  */
@@ -82,7 +82,15 @@ extern const UIEdgeInsets QMUICommonTableViewControllerInitialContentInsetNotSet
 @interface QMUICommonTableViewController (Search) <QMUISearchControllerDelegate>
 
 /**
- *  获取当前的searchController，注意只有当 `shouldShowSearchBarInTableView:` 返回 `YES` 时才有用
+ *  控制列表里是否需要搜索框，如果为 YES，则会在 viewDidLoad 之后创建一个 searchBar 作为 tableHeaderView；如果为 NO，则会移除已有的 searchBar 和 searchController。
+ *  默认为 NO。
+ *  @note 若在 viewDidLoad 之前设置为 YES，也会等到 viewDidLoad 时才去创建搜索框。
+ *  @note 用于代替 QMUI 1.3.7 以前使用的 `QMUITableViewDelegate shouldShowSearchBarInTableView:` 方法。
+ */
+@property(nonatomic, assign) BOOL shouldShowSearchBar;
+
+/**
+ *  获取当前的 searchController，注意只有当 `shouldShowSearchBar` 为 `YES` 时才有用
  *
  *  默认为 `nil`
  *
@@ -91,7 +99,7 @@ extern const UIEdgeInsets QMUICommonTableViewControllerInitialContentInsetNotSet
 @property(nonatomic, strong, readonly) QMUISearchController *searchController;
 
 /**
- *  获取当前的searchBar，注意只有当 `shouldShowSearchBarInTableView:` 返回 `YES` 时才有用
+ *  获取当前的 searchBar，注意只有当 `shouldShowSearchBar` 为 `YES` 时才有用
  *
  *  默认为 `nil`
  *
@@ -109,9 +117,9 @@ extern const UIEdgeInsets QMUICommonTableViewControllerInitialContentInsetNotSet
 /**
  *  初始化searchController和searchBar，在initSubViews的时候被自动调用。
  *
- *  会询问 `[self.tableView.delegate shouldShowSearchBarInTableView:]`，若返回 `YES`，则创建 searchBar 并将其以 `tableHeaderView` 的形式呈现在界面里；若返回 `NO`，则将 `tableHeaderView` 置为nil。
+ *  会询问 `self.shouldShowSearchBar`，若返回 `YES`，则创建 searchBar 并将其以 `tableHeaderView` 的形式呈现在界面里；若返回 `NO`，则将 `tableHeaderView` 置为nil。
  *
- *  @warning `shouldShowSearchBarInTableView:` 默认返回 NO，需要 searchBar 的界面必须重写该方法并返回 `YES`
+ *  @warning `self.shouldShowSearchBar` 默认为 NO，需要 searchBar 的界面必须手动将其置为 `YES`。
  */
 - (void)initSearchController;
 

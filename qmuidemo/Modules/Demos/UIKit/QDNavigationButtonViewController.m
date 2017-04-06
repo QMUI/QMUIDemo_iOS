@@ -26,12 +26,18 @@
 
 - (void)didSelectCellWithTitle:(NSString *)title {
     if ([title isEqualToString:@"普通导航栏按钮"]) {
-        self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeNormal title:@"取消" position:QMUINavigationButtonPositionRight target:self action:NULL];
+        // 最右边的按钮，position 为 Right
+        UIBarButtonItem *normalItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeNormal title:@"默认" position:QMUINavigationButtonPositionRight target:nil action:NULL];
+        
+        // 支持用 tintColor 参数指定不一样的颜色
+        // 不是最右边的按钮，position 为 None
+        UIBarButtonItem *colorfulItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeNormal title:@"颜色" tintColor:[QDCommonUI randomThemeColor] position:QMUINavigationButtonPositionNone target:nil action:NULL];
+        self.navigationItem.rightBarButtonItems = @[normalItem, colorfulItem];
     } else if ([title isEqualToString:@"加粗导航栏按钮"]) {
-        self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeBold title:@"完成(5)" position:QMUINavigationButtonPositionRight target:self action:NULL];
+        self.navigationItem.rightBarButtonItems = @[[QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeBold title:@"完成(5)" position:QMUINavigationButtonPositionRight target:nil action:NULL]];
     } else if ([title isEqualToString:@"图标导航栏按钮"]) {
         UIImage *image = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(20, 20) lineWidth:3 cornerRadius:10];
-        self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithImage:image position:QMUINavigationButtonPositionRight target:self action:NULL];
+        self.navigationItem.rightBarButtonItems = @[[QMUINavigationButton barButtonItemWithImage:image position:QMUINavigationButtonPositionRight target:nil action:NULL]];
     } else if ([title isEqualToString:@"关闭导航栏按钮(支持手势返回)"]) {
         self.forceEnableBackGesture = YES;
         self.navigationItem.leftBarButtonItem = [QMUINavigationButton closeBarButtonItemWithTarget:self action:@selector(handleCloseButtonEvent:)];

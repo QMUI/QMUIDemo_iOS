@@ -43,7 +43,7 @@
     self.adjustsImageTintColorAutomatically = NO;
     self.tintColor = ButtonTintColor;
     if (!self.adjustsTitleTintColorAutomatically) {
-        [self setTitleColor:ButtonTintColor forState:UIControlStateNormal];
+        [self setTitleColor:self.tintColor forState:UIControlStateNormal];
     }
     
     // 默认接管highlighted和disabled的表现，去掉系统默认的表现
@@ -463,14 +463,14 @@
     
     if (self.buttonPosition == QMUINavigationButtonPositionLeft) {
         // 正值表示往左偏移
-        if (self.type == QMUINavigationButtonTypeImage || self.type == QMUINavigationButtonTypeClose) {
+        if (self.type == QMUINavigationButtonTypeImage) {
             insets = UIEdgeInsetsSetLeft(insets, 11);
         } else {
             insets = UIEdgeInsetsSetLeft(insets, 8);
         }
     } else if (self.buttonPosition == QMUINavigationButtonPositionRight) {
         // 正值表示往右偏移
-        if (self.type == QMUINavigationButtonTypeImage || self.type == QMUINavigationButtonTypeClose) {
+        if (self.type == QMUINavigationButtonTypeImage) {
             insets = UIEdgeInsetsSetRight(insets, 11);
         } else {
             insets = UIEdgeInsetsSetRight(insets, 8);
@@ -478,7 +478,7 @@
     }
     
     
-    BOOL isBackOrImageType = self.type == QMUINavigationButtonTypeBack || self.type == QMUINavigationButtonTypeImage || self.type == QMUINavigationButtonTypeClose;
+    BOOL isBackOrImageType = self.type == QMUINavigationButtonTypeBack || self.type == QMUINavigationButtonTypeImage;
     if (isBackOrImageType) {
         insets = UIEdgeInsetsSetTop(insets, PixelOne);
     } else {
@@ -496,10 +496,8 @@
     self.contentMode = UIViewContentModeCenter;
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    
-    [self setTitleColor:NavBarTintColor forState:UIControlStateNormal];
-    [self setTitleColor:NavBarTintColorHighlighted forState:UIControlStateHighlighted];
-    [self setTitleColor:NavBarTintColorDisabled forState:UIControlStateDisabled];
+    self.adjustsImageWhenHighlighted = NO;
+    self.adjustsImageWhenDisabled = NO;
     
     switch (self.type) {
         case QMUINavigationButtonTypeNormal:
@@ -510,18 +508,15 @@
         }
             break;
         case QMUINavigationButtonTypeBack: {
-            UIImage *backIndicatorImage = NavBarBackIndicatorImage;
-            [self setImage:[backIndicatorImage qmui_imageWithTintColor:NavBarTintColor] forState:UIControlStateNormal];
-            [self setImage:[backIndicatorImage qmui_imageWithTintColor:NavBarTintColorHighlighted] forState:UIControlStateHighlighted];
-            [self setImage:[backIndicatorImage qmui_imageWithTintColor:NavBarTintColorDisabled] forState:UIControlStateDisabled];
             self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        }
-            break;
-        case QMUINavigationButtonTypeClose: {
-            UIImage *closeImage = NavBarCloseButtonImage;
-            [self setImage:[closeImage qmui_imageWithTintColor:NavBarTintColor] forState:UIControlStateNormal];
-            [self setImage:[closeImage qmui_imageWithTintColor:NavBarTintColorHighlighted] forState:UIControlStateHighlighted];
-            [self setImage:[closeImage qmui_imageWithTintColor:NavBarTintColorDisabled] forState:UIControlStateDisabled];
+            UIImage *backIndicatorImage = NavBarBackIndicatorImage;
+            if (!backIndicatorImage) {
+                QMUILog(@"NavBarBackIndicatorImage 为 nil，无法创建正确的 QMUINavigationButtonTypeBack 按钮");
+                return;
+            }
+            [self setImage:backIndicatorImage forState:UIControlStateNormal];
+            [self setImage:[backIndicatorImage qmui_imageWithAlpha:NavBarHighlightedAlpha] forState:UIControlStateHighlighted];
+            [self setImage:[backIndicatorImage qmui_imageWithAlpha:NavBarDisabledAlpha] forState:UIControlStateDisabled];
         }
             break;
             
@@ -612,7 +607,7 @@
         backTitle = @" ";
     }
     
-    return [self systemBarButtonItemWithType:QMUINavigationButtonTypeBack title:backTitle tintColor:tintColor target:target action:selector];
+    return [self systemBarButtonItemWithType:QMUINavigationButtonTypeBack title:backTitle tintColor:tintColor position:QMUINavigationButtonPositionLeft target:target action:selector];
 }
 
 + (UIBarButtonItem *)backBarButtonItemWithTarget:(id)target action:(SEL)selector {
@@ -620,25 +615,31 @@
 }
 
 + (UIBarButtonItem *)closeBarButtonItemWithTarget:(id)target action:(SEL)selector tintColor:(UIColor *)tintColor {
-    return [self systemBarButtonItemWithType:QMUINavigationButtonTypeClose title:nil tintColor:tintColor target:target action:selector];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:NavBarCloseButtonImage style:UIBarButtonItemStylePlain target:target action:selector];
+    item.tintColor = tintColor;
+    return item;
 }
 
 + (UIBarButtonItem *)closeBarButtonItemWithTarget:(id)target action:(SEL)selector {
     return [self closeBarButtonItemWithTarget:target action:selector tintColor:nil];
 }
 
-+ (UIBarButtonItem *)barButtonItemWithNavigationButton:(QMUINavigationButton *)button position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
++ (UIBarButtonItem *)barButtonItemWithNavigationButton:(QMUINavigationButton *)button tintColor:(UIColor *)tintColor position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
     if (target) {
         [button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
     }
+    button.tintColor = tintColor;
     button.buttonPosition = position;
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
 }
 
++ (UIBarButtonItem *)barButtonItemWithNavigationButton:(QMUINavigationButton *)button position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
+    return [self barButtonItemWithNavigationButton:button tintColor:nil position:position target:target action:selector];
+}
+
 + (UIBarButtonItem *)barButtonItemWithType:(QMUINavigationButtonType)type title:(NSString *)title tintColor:(UIColor *)tintColor position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
-    UIBarButtonItem *barButtonItem;
-    barButtonItem = [QMUINavigationButton systemBarButtonItemWithType:type title:title tintColor:tintColor target:target action:selector];
+    UIBarButtonItem *barButtonItem = [QMUINavigationButton systemBarButtonItemWithType:type title:title tintColor:tintColor position:position target:target action:selector];
     return barButtonItem;
 }
 
@@ -647,13 +648,8 @@
 }
 
 + (UIBarButtonItem *)barButtonItemWithImage:(UIImage *)image tintColor:(UIColor *)tintColor position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
-    UIBarButtonItem *barButtonItem;
-    if (tintColor) {
-        barButtonItem = [[UIBarButtonItem alloc] initWithImage:[image qmui_imageWithTintColor:tintColor] style:UIBarButtonItemStylePlain target:target action:selector];
-    } else {
-        barButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:target action:selector];
-    }
-    
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:target action:selector];
+    barButtonItem.tintColor = tintColor;
     return barButtonItem;
 }
 
@@ -661,63 +657,38 @@
     return [QMUINavigationButton barButtonItemWithImage:image tintColor:nil position:position target:target action:selector];
 }
 
-+ (UIBarButtonItem *)systemBarButtonItemWithType:(QMUINavigationButtonType)type title:(NSString *)title tintColor:(UIColor *)tintColor target:(id)target action:(SEL)selector {
++ (UIBarButtonItem *)systemBarButtonItemWithType:(QMUINavigationButtonType)type title:(NSString *)title tintColor:(UIColor *)tintColor position:(QMUINavigationButtonPosition)position target:(id)target action:(SEL)selector {
     switch (type) {
-        case QMUINavigationButtonTypeClose:   // close
-        {
-            // 这里只是为了提供统一的close按钮item，也可以通过barButtonItemWithImage:来自己定义
-            QMUINavigationButton *button = [[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeClose];
-            button.buttonPosition = QMUINavigationButtonPositionLeft;
             
-            UIColor *finalTintColor = tintColor ? tintColor : NavBarTintColor;
-            UIImage *image = [button imageForState:UIControlStateNormal];
-            
-            [button setImage:[image qmui_imageWithTintColor:finalTintColor] forState:UIControlStateNormal];
-            [button setImage:[image qmui_imageWithTintColor:[finalTintColor colorWithAlphaComponent:NavBarHighlightedAlpha]] forState:UIControlStateHighlighted];
-            [button setImage:[image qmui_imageWithTintColor:[finalTintColor colorWithAlphaComponent:NavBarDisabledAlpha]] forState:UIControlStateDisabled];
-            
-            UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:target action:selector];
-            return barButtonItem;
-        }
-            break;
-            
-        case QMUINavigationButtonTypeBack:  // back
+        case QMUINavigationButtonTypeBack:
         {
             // 因为有可能出现有箭头图片又有title的情况，所以这里不适合用barButtonItemWithImage:target:action:的那个接口
             QMUINavigationButton *button = [[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeBack title:title];
-            button.buttonPosition = QMUINavigationButtonPositionLeft;
+            button.buttonPosition = position;
             [button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-            
-            UIColor *finalTintColor = tintColor ? tintColor : NavBarTintColor;
-            UIImage *image = [button imageForState:UIControlStateNormal];
-            
-            [button setImage:[image qmui_imageWithTintColor:finalTintColor] forState:UIControlStateNormal];
-            [button setImage:[image qmui_imageWithTintColor:[finalTintColor colorWithAlphaComponent:NavBarHighlightedAlpha]] forState:UIControlStateHighlighted];
-            [button setImage:[image qmui_imageWithTintColor:[finalTintColor colorWithAlphaComponent:NavBarDisabledAlpha]] forState:UIControlStateDisabled];
-            [button setTitleColor:finalTintColor forState:UIControlStateNormal];
-            [button setTitleColor:[finalTintColor colorWithAlphaComponent:NavBarHighlightedAlpha] forState:UIControlStateHighlighted];
-            [button setTitleColor:[finalTintColor colorWithAlphaComponent:NavBarDisabledAlpha] forState:UIControlStateDisabled];
-            
+            button.tintColor = tintColor;
             UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
             return barButtonItem;
         }
             break;
             
-        case QMUINavigationButtonTypeBold:  // bold
+        case QMUINavigationButtonTypeBold:
         {
-            UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:(id)target action:selector];
+            UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:target action:selector];
             [barButtonItem setTitleTextAttributes:@{NSFontAttributeName:NavBarButtonFontBold} forState:UIControlStateNormal];
+            barButtonItem.tintColor = tintColor;
             return barButtonItem;
         }
             break;
             
-        case QMUINavigationButtonTypeImage:  // icon - 这种类型请通过barButtonItemWithImage:position:target:action:来定义
+        case QMUINavigationButtonTypeImage:
+            // icon - 这种类型请通过barButtonItemWithImage:position:target:action:来定义
             return nil;
-            break;
             
-        default:  // normal
+        default:
         {
-            UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:(id)target action:selector];
+            UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:target action:selector];
+            barButtonItem.tintColor = tintColor;
             return barButtonItem;
         }
             break;
@@ -781,9 +752,11 @@
 }
 
 + (void)renderToolbarButtonAppearanceStyle {
-    // iOS7及以上默认使用系统自己的highlighted和disabled(及toolBar的tintColor)，不使用ToolBarHighlightedAlpha和ToolBarDisabledAlpha
-    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearanceWhenContainedIn:QMUINavigationController.class, nil];
-    [barButtonItemAppearance setTitleTextAttributes:@{NSFontAttributeName: ToolBarButtonFont} forState:UIControlStateNormal];
+    UIFont *titleFont = ToolBarButtonFont;
+    if (titleFont) {
+        UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearanceWhenContainedIn:QMUINavigationController.class, nil];
+        [barButtonItemAppearance setTitleTextAttributes:@{NSFontAttributeName: titleFont} forState:UIControlStateNormal];
+    }
 }
 
 + (UIBarButtonItem *)barButtonItemWithToolbarButton:(QMUIToolbarButton *)button target:(id)target action:(SEL)selector {
@@ -992,8 +965,13 @@ const CGFloat QMUIGhostButtonCornerRadiusAdjustsBounds = -1;
     if (self.cornerRadius != QMUIGhostButtonCornerRadiusAdjustsBounds) {
         self.layer.cornerRadius = self.cornerRadius;
     } else {
-        self.layer.cornerRadius = flatf(CGRectGetHeight(self.bounds) / 2);
+        self.layer.cornerRadius = flat(CGRectGetHeight(self.bounds) / 2);
     }
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    _cornerRadius = cornerRadius;
+    [self setNeedsLayout];
 }
 
 @end
@@ -1137,8 +1115,13 @@ const CGFloat QMUIFillButtonCornerRadiusAdjustsBounds = -1;
     if (self.cornerRadius != QMUIFillButtonCornerRadiusAdjustsBounds) {
         self.layer.cornerRadius = self.cornerRadius;
     } else {
-        self.layer.cornerRadius = flatf(CGRectGetHeight(self.bounds) / 2);
+        self.layer.cornerRadius = flat(CGRectGetHeight(self.bounds) / 2);
     }
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    _cornerRadius = cornerRadius;
+    [self setNeedsLayout];
 }
 
 @end

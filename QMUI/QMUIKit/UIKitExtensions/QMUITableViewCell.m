@@ -20,10 +20,6 @@
 
 @implementation QMUITableViewCell
 
-- (void)dealloc {
-    self.parentTableView = nil;
-}
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self didInitializedWithStyle:style];
@@ -54,9 +50,6 @@
     
     _style = style;
     _enabled = YES;
-    _imageEdgeInsets = UIEdgeInsetsZero;
-    _textLabelEdgeInsets = UIEdgeInsetsZero;
-    _detailTextLabelEdgeInsets = UIEdgeInsetsZero;
     _accessoryHitTestEdgeInsets = UIEdgeInsetsMake(-12, -12, -12, -12);
     
     self.textLabel.font = UIFontMake(16);
@@ -68,11 +61,13 @@
     self.detailTextLabel.backgroundColor = UIColorClear;
     
     // iOS7下背景色默认白色，之前的版本背景色继承tableView，这里统一设置为白色
-    // iOS6其实下面这几句是没用的，会被自己绘制的覆盖了
     self.backgroundColor = TableViewCellBackgroundColor;
-    UIView *selectedBackgroundView = [[UIView alloc] init];
-    selectedBackgroundView.backgroundColor = TableViewCellSelectedBackgroundColor;
-    self.selectedBackgroundView = selectedBackgroundView;
+    UIColor *selectedBackgroundColor = TableViewCellSelectedBackgroundColor;
+    if (selectedBackgroundColor) {
+        UIView *selectedBackgroundView = [[UIView alloc] init];
+        selectedBackgroundView.backgroundColor = selectedBackgroundColor;
+        self.selectedBackgroundView = selectedBackgroundView;
+    }
     
     // 因为在hitTest里扩大了accessoryView的响应范围，因此提高了系统一个与此相关的bug的出现几率，所以又在scrollView.delegate里做一些补丁性质的东西来修复
     if ([self.subviews.firstObject isKindOfClass:[UIScrollView class]]) {
@@ -81,7 +76,11 @@
     }
 }
 
-// 解决iOS8的cell中得separatorInset受layoutMargins影响的bug
+- (void)dealloc {
+    self.parentTableView = nil;
+}
+
+// 解决 iOS 8 以后的 cell 中 separatorInset 受 layoutMargins 影响的问题
 - (UIEdgeInsets)layoutMargins {
     return UIEdgeInsetsZero;
 }
@@ -89,8 +88,17 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGRect contentViewOldFrame = self.contentView.frame; // oldFrame是在[super layoutSubviews]里算过的frame
-    self.contentView.frame = CGRectMake(CGRectGetMinX(contentViewOldFrame) + self.layoutMargins.left, CGRectGetMinY(contentViewOldFrame) + self.layoutMargins.top, CGRectGetWidth(contentViewOldFrame) - UIEdgeInsetsGetHorizontalValue(self.layoutMargins), CGRectGetHeight(contentViewOldFrame) - UIEdgeInsetsGetVerticalValue(self.layoutMargins));
+    BOOL hasCustomAccessoryEdgeInset = self.accessoryView.superview && !UIEdgeInsetsEqualToEdgeInsets(self.accessoryEdgeInsets, UIEdgeInsetsZero);
+    if (hasCustomAccessoryEdgeInset) {
+        CGRect accessoryViewOldFrame = self.accessoryView.frame;
+        accessoryViewOldFrame = CGRectSetX(accessoryViewOldFrame, CGRectGetMinX(accessoryViewOldFrame) - self.accessoryEdgeInsets.right);
+        accessoryViewOldFrame = CGRectSetY(accessoryViewOldFrame, CGRectGetMinY(accessoryViewOldFrame) + self.accessoryEdgeInsets.top - self.accessoryEdgeInsets.bottom);
+        self.accessoryView.frame = accessoryViewOldFrame;
+        
+        CGRect contentViewOldFrame = self.contentView.frame;
+        contentViewOldFrame = CGRectSetWidth(contentViewOldFrame, CGRectGetMinX(accessoryViewOldFrame) - self.accessoryEdgeInsets.left);
+        self.contentView.frame = contentViewOldFrame;
+    }
 
     if (self.style == UITableViewCellStyleDefault || self.style == UITableViewCellStyleSubtitle) {
         
@@ -135,6 +143,16 @@
         // `layoutSubviews`这里不可以拿textLabel的minX来设置separatorInset，如果要设置只能写死一个值
         // 否则会导致textLabel的minX逐渐叠加从而使textLabel被移出屏幕外
     }
+    
+    // 由于调整 accessoryEdgeInsets 可能会影响 contentView 的宽度，所以几个 subviews 的布局也要保护一下
+    if (hasCustomAccessoryEdgeInset) {
+        if (CGRectGetMaxX(self.textLabel.frame) > CGRectGetWidth(self.contentView.bounds)) {
+            self.textLabel.frame = CGRectSetWidth(self.textLabel.frame, CGRectGetWidth(self.contentView.bounds) - CGRectGetMinX(self.textLabel.frame));
+        }
+        if (CGRectGetMaxX(self.detailTextLabel.frame) > CGRectGetWidth(self.contentView.bounds)) {
+            self.detailTextLabel.frame = CGRectSetWidth(self.detailTextLabel.frame, CGRectGetWidth(self.contentView.bounds) - CGRectGetMinX(self.detailTextLabel.frame));
+        }
+    }
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
@@ -169,30 +187,33 @@
 // 重写accessoryType，如果是UITableViewCellAccessoryDisclosureIndicator类型的，则使用 QMUIConfigurationTemplate.m 配置表里的图片
 - (void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType {
     [super setAccessoryType:accessoryType];
+    
     if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
-        [self initDefaultAccessoryImageViewIfNeeded];
-        self.defaultAccessoryImageView.image = TableViewCellDisclosureIndicatorImage;
-        [self.defaultAccessoryImageView sizeToFit];
-        self.accessoryView = self.defaultAccessoryImageView;
-    } else if (accessoryType == UITableViewCellAccessoryCheckmark) {
-        [self initDefaultAccessoryImageViewIfNeeded];
-        self.defaultAccessoryImageView.image = TableViewCellCheckmarkImage;
-        self.accessoryView = self.defaultAccessoryImageView;
-    } else {
-        self.accessoryView = nil;
-    }
-}
-
-- (UIView *)separatorViewInCell:(UITableViewCell *)cell {
-    for (UIView *subview in cell.subviews) {
-        if ([subview isKindOfClass:NSClassFromString(@"_UITableViewCellSeparatorView")]) {
-            return subview;
+        UIImage *indicatorImage = TableViewCellDisclosureIndicatorImage;
+        if (indicatorImage) {
+            [self initDefaultAccessoryImageViewIfNeeded];
+            self.defaultAccessoryImageView.image = TableViewCellDisclosureIndicatorImage;
+            [self.defaultAccessoryImageView sizeToFit];
+            self.accessoryView = self.defaultAccessoryImageView;
+            return;
         }
     }
-    return nil;
+    
+    if (accessoryType == UITableViewCellAccessoryCheckmark) {
+        UIImage *checkmarkImage = TableViewCellCheckmarkImage;
+        if (checkmarkImage) {
+            [self initDefaultAccessoryImageViewIfNeeded];
+            self.defaultAccessoryImageView.image = TableViewCellCheckmarkImage;
+            [self.defaultAccessoryImageView sizeToFit];
+            self.accessoryView = self.defaultAccessoryImageView;
+            return;
+        }
+    }
+    
+    self.accessoryView = nil;
 }
 
-#pragma mark - UIScrollView Delegate
+#pragma mark - <UIScrollViewDelegate>
 
 // 为了修复因优化accessoryView导致的向左滑动cell容易触发accessoryView事件 a little dirty by molice
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

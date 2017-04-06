@@ -14,9 +14,10 @@
 
 @optional
 /**
- *  输入框高度发生变化时的回调，仅当 `autoResizable` 属性为 YES 时才有效
+ *  输入框高度发生变化时的回调，仅当 `autoResizable` 属性为 YES 时才有效。
+ *  @note 只有当内容高度与当前输入框的高度不一致时才会调用到这里，所以无需在内部做高度是否变化的判断。
  */
-- (void)textView:(QMUITextView *)textView contentHeightAfterTextChanged:(CGFloat)height;
+- (void)textView:(QMUITextView *)textView newHeightAfterTextChanged:(CGFloat)height;
 
 /**
  *  用户点击键盘的 return 按钮时的回调（return 按钮本质上是输入换行符“\n”）
@@ -40,27 +41,19 @@
 /**
  *  自定义 UITextView，提供的特性如下：
  *
- *  1. 支持给输入框的文字设置加粗，倾斜，下划线等富文本样式。
- *  2. 支持 placeholder 并支持更改 placeholderColor；若使用了富文本文字，则 placeholder 的样式也会跟随文字的样式（除了 placeholder 颜色）
- *  3. 支持在文字发生变化时计算内容高度并通知 delegate （需打开autoResizable属性）。
- *  4. 支持限制输入的文本的最大长度，默认不限制。
- *  5. 修复了 iOS7 及以后的版本，系统的 UITextView 在输入最后一行文本时光标跑出可视区域的bug。
+ *  1. 支持 placeholder 并支持更改 placeholderColor；若使用了富文本文字，则 placeholder 的样式也会跟随文字的样式（除了 placeholder 颜色）
+ *  2. 支持在文字发生变化时计算内容高度并通知 delegate （需打开 autoResizable 属性）。
+ *  3. 支持限制输入的文本的最大长度，默认不限制。
+ *  4. 修正系统 UITextView 在输入时自然换行的时候，contentOffset 的滚动位置没有考虑 textContainerInset.bottom
  */
 @interface QMUITextView : UITextView<QMUITextViewDelegate>
 
 @property(nonatomic, weak) id<QMUITextViewDelegate> delegate;
 
 /**
- *  输入框的文本样式，默认为nil。注意当使用了这个属性后，不要再使用 `setAttributedText:` 方法。
- */
-@property(nonatomic, copy) NSDictionary<NSString *, id> *textAttributes;
-
-/**
  *  当通过 `setText:`、`setAttributedText:`等方式修改文字时，是否应该自动触发 `UITextViewDelegate` 里的 `textView:shouldChangeTextInRange:replacementText:`、 `textViewDidChange:` 方法
  *
  *  默认为YES（注意系统的 UITextView 对这种行为默认是 NO）
- *
- *  @see textAttributes
  */
 @property(nonatomic, assign) IBInspectable BOOL shouldResponseToProgrammaticallyTextChanges;
 
@@ -92,7 +85,7 @@
 
 /**
  *  是否支持自动拓展高度，默认为NO
- *  @see textView:contentHeightAfterTextChanged:
+ *  @see textView:newHeightAfterTextChanged:
  */
 @property(nonatomic, assign) BOOL autoResizable;
 
