@@ -122,7 +122,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     // 告诉 qqEmotionManager 输入框的光标位置发生变化，以保证表情插入在光标之后
-    self.qqEmotionManager.selectedRangeForBoundTextInput = self.textField.selectedRange;
+    self.qqEmotionManager.selectedRangeForBoundTextInput = self.textField.qmui_selectedRange;
     return YES;
 }
 
