@@ -12,11 +12,11 @@
 		165F42F91ADB60180057EF6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 165F42F81ADB60180057EF6A /* AppDelegate.m */; };
 		165F43011ADB60180057EF6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 165F43001ADB60180057EF6A /* Images.xcassets */; };
 		165F43041ADB60180057EF6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165F43021ADB60180057EF6A /* LaunchScreen.xib */; };
-		165F435F1ADB71FF0057EF6A /* image1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 165F43561ADB71FF0057EF6A /* image1@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
+		165F435F1ADB71FF0057EF6A /* image1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 165F43561ADB71FF0057EF6A /* image1@2x.png */; };
 		1679E3261DFF9E300072B8A1 /* QDToastListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3251DFF9E300072B8A1 /* QDToastListViewController.m */; };
 		1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */; };
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
-		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
+		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
 		6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D03A52F1B4AB63E003BDDE4 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD1229A71DF677AC003B9649 /* QDImagePreviewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229A61DF677AC003B9649 /* QDImagePreviewExampleViewController.m */; };
 		CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */; };
@@ -88,7 +88,7 @@
 		CDB8CA161DCC815A00769DF0 /* QDToolBarButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */; };
 		CDB8CA171DCC815A00769DF0 /* QDUIKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CD1DCC815A00769DF0 /* QDUIKitViewController.m */; };
 		CDB8CA181DCC815A00769DF0 /* QDUIViewQMUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */; };
-		CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81A1E0A88B600A38B96 /* image2@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
+		CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81A1E0A88B600A38B96 /* image2@2x.png */; };
 		CDD0D8201E0A88B600A38B96 /* image3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81B1E0A88B600A38B96 /* image3@2x.png */; };
 		CDD0D8211E0A88B600A38B96 /* image4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81C1E0A88B600A38B96 /* image4@2x.png */; };
 		CDD0D8221E0A88B600A38B96 /* image5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81D1E0A88B600A38B96 /* image5@2x.png */; };
@@ -714,9 +714,6 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = QD;
-				KnownAssetTags = (
-					"QMUI Lab",
-				);
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "QMUI Team";
 				TargetAttributes = {
