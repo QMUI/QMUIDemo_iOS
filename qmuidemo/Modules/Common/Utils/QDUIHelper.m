@@ -10,6 +10,13 @@
 
 @implementation QDUIHelper
 
++ (void)forceInterfaceOrientationPortrait {
+    if ([[UIDevice currentDevice] orientation] != UIDeviceOrientationPortrait) {
+        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    }
+}
+
 @end
 
 

@@ -41,23 +41,38 @@
     self.textField = [[QMUITextField alloc] init];
     self.textField.placeholder = @"请输入文字";
     self.textField.delegate = self;
+    
+    __weak __typeof(self)weakSelf = self;
+    self.textField.qmui_keyboardWillShowNotificationBlock = ^(QMUIKeyboardUserInfo *keyboardUserInfo) {
+        CGFloat keyboardHeight = [keyboardUserInfo heightInView:weakSelf.view];
+        if (keyboardHeight <= 0) {
+            return;
+        }
+        weakSelf.keyboardVisible = YES;
+        weakSelf.keyboardHeight = keyboardHeight;
+        NSTimeInterval duration = keyboardUserInfo.animationDuration;
+        UIViewAnimationOptions options = keyboardUserInfo.animationOptions;
+        [UIView animateWithDuration:duration delay:0 options:options animations:^{
+            [weakSelf.view setNeedsLayout];
+            [weakSelf.view layoutIfNeeded];
+        } completion:nil];
+    };
+    self.textField.qmui_keyboardWillHideNotificationBlock = ^(QMUIKeyboardUserInfo *keyboardUserInfo) {
+        weakSelf.keyboardHeight = 0;
+        weakSelf.keyboardVisible = NO;
+        NSTimeInterval duration = keyboardUserInfo.animationDuration;
+        UIViewAnimationOptions options = keyboardUserInfo.animationOptions;
+        [UIView animateWithDuration:duration delay:0 options:options animations:^{
+            [weakSelf.view setNeedsLayout];
+            [weakSelf.view layoutIfNeeded];
+        } completion:nil];
+    };
     [self.toolbar addSubview:self.textField];
     
     self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
     self.qqEmotionManager.boundTextField = self.textField;
     self.qqEmotionManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.view addSubview:self.qqEmotionManager.emotionView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -86,36 +101,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
-}
-
-#pragma mark - Keyboard
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    CGFloat keyboardHeight = [QMUIHelper keyboardHeightWithNotification:notification inView:self.view];
-    if (keyboardHeight <= 0) {
-        return;
-    }
-    self.keyboardVisible = YES;
-    self.keyboardHeight = keyboardHeight;
-    NSTimeInterval duration = [QMUIHelper keyboardAnimationDurationWithNotification:notification];
-    UIViewAnimationOptions options = [QMUIHelper keyboardAnimationOptionsWithNotification:notification];
-    [UIView animateWithDuration:duration delay:0 options:options animations:^{
-        // 因为这个界面的布局都是依赖于键盘的，所以这里直接触发viewDidLayoutSubviews
-        [self.view setNeedsLayout];
-        [self.view layoutIfNeeded];
-    } completion:nil];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    self.keyboardHeight = 0;
-    self.keyboardVisible = NO;
-    NSTimeInterval duration = [QMUIHelper keyboardAnimationDurationWithNotification:notification];
-    UIViewAnimationOptions options = [QMUIHelper keyboardAnimationOptionsWithNotification:notification];
-    [UIView animateWithDuration:duration delay:0 options:options animations:^{
-        // 因为这个界面的布局都是依赖于键盘的，所以这里直接触发viewDidLayoutSubviews
-        [self.view setNeedsLayout];
-        [self.view layoutIfNeeded];
-    } completion:nil];
 }
 
 #pragma mark - <QMUITextFieldDelegate>

@@ -12,11 +12,11 @@
 		165F42F91ADB60180057EF6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 165F42F81ADB60180057EF6A /* AppDelegate.m */; };
 		165F43011ADB60180057EF6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 165F43001ADB60180057EF6A /* Images.xcassets */; };
 		165F43041ADB60180057EF6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165F43021ADB60180057EF6A /* LaunchScreen.xib */; };
-		165F435F1ADB71FF0057EF6A /* image1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 165F43561ADB71FF0057EF6A /* image1@2x.png */; };
+		165F435F1ADB71FF0057EF6A /* image1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 165F43561ADB71FF0057EF6A /* image1@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
 		1679E3261DFF9E300072B8A1 /* QDToastListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3251DFF9E300072B8A1 /* QDToastListViewController.m */; };
 		1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */; };
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
-		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
+		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
 		6D03A5761B538E4C003BDDE4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D03A52F1B4AB63E003BDDE4 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD1229A71DF677AC003B9649 /* QDImagePreviewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229A61DF677AC003B9649 /* QDImagePreviewExampleViewController.m */; };
 		CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */; };
@@ -88,7 +88,7 @@
 		CDB8CA161DCC815A00769DF0 /* QDToolBarButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */; };
 		CDB8CA171DCC815A00769DF0 /* QDUIKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CD1DCC815A00769DF0 /* QDUIKitViewController.m */; };
 		CDB8CA181DCC815A00769DF0 /* QDUIViewQMUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */; };
-		CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81A1E0A88B600A38B96 /* image2@2x.png */; };
+		CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81A1E0A88B600A38B96 /* image2@2x.png */; settings = {ASSET_TAGS = ("QMUI Lab", ); }; };
 		CDD0D8201E0A88B600A38B96 /* image3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81B1E0A88B600A38B96 /* image3@2x.png */; };
 		CDD0D8211E0A88B600A38B96 /* image4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81C1E0A88B600A38B96 /* image4@2x.png */; };
 		CDD0D8221E0A88B600A38B96 /* image5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81D1E0A88B600A38B96 /* image5@2x.png */; };
@@ -101,6 +101,7 @@
 		CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADA1DAA6EE5000D5414 /* SystemConfiguration.framework */; };
 		CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */; };
 		CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */; };
+		FE5803331E949E1100159380 /* QDKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5803311E949E1100159380 /* QDKeyboardViewController.m */; };
 		FE775E3C1DF95728007A341F /* QDActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = FE775E3A1DF95728007A341F /* QDActivityIndicator.m */; };
 		FE7DC16A1D2265DC0057A06E /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */; };
 /* End PBXBuildFile section */
@@ -317,6 +318,8 @@
 		CDE50ADA1DAA6EE5000D5414 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		FE5803311E949E1100159380 /* QDKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDKeyboardViewController.m; sourceTree = "<group>"; };
+		FE5803321E949E1100159380 /* QDKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDKeyboardViewController.h; sourceTree = "<group>"; };
 		FE775E3A1DF95728007A341F /* QDActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActivityIndicator.m; sourceTree = "<group>"; };
 		FE775E3B1DF95728007A341F /* QDActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActivityIndicator.h; sourceTree = "<group>"; };
 		FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
@@ -550,6 +553,8 @@
 				1679E32D1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m */,
 				1679E32F1DFFC4610072B8A1 /* QDCustomToastContentView.h */,
 				1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */,
+				FE5803311E949E1100159380 /* QDKeyboardViewController.m */,
+				FE5803321E949E1100159380 /* QDKeyboardViewController.h */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -709,6 +714,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = QD;
+				KnownAssetTags = (
+					"QMUI Lab",
+				);
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "QMUI Team";
 				TargetAttributes = {
@@ -856,6 +864,7 @@
 				CDB8C9FF1DCC815A00769DF0 /* QDCollectionStackDemoViewController.m in Sources */,
 				CDB8C9E31DCC815A00769DF0 /* QDMoreOperationViewController.m in Sources */,
 				CDB8CA071DCC815A00769DF0 /* QDGhostButtonViewController.m in Sources */,
+				FE5803331E949E1100159380 /* QDKeyboardViewController.m in Sources */,
 				CDB8C9EE1DCC815A00769DF0 /* QDAllAnimationViewController.m in Sources */,
 				CDB8CA0A1DCC815A00769DF0 /* QDInterceptBackButtonEventViewController.m in Sources */,
 				CDB8CA0D1DCC815A00769DF0 /* QDNavigationButtonViewController.m in Sources */,

@@ -23,6 +23,7 @@
 #import "QDFloatLayoutViewController.h"
 #import "QDAboutViewController.h"
 #import "QDToastListViewController.h"
+#import "QDKeyboardViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -50,6 +51,7 @@
                        @"QMUIImagePreviewView", UIImageMake(@"icon_grid_previewImage"),
                        @"QMUIPieProgressView", UIImageMake(@"icon_grid_pieProgressView"),
                        @"QMUIPopupContainerView", UIImageMake(@"icon_grid_popupView"),
+                       @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
                        nil];
 }
 
@@ -99,6 +101,9 @@
     }
     else if ([title isEqualToString:@"QMUIDialogViewController"]) {
         viewController = [[QDDialogViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIKeyboardManager"]) {
+        viewController = [[QDKeyboardViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

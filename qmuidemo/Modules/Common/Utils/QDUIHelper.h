@@ -10,6 +10,8 @@
 
 @interface QDUIHelper : NSObject
 
++ (void)forceInterfaceOrientationPortrait;
+
 @end
 
 
