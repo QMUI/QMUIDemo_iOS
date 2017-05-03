@@ -61,21 +61,23 @@
     self.contentView.qmui_needsDifferentDebugColor = YES;
     [self.contentScrollView addSubview:self.contentView];
     
-    _contentLabel1 = [[UILabel alloc] init];
-    self.contentLabel1.text = @"第一段文字";
-    self.contentLabel1.font = UIFontMake(16);
+    _contentLabel1 = [[UILabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
     [self.contentView addSubview:self.contentLabel1];
     
-    _contentLabel2 = [[UILabel alloc] init];
-    self.contentLabel2.text = @"第二段文字";
-    self.contentLabel2.font = UIFontMake(16);
+    _contentLabel2 = [[UILabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
     [self.contentView addSubview:self.contentLabel2];
     
-    _contentLabel3 = [[UILabel alloc] init];
-    self.contentLabel3.text = @"第三段文字";
-    self.contentLabel3.font = UIFontMake(16);
+    _contentLabel3 = [[UILabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
     [self.contentView addSubview:self.contentLabel3];
     
+    CGFloat labelMinY = 16;
+    for (NSInteger i = 0; i < self.contentView.subviews.count; i ++) {
+        UILabel *label = (UILabel *)self.contentView.subviews[i];
+        label.text = [NSString stringWithFormat:@"subview%@", @(i + 1)];
+        [label sizeToFit];
+        label.frame = CGRectSetXY(label.frame, 16 * (i + 1), labelMinY);
+        labelMinY = CGRectGetMaxY(label.frame) + 16;
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -91,15 +93,6 @@
     self.descriptionLabel2.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.descriptionLabel1.frame) + 24, contentWidth, descriptionLabel2Size.height);
     
     self.contentView.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.descriptionLabel2.frame) + 24, contentWidth, 120);
-    
-    [self.contentLabel1 sizeToFit];
-    self.contentLabel1.frame = CGRectFlatMake(20, 20, CGRectGetWidth(self.contentLabel1.bounds), CGRectGetHeight(self.contentLabel1.bounds));
-    
-    [self.contentLabel2 sizeToFit];
-    self.contentLabel2.frame = CGRectFlatMake(30, CGRectGetMaxY(self.contentLabel1.frame) + 10, CGRectGetWidth(self.contentLabel2.bounds), CGRectGetHeight(self.contentLabel2.bounds));
-    
-    [self.contentLabel3 sizeToFit];
-    self.contentLabel3.frame = CGRectFlatMake(40, CGRectGetMaxY(self.contentLabel2.frame) + 10, CGRectGetWidth(self.contentLabel3.bounds), CGRectGetHeight(self.contentLabel3.bounds));
     
     self.contentScrollView.frame = self.view.bounds;
     self.contentScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentScrollView.bounds), CGRectGetMaxY(self.contentView.frame) + 24);

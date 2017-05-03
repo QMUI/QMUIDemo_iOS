@@ -41,7 +41,7 @@
     // 图片+文字按钮
     self.imagePositionButton1 = [[QMUIButton alloc] init];
     self.imagePositionButton1.imagePosition = QMUIButtonImagePositionTop;// 将图片位置改为在文字上方
-    self.imagePositionButton1.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 8, 0);
+    self.imagePositionButton1.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton1 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
     [self.imagePositionButton1 setTitle:@"图片在上方的按钮" forState:UIControlStateNormal];
     [self.imagePositionButton1 setTitleColor:UIColorBlue forState:UIControlStateNormal];
@@ -51,7 +51,7 @@
     
     self.imagePositionButton2 = [[QMUIButton alloc] init];
     self.imagePositionButton2.imagePosition = QMUIButtonImagePositionBottom;// 将图片位置改为在文字下方
-    self.imagePositionButton2.imageEdgeInsets = UIEdgeInsetsMake(8, 0, 0, 0);
+    self.imagePositionButton2.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton2 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
     [self.imagePositionButton2 setTitle:@"图片在下方的按钮" forState:UIControlStateNormal];
     [self.imagePositionButton2 setTitleColor:UIColorBlue forState:UIControlStateNormal];

@@ -74,6 +74,7 @@
     BOOL needsChangeHeight = CGRectGetHeight(textView.frame) != height;
     if (needsChangeHeight) {
         [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
     }
 }
 

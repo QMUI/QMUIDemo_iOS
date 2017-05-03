@@ -27,9 +27,6 @@
     // 启动QMUI的配置模板
     [QMUIConfigurationTemplate setupConfigurationTemplate];
     
-    // 将全局的控件样式渲染出来
-    [QMUIConfigurationManager renderGlobalAppearances];
-    
     // QD自定义的全局样式渲染
     [QDCommonUI renderGlobalAppearances];
     
