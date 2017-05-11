@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 
-#import "QMUIConfigurationTemplate.h"
+#import "QMUIConfigurationTemplateGrass.h"
 #import <QMUIKit/QMUIKit.h>
 
-@implementation QMUIConfigurationTemplate
+@implementation QMUIConfigurationTemplateGrass
 
 #pragma mark - <QDThemeProtocol>
 
@@ -78,15 +78,15 @@
     QMUICMI.navBarDisabledAlpha = 0.2f;                                         // NavBarDisabledAlpha : QMUINavigationButton 在 disabled 时的 alpha
     QMUICMI.navBarButtonFont = UIFontMake(17);                                  // NavBarButtonFont : QMUINavigationButton 的字体
     QMUICMI.navBarButtonFontBold = UIFontBoldMake(17);                          // NavBarButtonFontBold : QMUINavigationButtonTypeBold 的字体
-    QMUICMI.navBarBackgroundImage = [UIImageMake(@"navigationbar_background") resizableImageWithCapInsets:UIEdgeInsetsMake(0, 2, 0, 2)];                                        // NavBarBackgroundImage : UINavigationBar 的背景图
+    QMUICMI.navBarBackgroundImage = [QDUIHelper navigationBarBackgroundImageWithThemeColor:self.themeTintColor]; // NavBarBackgroundImage : UINavigationBar 的背景图
     QMUICMI.navBarShadowImage = [UIImage new];                                  // NavBarShadowImage : UINavigationBar.shadowImage，也即导航栏底部那条分隔线
     QMUICMI.navBarBarTintColor = nil;                                           // NavBarBarTintColor : UINavigationBar.barTintColor，也即背景色
     QMUICMI.navBarTintColor = UIColorWhite;                                     // NavBarTintColor : UINavigationBar 的 tintColor，也即导航栏上面的按钮颜色
     QMUICMI.navBarTitleColor = NavBarTintColor;                                 // NavBarTitleColor : UINavigationBar 的标题颜色，以及 QMUINavigationTitleView 的默认文字颜色
     QMUICMI.navBarTitleFont = UIFontBoldMake(17);                               // NavBarTitleFont : UINavigationBar 的标题字体，以及 QMUINavigationTitleView 的默认字体
     QMUICMI.navBarBackButtonTitlePositionAdjustment = UIOffsetZero;             // NavBarBarBackButtonTitlePositionAdjustment : 导航栏返回按钮的文字偏移
-    QMUICMI.navBarBackIndicatorImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavBack size:CGSizeMake(12, 20) tintColor:NavBarTintColor];                                     // NavBarBackIndicatorImage : 导航栏的返回按钮的图片
-    QMUICMI.navBarCloseButtonImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:NavBarTintColor];     // NavBarCloseButtonImage : QMUINavigationButton 用到的 × 的按钮图片
+    QMUICMI.navBarBackIndicatorImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavBack size:CGSizeMake(12, 20) tintColor:NavBarTintColor];   // NavBarBackIndicatorImage : 导航栏的返回按钮的图片
+    QMUICMI.navBarCloseButtonImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:NavBarTintColor];    // NavBarCloseButtonImage : QMUINavigationButton 用到的 × 的按钮图片
     
     QMUICMI.navBarLoadingMarginRight = 3;                                       // NavBarLoadingMarginRight : QMUINavigationTitleView 里左边 loading 的右边距
     QMUICMI.navBarAccessoryViewMarginLeft = 5;                                  // NavBarAccessoryViewMarginLeft : QMUINavigationTitleView 里右边 accessoryView 的左边距
@@ -98,7 +98,7 @@
     QMUICMI.tabBarBackgroundImage = [UIImage qmui_imageWithColor:UIColorMake(249, 249, 249)];   // TabBarBackgroundImage : UITabBar 的背景图
     QMUICMI.tabBarBarTintColor = nil;                                           // TabBarBarTintColor : UITabBar 的 barTintColor
     QMUICMI.tabBarShadowImageColor = UIColorSeparator;                          // TabBarShadowImageColor : UITabBar 的 shadowImage 的颜色，会自动创建一张 1px 高的图片
-    QMUICMI.tabBarTintColor = UIColorMake(4, 189, 231);                         // TabBarTintColor : UITabBar 的 tintColor
+    QMUICMI.tabBarTintColor = self.themeTintColor;                              // TabBarTintColor : UITabBar 的 tintColor
     QMUICMI.tabBarItemTitleColor = UIColorGray6;                                // TabBarItemTitleColor : 未选中的 UITabBarItem 的标题颜色
     QMUICMI.tabBarItemTitleColorSelected = TabBarTintColor;                     // TabBarItemTitleColorSelected : 选中的 UITabBarItem 的标题颜色
     
@@ -178,7 +178,7 @@
 }
 
 - (UIColor *)themeTintColor {
-    return UIColorBlue;
+    return UIColorTheme4;
 }
 
 - (UIColor *)themeListTextColor {
@@ -190,11 +190,11 @@
 }
 
 - (UIColor *)themeGridItemTintColor {
-    return nil;
+    return self.themeTintColor;
 }
 
 - (NSString *)themeName {
-    return @"Default";
+    return @"Grass";
 }
 
 @end

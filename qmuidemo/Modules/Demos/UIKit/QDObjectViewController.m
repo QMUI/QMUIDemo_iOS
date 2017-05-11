@@ -71,6 +71,9 @@
      4. 最终权重越高者排序越靠前
      */
     
+    className = className.lowercaseString;
+    searchString = searchString.lowercaseString;
+    
     if ([className isEqualToString:searchString]) {
         return 1;
     }
@@ -107,7 +110,7 @@
     NSString *className = self.autocompletionClasses[indexPath.row];
     NSRange matchingRange = [className.lowercaseString rangeOfString:self.searchBar.text.lowercaseString];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:className attributes:@{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1}];
-    [attributedString addAttribute:NSForegroundColorAttributeName value:UIColorBlue range:matchingRange];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[QDThemeManager sharedInstance].currentTheme.themeTintColor range:matchingRange];
     cell.textLabel.attributedText = attributedString;
     [cell updateCellAppearanceWithIndexPath:indexPath];
     return cell;
@@ -136,7 +139,13 @@
         [self.autocompletionClasses sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
             double matchingWeight1 = [self matchingWeightForResult:obj1 withSearchString:searchString];
             double matchingWeight2 = [self matchingWeightForResult:obj2 withSearchString:searchString];
-            return matchingWeight1 == matchingWeight2 ? NSOrderedSame : (matchingWeight1 > matchingWeight2 ? NSOrderedAscending : NSOrderedDescending);
+            NSComparisonResult result = matchingWeight1 == matchingWeight2 ? NSOrderedSame : (matchingWeight1 > matchingWeight2 ? NSOrderedAscending : NSOrderedDescending);
+            if ([obj1 isEqualToString:@"PLUIView"] && [obj2 isEqualToString:@"UIViewAnimation"]) {
+                NSLog(@"1, searchString = %@, %@ vs. %@ = %.3f, %.3f", searchString, obj1, obj2, matchingWeight1, matchingWeight2);
+            } else if ([obj1 isEqualToString:@"UIViewAnimation"] && [obj2 isEqualToString:@"PLUIView"]) {
+                NSLog(@"2, searchString = %@, %@ vs. %@ = %.3f, %.3f", searchString, obj1, obj2, matchingWeight1, matchingWeight2);
+            }
+            return result;
         }];
     }
     

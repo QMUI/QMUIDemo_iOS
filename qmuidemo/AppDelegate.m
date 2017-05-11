@@ -15,25 +15,22 @@
 #import "QDComponentsViewController.h"
 #import "QDLabViewController.h"
 #import "QMUIConfigurationTemplate.h"
-
-@interface AppDelegate ()
-
-@end
+#import "QMUIConfigurationTemplateGrapefruit.h"
+#import "QMUIConfigurationTemplateGrass.h"
+#import "QMUIConfigurationTemplatePinkRose.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // 启动QMUI的配置模板
-    [QMUIConfigurationTemplate setupConfigurationTemplate];
+    // 应用 QMUI Demo 皮肤
+    NSString *themeClassName = [[NSUserDefaults standardUserDefaults] stringForKey:QDSelectedThemeClassName] ?: NSStringFromClass([QMUIConfigurationTemplate class]);
+    [QDThemeManager sharedInstance].currentTheme = [[NSClassFromString(themeClassName) alloc] init];
     
     // QD自定义的全局样式渲染
     [QDCommonUI renderGlobalAppearances];
     
-    // 将状态栏设置为希望的样式
-    [QMUIHelper renderStatusBarStyleLight];
-    
-    // 预加载 QQ 表情，避免第一次使用时卡顿
+    // 预加载 QQ 表情，避免第一次使用时卡顿（可选）
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [QMUIQQEmotionManager emotionsForQQ];
     });

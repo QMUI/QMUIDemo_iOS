@@ -30,7 +30,10 @@
 #define UIColorTheme8 UIColorMake(172, 143, 239) // Lavender
 #define UIColorTheme9 UIColorMake(238, 133, 193) // Pink Rose
 
+extern NSString *const QDSelectedThemeClassName;
+
 #define CodeFontMake(_pointSize) [UIFont fontWithName:@"Menlo" size:_pointSize]
+#define CodeAttributes(_fontSize) @{NSFontAttributeName: CodeFontMake(_fontSize), NSForegroundColorAttributeName: [QDThemeManager sharedInstance].currentTheme.themeCodeColor}
 
 /// QMUIButton 系列 Demo 里的一行高度
 extern const CGFloat QDButtonSpacingHeight;

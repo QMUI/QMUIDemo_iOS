@@ -75,6 +75,14 @@
     UIImage *image = (UIImage *)[self.dataSource objectForKey:keyName];
     
     QDCommonGridButton *button = [[QDCommonGridButton alloc] init];
+    UIColor *tintColor = [QDThemeManager sharedInstance].currentTheme.themeGridItemTintColor;
+    if (tintColor) {
+        button.tintColor = tintColor;
+        button.adjustsImageTintColorAutomatically = YES;
+    } else {
+        button.tintColor = nil;
+        button.adjustsImageTintColorAutomatically = NO;
+    }
     [button setAttributedTitle:attributedString forState:UIControlStateNormal];
     [button setImage:image forState:UIControlStateNormal];
     button.tag = index;
@@ -85,6 +93,22 @@
 - (void)handleGirdButtonEvent:(QDCommonGridButton *)button {
     NSString *keyName = self.dataSource.allKeys[button.tag];
     [self didSelectCellWithTitle:keyName];
+}
+
+#pragma mark - <QDChangingThemeDelegate>
+
+- (void)themeBeforeChanged:(NSObject<QDThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<QDThemeProtocol> *)themeAfterChanged {
+    [super themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
+    for (QDCommonGridButton *button in self.gridView.subviews) {
+        UIColor *tintColor = themeAfterChanged.themeGridItemTintColor;
+        if (tintColor) {
+            button.tintColor = tintColor;
+            button.adjustsImageTintColorAutomatically = YES;
+        } else {
+            button.tintColor = nil;
+            button.adjustsImageTintColorAutomatically = NO;
+        }
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "QDLabViewController.h"
+#import "QDThemeViewController.h"
 #import "QDAnimationViewController.h"
 #import "QDAllSystemFontsViewController.h"
 #import "QDFontPointSizeAndLineHeightViewController.h"
@@ -21,6 +22,7 @@
     [super initDataSource];
     self.dataSource = @[@"All System Fonts",
                         @"Default Line Height",
+                        @"Theme",
                         @"Animation",
                         ];
 }
@@ -31,6 +33,8 @@
         viewController = [[QDAllSystemFontsViewController alloc] init];
     } else if ([title isEqualToString:@"Default Line Height"]) {
         viewController = [[QDFontPointSizeAndLineHeightViewController alloc] init];
+    } else if ([title isEqualToString:@"Theme"]) {
+        viewController = [[QDThemeViewController alloc] init];
     } else if ([title isEqualToString:@"Animation"]) {
         viewController = [[QDAnimationViewController alloc] init];
     }

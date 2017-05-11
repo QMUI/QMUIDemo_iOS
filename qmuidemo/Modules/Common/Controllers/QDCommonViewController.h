@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 
-#import "QDCommonViewController.h"
+#import "QDThemeProtocol.h"
 
-@interface QDCommonViewController : QMUICommonViewController
+@interface QDCommonViewController : QMUICommonViewController <QDChangingThemeDelegate>
 
 @end

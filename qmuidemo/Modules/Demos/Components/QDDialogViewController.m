@@ -109,7 +109,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     QMUIDialogViewController *dialogViewController = [[QMUIDialogViewController alloc] init];
     dialogViewController.title = @"标题";
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
-    contentView.backgroundColor = UIColorBlue;
+    contentView.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorWhite];
     label.text = @"自定义contentView";
     [label sizeToFit];
@@ -123,11 +123,15 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     }];
     
     // 自定义样式
-    dialogViewController.headerViewBackgroundColor = UIColorBlue;
+    dialogViewController.headerViewBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     dialogViewController.headerFooterSeparatorColor = UIColorClear;
     dialogViewController.titleTintColor = UIColorWhite;
     dialogViewController.titleView.horizontalTitleFont = UIFontBoldMake(17);
-    [dialogViewController.submitButton setImage:[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] forState:UIControlStateNormal];
+    dialogViewController.buttonHighlightedBackgroundColor = [dialogViewController.headerViewBackgroundColor qmui_colorWithAlphaAddedToWhite:.3];
+    NSMutableDictionary *buttonTitleAttributes = dialogViewController.buttonTitleAttributes.mutableCopy;
+    buttonTitleAttributes[NSForegroundColorAttributeName] = dialogViewController.headerViewBackgroundColor;
+    dialogViewController.buttonTitleAttributes = buttonTitleAttributes;
+    [dialogViewController.submitButton setImage:[[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:buttonTitleAttributes[NSForegroundColorAttributeName]] forState:UIControlStateNormal];
     dialogViewController.submitButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
     [dialogViewController show];

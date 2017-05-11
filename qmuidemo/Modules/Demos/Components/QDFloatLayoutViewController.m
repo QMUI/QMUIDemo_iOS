@@ -27,7 +27,8 @@
     
     NSArray<NSString *> *suggestions = @[@"东野圭吾", @"三体", @"爱", @"红楼梦", @"理智与情感", @"读书热榜", @"免费榜"];
     for (NSInteger i = 0; i < suggestions.count; i++) {
-        QMUIGhostButton *button = [[QMUIGhostButton alloc] initWithGhostType:QMUIGhostButtonColorGray];
+        QMUIGhostButton *button = [[QMUIGhostButton alloc] init];
+        button.ghostColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
         [button setTitle:suggestions[i] forState:UIControlStateNormal];
         button.titleLabel.font = UIFontMake(14);
         button.contentEdgeInsets = UIEdgeInsetsMake(6, 20, 6, 20);

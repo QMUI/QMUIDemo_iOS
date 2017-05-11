@@ -9,6 +9,8 @@
 #import "QDCommonUI.h"
 #import "QDUIHelper.h"
 
+NSString *const QDSelectedThemeClassName = @"selectedThemeClassName";
+
 const CGFloat QDButtonSpacingHeight = 72;
 
 @implementation QDCommonUI

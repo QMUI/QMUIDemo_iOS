@@ -56,8 +56,8 @@
     button.adjustsButtonWhenHighlighted = YES;
     button.titleLabel.font = UIFontBoldMake(14);
     [button setTitleColor:UIColorWhite forState:UIControlStateNormal];
-    button.backgroundColor = UIColorBlue;
-    button.highlightedBackgroundColor = UIColorMake(0, 168, 225);// 高亮时的背景色
+    button.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorBlack progress:.15];// 高亮时的背景色
     button.layer.cornerRadius = 4;
     return button;
 }
@@ -65,13 +65,13 @@
 + (QMUIButton *)generateLightBorderedButton {
     QMUIButton *button = [[QMUIButton alloc] initWithFrame:CGRectMakeWithSize(CGSizeMake(200, 40))];
     button.titleLabel.font = UIFontBoldMake(14);
-    [button setTitleColor:UIColorBlue forState:UIControlStateNormal];
-    button.backgroundColor = UIColorMake(235, 249, 255);
-    button.highlightedBackgroundColor = UIColorMake(211, 239, 252);// 高亮时的背景色
-    button.layer.borderColor = UIColorMake(142, 219, 249).CGColor;
+    [button setTitleColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor forState:UIControlStateNormal];
+    button.backgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorWhite progress:.9];
+    button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorWhite progress:.75];// 高亮时的背景色
+    button.layer.borderColor = [button.backgroundColor qmui_transitionToColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor progress:.5].CGColor;
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 4;
-    button.highlightedBorderColor = UIColorMake(0, 168, 225);// 高亮时的边框颜色
+    button.highlightedBorderColor = [button.backgroundColor qmui_transitionToColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor progress:.9];// 高亮时的边框颜色
     return button;
 }
 
@@ -128,6 +128,26 @@
         strSize = [NSString stringWithFormat:@"%.2fB", size / 1.0f];
     }
     return strSize;
+}
+
+@end
+
+
+@implementation QDUIHelper (Theme)
+
++ (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color {
+    CGSize size = CGSizeMake(4, 64);
+    UIImage *resultImage = nil;
+    color = color ? color : UIColorClear;
+    
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[color qmui_colorWithAlphaAddedToWhite:.86].CGColor], NULL);
+    CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
+    
+    resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
 }
 
 @end

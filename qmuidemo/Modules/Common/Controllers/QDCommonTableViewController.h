@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 
-@interface QDCommonTableViewController : QMUICommonTableViewController
+#import "QDThemeProtocol.h"
+
+@interface QDCommonTableViewController : QMUICommonTableViewController <QDChangingThemeDelegate>
 
 @end

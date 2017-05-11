@@ -24,35 +24,36 @@
 - (void)initSubviews {
     [super initSubviews];
     
-    self.linkButton1 = [[QMUILinkButton alloc] init];
-    self.linkButton1.titleLabel.font = UIFontMake(15);
-    [self.linkButton1 setTitle:@"带下划线的按钮" forState:UIControlStateNormal];
-    [self.linkButton1 sizeToFit];
+    self.linkButton1 = [self generateLinkButtonWithTitle:@"带下划线的按钮"];
     [self.view addSubview:self.linkButton1];
     
     self.separatorLayer1 = [QDCommonUI generateSeparatorLayer];
     [self.view.layer addSublayer:self.separatorLayer1];
     
-    self.linkButton2 = [[QMUILinkButton alloc] init];
-    self.linkButton2.titleLabel.font = UIFontMake(15);
-    [self.linkButton2 setTitle:@"修改下划线颜色" forState:UIControlStateNormal];
-    self.linkButton2.underlineColor = UIColorTheme4;
-    [self.linkButton2 sizeToFit];
+    self.linkButton2 = [self generateLinkButtonWithTitle:@"修改下划线颜色"];
+    self.linkButton2.underlineColor = UIColorTheme8;
     [self.view addSubview:self.linkButton2];
     
     self.separatorLayer2 = [QDCommonUI generateSeparatorLayer];
     [self.view.layer addSublayer:self.separatorLayer2];
     
-    self.linkButton3 = [[QMUILinkButton alloc] init];
-    self.linkButton3.titleLabel.font = UIFontMake(15);
-    [self.linkButton3 setTitle:@"修改下划线的位置" forState:UIControlStateNormal];
+    self.linkButton3 = [self generateLinkButtonWithTitle:@"修改下划线的位置"];
     self.linkButton3.underlineInsets = UIEdgeInsetsMake(0, 32, 0, 46);
-    [self.linkButton3 sizeToFit];
     [self.view addSubview:self.linkButton3];
     
     self.separatorLayer3 = [QDCommonUI generateSeparatorLayer];
     [self.view.layer addSublayer:self.separatorLayer3];
     
+}
+
+- (QMUILinkButton *)generateLinkButtonWithTitle:(NSString *)title {
+    QMUILinkButton *linkButton = [[QMUILinkButton alloc] init];
+    linkButton.adjustsTitleTintColorAutomatically = YES;
+    linkButton.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    linkButton.titleLabel.font = UIFontMake(15);
+    [linkButton setTitle:title forState:UIControlStateNormal];
+    [linkButton sizeToFit];
+    return linkButton;
 }
 
 - (void)viewDidLayoutSubviews {

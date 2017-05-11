@@ -10,6 +10,7 @@
 
 @interface QDAboutViewController ()
 
+@property(nonatomic, strong) UIImage *themeAboutLogoImage;
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIImageView *logoImageView;
 @property(nonatomic, strong) UILabel *versionLabel;
@@ -21,13 +22,30 @@
 
 @implementation QDAboutViewController
 
+- (void)didInitialized {
+    [super didInitialized];
+    
+    NSString *imagePath = [[NSUserDefaults standardUserDefaults] objectForKey:[self userDefaultsKeyForAboutLogoImage]];
+    if (imagePath) {
+        UIImage *aboutLogoImage = [UIImage imageWithContentsOfFile:imagePath];
+        self.themeAboutLogoImage = aboutLogoImage;
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
+            UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+            [self saveImageAsFile:blendedAboutLogoImage];
+            self.themeAboutLogoImage = blendedAboutLogoImage;
+        });
+    }
+}
+
 - (void)initSubviews {
     [super initSubviews];
     
     self.scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:self.scrollView];
     
-    self.logoImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"about_logo")];
+    self.logoImageView = [[UIImageView alloc] initWithImage:self.themeAboutLogoImage ?: UIImageMake(@"about_logo_monochrome")];
     [self.scrollView addSubview:self.logoImageView];
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -57,6 +75,22 @@
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.themeAboutLogoImage && self.logoImageView.image != self.themeAboutLogoImage) {
+        UIImageView *templateImageView = [[UIImageView alloc] initWithFrame:self.logoImageView.bounds];
+        templateImageView.image = self.themeAboutLogoImage;
+        templateImageView.alpha = 0;
+        [self.logoImageView addSubview:templateImageView];
+        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            templateImageView.alpha = 1;
+        } completion:^(BOOL finished) {
+            self.logoImageView.image = self.themeAboutLogoImage;
+            [templateImageView removeFromSuperview];
+        }];
+    }
+}
+
 - (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
     [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
     self.title = @"关于";
@@ -65,7 +99,7 @@
 - (QMUIButton *)generateCellButtonWithTitle:(NSString *)title {
     QMUIButton *button = [[QMUIButton alloc] init];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:TableViewCellTitleLabelColor forState:UIControlStateNormal];
+    [button setTitleColor:TableViewCellTitleLabelColor ?: UIColorBlack forState:UIControlStateNormal];
     button.titleLabel.font = UIFontMake(15);
     button.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
     button.qmui_borderColor = TableViewSeparatorColor;
@@ -122,6 +156,22 @@
         self.copyrightLabel.frame = CGRectFlatMake(padding.left, CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - padding.bottom - copyrightLabelHeight, copyrightLabelWidth, copyrightLabelHeight);
         
         self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds), CGRectGetMaxY(self.copyrightLabel.frame) + padding.bottom);
+    }
+}
+
+- (NSString *)userDefaultsKeyForAboutLogoImage {
+    return [NSString stringWithFormat:@"about_logo_%@@%.0fx.png", [QDThemeManager sharedInstance].currentTheme.themeName, ScreenScale];
+}
+
+- (void)saveImageAsFile:(UIImage *)image {
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths.firstObject;
+    NSString *imageName = [self userDefaultsKeyForAboutLogoImage];
+    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+    
+    if ([imageData writeToFile:imagePath atomically:NO]) {
+        [[NSUserDefaults standardUserDefaults] setObject:imagePath forKey:imageName];
     }
 }
 

@@ -26,10 +26,12 @@
     [super initSubviews];
     
     _fillButton1 = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorBlue];
+    self.fillButton1.titleLabel.font = UIFontMake(14);
     [self.fillButton1 setTitle:@"QMUIFillButtonColorBlue" forState:UIControlStateNormal];
     [self.view addSubview:self.fillButton1];
     
     _fillButton2 = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorRed];
+    self.fillButton2.titleLabel.font = UIFontMake(14);
     // 默认点击态是半透明处理，如果需要点击态是其他颜色，修改下面两个属性
     // self.fillButton2.adjustsButtonWhenHighlighted = NO;
     // self.fillButton2.highlightedBackgroundColor = UIColorMake(70, 160, 242);
@@ -37,6 +39,7 @@
     [self.view addSubview:self.fillButton2];
     
     _fillButton3 = [[QMUIFillButton alloc] initWithFillType:QMUIFillButtonColorGreen];
+    self.fillButton3.titleLabel.font = UIFontMake(14);
     [self.fillButton3 setTitle:@"点击修改按钮fillColor" forState:UIControlStateNormal];
     [self.fillButton3 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
     self.fillButton3.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);

@@ -86,7 +86,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [QMUIHelper staticTableView:tableView cellForRowAtIndexPath:indexPath withDataSource:self.dataSource];
+    UITableViewCell *cell = [QMUIHelper staticTableView:tableView cellForRowAtIndexPath:indexPath withDataSource:self.dataSource];
+    if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
+        UISwitch *switchControl = (UISwitch *)cell.accessoryView;
+        switchControl.onTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+        switchControl.tintColor = switchControl.onTintColor;
+    }
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

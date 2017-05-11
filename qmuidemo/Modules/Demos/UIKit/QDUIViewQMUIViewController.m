@@ -33,7 +33,7 @@
     [self.view addSubview:self.contentScrollView];
     
     NSMutableAttributedString *describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_borderPosition、qmui_borderWidth 和 qmui_borderColor 给任意的 UIView 加边框" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
-    NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
+    NSDictionary *codeAttributes = CodeAttributes(16);
     [describeAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [describeAttributedString addAttributes:codeAttributes range:codeRange];
     }];
@@ -45,7 +45,7 @@
     [self.contentScrollView addSubview:self.descriptionLabel1];
     
     describeAttributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
-    codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
+    codeAttributes = CodeAttributes(16);
     [describeAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [describeAttributedString addAttributes:codeAttributes range:codeRange];
     }];

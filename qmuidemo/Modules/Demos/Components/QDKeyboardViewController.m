@@ -197,7 +197,7 @@ static CGFloat const kEmotionViewHeight = 232;
     _contentLabel = [[QMUILabel alloc] init];
     self.contentLabel.numberOfLines = 0;
     NSMutableAttributedString *contentAttributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIKeyboardManager 以更方便的方式管理键盘事件，无需再关心 notification、键盘坐标转换、判断是否目标输入框等问题，并兼容 iPad 浮动键盘和外接键盘。\nQMUIKeyboardManager 有两种使用方式，一种是直接使用，一种是集成到 UITextField(QMUI) 及 UITextView(QMUI) 内。" attributes:@{NSFontAttributeName:UIFontMake(16),NSForegroundColorAttributeName:UIColorGray1,NSParagraphStyleAttributeName:[NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24 lineBreakMode:NSLineBreakByCharWrapping]}];
-    NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(16), NSForegroundColorAttributeName: UIColorBlue};
+    NSDictionary *codeAttributes = CodeAttributes(16);
     [contentAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         if (![codeString isEqualToString:@"notification"] && ![codeString isEqualToString:@"iPad"]) {
             [contentAttributedString addAttributes:codeAttributes range:codeRange];

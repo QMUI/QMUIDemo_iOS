@@ -111,7 +111,7 @@
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
         NSRange range = [keyword rangeOfString:self.mySearchController.searchBar.text];
         if (range.location != NSNotFound) {
-            [attributedString addAttributes:@{NSForegroundColorAttributeName: UIColorBlue} range:range];
+            [attributedString addAttributes:@{NSForegroundColorAttributeName: [QDThemeManager sharedInstance].currentTheme.themeTintColor} range:range];
         }
         cell.textLabel.attributedText = attributedString;
     }

@@ -75,7 +75,7 @@
     // 使用方法 1，以 addSubview: 的形式显示到界面上
     self.popupView1 = [[QMUIPopupContainerView alloc] init];
     self.popupView1.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupView1.safetyMarginsOfSuperview, NavigationContentTop + 10);
-    self.popupView1.imageView.image = [UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill];
+    self.popupView1.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
     self.popupView1.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
     self.popupView1.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     self.popupView1.didHideBlock = ^(BOOL hidesByUserTap) {
@@ -95,17 +95,17 @@
     // 使用方法 2，以 UIWindow 的形式显示到界面上，这种无需默认隐藏，也无需 add 到某个 UIView 上
     self.popupView2 = [[QMUIPopupMenuView alloc] init];
     self.popupView2.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
-    self.popupView3.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
+    self.popupView2.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
     self.popupView2.maximumWidth = 180;
     self.popupView2.shouldShowItemSeparator = YES;
     self.popupView2.separatorInset = UIEdgeInsetsMake(0, self.popupView2.padding.left, 0, self.popupView2.padding.right);
-    self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_tabbar_uikit") title:@"QMUIKit" handler:^{
+    self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^{
                                   [weakSelf.popupView2 hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_tabbar_component") title:@"Components" handler:^{
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^{
                                   [weakSelf.popupView2 hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:UIImageMake(@"icon_tabbar_lab") title:@"Lab" handler:^{
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^{
                                   [weakSelf.popupView2 hideWithAnimated:YES];
                               }]];
     self.popupView2.didHideBlock = ^(BOOL hidesByUserTap) {
