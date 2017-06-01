@@ -134,7 +134,7 @@
         self.imageView.contentMode = UIViewContentModeCenter;
         self.titleLabel.numberOfLines = 2;
         self.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
-        self.qmui_needsTakeOverTouchEvent = YES;
+        self.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
         self.qmui_borderPosition = QMUIBorderViewPositionRight | QMUIImageBorderPositionBottom;
     }
     return self;

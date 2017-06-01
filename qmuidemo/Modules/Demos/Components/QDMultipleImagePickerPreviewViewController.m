@@ -65,6 +65,11 @@
     [super viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateOriginImageCheckboxButtonIfNeed];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat bottomToolBarPaddingHorizontal = 12.0f;
@@ -74,14 +79,23 @@
     _originImageCheckboxButton.frame = CGRectSetXY(_originImageCheckboxButton.frame, bottomToolBarPaddingHorizontal, CGFloatGetCenter(CGRectGetHeight(_bottomToolBarView.frame), CGRectGetHeight(_originImageCheckboxButton.frame)));
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)singleTouchInZoomingImageView:(QMUIZoomImageView *)zoomImageView location:(CGPoint)location {
     [super singleTouchInZoomingImageView:zoomImageView location:location];
     _bottomToolBarView.hidden = !_bottomToolBarView.hidden;
+}
+
+- (void)zoomImageView:(QMUIZoomImageView *)imageView didHideVideoToolbar:(BOOL)didHide {
+    [super zoomImageView:imageView didHideVideoToolbar:didHide];
+    _bottomToolBarView.hidden = didHide;
+}
+
+- (void)setDownloadStatus:(QMUIAssetDownloadStatus)downloadStatus {
+    [super setDownloadStatus:downloadStatus];
+    if (downloadStatus == QMUIAssetDownloadStatusSucceed) {
+        _originImageCheckboxButton.enabled = YES;
+    } else {
+        _originImageCheckboxButton.enabled = NO;
+    }
 }
 
 - (void)handleSendButtonClick:(id)sender {
@@ -102,14 +116,25 @@
     if (button.selected) {
         button.selected = NO;
         [button setTitle:@"原图" forState:UIControlStateNormal];
+        [button sizeToFit];
+        [_bottomToolBarView setNeedsLayout];
     } else {
         button.selected = YES;
-        QMUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:self.imagePreviewView.currentImageIndex];
-        [button setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:[imageAsset assetSize]]] forState:UIControlStateNormal];
+        [self updateOriginImageCheckboxButtonIfNeed];
+
     }
-    [button sizeToFit];
-    [_bottomToolBarView setNeedsLayout];
     self.shouldUseOriginImage = button.selected;
+}
+
+- (void)updateOriginImageCheckboxButtonIfNeed {
+    if (_originImageCheckboxButton.selected) {
+        QMUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:self.imagePreviewView.currentImageIndex];
+        [imageAsset assetSize:^(long long size) {
+            [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:size]] forState:UIControlStateNormal];
+            [_originImageCheckboxButton sizeToFit];
+            [_bottomToolBarView setNeedsLayout];
+        }];
+    }
 }
 
 #pragma mark - <QMUIImagePreviewViewDelegate>
@@ -118,9 +143,11 @@
     [super imagePreviewView:imagePreviewView willScrollHalfToIndex:index];
     if (_originImageCheckboxButton.selected) {
         QMUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:index];
-        [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:[imageAsset assetSize]]] forState:UIControlStateNormal];
-        [_originImageCheckboxButton sizeToFit];
-        [_bottomToolBarView setNeedsLayout];
+        [imageAsset assetSize:^(long long size) {
+            [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:size]] forState:UIControlStateNormal];
+            [_originImageCheckboxButton sizeToFit];
+            [_bottomToolBarView setNeedsLayout];
+        }];
     }
 }
 

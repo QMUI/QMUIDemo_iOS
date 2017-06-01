@@ -32,13 +32,26 @@
     UIView *parentView = self.navigationController.view;
     
     if ([title isEqualToString:@"Loading"]) {
+        // 如果不需要修改contentView的样式，可以直接使用下面这个工具方法
+//         QMUITips *tips = [QMUITips showLoadingInView:parentView hideAfterDelay:2];
+        
+        // 展示如何修改自定义的样式
         QMUITips *tips = [QMUITips createTipsToView:parentView];
         QMUIToastContentView *contentView = (QMUIToastContentView *)tips.contentView;
         contentView.minimumSize = CGSizeMake(90, 90);
+        tips.willShowBlock = ^(UIView *showInView, BOOL animated) {
+            NSLog(@"tips calling willShowBlock");
+        };
+        tips.didShowBlock = ^(UIView *showInView, BOOL animated) {
+            NSLog(@"tips calling didShowBlock");
+        };
+        tips.willHideBlock = ^(UIView *hideInView, BOOL animated) {
+            NSLog(@"tips calling willHideBlock");
+        };
+        tips.didHideBlock = ^(UIView *hideInView, BOOL animated) {
+            NSLog(@"tips calling didHideBlock");
+        };
         [tips showLoadingHideAfterDelay:2];
-        
-        // 如果不需要修改contentView的样式，也可以直接使用下面这个工具方法
-        // [QMUITips showLoadingInView:parentView hideAfterDelay:2];
         
     } else if ([title isEqualToString:@"Loading With Text"]) {
         [QMUITips showLoading:@"加载中..." inView:parentView hideAfterDelay:2];

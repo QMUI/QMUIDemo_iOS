@@ -76,6 +76,10 @@
     zoomImageView.image = self.images[index];
 }
 
+- (QMUIImagePreviewMediaType)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView assetTypeAtIndex:(NSUInteger)index {
+    return QMUIImagePreviewMediaTypeImage;
+}
+
 #pragma mark - <QMUIZoomImageViewDelegate>
 
 - (void)singleTouchInZoomingImageView:(QMUIZoomImageView *)zoomImageView location:(CGPoint)location {

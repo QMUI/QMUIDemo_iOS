@@ -92,6 +92,10 @@
     }
 }
 
+- (QMUIImagePreviewMediaType)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView assetTypeAtIndex:(NSUInteger)index {
+    return QMUIImagePreviewMediaTypeImage;
+}
+
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView willScrollHalfToIndex:(NSUInteger)index {
     self.title = [self titleForIndex:index];
 }

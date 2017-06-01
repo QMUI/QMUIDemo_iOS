@@ -52,8 +52,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ///TODO: 这里每个cell都不同，都不能复用，所以就不用reuse相关的一切操作了吧？@hughkli
-    QDColorTableViewCell *cell;
+    QDColorTableViewCell *cell = nil;
     switch (indexPath.row) {
         case 0:
             cell = [[QDColorCellThatGenerateFromHex alloc] init];
@@ -254,7 +253,6 @@
     _gridView.frame = CGRectMake(self.contentViewInsets.left, CGRectGetMaxY(_circle.frame) + 25, gridViewSize.width, gridViewSize.height);
     for (UILabel *label in _labels) {
         label.frame = CGRectSetWidth(label.frame, gridViewSize.width / 4);
-        ///TODO: 怎么在这里获取到的label的superview的frame是zero？所以只好hard code宽度了 = = .... @hughkli
     }
 }
 

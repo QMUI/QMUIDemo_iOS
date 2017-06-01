@@ -28,15 +28,18 @@
     NSString *imagePath = [[NSUserDefaults standardUserDefaults] objectForKey:[self userDefaultsKeyForAboutLogoImage]];
     if (imagePath) {
         UIImage *aboutLogoImage = [UIImage imageWithContentsOfFile:imagePath];
-        self.themeAboutLogoImage = aboutLogoImage;
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
-            UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
-            [self saveImageAsFile:blendedAboutLogoImage];
-            self.themeAboutLogoImage = blendedAboutLogoImage;
-        });
+        if (aboutLogoImage) {
+            self.themeAboutLogoImage = aboutLogoImage;
+            return;
+        }
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
+        UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+        [self saveImageAsFile:blendedAboutLogoImage];
+        self.themeAboutLogoImage = blendedAboutLogoImage;
+    });
 }
 
 - (void)initSubviews {
@@ -105,7 +108,7 @@
     button.qmui_borderColor = TableViewSeparatorColor;
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     button.contentEdgeInsets = UIEdgeInsetsMake(0, 16, 0, 0);
-    button.qmui_needsTakeOverTouchEvent = YES;
+    button.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
     return button;
 }
 
