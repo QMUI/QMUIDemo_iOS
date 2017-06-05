@@ -1,20 +1,12 @@
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/QMUI/QMUI_iOS/master/logo_2x.png" width="220" alt="Banner" />
+  <img src="https://cloud.githubusercontent.com/assets/1190261/26751376/63f96538-486a-11e7-81cf-5bc83a945207.png" width="220" height="220" alt="Banner" />
 </p>
 
 # QMUI iOS
 QMUI iOS 是一个致力于提高项目 UI 开发效率的解决方案，其设计目的是用于辅助快速搭建一个具备基本设计还原效果的 iOS 项目，同时利用自身提供的丰富控件及兼容处理，让开发者能专注于业务需求而无需耗费精力在基础代码的设计上。不管是新项目的创建，或是已有项目的维护，均可使开发效率和项目质量得到大幅度提升。
 
 官网：[http://qmuiteam.com/ios](http://qmuiteam.com/ios)
-
-联系微信：
-
-**请优先通过提 issue 的方式发表问题，此微信仅接受以 issue 链接为申请内容的好友申请**
-
-<p>
-<img src="https://cloud.githubusercontent.com/assets/1190261/26618220/29386422-460c-11e7-84b9-f8d526b583b2.png" width="220" />
-</p>
 
 [![QMUI Team Name](https://img.shields.io/badge/Team-QMUI-brightgreen.svg?style=flat)](https://github.com/QMUI "QMUI Team")
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://opensource.org/licenses/MIT "Feel free to contribute.")
