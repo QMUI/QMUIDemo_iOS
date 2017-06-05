@@ -24,6 +24,7 @@
 #import "QDAboutViewController.h"
 #import "QDToastListViewController.h"
 #import "QDKeyboardViewController.h"
+#import "QDMarqueeLabelViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -52,6 +53,7 @@
                        @"QMUIPieProgressView", UIImageMake(@"icon_grid_pieProgressView"),
                        @"QMUIPopupContainerView", UIImageMake(@"icon_grid_popupView"),
                        @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
+                       @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_titleView"),
                        nil];
 }
 
@@ -104,6 +106,9 @@
     }
     else if ([title isEqualToString:@"QMUIKeyboardManager"]) {
         viewController = [[QDKeyboardViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIMarqueeLabel"]) {
+        viewController = [[QDMarqueeLabelViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

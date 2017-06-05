@@ -132,7 +132,7 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
     // 显示 loading
     [self startLoading];
     // 使用 delay 模拟网络请求时长
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%lu张图片", (unsigned long)[imagesAssetArray count]] afterDelay:1.5];
+    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%@张图片", @([imagesAssetArray count])] afterDelay:1.5];
 }
 
 - (QMUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController {
@@ -171,7 +171,7 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
         QDMultipleImagePickerPreviewViewController *customImagePickerPreviewViewController = (QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController;
         NSUInteger selectedCount = [imagePickerPreviewViewController.selectedImageAssetArray count];
         if (selectedCount > 0) {
-            customImagePickerPreviewViewController.imageCountLabel.text = [[NSString alloc] initWithFormat:@"%ld", (long)selectedCount];
+            customImagePickerPreviewViewController.imageCountLabel.text = [[NSString alloc] initWithFormat:@"%@", @(selectedCount)];
             customImagePickerPreviewViewController.imageCountLabel.hidden = NO;
             [QMUIImagePickerHelper springAnimationOfImageSelectedCountChangeWithCountLabel:customImagePickerPreviewViewController.imageCountLabel];
         } else {
@@ -190,11 +190,11 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
     // 使用 delay 模拟网络请求时长
     NSString *succeedTip;
     if (imagePickerPreviewViewController.shouldUseOriginImage) {
-        succeedTip = @"成功发送%lu张原图";
+        succeedTip = @"成功发送%@张原图";
     } else {
-        succeedTip = @"成功发送%lu张图片";
+        succeedTip = @"成功发送%@张图片";
     }
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:succeedTip, (unsigned long)[imagesAssetArray count]] afterDelay:1.5];
+    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:succeedTip, @([imagesAssetArray count])] afterDelay:1.5];
 }
 
 #pragma mark - <QDSingleImagePickerPreviewViewControllerDelegate>
