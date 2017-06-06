@@ -108,6 +108,7 @@
 		CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */; };
 		CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */; };
 		D02F87F81EDBE8C300EE2CA8 /* QDFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */; };
+		D07610291EE292930048301B /* QDMarqueeLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07610281EE292930048301B /* QDMarqueeLabelViewController.m */; };
 		FE5803331E949E1100159380 /* QDKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5803311E949E1100159380 /* QDKeyboardViewController.m */; };
 		FE775E3C1DF95728007A341F /* QDActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = FE775E3A1DF95728007A341F /* QDActivityIndicator.m */; };
 		FE7DC16A1D2265DC0057A06E /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7DC1691D2265DC0057A06E /* libxml2.2.tbd */; };
@@ -340,6 +341,8 @@
 		CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		D02F87F61EDBE8C200EE2CA8 /* QDFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFontViewController.h; sourceTree = "<group>"; };
 		D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFontViewController.m; sourceTree = "<group>"; };
+		D07610271EE292930048301B /* QDMarqueeLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMarqueeLabelViewController.h; sourceTree = "<group>"; };
+		D07610281EE292930048301B /* QDMarqueeLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMarqueeLabelViewController.m; sourceTree = "<group>"; };
 		FE5803311E949E1100159380 /* QDKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDKeyboardViewController.m; sourceTree = "<group>"; };
 		FE5803321E949E1100159380 /* QDKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDKeyboardViewController.h; sourceTree = "<group>"; };
 		FE775E3A1DF95728007A341F /* QDActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActivityIndicator.m; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 				1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */,
 				FE5803311E949E1100159380 /* QDKeyboardViewController.m */,
 				FE5803321E949E1100159380 /* QDKeyboardViewController.h */,
+				D07610271EE292930048301B /* QDMarqueeLabelViewController.h */,
+				D07610281EE292930048301B /* QDMarqueeLabelViewController.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -875,6 +880,7 @@
 				1679E3261DFF9E300072B8A1 /* QDToastListViewController.m in Sources */,
 				CDA1CC991EC1C34300AB8A0F /* QDThemeManager.m in Sources */,
 				FE775E3C1DF95728007A341F /* QDActivityIndicator.m in Sources */,
+				D07610291EE292930048301B /* QDMarqueeLabelViewController.m in Sources */,
 				CDB8CA091DCC815A00769DF0 /* QDInsetsTableviewCellViewController.m in Sources */,
 				CD1229B21DF67922003B9649 /* QDImagePreviewViewController2.m in Sources */,
 				CDB8C9E21DCC815A00769DF0 /* QDModalPresentationViewController.m in Sources */,
