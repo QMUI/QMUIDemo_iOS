@@ -11,8 +11,6 @@
 
 @implementation QMUIConfigurationTemplatePinkRose
 
-#pragma mark - <QDThemeProtocol>
-
 - (void)setupConfigurationTemplate {
     
     // === 修改配置值 === //
@@ -182,6 +180,8 @@
     QMUICMI.navigationBarHiddenStateUsable = NO;                                // NavigationBarHiddenStateUsable : 是否使用 navigationBarHiddenState 来管理导航栏的显示隐藏的初始值，默认为NO
     QMUICMI.navigationBarHiddenStateInitially = QMUINavigationBarHiddenStateShowWithAnimated; // NavigationBarHiddenStateInitially : QMUINavigationControllerDelegate preferredNavigationBarHiddenState 的初始值，默认为QMUINavigationBarHiddenStateShowWithAnimated
 }
+
+#pragma mark - <QDThemeProtocol>
 
 - (UIColor *)themeTintColor {
     return UIColorTheme9;
