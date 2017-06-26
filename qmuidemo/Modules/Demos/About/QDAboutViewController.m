@@ -13,7 +13,7 @@
 @property(nonatomic, strong) UIImage *themeAboutLogoImage;
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIImageView *logoImageView;
-@property(nonatomic, strong) UILabel *versionLabel;
+@property(nonatomic, strong) QMUIButton *versionButton;
 @property(nonatomic, strong) QMUIButton *websiteButton;
 @property(nonatomic, strong) QMUIButton *documentButton;
 @property(nonatomic, strong) QMUIButton *gitHubButton;
@@ -52,10 +52,14 @@
     [self.scrollView addSubview:self.logoImageView];
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    self.versionLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorGray3];
-    self.versionLabel.text = [NSString stringWithFormat:@"版本 %@", appVersion];
-    [self.versionLabel sizeToFit];
-    [self.scrollView addSubview:self.versionLabel];
+    self.versionButton = [[QMUIButton alloc] init];
+    self.versionButton.titleLabel.font = UIFontMake(14);
+    [self.versionButton setTitleColor:UIColorGray3 forState:UIControlStateNormal];
+    [self.versionButton setTitle:[NSString stringWithFormat:@"版本 %@", appVersion] forState:UIControlStateNormal];
+    [self.versionButton sizeToFit];
+    self.versionButton.qmui_outsideEdge = UIEdgeInsetsMake(-12, -12, -12, -12);
+    [self.versionButton addTarget:self action:@selector(handleVersionButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollView addSubview:self.versionButton];
     
     self.websiteButton = [self generateCellButtonWithTitle:@"访问官网"];
     self.websiteButton.qmui_borderPosition = QMUIBorderViewPositionTop;
@@ -125,10 +129,10 @@
         CGFloat leftWidth = flat(CGRectGetWidth(self.scrollView.bounds) / 2);
         CGFloat rightWidth = CGRectGetWidth(self.scrollView.bounds) - leftWidth;
         
-        CGFloat leftHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionLabel.frame);
+        CGFloat leftHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionButton.frame);
         CGFloat leftMinY = CGFloatGetCenter(CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame), leftHeight);
         self.logoImageView.frame = CGRectSetXY(self.logoImageView.frame, CGFloatGetCenter(leftWidth, CGRectGetHeight(self.logoImageView.frame)), leftMinY);
-        self.versionLabel.frame = CGRectSetXY(self.versionLabel.frame, CGRectGetMinXHorizontallyCenter(self.logoImageView.frame, self.versionLabel.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
+        self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenter(self.logoImageView.frame, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
         CGFloat contentWidthInRight = rightWidth - UIEdgeInsetsGetHorizontalValue(padding);
         self.websiteButton.frame = CGRectMake(leftWidth + padding.left, CGRectGetMinY(self.logoImageView.frame) + 10, contentWidthInRight, buttonHeight);
@@ -143,14 +147,14 @@
         
         CGFloat containerHeight = CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(padding);
         CGFloat buttonMarginTop = 36;
-        CGFloat mainContentHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionLabel.frame) + buttonMarginTop + buttonHeight * 2;
+        CGFloat mainContentHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionButton.frame) + buttonMarginTop + buttonHeight * 2;
         CGFloat mainContentMinY = padding.top + (containerHeight - mainContentHeight) / 6;
         
         self.logoImageView.frame = CGRectSetXY(self.logoImageView.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.logoImageView.frame), mainContentMinY);
         
-        self.versionLabel.frame = CGRectSetXY(self.versionLabel.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.versionLabel.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
+        self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
-        self.websiteButton.frame = CGRectMake(0, CGRectGetMaxY(self.versionLabel.frame) + buttonMarginTop, CGRectGetWidth(self.scrollView.bounds), buttonHeight);
+        self.websiteButton.frame = CGRectMake(0, CGRectGetMaxY(self.versionButton.frame) + buttonMarginTop, CGRectGetWidth(self.scrollView.bounds), buttonHeight);
         self.documentButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
         self.gitHubButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
@@ -176,6 +180,10 @@
     if ([imageData writeToFile:imagePath atomically:NO]) {
         [[NSUserDefaults standardUserDefaults] setObject:imagePath forKey:imageName];
     }
+}
+
+- (void)handleVersionButtonEvent:(QMUIButton *)button {
+    [self openUrlString:@"https://github.com/QMUI/QMUI_iOS/releases"];
 }
 
 - (void)handleWebsiteButtonEvent:(QMUIButton *)button {
