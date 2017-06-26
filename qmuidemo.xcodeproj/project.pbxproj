@@ -25,6 +25,7 @@
 		CD4013061EFCFA300022FE2A /* QDOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */; };
 		CD4421CF1E84C74C001B8C2A /* QDObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4421CE1E84C74C001B8C2A /* QDObjectViewController.m */; };
 		CD4421D21E85071A001B8C2A /* QDObjectMethodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4421D11E85071A001B8C2A /* QDObjectMethodsListViewController.m */; };
+		CD4D339E1F010FD100FB81B0 /* QDStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */; };
 		CD5387761EE0096C00654A73 /* QDSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5387751EE0096C00654A73 /* QDSliderViewController.m */; };
 		CD6CC62D1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */; };
 		CD75935E1EF7A31F004B5819 /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; };
@@ -91,7 +92,6 @@
 		CDB8CA0E1DCC815A00769DF0 /* QDNavigationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BB1DCC815A00769DF0 /* QDNavigationListViewController.m */; };
 		CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BD1DCC815A00769DF0 /* QDNormalButtonViewController.m */; };
 		CDB8CA101DCC815A00769DF0 /* QDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */; };
-		CDB8CA111DCC815A00769DF0 /* QDStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C11DCC815A00769DF0 /* QDStaticTableViewController.m */; };
 		CDB8CA121DCC815A00769DF0 /* QDTabBarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */; };
 		CDB8CA131DCC815A00769DF0 /* QDTableViewCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C51DCC815A00769DF0 /* QDTableViewCellViewController.m */; };
 		CDB8CA141DCC815A00769DF0 /* QDTextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C71DCC815A00769DF0 /* QDTextFieldViewController.m */; };
@@ -189,6 +189,8 @@
 		CD4421CE1E84C74C001B8C2A /* QDObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDObjectViewController.m; sourceTree = "<group>"; };
 		CD4421D01E85071A001B8C2A /* QDObjectMethodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDObjectMethodsListViewController.h; sourceTree = "<group>"; };
 		CD4421D11E85071A001B8C2A /* QDObjectMethodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDObjectMethodsListViewController.m; sourceTree = "<group>"; };
+		CD4D339C1F010FD100FB81B0 /* QDStaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDStaticTableViewController.h; sourceTree = "<group>"; };
+		CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDStaticTableViewController.m; sourceTree = "<group>"; };
 		CD5387741EE0096C00654A73 /* QDSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSliderViewController.h; sourceTree = "<group>"; };
 		CD5387751EE0096C00654A73 /* QDSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSliderViewController.m; sourceTree = "<group>"; };
 		CD6CC62B1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewCellAccessoryTypeViewController.h; sourceTree = "<group>"; };
@@ -317,8 +319,6 @@
 		CDB8C9BD1DCC815A00769DF0 /* QDNormalButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNormalButtonViewController.m; sourceTree = "<group>"; };
 		CDB8C9BE1DCC815A00769DF0 /* QDSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSearchViewController.h; sourceTree = "<group>"; };
 		CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSearchViewController.m; sourceTree = "<group>"; };
-		CDB8C9C01DCC815A00769DF0 /* QDStaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDStaticTableViewController.h; sourceTree = "<group>"; };
-		CDB8C9C11DCC815A00769DF0 /* QDStaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDStaticTableViewController.m; sourceTree = "<group>"; };
 		CDB8C9C21DCC815A00769DF0 /* QDTabBarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTabBarItemViewController.h; sourceTree = "<group>"; };
 		CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTabBarItemViewController.m; sourceTree = "<group>"; };
 		CDB8C9C41DCC815A00769DF0 /* QDTableViewCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTableViewCellViewController.h; sourceTree = "<group>"; };
@@ -591,6 +591,8 @@
 				CDB8C9741DCC815A00769DF0 /* QDSaveVideoToSpecifiedAlbumViewController.m */,
 				CDB8C9751DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.h */,
 				CDB8C9761DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.m */,
+				CD4D339C1F010FD100FB81B0 /* QDStaticTableViewController.h */,
+				CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */,
 				1679E3241DFF9E300072B8A1 /* QDToastListViewController.h */,
 				1679E3251DFF9E300072B8A1 /* QDToastListViewController.m */,
 			);
@@ -681,8 +683,6 @@
 				CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */,
 				CD5387741EE0096C00654A73 /* QDSliderViewController.h */,
 				CD5387751EE0096C00654A73 /* QDSliderViewController.m */,
-				CDB8C9C01DCC815A00769DF0 /* QDStaticTableViewController.h */,
-				CDB8C9C11DCC815A00769DF0 /* QDStaticTableViewController.m */,
 				CDB8C9C21DCC815A00769DF0 /* QDTabBarItemViewController.h */,
 				CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */,
 				CD6CC62B1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.h */,
@@ -876,7 +876,6 @@
 				CDB8CA131DCC815A00769DF0 /* QDTableViewCellViewController.m in Sources */,
 				CDB8C9D31DCC815A00769DF0 /* QDCommonListViewController.m in Sources */,
 				CDB8C9E41DCC815A00769DF0 /* QDMultipleImagePickerPreviewViewController.m in Sources */,
-				CDB8CA111DCC815A00769DF0 /* QDStaticTableViewController.m in Sources */,
 				CDB8C9D21DCC815A00769DF0 /* QDCommonGroupListViewController.m in Sources */,
 				CDB8CA031DCC815A00769DF0 /* QDColorViewController.m in Sources */,
 				1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */,
@@ -925,6 +924,7 @@
 				CDB8CA0D1DCC815A00769DF0 /* QDNavigationButtonViewController.m in Sources */,
 				CDB8C9FD1DCC815A00769DF0 /* QDButtonViewController.m in Sources */,
 				CDB8C9D61DCC815A00769DF0 /* QDNavigationController.m in Sources */,
+				CD4D339E1F010FD100FB81B0 /* QDStaticTableViewController.m in Sources */,
 				CDB8C9D51DCC815A00769DF0 /* QDCommonViewController.m in Sources */,
 				CDB8C9D11DCC815A00769DF0 /* QDCommonGridViewController.m in Sources */,
 				CD5387761EE0096C00654A73 /* QDSliderViewController.m in Sources */,
