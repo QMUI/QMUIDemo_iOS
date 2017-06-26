@@ -1,5 +1,5 @@
 //
-//  QDInsetsTableviewCellViewController.h
+//  QDTableViewCellInsetsViewController.h
 //  qmuidemo
 //
 //  Created by zhoonchen on 2016/10/11.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "QDCommonTableViewController.h"
 
-@interface QDInsetsTableviewCellViewController : QDCommonTableViewController
+@interface QDTableViewCellInsetsViewController : QDCommonTableViewController
 
 @end

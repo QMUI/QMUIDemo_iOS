@@ -58,7 +58,7 @@ static CGFloat const kEmotionViewHeight = 232;
     [self.containerView addSubview:self.textView];
     
     _toolbarView = [[UIView alloc] init];
-    self.toolbarView.backgroundColor = UIColorForBackground;
+    self.toolbarView.backgroundColor = UIColorMake(246, 246, 246);
     self.toolbarView.qmui_borderColor = UIColorSeparator;
     self.toolbarView.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.containerView addSubview:self.toolbarView];

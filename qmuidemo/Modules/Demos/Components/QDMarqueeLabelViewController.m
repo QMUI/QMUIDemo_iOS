@@ -12,8 +12,8 @@
 
 @property(nonatomic, strong) QMUIMarqueeLabel *label;
 @property(nonatomic, strong) QMUIMarqueeLabel *shortTextLabel;
-@property(nonatomic, strong) QMUIMarqueeLabel *fadeLabel;
-@property(nonatomic, strong) QMUIMarqueeLabel *quickLabel;
+@property(nonatomic, strong) QMUIMarqueeLabel *noFadeAndQuickLabel;
+@property(nonatomic, strong) QMUIMarqueeLabel *textStartLabel;
 @property(nonatomic, strong) CALayer *separatorLayer;
 @property(nonatomic, strong) UICollectionView *collectionView;
 @property(nonatomic, strong) QMUICollectionViewPagingLayout *collectionViewLayout;
@@ -28,19 +28,21 @@
 
 - (void)initSubviews {
     [super initSubviews];
-    self.label = [self generateLabelWithText:@"QMUIMarqueeLabel 会在添加到界面上后，并且文字超过 label 宽度时自动滚动"];
-    [self.view addSubview:self.label];
-    
     self.shortTextLabel = [self generateLabelWithText:@"短文字时不会滚动"];
     [self.view addSubview:self.shortTextLabel];
     
-    self.fadeLabel = [self generateLabelWithText:@"通过 shouldFadeAtEdge = YES 可在文字滚动时在边缘显示一个渐隐遮罩，遮罩颜色及大小也可修改。"];
-    self.fadeLabel.shouldFadeAtEdge = YES;// 开启渐隐遮罩
-    [self.view addSubview:self.fadeLabel];
+    self.label = [self generateLabelWithText:@"QMUIMarqueeLabel 会在添加到界面上后，并且文字超过 label 宽度时自动滚动"];
+    [self.view addSubview:self.label];
     
-    self.quickLabel = [self generateLabelWithText:@"通过 speed 属性可以调节滚动的速度，默认为 1，也即每一帧滚动 1pt，现在看到的是 speed = 5 的效果。"];
-    self.quickLabel.speed = 5;// 调节滚动速度
-    [self.view addSubview:self.quickLabel];
+    self.noFadeAndQuickLabel = [self generateLabelWithText:@"通过 shouldFadeAtEdge = NO 可隐藏文字滚动时边缘的渐隐遮罩，通过 speed 属性可以调节滚动的速度"];
+    self.noFadeAndQuickLabel.shouldFadeAtEdge = NO;// 关闭渐隐遮罩
+    self.noFadeAndQuickLabel.speed = 1.5;// 调节滚动速度
+    [self.view addSubview:self.noFadeAndQuickLabel];
+    
+    self.textStartLabel = [self generateLabelWithText:@"通过 textStartAfterFade 属性可控制文字是否要停靠在遮罩的右边"];
+    self.textStartLabel.textStartAfterFade = YES;// 文字停靠在遮罩的右边
+    self.textStartLabel.speed = 1.5;
+    [self.view addSubview:self.textStartLabel];
     
     self.separatorLayer = [CALayer qmui_separatorLayer];
     [self.view.layer addSublayer:self.separatorLayer];
@@ -60,6 +62,7 @@
 
 - (QMUIMarqueeLabel *)generateLabelWithText:(NSString *)text {
     QMUIMarqueeLabel *label = [[QMUIMarqueeLabel alloc] initWithFont:UIFontMake(16) textColor:UIColorGray1];
+    label.textAlignment = NSTextAlignmentCenter;// 跑马灯文字一般都是居中显示，所以 Demo 里默认使用 center
     [label qmui_calculateHeightAfterSetAppearance];
     label.text = text;
     return label;
@@ -113,20 +116,20 @@
     [((QDMarqueeCollectionViewCell *)cell).label requestToStopAnimation];
 }
 
-#pragma mark - <UICollectionViewDelegateFlowLayout>
-
 @end
 
 @implementation QDMarqueeCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.label = [[QMUIMarqueeLabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
-        [self.label qmui_calculateHeightAfterSetAppearance];
-        [self.contentView addSubview:self.label];
-        
         self.backgroundColor = [QDCommonUI randomThemeColor];
         self.layer.cornerRadius = 3;
+        
+        self.label = [[QMUIMarqueeLabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
+        [self.label qmui_calculateHeightAfterSetAppearance];
+        self.label.fadeStartColor = self.backgroundColor;
+        self.label.fadeEndColor = [self.backgroundColor colorWithAlphaComponent:0];
+        [self.contentView addSubview:self.label];
     }
     return self;
 }

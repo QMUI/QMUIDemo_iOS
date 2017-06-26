@@ -22,7 +22,8 @@
     if (self = [super initWithStyle:style]) {
         [self initDataSource];
         if (style == UITableViewStyleGrouped) {
-            self.tableViewInitialContentInset = UIEdgeInsetsMake(NavigationContentTop - 35, 0, 0, 0);
+            CGFloat insetTop = IOS_VERSION >= 11 ? -35 : NavigationContentTop - 35;
+            self.tableViewInitialContentInset = UIEdgeInsetsMake(insetTop, 0, 0, 0);
         }
     }
     return self;

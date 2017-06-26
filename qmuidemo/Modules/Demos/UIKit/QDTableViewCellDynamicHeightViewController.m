@@ -1,12 +1,12 @@
 //
-//  QDDynamicTableViewCellViewController.m
+//  QDTableViewCellDynamicHeightViewController.m
 //  qmuidemo
 //
 //  Created by zhoonchen on 2016/10/11.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QDDynamicTableViewCellViewController.h"
+#import "QDTableViewCellDynamicHeightViewController.h"
 
 static UIEdgeInsets const kInsets = {15, 16, 15, 16};
 static CGFloat const kAvatarSize = 30;
@@ -117,14 +117,14 @@ static CGFloat const kContentMarginBotom = 10;
 
 @end
 
-@interface QDDynamicTableViewCellViewController ()
+@interface QDTableViewCellDynamicHeightViewController ()
 
 @property(nonatomic, copy) NSArray *names;
 @property(nonatomic, copy) NSArray *contents;
 
 @end
 
-@implementation QDDynamicTableViewCellViewController
+@implementation QDTableViewCellDynamicHeightViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

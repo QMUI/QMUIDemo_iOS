@@ -53,7 +53,7 @@
                        @"QMUIPieProgressView", UIImageMake(@"icon_grid_pieProgressView"),
                        @"QMUIPopupContainerView", UIImageMake(@"icon_grid_popupView"),
                        @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
-                       @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_titleView"),
+                       @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_marquee"),
                        nil];
 }
 

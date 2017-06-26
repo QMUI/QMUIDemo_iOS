@@ -1,14 +1,14 @@
 //
-//  QDInsetsTableviewCellViewController.m
+//  QDTableViewCellInsetsViewController.m
 //  qmuidemo
 //
 //  Created by zhoonchen on 2016/10/11.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QDInsetsTableviewCellViewController.h"
+#import "QDTableViewCellInsetsViewController.h"
 
-@implementation QDInsetsTableviewCellViewController
+@implementation QDTableViewCellInsetsViewController
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 5;

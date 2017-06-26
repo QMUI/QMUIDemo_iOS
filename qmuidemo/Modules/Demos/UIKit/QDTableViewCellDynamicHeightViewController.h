@@ -1,5 +1,5 @@
 //
-//  QDDynamicTableViewCellViewController.h
+//  QDTableViewCellDynamicHeightViewController.h
 //  qmuidemo
 //
 //  Created by zhoonchen on 2016/10/11.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "QDCommonTableViewController.h"
 
-@interface QDDynamicTableViewCellViewController : QDCommonTableViewController
+@interface QDTableViewCellDynamicHeightViewController : QDCommonTableViewController
 
 @end

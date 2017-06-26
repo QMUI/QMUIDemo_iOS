@@ -373,7 +373,7 @@
     [self.contentScrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"icon_emotion") qmui_imageWithTintColor:UIColorBlue]];
+    UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"icon_emotion") qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor]];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.contentScrollView addSubview:originImageView];
@@ -852,17 +852,20 @@
     [self.contentScrollView addSubview:titleLabel];
     minY = CGRectGetMaxY(titleLabel.frame) + 6;
     
-    UIImage *ovalImage = [UIImage qmui_imageWithShape:QMUIImageShapeOval size:CGSizeMake(contentWidth / 4, 20) tintColor:UIColorBlue];
-    UIImage *triangleImage = [UIImage qmui_imageWithShape:QMUIImageShapeTriangle size:CGSizeMake(6, 6) tintColor:UIColorBlue];
-    UIImage *disclosureIndicatorImage = [UIImage qmui_imageWithShape:QMUIImageShapeDisclosureIndicator size:CGSizeMake(8, 13) tintColor:UIColorBlue];
-    UIImage *checkmarkImage = [UIImage qmui_imageWithShape:QMUIImageShapeCheckmark size:CGSizeMake(15, 12) tintColor:UIColorBlue];
-    UIImage *navBackImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavBack size:CGSizeMake(12, 20) tintColor:UIColorBlue];
-    UIImage *navCloseImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:UIColorBlue];
+    UIColor *tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    UIImage *ovalImage = [UIImage qmui_imageWithShape:QMUIImageShapeOval size:CGSizeMake(contentWidth / 4, 20) tintColor:tintColor];
+    UIImage *triangleImage = [UIImage qmui_imageWithShape:QMUIImageShapeTriangle size:CGSizeMake(6, 6) tintColor:tintColor];
+    UIImage *disclosureIndicatorImage = [UIImage qmui_imageWithShape:QMUIImageShapeDisclosureIndicator size:CGSizeMake(8, 13) tintColor:tintColor];
+    UIImage *checkmarkImage = [UIImage qmui_imageWithShape:QMUIImageShapeCheckmark size:CGSizeMake(15, 12) tintColor:tintColor];
+    UIImage *detailButtonImage = [UIImage qmui_imageWithShape:QMUIImageShapeDetailButtonImage size:CGSizeMake(20, 20) tintColor:tintColor];
+    UIImage *navBackImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavBack size:CGSizeMake(12, 20) tintColor:tintColor];
+    UIImage *navCloseImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:tintColor];
     
     minY = [self generateExampleLabelAndImageViewWithImage:ovalImage shapeName:@"QMUIImageShapeOval" minY:minY];
     minY = [self generateExampleLabelAndImageViewWithImage:triangleImage shapeName:@"QMUIImageShapeTriangle" minY:minY];
     minY = [self generateExampleLabelAndImageViewWithImage:disclosureIndicatorImage shapeName:@"QMUIImageShapeDisclosureIndicator" minY:minY];
     minY = [self generateExampleLabelAndImageViewWithImage:checkmarkImage shapeName:@"QMUIImageShapeCheckmark" minY:minY];
+    minY = [self generateExampleLabelAndImageViewWithImage:detailButtonImage shapeName:@"QMUIImageShapeDetailButtonImage" minY:minY];
     minY = [self generateExampleLabelAndImageViewWithImage:navBackImage shapeName:@"QMUIImageShapeNavBack" minY:minY];
     minY = [self generateExampleLabelAndImageViewWithImage:navCloseImage shapeName:@"QMUIImageShapeNavClose" minY:minY];
     
