@@ -49,7 +49,7 @@
 @implementation QDUIHelper (Button)
 
 + (QMUIButton *)generateDarkFilledButton {
-    QMUIButton *button = [[QMUIButton alloc] initWithFrame:CGRectMakeWithSize(CGSizeMake(200, 40))];
+    QMUIButton *button = [[QMUIButton alloc] qmui_initWithSize:CGSizeMake(200, 40)];
     button.adjustsButtonWhenHighlighted = YES;
     button.titleLabel.font = UIFontBoldMake(14);
     [button setTitleColor:UIColorWhite forState:UIControlStateNormal];
@@ -60,7 +60,7 @@
 }
 
 + (QMUIButton *)generateLightBorderedButton {
-    QMUIButton *button = [[QMUIButton alloc] initWithFrame:CGRectMakeWithSize(CGSizeMake(200, 40))];
+    QMUIButton *button = [[QMUIButton alloc] qmui_initWithSize:CGSizeMake(200, 40)];
     button.titleLabel.font = UIFontBoldMake(14);
     [button setTitleColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor forState:UIControlStateNormal];
     button.backgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorWhite progress:.9];
