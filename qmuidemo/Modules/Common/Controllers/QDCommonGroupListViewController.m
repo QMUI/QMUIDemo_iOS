@@ -8,10 +8,6 @@
 
 #import "QDCommonGroupListViewController.h"
 
-@interface QDCommonGroupListViewController ()
-
-@end
-
 @implementation QDCommonGroupListViewController
 
 - (instancetype)init {
@@ -21,12 +17,15 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         [self initDataSource];
-        if (style == UITableViewStyleGrouped) {
-            CGFloat insetTop = IOS_VERSION >= 11 ? -35 : NavigationContentTop - 35;
-            self.tableViewInitialContentInset = UIEdgeInsetsMake(insetTop, 0, 0, 0);
-        }
     }
     return self;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    CGFloat contentInsetTop = IOS_VERSION >= 11.0 ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    self.tableView.contentInset = UIEdgeInsetsMake(contentInsetTop - 35, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0);
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>
