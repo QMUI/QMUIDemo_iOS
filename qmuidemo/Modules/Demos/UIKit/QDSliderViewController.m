@@ -25,7 +25,7 @@
     self.slider.minimumTrackTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     self.slider.maximumTrackTintColor = UIColorGray9;
     self.slider.trackHeight = 1;// 支持修改背后导轨的高度
-    self.slider.thumbTintColor = self.slider.minimumTrackTintColor;
+    self.slider.thumbColor = self.slider.minimumTrackTintColor;
     self.slider.thumbSize = CGSizeMake(14, 14);// 支持修改拖拽圆点的大小
     
     // 支持修改圆点的阴影样式

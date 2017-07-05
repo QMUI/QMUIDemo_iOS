@@ -52,7 +52,7 @@
     self.slider = [[QMUISlider alloc] init];
     self.slider.tintColor = self.progressView1.tintColor;
     self.slider.thumbSize = CGSizeMake(16, 16);
-    self.slider.thumbTintColor = self.slider.tintColor;
+    self.slider.thumbColor = self.slider.tintColor;
     self.slider.thumbShadowColor = [self.slider.tintColor colorWithAlphaComponent:.3];
     self.slider.thumbShadowOffset = CGSizeMake(0, 2);
     self.slider.thumbShadowRadius = 3;

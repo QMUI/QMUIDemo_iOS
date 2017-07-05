@@ -41,7 +41,7 @@
     self.fontPointSizeSlider = [[QMUISlider alloc] init];
     self.fontPointSizeSlider.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     self.fontPointSizeSlider.thumbSize = CGSizeMake(16, 16);
-    self.fontPointSizeSlider.thumbTintColor = self.fontPointSizeSlider.tintColor;
+    self.fontPointSizeSlider.thumbColor = self.fontPointSizeSlider.tintColor;
     self.fontPointSizeSlider.thumbShadowColor = [self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3];
     self.fontPointSizeSlider.thumbShadowOffset = CGSizeMake(0, 2);
     self.fontPointSizeSlider.thumbShadowRadius = 3;
