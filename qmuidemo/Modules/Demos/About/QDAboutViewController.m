@@ -136,8 +136,8 @@
         
         CGFloat contentWidthInRight = rightWidth - UIEdgeInsetsGetHorizontalValue(padding);
         self.websiteButton.frame = CGRectMake(leftWidth + padding.left, CGRectGetMinY(self.logoImageView.frame) + 10, contentWidthInRight, buttonHeight);
-        self.documentButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.websiteButton.frame));
-        self.gitHubButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.documentButton.frame));
+        self.documentButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
+        self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(contentWidthInRight, CGFLOAT_MAX)].height;
         self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
