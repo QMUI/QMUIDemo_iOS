@@ -110,6 +110,7 @@
 		CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADA1DAA6EE5000D5414 /* SystemConfiguration.framework */; };
 		CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */; };
 		CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */; };
+		CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */; };
 		D02F87F81EDBE8C300EE2CA8 /* QDFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */; };
 		D07610291EE292930048301B /* QDMarqueeLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07610281EE292930048301B /* QDMarqueeLabelViewController.m */; };
 		FE5803331E949E1100159380 /* QDKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5803311E949E1100159380 /* QDKeyboardViewController.m */; };
@@ -346,6 +347,8 @@
 		CDE50ADA1DAA6EE5000D5414 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		CDF79AAD1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDButtonEdgeInsetsViewController.h; sourceTree = "<group>"; };
+		CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDButtonEdgeInsetsViewController.m; sourceTree = "<group>"; };
 		D02F87F61EDBE8C200EE2CA8 /* QDFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFontViewController.h; sourceTree = "<group>"; };
 		D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFontViewController.m; sourceTree = "<group>"; };
 		D07610271EE292930048301B /* QDMarqueeLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMarqueeLabelViewController.h; sourceTree = "<group>"; };
@@ -705,6 +708,8 @@
 				CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */,
 				CD4013041EFCFA300022FE2A /* QDOrientationViewController.h */,
 				CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */,
+				CDF79AAD1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.h */,
+				CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -949,6 +954,7 @@
 				CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */,
 				CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */,
 				CDB8CA011DCC815A00769DF0 /* QDCollectionListViewController.m in Sources */,
+				CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */,
 				CDB8CA081DCC815A00769DF0 /* QDImageViewController.m in Sources */,
 				1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */,
 				CDB8CA021DCC815A00769DF0 /* QDCollectionViewDemoCell.m in Sources */,

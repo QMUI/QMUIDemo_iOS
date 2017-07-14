@@ -13,6 +13,8 @@
 #import "QDFillButtonViewController.h"
 #import "QDNavigationButtonViewController.h"
 #import "QDToolBarButtonViewController.h"
+#import "QDButtonEdgeInsetsViewController.h"
+#import "QDNavigationController.h"
 
 @implementation QDButtonViewController
 
@@ -42,6 +44,18 @@
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        QDButtonEdgeInsetsViewController *viewController = [[QDButtonEdgeInsetsViewController alloc] init];
+        QDNavigationController *navController = [[QDNavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navController animated:YES completion:NULL];
+    }
 }
 
 @end
