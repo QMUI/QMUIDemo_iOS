@@ -132,7 +132,7 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
     // 显示 loading
     [self startLoading];
     // 使用 delay 模拟网络请求时长
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%@张图片", @([imagesAssetArray count])] afterDelay:1.5];
+    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%@个资源", @([imagesAssetArray count])] afterDelay:1.5];
 }
 
 - (QMUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController {

@@ -67,7 +67,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateOriginImageCheckboxButtonIfNeed];
+    [self updateOriginImageCheckboxButtonWithIndex:self.imagePreviewView.currentImageIndex];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -111,8 +111,7 @@
     }];
 }
 
-- (void)handleOriginImageCheckboxButtonClick:(id)sender {
-    QMUINavigationButton *button = sender;
+- (void)handleOriginImageCheckboxButtonClick:(UIButton *)button {
     if (button.selected) {
         button.selected = NO;
         [button setTitle:@"原图" forState:UIControlStateNormal];
@@ -120,20 +119,25 @@
         [_bottomToolBarView setNeedsLayout];
     } else {
         button.selected = YES;
-        [self updateOriginImageCheckboxButtonIfNeed];
+        [self updateOriginImageCheckboxButtonWithIndex:self.imagePreviewView.currentImageIndex];
 
     }
     self.shouldUseOriginImage = button.selected;
 }
 
-- (void)updateOriginImageCheckboxButtonIfNeed {
-    if (_originImageCheckboxButton.selected) {
-        QMUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:self.imagePreviewView.currentImageIndex];
-        [imageAsset assetSize:^(long long size) {
-            [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:size]] forState:UIControlStateNormal];
-            [_originImageCheckboxButton sizeToFit];
-            [_bottomToolBarView setNeedsLayout];
-        }];
+- (void)updateOriginImageCheckboxButtonWithIndex:(NSInteger)index {
+    QMUIAsset *asset = self.imagesAssetArray[index];
+    if (asset.assetType == QMUIAssetTypeAudio || asset.assetType == QMUIAssetTypeVideo) {
+        _originImageCheckboxButton.hidden = YES;
+    } else {
+        _originImageCheckboxButton.hidden = NO;
+        if (_originImageCheckboxButton.selected) {
+            [asset assetSize:^(long long size) {
+                [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:size]] forState:UIControlStateNormal];
+                [_originImageCheckboxButton sizeToFit];
+                [_bottomToolBarView setNeedsLayout];
+            }];
+        }
     }
 }
 
@@ -141,14 +145,7 @@
 
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView willScrollHalfToIndex:(NSUInteger)index {
     [super imagePreviewView:imagePreviewView willScrollHalfToIndex:index];
-    if (_originImageCheckboxButton.selected) {
-        QMUIAsset *imageAsset = [self.imagesAssetArray objectAtIndex:index];
-        [imageAsset assetSize:^(long long size) {
-            [_originImageCheckboxButton setTitle:[NSString stringWithFormat:@"原图(%@)", [QDUIHelper humanReadableFileSize:size]] forState:UIControlStateNormal];
-            [_originImageCheckboxButton sizeToFit];
-            [_bottomToolBarView setNeedsLayout];
-        }];
-    }
+    [self updateOriginImageCheckboxButtonWithIndex:index];
 }
 
 @end
