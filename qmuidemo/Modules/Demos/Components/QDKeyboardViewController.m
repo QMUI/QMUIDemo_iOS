@@ -291,12 +291,13 @@ static CGFloat const kEmotionViewHeight = 232;
     CGSize contentSize = [self.contentLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     CGFloat commentButtonHeight = CGRectGetHeight(self.commentButton.bounds);
     CGFloat writeReviewButtonHeight = CGRectGetHeight(self.writeReviewButton.bounds);
+    CGFloat navigationBarHeight = self.qmui_navigationBarMaxYInViewCoordinator;
     
-    if (CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) < contentSize.height + contentLabelInsetVertical * 2 + contentOffsetY + commentButtonHeight + writeReviewButtonHeight + buttonSpacing + buttonSectionInset * 2) {
-        buttonSectionInset = (CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - contentSize.height - contentLabelInsetVertical * 2 - contentOffsetY - commentButtonHeight - writeReviewButtonHeight - buttonSpacing) / 2;
+    if (CGRectGetHeight(self.view.bounds) - navigationBarHeight < contentSize.height + contentLabelInsetVertical * 2 + contentOffsetY + commentButtonHeight + writeReviewButtonHeight + buttonSpacing + buttonSectionInset * 2) {
+        buttonSectionInset = (CGRectGetHeight(self.view.bounds) - navigationBarHeight - contentSize.height - contentLabelInsetVertical * 2 - contentOffsetY - commentButtonHeight - writeReviewButtonHeight - buttonSpacing) / 2;
     }
     
-    self.contentLabel.frame = CGRectFlatMake(contentLabelInsetHorizontal, CGRectGetMaxY(self.navigationController.navigationBar.frame) + contentLabelInsetVertical - 6, contentWidth, contentSize.height);
+    self.contentLabel.frame = CGRectFlatMake(contentLabelInsetHorizontal, navigationBarHeight + contentLabelInsetVertical - 6, contentWidth, contentSize.height);
     
     self.separatorLayer.frame = CGRectFlatMake(0, CGRectGetMaxY(self.contentLabel.frame) + contentLabelInsetVertical, CGRectGetWidth(self.view.bounds), PixelOne);
     

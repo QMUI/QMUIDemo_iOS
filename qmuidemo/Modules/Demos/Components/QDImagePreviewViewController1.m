@@ -44,7 +44,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    CGFloat originY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat originY = self.qmui_navigationBarMaxYInViewCoordinator;
     
     CGSize imageSize = self.images.firstObject.size;
     CGSize imagePreviewViewSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.view.bounds) * imageSize.height / imageSize.width);

@@ -58,7 +58,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat contentMinY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat contentMinY = self.qmui_navigationBarMaxYInViewCoordinator;
     CGFloat buttonSpacingHeight = 64;
     
     self.separatorLayer1.frame = CGRectMake(0, contentMinY + buttonSpacingHeight - PixelOne, CGRectGetWidth(self.view.bounds), PixelOne);

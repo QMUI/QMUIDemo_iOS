@@ -18,24 +18,26 @@
 
 #pragma mark - 生命周期函数
 
-- (void)initSubviews {
-    [super initSubviews];
+- (void)didInitializedWithStyle:(UITableViewStyle)style {
+    [super didInitializedWithStyle:style];
+    self.tableViewInitialContentInset = UIEdgeInsetsMake(NavigationContentStaticTop + 32, 0, 0, 0);
+    self.tableViewInitialScrollIndicatorInsets = UIEdgeInsetsSetTop(self.tableViewInitialContentInset, self.tableViewInitialContentInset.top - 32);
+}
+
+- (void)initTableView {
+    [super initTableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(32, 0, 32, 0);
+#ifdef IOS11_SDK_ALLOWED
+    BeginIgnoreAvailabilityWarning
+    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    EndIgnoreAvailabilityWarning
+#endif
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-}
-
-#pragma mark - 工具方法
-
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
-}
-
-- (void)setToolbarItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setToolbarItemsIsInEditMode:isInEditMode animated:animated];
 }
 
 #pragma mark - TableView Delegate & DataSource
@@ -103,9 +105,7 @@
 - (void)initSubviews {
     self.titleLabel = [[QMUILabel alloc] init];
     self.titleLabel.font = UIFontMake(14);
-    self.titleLabel.text = @"测";
-    [self.titleLabel sizeToFit];
-    self.titleLabel.text = @"";
+    [self.titleLabel qmui_calculateHeightAfterSetAppearance];
     [self.contentView addSubview:self.titleLabel];
 }
 

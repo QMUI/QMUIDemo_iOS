@@ -102,7 +102,7 @@
     CGFloat sectionHeight = 145;
     CGFloat progressView1MarginRight = 30;
     
-    self.section1.frame = CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), CGRectGetWidth(self.view.bounds), sectionHeight);
+    self.section1.frame = CGRectMake(0, self.qmui_navigationBarMaxYInViewCoordinator, CGRectGetWidth(self.view.bounds), sectionHeight);
     self.progressView1.frame = CGRectSetXY(self.progressView1.frame, horizontalInset, CGRectGetMinYVerticallyCenterInParentRect(self.section1.frame, self.progressView1.frame) - 6);    // 因为下面有个label，因此这里向上偏一点以让视觉上更平衡
     self.titleLabel1.frame = CGRectMake(CGRectGetMinX(self.progressView1.frame), CGRectGetMaxY(self.progressView1.frame) + 9, CGRectGetWidth(self.progressView1.bounds), CGRectGetHeight(self.titleLabel1.bounds));
     self.slider.frame = CGRectMake(CGRectGetMaxX(self.progressView1.frame) + progressView1MarginRight, CGRectGetMidY(self.progressView1.frame) - CGRectGetMidY(self.slider.bounds), CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.progressView1.frame) - progressView1MarginRight - horizontalInset, CGRectGetHeight(self.slider.bounds));

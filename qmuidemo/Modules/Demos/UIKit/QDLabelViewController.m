@@ -63,7 +63,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat contentMinY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat contentMinY = self.qmui_navigationBarMaxYInViewCoordinator;
     CGFloat buttonSpacingHeight = QDButtonSpacingHeight;
     
     self.label1.frame = CGRectSetXY(self.label1.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.label1.bounds)), contentMinY + CGFloatGetCenter(buttonSpacingHeight, CGRectGetHeight(self.label1.bounds)));

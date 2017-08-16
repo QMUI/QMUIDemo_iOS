@@ -119,6 +119,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat tabBarHeight = 0;
+    CGFloat navigationBarHeight = self.qmui_navigationBarMaxYInViewCoordinator;
     UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
     CGFloat versionLabelMarginTop = 10;
     CGFloat buttonHeight = TableViewCellNormalHeight;
@@ -130,7 +131,7 @@
         CGFloat rightWidth = CGRectGetWidth(self.scrollView.bounds) - leftWidth;
         
         CGFloat leftHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionButton.frame);
-        CGFloat leftMinY = CGFloatGetCenter(CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame), leftHeight);
+        CGFloat leftMinY = CGFloatGetCenter(CGRectGetHeight(self.scrollView.bounds) - navigationBarHeight, leftHeight);
         self.logoImageView.frame = CGRectSetXY(self.logoImageView.frame, CGFloatGetCenter(leftWidth, CGRectGetHeight(self.logoImageView.frame)), leftMinY);
         self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenter(self.logoImageView.frame, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
@@ -140,9 +141,9 @@
         self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(contentWidthInRight, CGFLOAT_MAX)].height;
-        self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
+        self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - navigationBarHeight - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
         
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame));
+        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - navigationBarHeight);
     } else {
         
         CGFloat containerHeight = CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(padding);
@@ -160,7 +161,7 @@
         
         CGFloat copyrightLabelWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(copyrightLabelWidth, CGFLOAT_MAX)].height;
-        self.copyrightLabel.frame = CGRectFlatMake(padding.left, CGRectGetHeight(self.scrollView.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - padding.bottom - copyrightLabelHeight, copyrightLabelWidth, copyrightLabelHeight);
+        self.copyrightLabel.frame = CGRectFlatMake(padding.left, CGRectGetHeight(self.scrollView.bounds) - navigationBarHeight - padding.bottom - copyrightLabelHeight, copyrightLabelWidth, copyrightLabelHeight);
         
         self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds), CGRectGetMaxY(self.copyrightLabel.frame) + padding.bottom);
     }

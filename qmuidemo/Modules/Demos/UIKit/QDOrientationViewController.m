@@ -21,18 +21,6 @@ const NSInteger kIdentifierForDoneCell = 999;
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (void)didInitializedWithStyle:(UITableViewStyle)style {
-    [super didInitializedWithStyle:style];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    CGFloat contentInsetTop = IOS_VERSION >= 11.0 ? -35 : CGRectGetMaxY(self.navigationController.navigationBar.frame) - 35;
-    self.tableView.contentInset = UIEdgeInsetsSetTop(self.tableView.contentInset, contentInsetTop);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(IOS_VERSION >= 11.0 ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame), 0, 0, 0);
-}
-
 - (void)initTableView {
     [super initTableView];
     self.tableView.qmui_staticCellDataSource = [[QMUIStaticTableViewCellDataSource alloc] initWithCellDataSections:@[

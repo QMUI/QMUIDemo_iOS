@@ -70,7 +70,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat minY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat minY = self.qmui_navigationBarMaxYInViewCoordinator;
     self.separatorLayer.frame = CGRectFlatMake(0, minY + (CGRectGetHeight(self.view.bounds) - minY) / 2, CGRectGetWidth(self.view.bounds), PixelOne);
     
     UIEdgeInsets paddings = UIEdgeInsetsMake(minY + 32, 24, 24, 24);

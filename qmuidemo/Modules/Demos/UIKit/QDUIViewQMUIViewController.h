@@ -6,8 +6,8 @@
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QDCommonViewController.h"
+#import "QDCommonListViewController.h"
 
-@interface QDUIViewQMUIViewController : QDCommonViewController
+@interface QDUIViewQMUIViewController : QDCommonListViewController
 
 @end

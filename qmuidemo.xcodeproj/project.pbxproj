@@ -22,6 +22,9 @@
 		CD1A8A721EC3110300B81693 /* QDThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8A711EC3110300B81693 /* QDThemeViewController.m */; };
 		CD1A8AA11EC4012400B81693 /* QMUIConfigurationTemplateGrass.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */; };
 		CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA31EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m */; };
+		CD3CDD4F1F39E977008529DA /* QDUIViewBorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD4E1F39E977008529DA /* QDUIViewBorderViewController.m */; };
+		CD3CDD521F39F077008529DA /* QDUIViewDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD511F39F077008529DA /* QDUIViewDebugViewController.m */; };
+		CD3CDD551F3AAD42008529DA /* QDUIViewLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */; };
 		CD4013061EFCFA300022FE2A /* QDOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */; };
 		CD4421CF1E84C74C001B8C2A /* QDObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4421CE1E84C74C001B8C2A /* QDObjectViewController.m */; };
 		CD4421D21E85071A001B8C2A /* QDObjectMethodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4421D11E85071A001B8C2A /* QDObjectMethodsListViewController.m */; };
@@ -184,6 +187,12 @@
 		CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplateGrass.m; sourceTree = "<group>"; };
 		CD1A8AA21EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplatePinkRose.h; sourceTree = "<group>"; };
 		CD1A8AA31EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplatePinkRose.m; sourceTree = "<group>"; };
+		CD3CDD4D1F39E977008529DA /* QDUIViewBorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUIViewBorderViewController.h; sourceTree = "<group>"; };
+		CD3CDD4E1F39E977008529DA /* QDUIViewBorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDUIViewBorderViewController.m; sourceTree = "<group>"; };
+		CD3CDD501F39F077008529DA /* QDUIViewDebugViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUIViewDebugViewController.h; sourceTree = "<group>"; };
+		CD3CDD511F39F077008529DA /* QDUIViewDebugViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDUIViewDebugViewController.m; sourceTree = "<group>"; };
+		CD3CDD531F3AAD42008529DA /* QDUIViewLayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUIViewLayoutViewController.h; sourceTree = "<group>"; };
+		CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDUIViewLayoutViewController.m; sourceTree = "<group>"; };
 		CD4013041EFCFA300022FE2A /* QDOrientationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDOrientationViewController.h; sourceTree = "<group>"; };
 		CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDOrientationViewController.m; sourceTree = "<group>"; };
 		CD4421CD1E84C74C001B8C2A /* QDObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDObjectViewController.h; sourceTree = "<group>"; };
@@ -642,6 +651,8 @@
 			children = (
 				CDB8C9961DCC815A00769DF0 /* QDAlertController.h */,
 				CDB8C9971DCC815A00769DF0 /* QDAlertController.m */,
+				CDF79AAD1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.h */,
+				CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */,
 				CDB8C9981DCC815A00769DF0 /* QDButtonViewController.h */,
 				CDB8C9991DCC815A00769DF0 /* QDButtonViewController.m */,
 				CDB8C99A1DCC815A00769DF0 /* QDChangeNavBarStyleViewController.h */,
@@ -682,6 +693,8 @@
 				CD4421D11E85071A001B8C2A /* QDObjectMethodsListViewController.m */,
 				CD4421CD1E84C74C001B8C2A /* QDObjectViewController.h */,
 				CD4421CE1E84C74C001B8C2A /* QDObjectViewController.m */,
+				CD4013041EFCFA300022FE2A /* QDOrientationViewController.h */,
+				CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */,
 				CDB8C9BE1DCC815A00769DF0 /* QDSearchViewController.h */,
 				CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */,
 				CD5387741EE0096C00654A73 /* QDSliderViewController.h */,
@@ -704,12 +717,14 @@
 				CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */,
 				CDB8C9CC1DCC815A00769DF0 /* QDUIKitViewController.h */,
 				CDB8C9CD1DCC815A00769DF0 /* QDUIKitViewController.m */,
+				CD3CDD4D1F39E977008529DA /* QDUIViewBorderViewController.h */,
+				CD3CDD4E1F39E977008529DA /* QDUIViewBorderViewController.m */,
+				CD3CDD501F39F077008529DA /* QDUIViewDebugViewController.h */,
+				CD3CDD511F39F077008529DA /* QDUIViewDebugViewController.m */,
+				CD3CDD531F3AAD42008529DA /* QDUIViewLayoutViewController.h */,
+				CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */,
 				CDB8C9CE1DCC815A00769DF0 /* QDUIViewQMUIViewController.h */,
 				CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */,
-				CD4013041EFCFA300022FE2A /* QDOrientationViewController.h */,
-				CD4013051EFCFA300022FE2A /* QDOrientationViewController.m */,
-				CDF79AAD1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.h */,
-				CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -949,6 +964,8 @@
 				CDB8CA161DCC815A00769DF0 /* QDToolBarButtonViewController.m in Sources */,
 				CD6CC62D1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m in Sources */,
 				CDB8CA151DCC815A00769DF0 /* QDTextViewController.m in Sources */,
+				CD3CDD551F3AAD42008529DA /* QDUIViewLayoutViewController.m in Sources */,
+				CD3CDD4F1F39E977008529DA /* QDUIViewBorderViewController.m in Sources */,
 				CDB8CA0C1DCC815A00769DF0 /* QDLinkButtonViewController.m in Sources */,
 				CDB8C9E61DCC815A00769DF0 /* QDPieProgressViewController.m in Sources */,
 				CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */,
@@ -964,6 +981,7 @@
 				CD1A8A721EC3110300B81693 /* QDThemeViewController.m in Sources */,
 				CDB8C9F01DCC815A00769DF0 /* QDCAShapeLoadingViewController.m in Sources */,
 				CDB8C9F81DCC815A00769DF0 /* QDRippleAnimationViewController.m in Sources */,
+				CD3CDD521F39F077008529DA /* QDUIViewDebugViewController.m in Sources */,
 				CDB8CA0B1DCC815A00769DF0 /* QDLabelViewController.m in Sources */,
 				CDB8C9DD1DCC815A00769DF0 /* QDDialogViewController.m in Sources */,
 			);

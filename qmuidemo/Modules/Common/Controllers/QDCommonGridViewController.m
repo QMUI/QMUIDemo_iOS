@@ -19,17 +19,22 @@
 
 @implementation QDCommonGridViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self initDataSource];
-    }
-    return self;
+- (void)didInitialized {
+    [super didInitialized];
+    [self initDataSource];
 }
 
 - (void)initSubviews {
     [super initSubviews];
     
     self.scrollView = [[UIScrollView alloc] init];
+#ifdef IOS11_SDK_ALLOWED
+BeginIgnoreAvailabilityWarning
+    if ([self.scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+EndIgnoreAvailabilityWarning
+#endif
     [self.view addSubview:self.scrollView];
     
     _gridView = [[QMUIGridView alloc] init];
@@ -42,6 +47,8 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.scrollView.frame = self.view.bounds;
+    self.scrollView.contentInset = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator, 0, self.qmui_tabBarSpacingInViewCoordinator, 0);
+    self.scrollView.scrollIndicatorInsets = self.scrollView.contentInset;
     
     if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor55Inch].width) {
         self.gridView.columnCount = 3;

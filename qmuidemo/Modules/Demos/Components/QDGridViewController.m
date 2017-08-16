@@ -43,7 +43,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(24 + CGRectGetMaxY(self.navigationController.navigationBar.frame), 24, 24, 24);
+    UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24, 24, 24);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     CGFloat gridViewHeight = [self.gridView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
     self.gridView.frame = CGRectMake(padding.left, padding.top, contentWidth, gridViewHeight);

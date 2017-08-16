@@ -14,18 +14,9 @@
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    if (self = [super initWithStyle:style]) {
-        [self initDataSource];
-    }
-    return self;
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    CGFloat contentInsetTop = IOS_VERSION >= 11.0 ? 0 : CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    self.tableView.contentInset = UIEdgeInsetsMake(contentInsetTop - 35, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0);
+- (void)didInitializedWithStyle:(UITableViewStyle)style {
+    [super didInitializedWithStyle:style];
+    [self initDataSource];
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>

@@ -336,7 +336,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
         [self.modalViewControllerForAddSubview hideInView:self.view animated:YES completion:nil];
     }
     
-    CGRect modalRect = CGRectMake(40, CGRectGetMaxY(self.navigationController.navigationBar.frame) + 40, CGRectGetWidth(self.view.bounds) - 40 * 2, CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.navigationController.navigationBar.frame) - 40 * 2);
+    CGRect modalRect = CGRectMake(40, self.qmui_navigationBarMaxYInViewCoordinator + 40, CGRectGetWidth(self.view.bounds) - 40 * 2, CGRectGetHeight(self.view.bounds) - self.qmui_navigationBarMaxYInViewCoordinator - 40 * 2);
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(modalRect) - 40, 200)];
     contentView.backgroundColor = UIColorWhite;

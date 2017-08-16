@@ -57,7 +57,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.navigationBar.frame) + 32, 24, 24, 24);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 32, 24, 24, 24);
     
     self.label1.frame = CGRectSetXY(self.label1.frame, padding.left, padding.top);
     

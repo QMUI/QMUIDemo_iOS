@@ -40,9 +40,7 @@
     
     // 图片+文字按钮
     self.imagePositionButton1 = [[QMUIButton alloc] init];
-    self.imagePositionButton1.adjustsImageTintColorAutomatically = YES;
-    self.imagePositionButton1.adjustsTitleTintColorAutomatically = YES;
-    self.imagePositionButton1.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.imagePositionButton1.tintColorAdjustsTitleAndImage = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     self.imagePositionButton1.imagePosition = QMUIButtonImagePositionTop;// 将图片位置改为在文字上方
     self.imagePositionButton1.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton1 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
@@ -52,9 +50,7 @@
     [self.view addSubview:self.imagePositionButton1];
     
     self.imagePositionButton2 = [[QMUIButton alloc] init];
-    self.imagePositionButton2.adjustsImageTintColorAutomatically = YES;
-    self.imagePositionButton2.adjustsTitleTintColorAutomatically = YES;
-    self.imagePositionButton2.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.imagePositionButton2.tintColorAdjustsTitleAndImage = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     self.imagePositionButton2.imagePosition = QMUIButtonImagePositionBottom;// 将图片位置改为在文字下方
     self.imagePositionButton2.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton2 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
@@ -66,7 +62,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat contentMinY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat contentMinY = self.qmui_navigationBarMaxYInViewCoordinator;
     CGFloat buttonSpacingHeight = QDButtonSpacingHeight;
     
     // 普通按钮

@@ -85,7 +85,7 @@ static const CGFloat kAnimationDuration = 1.5;
     CGFloat lineSpace = 40;
     CGFloat minY = lineSpace;
     
-    _shapeLayer1.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), kLayerSizeValue), NavigationContentTop + minY, kLayerSizeValue, kLayerSizeValue);
+    _shapeLayer1.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), kLayerSizeValue), self.qmui_navigationBarMaxYInViewCoordinator + minY, kLayerSizeValue, kLayerSizeValue);
     
     minY = CGRectGetMaxY(_shapeLayer1.frame) + lineSpace;
     

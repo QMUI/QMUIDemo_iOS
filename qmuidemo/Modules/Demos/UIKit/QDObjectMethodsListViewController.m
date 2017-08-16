@@ -47,7 +47,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.textView.frame = CGRectInsetEdges(self.view.bounds, UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.navigationBar.frame), 0, 0, 0));
+    self.textView.frame = CGRectInsetEdges(self.view.bounds, UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator, 0, 0, 0));
 }
 
 @end

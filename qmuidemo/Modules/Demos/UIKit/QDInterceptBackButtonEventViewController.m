@@ -60,7 +60,7 @@
     CGFloat inset = 12;
     CGFloat contentWidht = CGRectGetWidth(self.view.bounds) - 2 * inset;
     CGSize labelSize = [self.textCountLabel sizeThatFits:CGSizeMake(contentWidht, CGFLOAT_MAX)];
-    self.textCountLabel.frame = CGRectMake(inset, CGRectGetMaxY(self.navigationController.navigationBar.frame) + 20, contentWidht, labelSize.height);
+    self.textCountLabel.frame = CGRectMake(inset, self.qmui_navigationBarMaxYInViewCoordinator + 20, contentWidht, labelSize.height);
     self.textView.frame = CGRectMake(inset, CGRectGetMaxY(self.textCountLabel.frame) + 10, CGRectGetWidth(self.view.bounds) - 2 * inset, 100);
 }
 

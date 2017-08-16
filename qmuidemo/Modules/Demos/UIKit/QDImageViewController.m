@@ -11,18 +11,11 @@
 @interface QDImageViewController ()
 
 @property(nonatomic, strong) UIView *contentView;
-@property(nonatomic, strong) UIScrollView *contentScrollView;
+@property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UILabel *methodNameLabel;
 @end
 
 @implementation QDImageViewController
-
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    if (self = [super initWithStyle:style]) {
-        self.tableViewInitialContentInset = UIEdgeInsetsMake(NavigationContentStaticTop, 0, 0, 0);
-    }
-    return self;
-}
 
 - (void)initDataSource {
     self.dataSourceWithDetailText = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
@@ -63,22 +56,22 @@
     self.contentView.backgroundColor = UIColorWhite;
     self.contentView.layer.cornerRadius = 6;
     
-    self.contentScrollView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
-    self.contentScrollView.contentInset = UIEdgeInsetsMake(20, 20, 20, 20);
-    self.contentScrollView.alwaysBounceHorizontal = NO;
-    self.contentScrollView.alwaysBounceVertical = NO;
-    self.contentScrollView.scrollsToTop = NO;
-    [self.contentView addSubview:self.contentScrollView];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
+    self.scrollView.contentInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    self.scrollView.alwaysBounceHorizontal = NO;
+    self.scrollView.alwaysBounceVertical = NO;
+    self.scrollView.scrollsToTop = NO;
+    [self.contentView addSubview:self.scrollView];
     
     self.methodNameLabel = [[UILabel alloc] initWithFont:CodeFontMake(16) textColor:[QDThemeManager sharedInstance].currentTheme.themeCodeColor];
     self.methodNameLabel.numberOfLines = 0;
     self.methodNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    [self.contentScrollView addSubview:self.methodNameLabel];
+    [self.scrollView addSubview:self.methodNameLabel];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.contentScrollView.frame = self.contentView.bounds;
+    self.scrollView.frame = self.contentView.bounds;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -146,19 +139,19 @@
     } else if ([title isEqualToString:@"+ qmui_imageWithView:"] || [title isEqualToString:@"+ qmui_imageWithView:afterScreenUpdates:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithView];
     }
-    self.contentScrollView.contentSize = CGSizeMake(contentViewLimitWidth, contentSizeHeight);
+    self.scrollView.contentSize = CGSizeMake(contentViewLimitWidth, contentSizeHeight);
     
-    CGFloat contentViewPreferHeight = UIEdgeInsetsGetVerticalValue(self.contentScrollView.contentInset) + self.contentScrollView.contentSize.height;
+    CGFloat contentViewPreferHeight = UIEdgeInsetsGetVerticalValue(self.scrollView.contentInset) + self.scrollView.contentSize.height;
     CGFloat contentViewLimitHeight = CGRectGetHeight(self.view.bounds) - 40 * 2;
     self.contentView.frame = CGRectSetHeight(self.contentView.frame, fminf(contentViewLimitHeight, contentViewPreferHeight));
-    self.contentScrollView.frame = self.contentView.bounds;
+    self.scrollView.frame = self.contentView.bounds;
     
     __weak QDImageViewController *weakSelf = self;
     QMUIModalPresentationViewController *modalPresentationViewController = [[QMUIModalPresentationViewController alloc] init];
     modalPresentationViewController.maximumContentViewWidth = CGFLOAT_MAX;
     modalPresentationViewController.contentView = self.contentView;
     modalPresentationViewController.didHideByDimmingViewTappedBlock = ^{
-        for (UIView *subview in weakSelf.contentScrollView.subviews) {
+        for (UIView *subview in weakSelf.scrollView.subviews) {
             if (subview != weakSelf.methodNameLabel) {
                 [subview removeFromSuperview];
             }
@@ -170,7 +163,7 @@
 }
 
 - (CGFloat)contentViewLimitWidth {
-    return CGRectGetWidth(self.contentScrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.contentScrollView.contentInset);
+    return CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.scrollView.contentInset);
 }
 
 - (CGFloat)contentViewLayoutStartingMinY {
@@ -187,13 +180,13 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectMake(0, minY, contentWidth, flat(contentWidth * originImageView.image.size.height / originImageView.image.size.width));
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UIColor *qmui_averageColor = [originImageView.image qmui_averageColor];
@@ -203,12 +196,12 @@
     afterLabel.text = [NSString stringWithFormat:@"计算出的平均色：RGB(%d, %d, %d)", (int)(qmui_averageColor.qmui_red * 255), (int)(qmui_averageColor.qmui_green * 255), (int)(qmui_averageColor.qmui_blue * 255)];
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIView *averageColorView = [[UIView alloc] initWithFrame:CGRectMake(0, minY, contentWidth, 100)];
     averageColorView.backgroundColor = [originImageView.image qmui_averageColor];
-    [self.contentScrollView addSubview:averageColorView];
+    [self.scrollView addSubview:averageColorView];
     minY = CGRectGetMaxY(averageColorView.frame);
     
     return minY;
@@ -222,14 +215,14 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -237,13 +230,13 @@
     afterLabel.text = @"置灰后的图片";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithFrame:CGRectSetY(originImageView.frame, minY)];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.image = [originImageView.image qmui_grayImage];
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -257,14 +250,14 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -272,7 +265,7 @@
     afterLabel.text = @"叠加0.5的apha之后";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *imageAddedAlpha = [originImageView.image qmui_imageWithAlpha:.5];
@@ -282,12 +275,12 @@
     UIImageView *afterImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, minY, imageViewSize.width, imageViewSize.height)];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.image = imageAddedAlpha;
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     
     UIImageView *afterImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(20, CGRectGetMinY(afterImageView.frame) + 20, imageViewSize.width, imageViewSize.height)];
     afterImageView2.contentMode = afterImageView.contentMode;
     afterImageView2.image = imageAddedAlpha;
-    [self.contentScrollView addSubview:afterImageView2];
+    [self.scrollView addSubview:afterImageView2];
     
     minY = CGRectGetMaxY(afterImageView2.frame);
     
@@ -301,13 +294,13 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -315,14 +308,14 @@
     afterLabel.text = @"将图片换个颜色";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithTintColor:[QDCommonUI randomThemeColor]];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -336,13 +329,13 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"image0") qmui_imageWithScaleToSize:CGSizeMake(contentWidth, contentWidth)]];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -350,14 +343,14 @@
     afterLabel.text = @"将图片换个颜色";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithBlendColor:[QDCommonUI randomThemeColor]];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -370,13 +363,13 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"icon_emotion") qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor]];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -384,7 +377,7 @@
     afterLabel.text = @"在图片上叠加一张未读红点的图片";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *redDotImage = [UIImage qmui_imageWithColor:UIColorRed size:CGSizeMake(6, 6) cornerRadius:6.0 / 2.0];
@@ -392,7 +385,7 @@
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -405,14 +398,14 @@
     originImageLabel.text = @"处理前的原图（UIImageView带边框）";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.layer.borderWidth = PixelOne;
     originImageView.layer.borderColor = [QDCommonUI randomThemeColor].CGColor;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -420,7 +413,7 @@
     afterLabel.text = @"在图片右边加了padding之后";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithSpacingExtensionInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
@@ -428,7 +421,7 @@
     afterImageView.layer.borderWidth = originImageView.layer.borderWidth;
     afterImageView.layer.borderColor = originImageView.layer.borderColor;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -442,7 +435,7 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
@@ -450,7 +443,7 @@
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -458,14 +451,14 @@
     afterLabel.text = @"裁剪出中间的区域";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithClippedRect:CGRectMake(originImageView.image.size.width / 4, originImageView.image.size.height / 4, originImageView.image.size.width / 2, originImageView.image.size.height / 2)];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -479,7 +472,7 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
@@ -487,7 +480,7 @@
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -495,7 +488,7 @@
     afterLabel.text = @"缩小之后的图";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     // 对原图进行缩放操作
@@ -503,7 +496,7 @@
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -516,14 +509,14 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.contentMode = UIViewContentModeCenter;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -531,7 +524,7 @@
     afterLabel.text = @"吓得我旋转了360°图";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *rightImge = [originImageView.image qmui_imageWithOrientation:UIImageOrientationRight];
@@ -542,7 +535,7 @@
     afterImageView.contentMode = UIViewContentModeCenter;
     afterImageView.animationImages = @[originImageView.image, rightImge, bottomImage, leftImage];
     afterImageView.animationDuration = 2;
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     [afterImageView startAnimating];
     minY = CGRectGetMaxY(afterImageView.frame);
     
@@ -556,12 +549,12 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -569,7 +562,7 @@
     afterLabel.text = @"加了边框之后的图（边框路径要考虑像素对齐）";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     CGFloat lineWidth = PixelOne;
@@ -579,7 +572,7 @@
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -592,12 +585,12 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -605,7 +598,7 @@
     afterLabel.text = @"加了边框之后的图";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage;
@@ -618,7 +611,7 @@
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -631,12 +624,12 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_emotion")];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -644,14 +637,14 @@
     afterLabel.text = @"加了下边框之后的图";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithBorderColor:[QDCommonUI randomThemeColor] borderWidth:PixelOne borderPosition:QMUIImageBorderPositionBottom];
     
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);
     
     return minY;
@@ -665,7 +658,7 @@
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image0")];
@@ -673,14 +666,14 @@
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     originImageView.clipsToBounds = YES;
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     UILabel *maskImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     maskImageLabel.text = @"A.用来做遮罩的图片";
     [maskImageLabel sizeToFit];
     maskImageLabel.frame = CGRectSetY(maskImageLabel.frame, minY);
-    [self.contentScrollView addSubview:maskImageLabel];
+    [self.scrollView addSubview:maskImageLabel];
     minY = CGRectGetMaxY(maskImageLabel.frame) + 6;
     
     UIImageView *maskImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"image1")];
@@ -688,7 +681,7 @@
     [maskImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     maskImageView.frame = CGRectSetY(originImageView.frame, minY);
     maskImageView.clipsToBounds = YES;
-    [self.contentScrollView addSubview:maskImageView];
+    [self.scrollView addSubview:maskImageView];
     minY = CGRectGetMaxY(maskImageView.frame) + 16;
     
     UILabel *afterLabel = [[UILabel alloc] init];
@@ -696,20 +689,20 @@
     afterLabel.text = @"A.加了遮罩后的图片";
     [afterLabel sizeToFit];
     afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
-    [self.contentScrollView addSubview:afterLabel];
+    [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
     UIImage *afterImage = [originImageView.image qmui_imageWithMaskImage:maskImageView.image usingMaskImageMode:YES];
     UIImageView *afterImageView = [[UIImageView alloc] initWithFrame:CGRectSetY(originImageView.frame, minY)];
     afterImageView.image = afterImage;
-    [self.contentScrollView addSubview:afterImageView];
+    [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame) + 16;
     
     UILabel *maskImageLabel2 = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
     maskImageLabel2.text = @"B.用来做遮罩的图片";
     [maskImageLabel2 sizeToFit];
     maskImageLabel2.frame = CGRectSetY(maskImageLabel2.frame, minY);
-    [self.contentScrollView addSubview:maskImageLabel2];
+    [self.scrollView addSubview:maskImageLabel2];
     minY = CGRectGetMaxY(maskImageLabel2.frame) + 6;
     
     UIImageView *maskImageView2 = [[UIImageView alloc] initWithImage:[UIImageMake(@"image1") qmui_grayImage]];
@@ -717,7 +710,7 @@
     [maskImageView2 qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     maskImageView2.frame = CGRectSetY(maskImageView2.frame, minY);
     maskImageView2.clipsToBounds = YES;
-    [self.contentScrollView addSubview:maskImageView2];
+    [self.scrollView addSubview:maskImageView2];
     minY = CGRectGetMaxY(maskImageView2.frame) + 16;
     
     UILabel *afterLabel2 = [[UILabel alloc] init];
@@ -725,14 +718,14 @@
     afterLabel2.text = @"B.加了遮罩后的图片";
     [afterLabel2 sizeToFit];
     afterLabel2.frame = CGRectSetY(afterLabel2.frame, minY);
-    [self.contentScrollView addSubview:afterLabel2];
+    [self.scrollView addSubview:afterLabel2];
     minY = CGRectGetMaxY(afterLabel2.frame) + 6;
     
     UIImage *afterImage2 = [originImageView.image qmui_imageWithMaskImage:maskImageView2.image usingMaskImageMode:NO];
     
     UIImageView *afterImageView2 = [[UIImageView alloc] initWithFrame:CGRectSetY(originImageView.frame, minY)];
     afterImageView2.image = afterImage2;
-    [self.contentScrollView addSubview:afterImageView2];
+    [self.scrollView addSubview:afterImageView2];
     minY = CGRectGetMaxY(afterImageView2.frame);
     
     return minY;
@@ -746,13 +739,13 @@
     originImageLabel.text = @"生成一张圆角图片";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) cornerRadius:10];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;
@@ -766,13 +759,13 @@
     originImageLabel.text = @"生成一张图片，右边带圆角";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) cornerRadiusArray:@[@0, @0, @10, @10]];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;
@@ -786,7 +779,7 @@
     originImageLabel.text = @"用椭圆路径生成一张图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     CGFloat lineWidth = 1.0f;
@@ -795,7 +788,7 @@
     UIImage *originImage = [UIImage qmui_imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) path:path addClip:NO];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;
@@ -809,13 +802,13 @@
     originImageLabel.text = @"在给定的大小里绘制一条带圆角的路径";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 cornerRadius:10];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;
@@ -829,13 +822,13 @@
     originImageLabel.text = @"在左、下、右绘制一条边框";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) lineWidth:1 borderPosition:QMUIImageBorderPositionLeft|QMUIImageBorderPositionRight|QMUIImageBorderPositionBottom];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;
@@ -849,7 +842,7 @@
     titleLabel.text = @"生成预设的形状图片";
     [titleLabel sizeToFit];
     titleLabel.frame = CGRectSetY(titleLabel.frame, minY);
-    [self.contentScrollView addSubview:titleLabel];
+    [self.scrollView addSubview:titleLabel];
     minY = CGRectGetMaxY(titleLabel.frame) + 6;
     
     UIColor *tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
@@ -877,11 +870,11 @@
     exampleLabel.text = shapeName;
     [exampleLabel sizeToFit];
     exampleLabel.frame = CGRectSetY(exampleLabel.frame, minY);
-    [self.contentScrollView addSubview:exampleLabel];
+    [self.scrollView addSubview:exampleLabel];
     minY = CGRectGetMaxY(exampleLabel.frame) + 6;
     
     UIImageView *exampleImageView = [[UIImageView alloc] initWithImage:image];
-    [self.contentScrollView addSubview:exampleImageView];
+    [self.scrollView addSubview:exampleImageView];
     exampleImageView.frame = CGRectSetY(exampleImageView.frame, minY);
     minY = CGRectGetMaxY(exampleImageView.frame) + 16;
     return minY;
@@ -894,7 +887,7 @@
     originImageLabel.text = @"将NSAttributedString生成为一张图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 16;
     
     NSDictionary *attributes = @{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: [QDCommonUI randomThemeColor]};
@@ -905,14 +898,14 @@
     exampleLabel.attributedText = attributedString1;
     [exampleLabel sizeToFit];
     exampleLabel.frame = CGRectSetY(exampleLabel.frame, minY);
-    [self.contentScrollView addSubview:exampleLabel];
+    [self.scrollView addSubview:exampleLabel];
     minY = CGRectGetMaxY(exampleLabel.frame) + 16;
     
     UIImage *exampleImage = [UIImage qmui_imageWithAttributedString:attributedString2];
     UIImageView *exampleImageView = [[UIImageView alloc] initWithImage:exampleImage];
     exampleImageView.frame = CGRectSetY(exampleImageView.frame, minY);
     exampleImageView.backgroundColor = UIColorTestRed;
-    [self.contentScrollView addSubview:exampleImageView];
+    [self.scrollView addSubview:exampleImageView];
     minY = CGRectGetMaxY(exampleImageView.frame) + 16;
     
     return minY;
@@ -926,7 +919,7 @@
     originImageLabel.text = @"将当前UINavigationController.view截图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
-    [self.contentScrollView addSubview:originImageLabel];
+    [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithView:self.navigationController.view];
@@ -936,7 +929,7 @@
     originImageView.layer.borderColor = UIColorGrayLighten.CGColor;
     [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
-    [self.contentScrollView addSubview:originImageView];
+    [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
     return minY;

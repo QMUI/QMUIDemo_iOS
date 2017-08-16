@@ -62,7 +62,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat contentMinY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat contentMinY = self.qmui_navigationBarMaxYInViewCoordinator;
     
     _testImageView.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), TestImageSize.width), contentMinY + 60, TestImageSize.width, TestImageSize.height);
     _changeImageButton.frame = CGRectSetXY(_changeImageButton.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(_changeImageButton.frame)), CGRectGetMaxY(_testImageView.frame) + 50);

@@ -50,7 +50,7 @@
     [super viewDidLayoutSubviews];
     
     CGSize imageButtonSize = CGSizeMake(self.images.firstObject.size.width / 2, self.images.firstObject.size.height / 2);
-    self.imageButton.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imageButtonSize.width), CGRectGetMaxY(self.navigationController.navigationBar.frame) + 24, imageButtonSize.width, imageButtonSize.height);
+    self.imageButton.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imageButtonSize.width), self.qmui_navigationBarMaxYInViewCoordinator + 24, imageButtonSize.width, imageButtonSize.height);
     
     CGFloat labelWidth = CGRectGetWidth(self.view.bounds) - 32 * 2;
     CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(labelWidth, CGFLOAT_MAX)].height;

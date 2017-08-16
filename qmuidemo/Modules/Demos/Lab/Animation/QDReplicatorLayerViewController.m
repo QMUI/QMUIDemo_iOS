@@ -83,7 +83,7 @@ static const CGFloat kCircleSize = 12;
     [super viewDidLayoutSubviews];
     
     CGFloat lineSpace = 60;
-    CGFloat minY = NavigationContentTop + lineSpace;
+    CGFloat minY = self.qmui_navigationBarMaxYInViewCoordinator + lineSpace;
     CGFloat width1 = kSubLayerWidth * kSubLayerCount + (kSubLayerCount - 1) * kSubLayerSpace;
     
     _containerLayer1.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), width1), minY, width1, kSubLayerHeiht);

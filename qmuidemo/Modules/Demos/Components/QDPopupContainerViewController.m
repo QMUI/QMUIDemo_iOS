@@ -74,7 +74,6 @@
     
     // 使用方法 1，以 addSubview: 的形式显示到界面上
     self.popupView1 = [[QMUIPopupContainerView alloc] init];
-    self.popupView1.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupView1.safetyMarginsOfSuperview, NavigationContentTop + 10);
     self.popupView1.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
     self.popupView1.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
     self.popupView1.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
@@ -137,11 +136,12 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat minY = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat minY = self.qmui_navigationBarMaxYInViewCoordinator;
     CGFloat viewportHeight = CGRectGetHeight(self.view.bounds) - minY;
     CGFloat sectionHeight = viewportHeight / 3.0;
     
     self.button1.frame = CGRectSetXY(self.button1.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.button1.frame)), minY + (sectionHeight - CGRectGetHeight(self.button1.frame)) / 2.0);
+    self.popupView1.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupView1.safetyMarginsOfSuperview, self.qmui_navigationBarMaxYInViewCoordinator + 10);
     [self.popupView1 layoutWithTargetView:self.button1];// 相对于 button1 布局
     
     self.separatorLayer1.frame = CGRectFlatMake(0, minY + sectionHeight, CGRectGetWidth(self.view.bounds), PixelOne);
