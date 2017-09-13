@@ -110,7 +110,9 @@
                 [_albumsArray addObject:resultAssetsGroup];
                 QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:[resultAssetsGroup name] style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
                     QMUIImageWriteToSavedPhotosAlbumWithAlbumAssetsGroup(_testImageView.image, resultAssetsGroup, ^(QMUIAsset *asset, NSError *error) {
-                        [QMUITips showSucceed:[NSString stringWithFormat:@"已保存到相册-%@", [resultAssetsGroup name]] inView:self.navigationController.view hideAfterDelay:2];
+                        if (asset) {
+                            [QMUITips showSucceed:[NSString stringWithFormat:@"已保存到相册-%@", [resultAssetsGroup name]] inView:self.navigationController.view hideAfterDelay:2];
+                        }
                     });
                 }];
                 [_alertController addAction:action];
