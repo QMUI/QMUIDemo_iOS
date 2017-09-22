@@ -28,13 +28,9 @@
     [super initSubviews];
     
     self.scrollView = [[UIScrollView alloc] init];
-#ifdef IOS11_SDK_ALLOWED
-BeginIgnoreAvailabilityWarning
-    if ([self.scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    if (@available(ios 11, *)) {
         self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-EndIgnoreAvailabilityWarning
-#endif
     [self.view addSubview:self.scrollView];
     
     _gridView = [[QMUIGridView alloc] init];

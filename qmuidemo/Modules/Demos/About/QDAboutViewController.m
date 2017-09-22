@@ -202,15 +202,11 @@
 - (void)openUrlString:(NSString *)urlString {
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *url = [NSURL URLWithString:urlString];
-#ifdef IOS10_SDK_ALLOWED
-    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+    if (@available(ios 10, *)) {
         [application openURL:url options:@{} completionHandler:nil];
     } else {
         [application openURL:url];
     }
-#else
-    [application openURL:url];
-#endif
 }
 
 @end

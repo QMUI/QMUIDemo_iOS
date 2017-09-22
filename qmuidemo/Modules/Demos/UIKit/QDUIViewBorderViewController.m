@@ -13,6 +13,8 @@
 @property(nonatomic, strong) QMUILabel *label1;
 @property(nonatomic, strong) QMUILabel *label2;
 @property(nonatomic, strong) QMUILabel *label3;
+@property(nonatomic, strong) QMUILabel *label4;
+
 @end
 
 @implementation QDUIViewBorderViewController
@@ -29,6 +31,12 @@
     self.label3 = [self generateLabelWithText:@"qmui_borderColor 可修改边框颜色"];
     self.label3.qmui_borderPosition = QMUIBorderViewPositionBottom;
     self.label3.qmui_borderColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    
+    self.label4 = [self generateLabelWithText:@"qmui_dashPattern 可定义虚线"];
+    self.label4.qmui_borderPosition = QMUIBorderViewPositionBottom;
+    self.label4.qmui_dashPhase = 0;
+    self.label4.qmui_dashPattern = [NSArray arrayWithObjects:@(3), @(4), nil];
+    self.label4.qmui_borderColor = UIColorSeparatorDashed;
 }
 
 - (QMUILabel *)generateLabelWithText:(NSString *)text {
@@ -53,6 +61,7 @@
     self.label1.frame = CGRectFlatMake(padding.left, padding.top + self.qmui_navigationBarMaxYInViewCoordinator, contentWidth, [self.label1 sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height);
     self.label2.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.label1.frame) + labelSpacing, contentWidth, [self.label2 sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height);
     self.label3.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.label2.frame) + labelSpacing, contentWidth, [self.label3 sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height);
+    self.label4.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.label3.frame) + labelSpacing, contentWidth, [self.label3 sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height);
 }
 
 @end

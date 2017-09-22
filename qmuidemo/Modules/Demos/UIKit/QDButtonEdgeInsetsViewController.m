@@ -247,37 +247,37 @@ const CGSize SizeForStaticSizeView = {140, 60};
     _shouldShowImageLabel.frame = CGRectSetY(_shouldShowImageLabel.frame, minY);
     _shouldShowImageSwitch.center = CGPointMake(switchCenter.x, _shouldShowImageLabel.center.y);
     _shouldShowImageSeparatorLayer.frame = CGRectMake(0, CGRectGetMaxY(_shouldShowImageLabel.frame) + 14, CGRectGetWidth(self.contentView.bounds), PixelOne);
-    minY = ceilf(CGRectGetMaxY(_shouldShowImageSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_shouldShowImageSeparatorLayer.frame));
     
     _shouldShowTitleLabel.frame = CGRectSetY(_shouldShowTitleLabel.frame, minY + 14);
     _shouldShowTitleSwitch.center = CGPointMake(switchCenter.x, _shouldShowTitleLabel.center.y);
     _shouldShowTitleSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_shouldShowTitleLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_shouldShowTitleSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_shouldShowTitleSeparatorLayer.frame));
     
     _bigImageLabel.frame = CGRectSetY(_bigImageLabel.frame, minY + 14);
     _bigImageSwitch.center = CGPointMake(switchCenter.x, _bigImageLabel.center.y);
     _bigImageSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_bigImageLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_bigImageSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_bigImageSeparatorLayer.frame));
     
     _longTitleLabel.frame = CGRectSetY(_longTitleLabel.frame, minY + 14);
     _longTitleSwitch.center = CGPointMake(switchCenter.x, _longTitleLabel.center.y);
     _longTitleSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_longTitleLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_longTitleSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_longTitleSeparatorLayer.frame));
     
     _imagePositionLabel.frame = CGRectSetY(_imagePositionLabel.frame, minY + 14);
     _imagePositionSegmented.center = CGPointMake(flat(CGRectGetWidth(self.contentView.bounds) - CGRectGetWidth(_imagePositionSegmented.frame) / 2), _imagePositionLabel.center.y);
     _imagePositionSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_imagePositionLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_imagePositionSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_imagePositionSeparatorLayer.frame));
     
     _horizontalAlignmentLabel.frame = CGRectSetY(_horizontalAlignmentLabel.frame, minY + 14);
     _horizontalAlignmentSegmented.center = CGPointMake(flat(CGRectGetWidth(self.contentView.bounds) - CGRectGetWidth(_horizontalAlignmentSegmented.frame) / 2), _horizontalAlignmentLabel.center.y);
     _horizontalAlignmentSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_horizontalAlignmentLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_horizontalAlignmentSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_horizontalAlignmentSeparatorLayer.frame));
     
     _verticalAlignmentLabel.frame = CGRectSetY(_verticalAlignmentLabel.frame, minY + 14);
     _verticalAlignmentSegmented.center = CGPointMake(flat(CGRectGetWidth(self.contentView.bounds) - CGRectGetWidth(_verticalAlignmentSegmented.frame) / 2), _verticalAlignmentLabel.center.y);
     _verticalAlignmentSeparatorLayer.frame = CGRectSetY(_shouldShowImageSeparatorLayer.frame, CGRectGetMaxY(_verticalAlignmentLabel.frame) + 14);
-    minY = ceilf(CGRectGetMaxY(_verticalAlignmentSeparatorLayer.frame));
+    minY = ceil(CGRectGetMaxY(_verticalAlignmentSeparatorLayer.frame));
 }
 
 - (UILabel *)generateLabelWithText:(NSString *)text {

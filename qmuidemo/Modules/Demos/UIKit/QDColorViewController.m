@@ -27,13 +27,9 @@
 - (void)initTableView {
     [super initTableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-#ifdef IOS11_SDK_ALLOWED
-    BeginIgnoreAvailabilityWarning
-    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    if (@available(ios 11, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    EndIgnoreAvailabilityWarning
-#endif
 }
 
 - (void)viewDidLayoutSubviews {

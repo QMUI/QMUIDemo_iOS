@@ -98,9 +98,12 @@
     self.textField.frame = CGRectMake(toolbarPadding.left, toolbarPadding.top, CGRectGetWidth(self.toolbar.bounds) - UIEdgeInsetsGetHorizontalValue(toolbarPadding), CGRectGetHeight(self.toolbar.bounds) - UIEdgeInsetsGetVerticalValue(toolbarPadding));
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    [self.view endEditing:YES];
+- (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view {
+    if ([view isDescendantOfView:self.toolbar]) {
+        // 输入框并非撑满 toolbar 的，所以有可能点击到 toolbar 里空白的地方，此时保持键盘状态不变
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - <QMUITextFieldDelegate>

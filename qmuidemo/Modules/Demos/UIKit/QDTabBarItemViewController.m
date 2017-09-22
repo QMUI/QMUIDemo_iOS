@@ -90,7 +90,7 @@
     [numberLabel sizeToFit];
     if (numberLabel.text.length == 1) {
         // 一位数字时，保证宽高相等（因为有些字符可能宽度比较窄）
-        CGFloat diameter = fmaxf(CGRectGetWidth(numberLabel.bounds), CGRectGetHeight(numberLabel.bounds));
+        CGFloat diameter = fmax(CGRectGetWidth(numberLabel.bounds), CGRectGetHeight(numberLabel.bounds));
         numberLabel.frame = CGRectMake(CGRectGetMinX(numberLabel.frame), CGRectGetMinY(numberLabel.frame), diameter, diameter);
     }
     numberLabel.layer.cornerRadius = flat(CGRectGetHeight(numberLabel.bounds) / 2.0);

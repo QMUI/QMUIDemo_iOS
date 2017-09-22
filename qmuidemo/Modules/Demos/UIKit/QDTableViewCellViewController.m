@@ -11,29 +11,22 @@
 #import "QDTableViewCellAccessoryTypeViewController.h"
 #import "QDTableViewCellDynamicHeightViewController.h"
 
-@interface QDTableViewCellViewController ()
-
-@end
-
 @implementation QDTableViewCellViewController
 
 - (void)initDataSource {
-    self.dataSourceWithDetailText = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
-                                     @"通过 insets 系列属性调整间距", @"",
-                                     @"通过配置表修改 accessoryType 的样式", @"",
-                                     @"动态高度计算", @"",
-                                     nil];
+    self.dataSource = @[@"通过 insets 系列属性调整间距",
+                        @"通过配置表修改 accessoryType 的样式",
+                        @"动态高度计算"];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
     [self.tableView qmui_clearsSelection];
     UIViewController *viewController = nil;
-    NSString *dataString = title;
-    if ([dataString isEqualToString:@"通过 insets 系列属性调整间距"]) {
+    if ([title isEqualToString:@"通过 insets 系列属性调整间距"]) {
         viewController = [[QDTableViewCellInsetsViewController alloc] init];
-    } else if ([dataString isEqualToString:@"通过配置表修改 accessoryType 的样式"]) {
+    } else if ([title isEqualToString:@"通过配置表修改 accessoryType 的样式"]) {
         viewController = [[QDTableViewCellAccessoryTypeViewController alloc] init];
-    } else if ([dataString isEqualToString:@"动态高度计算"]) {
+    } else if ([title isEqualToString:@"动态高度计算"]) {
         viewController = [[QDTableViewCellDynamicHeightViewController alloc] init];
     }
     viewController.title = title;

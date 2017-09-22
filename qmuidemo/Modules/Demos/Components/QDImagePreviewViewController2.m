@@ -38,6 +38,8 @@
     self.imageButton = [[UIButton alloc] init];
     [self.imageButton setImage:self.images[2] forState:UIControlStateNormal];
     [self.imageButton addTarget:self action:@selector(handleImageButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    self.imageButton.layer.cornerRadius = 20;
+    self.imageButton.clipsToBounds = YES;
     [self.view addSubview:self.imageButton];
     
     self.tipsLabel = [[UILabel alloc] init];
@@ -63,7 +65,7 @@
         self.imagePreviewViewController.imagePreviewView.delegate = self;
         self.imagePreviewViewController.imagePreviewView.currentImageIndex = 2;// 默认查看的图片的 index
     }
-    [self.imagePreviewViewController startPreviewFromRectInScreen:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil]];
+    [self.imagePreviewViewController startPreviewFromRectInScreen:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil] cornerRadius:self.imageButton.layer.cornerRadius];
 }
 
 #pragma mark - <QMUIImagePreviewViewDelegate>

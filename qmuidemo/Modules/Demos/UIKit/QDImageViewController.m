@@ -51,7 +51,7 @@
 
 - (void)initSubviews {
     [super initSubviews];
-    CGFloat maximumContentViewWidth = fminf(CGRectGetWidth(self.view.bounds), [QMUIHelper screenSizeFor47Inch].width) - 20 * 2;
+    CGFloat maximumContentViewWidth = fmin(CGRectGetWidth(self.view.bounds), [QMUIHelper screenSizeFor47Inch].width) - 20 * 2;
     self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, maximumContentViewWidth, 0)];
     self.contentView.backgroundColor = UIColorWhite;
     self.contentView.layer.cornerRadius = 6;
@@ -143,7 +143,7 @@
     
     CGFloat contentViewPreferHeight = UIEdgeInsetsGetVerticalValue(self.scrollView.contentInset) + self.scrollView.contentSize.height;
     CGFloat contentViewLimitHeight = CGRectGetHeight(self.view.bounds) - 40 * 2;
-    self.contentView.frame = CGRectSetHeight(self.contentView.frame, fminf(contentViewLimitHeight, contentViewPreferHeight));
+    self.contentView.frame = CGRectSetHeight(self.contentView.frame, fmin(contentViewLimitHeight, contentViewPreferHeight));
     self.scrollView.frame = self.contentView.bounds;
     
     __weak QDImageViewController *weakSelf = self;

@@ -348,12 +348,17 @@ static CGFloat const kEmotionViewHeight = 232;
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
+- (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view {
+    if (view == self.toolbarView) {
+        // 输入框并非撑满 toolbarView 的，所以有可能点击到 toolbarView 里空白的地方，此时保持键盘状态不变
+        return NO;
+    }
+    
     if (self.faceButton.isSelected) {
         self.faceButton.selected = NO;
         [self hideToolbarViewWithKeyboardUserInfo:nil];
     }
+    return YES;
 }
 
 - (void)showEmotionView {

@@ -14,8 +14,9 @@
 @property(nonatomic, strong) QMUIButton *borderedButton;
 @property(nonatomic, strong) QMUIButton *imagePositionButton1;
 @property(nonatomic, strong) QMUIButton *imagePositionButton2;
-
 @property(nonatomic, strong) CALayer *separatorLayer;
+@property(nonatomic, strong) CAShapeLayer *imageButtonSeparatorLayer;
+
 @end
 
 @implementation QDNormalButtonViewController
@@ -28,9 +29,7 @@
     [self.normalButton setTitle:@"按钮，支持高亮背景色" forState:UIControlStateNormal];
     [self.view addSubview:self.normalButton];
     
-    self.separatorLayer = [CALayer layer];
-    [self.separatorLayer qmui_removeDefaultAnimations];
-    self.separatorLayer.backgroundColor = UIColorSeparator.CGColor;
+    self.separatorLayer = [CALayer qmui_separatorLayer];
     [self.view.layer addSublayer:self.separatorLayer];
     
     // 边框按钮
@@ -46,7 +45,7 @@
     [self.imagePositionButton1 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
     [self.imagePositionButton1 setTitle:@"图片在上方的按钮" forState:UIControlStateNormal];
     self.imagePositionButton1.titleLabel.font = UIFontMake(11);
-    self.imagePositionButton1.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionRight | QMUIBorderViewPositionBottom;
+    self.imagePositionButton1.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
     [self.view addSubview:self.imagePositionButton1];
     
     self.imagePositionButton2 = [[QMUIButton alloc] init];
@@ -58,6 +57,9 @@
     self.imagePositionButton2.titleLabel.font = UIFontMake(11);
     self.imagePositionButton2.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
     [self.view addSubview:self.imagePositionButton2];
+    
+    self.imageButtonSeparatorLayer = [CAShapeLayer qmui_seperatorDashLayerWithLineLength:3 lineSpacing:2 lineWidth:PixelOne lineColor:UIColorSeparator.CGColor isHorizontal:NO];
+    [self.view.layer addSublayer:self.imageButtonSeparatorLayer];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -75,6 +77,8 @@
     // 图片+文字按钮
     self.imagePositionButton1.frame = CGRectFlatMake(0, contentMinY + buttonSpacingHeight * 2, CGRectGetWidth(self.view.bounds) / 2.0, buttonSpacingHeight);
     self.imagePositionButton2.frame = CGRectSetX(self.imagePositionButton1.frame, CGRectGetMaxX(self.imagePositionButton1.frame));
+    
+    self.imageButtonSeparatorLayer.frame = CGRectFlatMake(CGRectGetMaxX(self.imagePositionButton1.frame), CGRectGetMinY(self.imagePositionButton1.frame), PixelOne, buttonSpacingHeight);
 }
 
 @end

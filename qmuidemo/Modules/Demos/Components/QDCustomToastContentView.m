@@ -59,9 +59,9 @@ static CGFloat const kTextLabelMarginBottom = 4;
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    CGFloat width = fminf(size.width, [QMUIHelper screenSizeFor55Inch].width);
+    CGFloat width = fmin(size.width, [QMUIHelper screenSizeFor55Inch].width);
     CGFloat height = kImageViewHeight + UIEdgeInsetsGetVerticalValue(kInsets);
-    return CGSizeMake(fminf(size.width, width), fminf(size.height, height));
+    return CGSizeMake(fmin(size.width, width), fmin(size.height, height));
 }
 
 - (void)layoutSubviews {
@@ -79,7 +79,7 @@ static CGFloat const kTextLabelMarginBottom = 4;
     
     CGFloat detailLimitHeight = CGRectGetHeight(self.bounds) - CGRectGetMaxY(self.textLabel.frame) - kTextLabelMarginBottom - kInsets.bottom;
     CGSize detailSize = [self.detailTextLabel sizeThatFits:CGSizeMake(labelWidth, detailLimitHeight)];
-    self.detailTextLabel.frame = CGRectFlatMake(CGRectGetMinX(self.textLabel.frame), CGRectGetMaxY(self.textLabel.frame) + kTextLabelMarginBottom, labelWidth, fminf(detailLimitHeight, detailSize.height));
+    self.detailTextLabel.frame = CGRectFlatMake(CGRectGetMinX(self.textLabel.frame), CGRectGetMaxY(self.textLabel.frame) + kTextLabelMarginBottom, labelWidth, fmin(detailLimitHeight, detailSize.height));
 }
 
 @end

@@ -133,7 +133,7 @@
 @implementation QDUIHelper (Theme)
 
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color {
-    CGSize size = CGSizeMake(4, 64);
+    CGSize size = CGSizeMake(4, 88);// iPhone X，navigationBar 背景图 88，所以直接用 88 的图，其他手机会取这张图在 y 轴上的 0-64 部分的图片
     UIImage *resultImage = nil;
     color = color ? color : UIColorClear;
     
@@ -144,6 +144,8 @@
     
     resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    CGGradientRelease(gradient);
     return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
 }
 

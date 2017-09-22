@@ -211,7 +211,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     modalViewController.showingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewFrame, void(^completion)(BOOL finished)) {
         contentView.frame = CGRectSetY(contentView.frame, CGRectGetHeight(containerBounds));
         dimmingView.alpha = 0;
-        [UIView animateWithDuration:.3 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
+        [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
             dimmingView.alpha = 1;
             contentView.frame = contentViewFrame;
         } completion:^(BOOL finished) {
@@ -222,7 +222,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
         }];
     };
     modalViewController.hidingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, void(^completion)(BOOL finished)) {
-        [UIView animateWithDuration:.3 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
+        [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
             dimmingView.alpha = 0.0;
             contentView.frame = CGRectSetY(contentView.frame, CGRectGetHeight(containerBounds));
         } completion:^(BOOL finished) {

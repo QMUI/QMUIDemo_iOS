@@ -61,16 +61,21 @@
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     CGSize textViewSize = [self.textView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
-    self.textView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), fminf(self.textViewMaximumHeight, fmaxf(textViewSize.height, self.textViewMinimumHeight)));
+    self.textView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), fmin(self.textViewMaximumHeight, fmax(textViewSize.height, self.textViewMinimumHeight)));
     
     CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
     self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textView.frame) + 8, contentWidth, tipsLabelHeight);
 }
 
+- (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view {
+    // 表示点击空白区域都会降下键盘
+    return YES;
+}
+
 #pragma mark - <QMUITextViewDelegate>
 
 - (void)textView:(QMUITextView *)textView newHeightAfterTextChanged:(CGFloat)height {
-    height = fminf(self.textViewMaximumHeight, fmaxf(height, self.textViewMinimumHeight));
+    height = fmin(self.textViewMaximumHeight, fmax(height, self.textViewMinimumHeight));
     BOOL needsChangeHeight = CGRectGetHeight(textView.frame) != height;
     if (needsChangeHeight) {
         [self.view setNeedsLayout];

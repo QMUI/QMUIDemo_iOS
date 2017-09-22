@@ -11,20 +11,6 @@
 #import "QDUIViewDebugViewController.h"
 #import "QDUIViewLayoutViewController.h"
 
-@interface QDUIViewQMUIViewController ()
-
-@property(nonatomic, strong) UIScrollView *contentScrollView;
-
-@property(nonatomic, strong) UILabel *descriptionLabel1;
-@property(nonatomic, strong) UILabel *descriptionLabel2;
-
-@property(nonatomic, strong) UIView *contentView;
-@property(nonatomic, strong) UILabel *contentLabel1;
-@property(nonatomic, strong) UILabel *contentLabel2;
-@property(nonatomic, strong) UILabel *contentLabel3;
-
-@end
-
 @implementation QDUIViewQMUIViewController
 
 - (void)initDataSource {

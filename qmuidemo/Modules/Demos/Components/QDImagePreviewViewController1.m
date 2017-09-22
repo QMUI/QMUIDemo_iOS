@@ -48,7 +48,7 @@
     
     CGSize imageSize = self.images.firstObject.size;
     CGSize imagePreviewViewSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.view.bounds) * imageSize.height / imageSize.width);
-    imagePreviewViewSize.height = fminf(CGRectGetHeight(self.view.bounds) - originY, imagePreviewViewSize.height);
+    imagePreviewViewSize.height = fmin(CGRectGetHeight(self.view.bounds) - originY, imagePreviewViewSize.height);
     
     self.imagePreviewView.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imagePreviewViewSize.width), originY, imagePreviewViewSize.width, imagePreviewViewSize.height);
 }
