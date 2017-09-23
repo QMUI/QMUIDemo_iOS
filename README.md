@@ -3,7 +3,7 @@ Sample Code for QMUI iOS https://github.com/QMUI/QMUI_iOS
 
 支持 iOS 版本：iOS 8.0+
 
-建议用 Xcode 8.0 以上版本打开，因为项目的 `Project Format` 为 `Xcode 8.0-compatible`，如需在旧版 Xcode 中运行，需要先将 `Project Format` 改为更旧的选项。
+请用 Xcode 9.0 及以上版本打开，否则对 iOS 11 新增的 API 会无法编译通过。
 
 ## 关于 GitHub 版本和 AppStore 版本
 
