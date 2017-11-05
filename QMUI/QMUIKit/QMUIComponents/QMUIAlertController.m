@@ -99,10 +99,6 @@ static NSUInteger alertControllerCount = 0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAlertAction:)]) {
         [self.delegate didClickAlertAction:self];
     }
-    // 再调block回调
-    if (self.handler) {
-        self.handler(self);
-    }
 }
 
 @end
@@ -198,6 +194,10 @@ static QMUIAlertController *alertControllerAppearance;
 
 @property(nonatomic, assign) CGFloat keyboardHeight;
 @property(nonatomic, assign) BOOL isShowing;
+
+// 保护 showing 的过程中调用 hide 无效
+@property(nonatomic, assign) BOOL isNeedsHideAfterAlertShowed;
+@property(nonatomic, assign) BOOL isAnimatedForHideAfterAlertShowed;
 
 @end
 
@@ -412,7 +412,7 @@ static QMUIAlertController *alertControllerAppearance;
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message preferredStyle:(QMUIAlertControllerStyle)preferredStyle {
     self = [self init];
     if (self) {
-    
+        
         self.isShowing = NO;
         self.shouldRespondMaskViewTouch = preferredStyle == QMUIAlertControllerStyleActionSheet;
         
@@ -725,9 +725,6 @@ static QMUIAlertController *alertControllerAppearance;
     
     self.modalPresentationViewController.showingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewFrame, void(^completion)(BOOL finished)) {
         if (self.preferredStyle == QMUIAlertControllerStyleAlert) {
-            if ([weakSelf.delegate respondsToSelector:@selector(willShowAlertController:)]) {
-                [weakSelf.delegate willShowAlertController:weakSelf];
-            }
             weakSelf.containerView.alpha = 0;
             weakSelf.containerView.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.0);
             [UIView animateWithDuration:0.25f delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
@@ -735,27 +732,16 @@ static QMUIAlertController *alertControllerAppearance;
                 weakSelf.containerView.alpha = 1;
                 weakSelf.containerView.layer.transform = CATransform3DMakeScale(1.0, 1.0, 1.0);
             } completion:^(BOOL finished) {
-                weakSelf.isShowing = YES;
-                if ([weakSelf.delegate respondsToSelector:@selector(didShowAlertController:)]) {
-                    [weakSelf.delegate didShowAlertController:weakSelf];
-                }
                 if (completion) {
                     completion(finished);
                 }
             }];
         } else if (self.preferredStyle == QMUIAlertControllerStyleActionSheet) {
-            if ([weakSelf.delegate respondsToSelector:@selector(willShowAlertController:)]) {
-                [weakSelf.delegate willShowAlertController:weakSelf];
-            }
             weakSelf.containerView.layer.transform = CATransform3DMakeTranslation(0, CGRectGetHeight(weakSelf.containerView.bounds), 0);
             [UIView animateWithDuration:0.25f delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
                 weakSelf.maskView.alpha = 1;
                 weakSelf.containerView.layer.transform = CATransform3DIdentity;
             } completion:^(BOOL finished) {
-                weakSelf.isShowing = YES;
-                if ([weakSelf.delegate respondsToSelector:@selector(didShowAlertController:)]) {
-                    [weakSelf.delegate didShowAlertController:weakSelf];
-                }
                 if (completion) {
                     completion(finished);
                 }
@@ -764,19 +750,12 @@ static QMUIAlertController *alertControllerAppearance;
     };
     
     self.modalPresentationViewController.hidingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, void(^completion)(BOOL finished)) {
-        if ([weakSelf.delegate respondsToSelector:@selector(willHideAlertController:)]) {
-            [weakSelf.delegate willHideAlertController:weakSelf];
-        }
         if (self.preferredStyle == QMUIAlertControllerStyleAlert) {
             [UIView animateWithDuration:0.25f delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
                 weakSelf.maskView.alpha = 0;
                 weakSelf.containerView.alpha = 0;
             } completion:^(BOOL finished) {
-                weakSelf.isShowing = NO;
                 weakSelf.containerView.alpha = 1;
-                if ([weakSelf.delegate respondsToSelector:@selector(didHideAlertController:)]) {
-                    [weakSelf.delegate didHideAlertController:weakSelf];
-                }
                 if (completion) {
                     completion(finished);
                 }
@@ -786,10 +765,6 @@ static QMUIAlertController *alertControllerAppearance;
                 weakSelf.maskView.alpha = 0;
                 weakSelf.containerView.layer.transform = CATransform3DMakeTranslation(0, CGRectGetHeight(weakSelf.containerView.bounds), 0);
             } completion:^(BOOL finished) {
-                weakSelf.isShowing = NO;
-                if ([weakSelf.delegate respondsToSelector:@selector(didHideAlertController:)]) {
-                    [weakSelf.delegate didHideAlertController:weakSelf];
-                }
                 if (completion) {
                     completion(finished);
                 }
@@ -824,12 +799,12 @@ static QMUIAlertController *alertControllerAppearance;
     __weak __typeof(self)weakSelf = self;
     
     [self.modalPresentationViewController showWithAnimated:animated completion:^(BOOL finished) {
-        if (self.preferredStyle == QMUIAlertControllerStyleAlert) {
-            weakSelf.maskView.alpha = 1;
-            weakSelf.isShowing = YES;
-        } else {
-            weakSelf.maskView.alpha = 1;
-            weakSelf.isShowing = YES;
+        weakSelf.maskView.alpha = 1;
+        weakSelf.isShowing = YES;
+        if (self.isNeedsHideAfterAlertShowed) {
+            [self hideWithAnimated:self.isAnimatedForHideAfterAlertShowed];
+            self.isNeedsHideAfterAlertShowed = NO;
+            self.isAnimatedForHideAfterAlertShowed = NO;
         }
         if ([weakSelf.delegate respondsToSelector:@selector(didShowAlertController:)]) {
             [weakSelf.delegate didShowAlertController:weakSelf];
@@ -841,7 +816,13 @@ static QMUIAlertController *alertControllerAppearance;
 }
 
 - (void)hideWithAnimated:(BOOL)animated {
+    [self hideWithAnimated:animated completion:NULL];
+}
+
+- (void)hideWithAnimated:(BOOL)animated completion:(void (^)(void))completion {
     if (!self.isShowing) {
+        self.isNeedsHideAfterAlertShowed = YES;
+        self.isAnimatedForHideAfterAlertShowed = animated;
         return;
     }
     
@@ -853,17 +834,18 @@ static QMUIAlertController *alertControllerAppearance;
     
     [self.modalPresentationViewController hideWithAnimated:animated completion:^(BOOL finished) {
         weakSelf.modalPresentationViewController = nil;
+        weakSelf.isShowing = NO;
+        weakSelf.maskView.alpha = 0;
         if (self.preferredStyle == QMUIAlertControllerStyleAlert) {
-            weakSelf.isShowing = NO;
-            weakSelf.maskView.alpha = 0;
             weakSelf.containerView.alpha = 0;
         } else {
-            weakSelf.isShowing = NO;
-            weakSelf.maskView.alpha = 0;
             weakSelf.containerView.layer.transform = CATransform3DMakeTranslation(0, CGRectGetHeight(weakSelf.containerView.bounds), 0);
         }
         if ([weakSelf.delegate respondsToSelector:@selector(didHideAlertController:)]) {
             [weakSelf.delegate didHideAlertController:weakSelf];
+        }
+        if (completion) {
+            completion();
         }
     }];
     
@@ -892,6 +874,11 @@ static QMUIAlertController *alertControllerAppearance;
     }
     action.delegate = self;
     [self.alertActions addObject:action];
+}
+
+- (void)addCancelAction {
+    QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:nil];
+    [self addAction:action];
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
@@ -1044,21 +1031,27 @@ static QMUIAlertController *alertControllerAppearance;
 
 - (void)handleMaskViewEvent:(id)sender {
     if (_shouldRespondMaskViewTouch) {
-        [self hideWithAnimated:YES];
+        [self hideWithAnimated:YES completion:NULL];
     }
 }
 
 #pragma mark - <QMUIAlertActionDelegate>
 
 - (void)didClickAlertAction:(QMUIAlertAction *)alertAction {
-    [self hideWithAnimated:YES];
+    [self hideWithAnimated:YES completion:^{
+        if (alertAction.handler) {
+            alertAction.handler(alertAction);
+            alertAction.handler = nil;
+        }
+    }];
 }
 
 #pragma mark - <QMUIModalPresentationViewControllerDelegate>
 
 - (void)requestHideAllModalPresentationViewController {
-    [self hideWithAnimated:NO];
+    [self hideWithAnimated:NO completion:NULL];
 }
+
 
 @end
 
