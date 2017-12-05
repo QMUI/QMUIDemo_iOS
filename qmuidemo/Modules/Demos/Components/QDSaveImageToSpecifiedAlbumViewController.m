@@ -7,7 +7,6 @@
 //
 
 #import "QDSaveImageToSpecifiedAlbumViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "QDUIHelper.h"
 
 #define TestImageSize CGSizeMake(160, 160)
@@ -19,14 +18,12 @@
     UIImageView *_testImageView;
     
     NSArray *_textArray;
-    ALAssetsLibrary *_assetsLibrary;
     NSMutableArray *_albumsArray;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         _textArray = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
-        _assetsLibrary = [[ALAssetsLibrary alloc] init];
         _albumsArray = [[NSMutableArray alloc] init];
     }
     return self;
@@ -130,7 +127,7 @@
         [QMUIAssetsManager requestAuthorization:^(QMUIAssetAuthorizationStatus status) {
             // requestAuthorization:(void(^)(QMUIAssetAuthorizationStatus status))handler 不在主线程执行，因此涉及 UI 相关的操作需要手工放置到主流程执行。
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (status == QMUIAssetAuthorizationStatusAuthorized || status == QMUIAssetAuthorizationStatusNotUsingPhotoKit) {
+                if (status == QMUIAssetAuthorizationStatusAuthorized) {
                     [self saveImageToAlbum];
                 } else {
                     [QDUIHelper showAlertWhenSavedPhotoFailureByPermissionDenied];

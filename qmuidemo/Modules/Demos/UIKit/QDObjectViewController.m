@@ -131,7 +131,7 @@
     
     if (searchString.length > 2) {
         for (NSString *className in self.allClasses) {
-            if ([className.lowercaseString qmui_includesString:searchString.lowercaseString]) {
+            if ([className.lowercaseString containsString:searchString.lowercaseString]) {
                 [self.autocompletionClasses addObject:className];
             }
         }

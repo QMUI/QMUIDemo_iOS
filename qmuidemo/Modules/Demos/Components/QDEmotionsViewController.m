@@ -73,12 +73,28 @@
     self.qqEmotionManager.boundTextField = self.textField;
     self.qqEmotionManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
     [self.view addSubview:self.qqEmotionManager.emotionView];
+    
+    self.toolbar.alpha = 0;
+    self.qqEmotionManager.emotionView.alpha = 0;
+}
+
+// 布局时依赖 self.view.safeAreaInset.bottom，但由于前一个界面有 tabBar，导致 push 进来后第一次布局，self.view.safeAreaInset.bottom 依然是以存在 tabBar 的方式来计算的，所以会有跳动，简单处理，这里通过动画来掩饰这个跳动，哈哈
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.toolbar.transform = CGAffineTransformMakeTranslation(0, self.view.qmui_height - self.toolbar.qmui_top);
+    self.qqEmotionManager.emotionView.transform = CGAffineTransformMakeTranslation(0, self.view.qmui_height - self.qqEmotionManager.emotionView.qmui_top);
+    [UIView animateWithDuration:.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
+        self.toolbar.alpha = 1;
+        self.qqEmotionManager.emotionView.alpha = 1;
+        self.toolbar.transform = CGAffineTransformIdentity;
+        self.qqEmotionManager.emotionView.transform = CGAffineTransformIdentity;
+    } completion:NULL];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(20, 20, 20, 20);
+    UIEdgeInsets padding = UIEdgeInsetsMake(20, 20 + self.view.qmui_safeAreaInsets.left, 20, 20 + self.view.qmui_safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     CGSize descriptionLabelSize = [self.descriptionLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     self.descriptionLabel.frame = CGRectFlatMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, descriptionLabelSize.height);
@@ -89,12 +105,11 @@
         self.toolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.keyboardHeight - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
         self.qqEmotionManager.emotionView.frame = CGRectMake(0, CGRectGetMaxY(self.toolbar.frame), CGRectGetWidth(self.view.bounds), emotionViewHeight);
     } else {
-        self.qqEmotionManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
+        self.qqEmotionManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.view.qmui_safeAreaInsets.bottom - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
         self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.qqEmotionManager.emotionView.frame) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
     }
     
-    
-    UIEdgeInsets toolbarPadding = UIEdgeInsetsMake(2, 8, 2, 8);
+    UIEdgeInsets toolbarPadding = UIEdgeInsetsConcat(UIEdgeInsetsMake(2, 8, 2, 8), self.toolbar.qmui_safeAreaInsets);
     self.textField.frame = CGRectMake(toolbarPadding.left, toolbarPadding.top, CGRectGetWidth(self.toolbar.bounds) - UIEdgeInsetsGetHorizontalValue(toolbarPadding), CGRectGetHeight(self.toolbar.bounds) - UIEdgeInsetsGetVerticalValue(toolbarPadding));
 }
 

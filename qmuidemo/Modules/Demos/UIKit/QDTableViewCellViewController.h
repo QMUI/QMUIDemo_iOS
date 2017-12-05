@@ -8,6 +8,7 @@
 
 #import "QDCommonListViewController.h"
 
+/// 展示 QMUITableViewCell 能力的 demo 列表
 @interface QDTableViewCellViewController : QDCommonListViewController
 
 @end

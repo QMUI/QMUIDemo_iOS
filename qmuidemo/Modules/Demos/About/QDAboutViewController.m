@@ -202,7 +202,7 @@
 - (void)openUrlString:(NSString *)urlString {
     UIApplication *application = [UIApplication sharedApplication];
     NSURL *url = [NSURL URLWithString:urlString];
-    if (@available(ios 10, *)) {
+    if (@available(iOS 10, *)) {
         [application openURL:url options:@{} completionHandler:nil];
     } else {
         [application openURL:url];

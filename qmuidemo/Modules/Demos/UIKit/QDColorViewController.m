@@ -18,22 +18,12 @@
 
 #pragma mark - 生命周期函数
 
-- (void)didInitializedWithStyle:(UITableViewStyle)style {
-    [super didInitializedWithStyle:style];
-    self.tableViewInitialContentInset = UIEdgeInsetsMake(NavigationContentStaticTop + 32, 0, 0, 0);
-    self.tableViewInitialScrollIndicatorInsets = UIEdgeInsetsSetTop(self.tableViewInitialContentInset, self.tableViewInitialContentInset.top - 32);
-}
-
 - (void)initTableView {
     [super initTableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    if (@available(ios 11, *)) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+    
+    CGFloat topInset = 32;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), topInset)];
 }
 
 #pragma mark - TableView Delegate & DataSource

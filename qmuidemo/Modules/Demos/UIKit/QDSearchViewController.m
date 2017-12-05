@@ -48,7 +48,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(26, 26, 26, 26);
+    UIEdgeInsets padding = UIEdgeInsetsConcat(UIEdgeInsetsMake(26, 26, 26, 26), self.qmui_safeAreaInsets);
     CGFloat titleLabelMarginTop = 20;
     self.titleLabel.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.bounds) - UIEdgeInsetsGetHorizontalValue(padding), CGRectGetHeight(self.titleLabel.frame));
     
@@ -85,6 +85,7 @@
     self.mySearchController = [[QMUISearchController alloc] initWithContentsViewController:self];
     self.mySearchController.searchResultsDelegate = self;
     self.mySearchController.launchView = [[QDRecentSearchView alloc] init];// launchView 会自动布局，无需处理 frame
+    self.mySearchController.searchBar.qmui_usedAsTableHeaderView = YES;// 以 tableHeaderView 的方式使用 searchBar 的话，将其置为 YES，以辅助兼容一些系统 bug
     self.tableView.tableHeaderView = self.mySearchController.searchBar;
 }
 
@@ -130,7 +131,7 @@
     [self.searchResultsKeywords removeAllObjects];
     
     for (NSString *keyword in self.keywords) {
-        if ([keyword qmui_includesString:searchString]) {
+        if ([keyword containsString:searchString]) {
             [self.searchResultsKeywords addObject:keyword];
         }
     }

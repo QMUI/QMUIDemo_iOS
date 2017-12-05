@@ -28,9 +28,6 @@
     [super initSubviews];
     
     self.scrollView = [[UIScrollView alloc] init];
-    if (@available(ios 11, *)) {
-        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
     [self.view addSubview:self.scrollView];
     
     _gridView = [[QMUIGridView alloc] init];
@@ -43,33 +40,46 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.scrollView.frame = self.view.bounds;
-    self.scrollView.contentInset = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator, 0, self.qmui_tabBarSpacingInViewCoordinator, 0);
-    self.scrollView.scrollIndicatorInsets = self.scrollView.contentInset;
+    
+    CGFloat gridViewWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.scrollView.qmui_safeAreaInsets);
     
     if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor55Inch].width) {
         self.gridView.columnCount = 3;
-        CGFloat itemWidth = flat(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+        CGFloat itemWidth = flat(gridViewWidth / self.gridView.columnCount);
         self.gridView.rowHeight = itemWidth;
     } else {
         CGFloat minimumItemWidth = flat([QMUIHelper screenSizeFor55Inch].width / 3.0);
-        CGFloat maximumItemWidth = flat(CGRectGetWidth(self.view.bounds) / 5.0);
-        CGFloat freeSpacingWhenDisplayingMinimumCount = CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth - floor(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
-        CGFloat freeSpacingWhenDisplayingMaximumCount = CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth - floor(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
+        CGFloat maximumItemWidth = flat(gridViewWidth / 5.0);
+        CGFloat freeSpacingWhenDisplayingMinimumCount = gridViewWidth / maximumItemWidth - floor(gridViewWidth / maximumItemWidth);
+        CGFloat freeSpacingWhenDisplayingMaximumCount = gridViewWidth / minimumItemWidth - floor(gridViewWidth / minimumItemWidth);
         if (freeSpacingWhenDisplayingMinimumCount < freeSpacingWhenDisplayingMaximumCount) {
             // 按每行最少item的情况来布局的话，空间利用率会更高，所以按最少item来
-            self.gridView.columnCount = floor(CGRectGetWidth(self.scrollView.bounds) / maximumItemWidth);
-            CGFloat itemWidth = floor(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+            self.gridView.columnCount = floor(gridViewWidth / maximumItemWidth);
+            CGFloat itemWidth = floor(gridViewWidth / self.gridView.columnCount);
             self.gridView.rowHeight = itemWidth;
         } else {
-            self.gridView.columnCount = floor(CGRectGetWidth(self.scrollView.bounds) / minimumItemWidth);
-            CGFloat itemWidth = floor(CGRectGetWidth(self.scrollView.bounds) / self.gridView.columnCount);
+            self.gridView.columnCount = floor(gridViewWidth / minimumItemWidth);
+            CGFloat itemWidth = floor(gridViewWidth / self.gridView.columnCount);
             self.gridView.rowHeight = itemWidth;
         }
     }
     
-    CGFloat gridViewHeight = [self.gridView sizeThatFits:CGSizeMake(CGRectGetWidth(self.scrollView.bounds), CGFLOAT_MAX)].height;
-    self.gridView.frame = CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), gridViewHeight);
-    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds), CGRectGetMaxY(self.gridView.frame));
+    for (NSInteger i = 0; i < self.gridView.subviews.count; i++) {
+        UIView *item = self.gridView.subviews[i];
+        item.qmui_borderPosition = QMUIBorderViewPositionLeft | QMUIBorderViewPositionTop;
+        if ((i % self.gridView.columnCount == self.gridView.columnCount - 1) || (i == self.gridView.subviews.count - 1)) {
+            // 每行最后一个，或者所有的最后一个（因为它可能不是所在行的最后一个）
+            item.qmui_borderPosition |= QMUIBorderViewPositionRight;
+        }
+        if (i + self.gridView.columnCount >= self.gridView.subviews.count) {
+            // 那些下方没有其他 item 的 item，底部都加个边框
+            item.qmui_borderPosition |= QMUIBorderViewPositionBottom;
+        }
+    }
+    
+    CGFloat gridViewHeight = [self.gridView sizeThatFits:CGSizeMake(gridViewWidth, CGFLOAT_MAX)].height;
+    self.gridView.frame = CGRectMake(self.scrollView.qmui_safeAreaInsets.left, 0, gridViewWidth, gridViewHeight);
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.gridView.frame), CGRectGetMaxY(self.gridView.frame));
 }
 
 - (QDCommonGridButton *)generateButtonAtIndex:(NSInteger)index {
@@ -138,7 +148,6 @@
         self.titleLabel.numberOfLines = 2;
         self.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
         self.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
-        self.qmui_borderPosition = QMUIBorderViewPositionRight | QMUIImageBorderPositionBottom;
     }
     return self;
 }

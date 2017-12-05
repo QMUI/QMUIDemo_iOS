@@ -61,6 +61,9 @@
     self.scrollView.alwaysBounceHorizontal = NO;
     self.scrollView.alwaysBounceVertical = NO;
     self.scrollView.scrollsToTop = NO;
+    if (@available(iOS 11, *)) {
+        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self.contentView addSubview:self.scrollView];
     
     self.methodNameLabel = [[UILabel alloc] initWithFont:CodeFontMake(16) textColor:[QDThemeManager sharedInstance].currentTheme.themeCodeColor];

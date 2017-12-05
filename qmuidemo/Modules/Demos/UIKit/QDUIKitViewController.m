@@ -12,7 +12,7 @@
 #import "QDLabelViewController.h"
 #import "QDTextViewController.h"
 #import "QDTextFieldViewController.h"
-#import "QDTableViewCellViewController.h"
+#import "QDTableViewController.h"
 #import "QDButtonViewController.h"
 #import "QDAlertController.h"
 #import "QDSearchViewController.h"
@@ -36,7 +36,7 @@
                        @"QMUITextField", UIImageMake(@"icon_grid_textField"),
                        @"QMUISlider", UIImageMake(@"icon_grid_slider"),
                        @"QMUIAlertController", UIImageMake(@"icon_grid_alert"),
-                       @"QMUITableViewCell", UIImageMake(@"icon_grid_cell"),
+                       @"QMUITableView", UIImageMake(@"icon_grid_cell"),
                        @"QMUICollectionViewLayout", UIImageMake(@"icon_grid_collection"),
                        @"QMUISearchController", UIImageMake(@"icon_grid_search"),
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
@@ -76,8 +76,8 @@
     else if ([title isEqualToString:@"QMUISlider"]) {
         viewController = [[QDSliderViewController alloc] init];
     }
-    else if ([title isEqualToString:@"QMUITableViewCell"]) {
-        viewController = [[QDTableViewCellViewController alloc] init];
+    else if ([title isEqualToString:@"QMUITableView"]) {
+        viewController = [[QDTableViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUICollectionViewLayout"]) {
         viewController = [[QDCollectionListViewController alloc] init];

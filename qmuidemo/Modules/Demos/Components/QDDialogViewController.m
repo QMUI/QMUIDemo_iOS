@@ -167,7 +167,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *aDialogViewController) {
         QMUIDialogSelectionViewController *d = (QMUIDialogSelectionViewController *)aDialogViewController;
         if (d.selectedItemIndex == QMUIDialogSelectionViewControllerSelectedItemIndexNone) {
-            [QMUITips showError:@"请至少选一个" inView:d.modalPresentedViewController.view hideAfterDelay:1.2];
+            [QMUITips showError:@"请至少选一个" inView:d.qmui_modalPresentationViewController.view hideAfterDelay:1.2];
             return;
         }
         NSString *city = d.items[d.selectedItemIndex];
@@ -278,7 +278,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     if (self.currentTextFieldDialogViewController.submitButton.enabled) {
         [self.currentTextFieldDialogViewController hide];
     } else {
-        [QMUITips showSucceed:@"请输入文字" inView:self.currentTextFieldDialogViewController.modalPresentedViewController.view hideAfterDelay:2.0];
+        [QMUITips showSucceed:@"请输入文字" inView:self.currentTextFieldDialogViewController.qmui_modalPresentationViewController.view hideAfterDelay:2.0];
     }
     return NO;
 }

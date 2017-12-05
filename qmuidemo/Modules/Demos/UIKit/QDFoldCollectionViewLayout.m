@@ -32,7 +32,7 @@
 }
 
 - (CGSize)collectionViewContentSize {
-    return CGSizeMake(self.collectionView.frame.size.width, self.collectionView.frame.size.height - self.collectionView.contentInset.top);
+    return CGSizeMake(self.collectionView.frame.size.width, self.collectionView.frame.size.height - self.collectionView.qmui_contentInset.top);
 }
 
 - (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {

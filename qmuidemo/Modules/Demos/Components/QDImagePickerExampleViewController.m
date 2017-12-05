@@ -8,7 +8,6 @@
 
 #import "QDImagePickerExampleViewController.h"
 #import "QDNavigationController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 #define MaxSelectedImageCount 9
 #define NormalImagePickingTag 1045
@@ -44,7 +43,6 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 }
 
 - (void)authorizationPresentAlbumViewControllerWithTitle:(NSString *)title {
-    // 请求访问照片库的权限，在 iOS 8 或以上版本中可以利用这个方法弹出 Alert 询问用户是否授权
     if ([QMUIAssetsManager authorizationStatus] == QMUIAssetAuthorizationStatusNotDetermined) {
         [QMUIAssetsManager requestAuthorization:^(QMUIAssetAuthorizationStatus status) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -204,7 +202,15 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
     [QMUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerPreviewViewController.assetsGroup ablumContentType:kAlbumContentType userIdentify:nil];
     // 显示 loading
     [self startLoading];
-    [self performSelector:@selector(setAvatarWithAvatarImage:) withObject:[imageAsset previewImage] afterDelay:1.8];
+    [imageAsset requestImageData:^(NSData *imageData, NSDictionary<NSString *,id> *info, BOOL isGif, BOOL isHEIC) {
+        UIImage *targetImage = [UIImage imageWithData:imageData];
+        if (isHEIC) {
+            // iOS 11 中新增 HEIF/HEVC 格式的资源，直接发送新格式的照片到不支持新格式的设备，照片可能会无法识别，可以先转换为通用的 JPEG 格式再进行使用。
+            // 详细请浏览：https://github.com/QMUI/QMUI_iOS/issues/224
+            targetImage = [UIImage imageWithData:UIImageJPEGRepresentation(targetImage, 1)];
+        }
+        [self performSelector:@selector(setAvatarWithAvatarImage:) withObject:targetImage afterDelay:1.8];
+    }];
 }
 
 #pragma mark - 业务方法

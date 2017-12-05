@@ -93,7 +93,7 @@
     if (self.debug) {
         CGSize itemSize = CGSizeMake(100, 100);
         CGFloat horizontalInset = (CGRectGetWidth(self.collectionView.bounds) - itemSize.width) / 2;
-        CGFloat verticalInset = (CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionView.contentInset) - itemSize.height) / 2;
+        CGFloat verticalInset = (CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionView.qmui_contentInset) - itemSize.height) / 2;
         return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset);
     } else {
         return UIEdgeInsetsMake(36, 36, 36, 36);

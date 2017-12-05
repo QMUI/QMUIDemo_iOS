@@ -44,7 +44,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.tabBar.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.tabBar.frame));
+    CGFloat tabBarHeight = TabBarHeight;
+    self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - tabBarHeight, CGRectGetWidth(self.view.bounds), tabBarHeight);
 }
 
 - (void)initDataSource {
