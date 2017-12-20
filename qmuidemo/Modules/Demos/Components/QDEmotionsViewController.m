@@ -13,7 +13,7 @@
 @property(nonatomic, strong) UILabel *descriptionLabel;
 @property(nonatomic, strong) UIView *toolbar;
 @property(nonatomic, strong) QMUITextField *textField;
-@property(nonatomic, strong) QMUIQQEmotionManager *qqEmotionManager;
+@property(nonatomic, strong) QMUIEmotionInputManager *emotionInputManager;
 @property(nonatomic, assign) BOOL keyboardVisible;
 @property(nonatomic, assign) CGFloat keyboardHeight;
 @end
@@ -25,7 +25,7 @@
     
     self.descriptionLabel = [[UILabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIQQEmotionManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIQQEmotionManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIEmotionInputManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIEmotionInputManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -69,25 +69,26 @@
     };
     [self.toolbar addSubview:self.textField];
     
-    self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
-    self.qqEmotionManager.boundTextField = self.textField;
-    self.qqEmotionManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
-    [self.view addSubview:self.qqEmotionManager.emotionView];
+    self.emotionInputManager = [[QMUIEmotionInputManager alloc] init];
+    self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
+    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.emotionInputManager.boundTextField = self.textField;
+    [self.view addSubview:self.emotionInputManager.emotionView];
     
     self.toolbar.alpha = 0;
-    self.qqEmotionManager.emotionView.alpha = 0;
+    self.emotionInputManager.emotionView.alpha = 0;
 }
 
 // 布局时依赖 self.view.safeAreaInset.bottom，但由于前一个界面有 tabBar，导致 push 进来后第一次布局，self.view.safeAreaInset.bottom 依然是以存在 tabBar 的方式来计算的，所以会有跳动，简单处理，这里通过动画来掩饰这个跳动，哈哈
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.toolbar.transform = CGAffineTransformMakeTranslation(0, self.view.qmui_height - self.toolbar.qmui_top);
-    self.qqEmotionManager.emotionView.transform = CGAffineTransformMakeTranslation(0, self.view.qmui_height - self.qqEmotionManager.emotionView.qmui_top);
+    self.emotionInputManager.emotionView.transform = CGAffineTransformMakeTranslation(0, self.view.qmui_height - self.emotionInputManager.emotionView.qmui_top);
     [UIView animateWithDuration:.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
         self.toolbar.alpha = 1;
-        self.qqEmotionManager.emotionView.alpha = 1;
+        self.emotionInputManager.emotionView.alpha = 1;
         self.toolbar.transform = CGAffineTransformIdentity;
-        self.qqEmotionManager.emotionView.transform = CGAffineTransformIdentity;
+        self.emotionInputManager.emotionView.transform = CGAffineTransformIdentity;
     } completion:NULL];
 }
 
@@ -103,10 +104,10 @@
     CGFloat emotionViewHeight = 232;
     if (self.keyboardVisible) {
         self.toolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.keyboardHeight - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
-        self.qqEmotionManager.emotionView.frame = CGRectMake(0, CGRectGetMaxY(self.toolbar.frame), CGRectGetWidth(self.view.bounds), emotionViewHeight);
+        self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetMaxY(self.toolbar.frame), CGRectGetWidth(self.view.bounds), emotionViewHeight);
     } else {
-        self.qqEmotionManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.view.qmui_safeAreaInsets.bottom - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
-        self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.qqEmotionManager.emotionView.frame) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
+        self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.view.qmui_safeAreaInsets.bottom - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
+        self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.emotionInputManager.emotionView.frame) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
     }
     
     UIEdgeInsets toolbarPadding = UIEdgeInsetsConcat(UIEdgeInsetsMake(2, 8, 2, 8), self.toolbar.qmui_safeAreaInsets);
@@ -125,7 +126,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     // 告诉 qqEmotionManager 输入框的光标位置发生变化，以保证表情插入在光标之后
-    self.qqEmotionManager.selectedRangeForBoundTextInput = self.textField.qmui_selectedRange;
+    self.emotionInputManager.selectedRangeForBoundTextInput = self.textField.qmui_selectedRange;
     return YES;
 }
 

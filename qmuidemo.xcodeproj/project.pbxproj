@@ -51,7 +51,7 @@
 		CD7593651EF7A39A004B5819 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7593641EF7A391004B5819 /* MediaPlayer.framework */; };
 		CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */; };
 		CDA05DA51FB18FC900606756 /* QDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA05DA41FB18FC900606756 /* QDTableViewController.m */; };
-		CDA05DA81FB1913400606756 /* QDTableViewIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA05DA71FB1913400606756 /* QDTableViewIndexViewController.m */; };
+		CDA05DA81FB1913400606756 /* QDTableViewHeaderFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA05DA71FB1913400606756 /* QDTableViewHeaderFooterViewController.m */; };
 		CDA1CC951EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA1CC941EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m */; };
 		CDA1CC991EC1C34300AB8A0F /* QDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA1CC981EC1C34300AB8A0F /* QDThemeManager.m */; };
 		CDB8C9D01DCC815A00769DF0 /* QMUIConfigurationTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9381DCC815A00769DF0 /* QMUIConfigurationTemplate.m */; };
@@ -222,7 +222,6 @@
 		CD5387751EE0096C00654A73 /* QDSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSliderViewController.m; sourceTree = "<group>"; };
 		CD6CC62B1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewCellAccessoryTypeViewController.h; sourceTree = "<group>"; };
 		CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableViewCellAccessoryTypeViewController.m; sourceTree = "<group>"; };
-		CD7593501EF7A263004B5819 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "../../../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/RevealServer.framework"; sourceTree = "<group>"; };
 		CD7593531EF7A2EC004B5819 /* qmui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = qmui.xcodeproj; path = QMUI/qmui.xcodeproj; sourceTree = SOURCE_ROOT; };
 		CD7593601EF7A35B004B5819 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		CD7593611EF7A362004B5819 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -231,8 +230,8 @@
 		CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFloatLayoutViewController.m; sourceTree = "<group>"; };
 		CDA05DA31FB18FC900606756 /* QDTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewController.h; sourceTree = "<group>"; };
 		CDA05DA41FB18FC900606756 /* QDTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableViewController.m; sourceTree = "<group>"; };
-		CDA05DA61FB1913400606756 /* QDTableViewIndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewIndexViewController.h; sourceTree = "<group>"; };
-		CDA05DA71FB1913400606756 /* QDTableViewIndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableViewIndexViewController.m; sourceTree = "<group>"; };
+		CDA05DA61FB1913400606756 /* QDTableViewHeaderFooterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewHeaderFooterViewController.h; sourceTree = "<group>"; };
+		CDA05DA71FB1913400606756 /* QDTableViewHeaderFooterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableViewHeaderFooterViewController.m; sourceTree = "<group>"; };
 		CDA1CC931EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplateGrapefruit.h; sourceTree = "<group>"; };
 		CDA1CC941EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplateGrapefruit.m; sourceTree = "<group>"; };
 		CDA1CC971EC1C34300AB8A0F /* QDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDThemeManager.h; sourceTree = "<group>"; };
@@ -486,7 +485,6 @@
 			isa = PBXGroup;
 			children = (
 				CD7593531EF7A2EC004B5819 /* qmui.xcodeproj */,
-				CD7593501EF7A263004B5819 /* RevealServer.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -747,8 +745,8 @@
 				CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */,
 				CDA05DA31FB18FC900606756 /* QDTableViewController.h */,
 				CDA05DA41FB18FC900606756 /* QDTableViewController.m */,
-				CDA05DA61FB1913400606756 /* QDTableViewIndexViewController.h */,
-				CDA05DA71FB1913400606756 /* QDTableViewIndexViewController.m */,
+				CDA05DA61FB1913400606756 /* QDTableViewHeaderFooterViewController.h */,
+				CDA05DA71FB1913400606756 /* QDTableViewHeaderFooterViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -789,7 +787,7 @@
 				165F42ED1ADB60180057EF6A /* Frameworks */,
 				165F42EE1ADB60180057EF6A /* Resources */,
 				CDE85CB91F95E21500E622E8 /* Embed Frameworks */,
-				CDD4942D1E5E8C3900829B7D /* Integrate Reveal Server */,
+				CDD4942D1E5E8C3900829B7D /* Integrate RevealServer */,
 				CDBC58C21FA87FC000F1A3DA /* New Reveal */,
 			);
 			buildRules = (
@@ -893,19 +891,19 @@
 			shellPath = /bin/sh;
 			shellScript = "[ \"${USER}\" != \"molice\" ] && exit 0\n \nREVEAL_APP_PATH=$(mdfind kMDItemCFBundleIdentifier=\"com.ittybittyapps.Reveal2\" | head -n 1)\nBUILD_SCRIPT_PATH=\"${REVEAL_APP_PATH}/Contents/SharedSupport/Scripts/reveal_server_build_phase.sh\"\nif [ \"${REVEAL_APP_PATH}\" -a -e \"${BUILD_SCRIPT_PATH}\" ]; then\n\"${BUILD_SCRIPT_PATH}\"\nelse\necho \"Reveal Server not loaded: Cannot find a compatible Reveal app.\"\nfi";
 		};
-		CDD4942D1E5E8C3900829B7D /* Integrate Reveal Server */ = {
+		CDD4942D1E5E8C3900829B7D /* Integrate RevealServer */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Integrate Reveal Server";
+			name = "Integrate RevealServer";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[ \"${USER}\" == \"molice\" ] && exit 0\n\nexport REVEAL_SERVER_FILENAME=\"RevealServer.framework\"\n\n# Update this path to point to the location of RevealServer.framework in your project.\nexport REVEAL_SERVER_PATH=\"${SRCROOT}/qmuidemo/Frameworks/${REVEAL_SERVER_FILENAME}\"\n\n# If configuration is not Debug, skip this script.\n[ \"${CONFIGURATION}\" != \"Debug\" ] && exit 0\n\n# If RevealServer.framework exists at the specified path, run code signing script.\nif [ -d \"${REVEAL_SERVER_PATH}\" ]; then\n\"${REVEAL_SERVER_PATH}/Scripts/copy_and_codesign_revealserver.sh\"\nelse\necho \"Cannot find RevealServer.framework, so Reveal Server will not be started for your app.\"\nfi";
+			shellScript = "export REVEAL_SERVER_FILENAME=\"RevealServer.framework\"\n\n# Update this path to point to the location of RevealServer.framework in your project.\nexport REVEAL_SERVER_PATH=\"${SRCROOT}/qmuidemo/Frameworks/${REVEAL_SERVER_FILENAME}\"\n\n# If configuration is not Debug, skip this script.\n[ \"${CONFIGURATION}\" == \"Release\" ] && exit 0\n\n# If RevealServer.framework exists at the specified path, run code signing script.\nif [ -d \"${REVEAL_SERVER_PATH}\" ]; then\n\"${REVEAL_SERVER_PATH}/Scripts/copy_and_codesign_revealserver.sh\"\nelse\necho \"Reveal Server not loaded: RevealServer.framework could not be found.\"\nfi";
 		};
 		CDE85CF71F9701E300E622E8 /* RDM */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -972,7 +970,7 @@
 				CDB8C9ED1DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.m in Sources */,
 				CDB8C9E51DCC815A00769DF0 /* QDNavigationTitleViewController.m in Sources */,
 				CDB8C9FF1DCC815A00769DF0 /* QDCollectionStackDemoViewController.m in Sources */,
-				CDA05DA81FB1913400606756 /* QDTableViewIndexViewController.m in Sources */,
+				CDA05DA81FB1913400606756 /* QDTableViewHeaderFooterViewController.m in Sources */,
 				CDB8C9E31DCC815A00769DF0 /* QDMoreOperationViewController.m in Sources */,
 				CDB8CA071DCC815A00769DF0 /* QDGhostButtonViewController.m in Sources */,
 				CDA1CC951EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m in Sources */,
@@ -1177,6 +1175,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-weak_framework",
+					RevealServer,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qmuidemo.qmui-debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1289,6 +1289,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-weak_framework",
+					RevealServer,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qmuidemo.qmui;
 				PRODUCT_NAME = "$(TARGET_NAME)";

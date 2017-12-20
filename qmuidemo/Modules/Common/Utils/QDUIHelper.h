@@ -44,10 +44,9 @@
 @end
 
 
-@interface NSString (Code)
+@interface QDUIHelper (Emotion)
 
-- (void)enumerateCodeStringUsingBlock:(void (^)(NSString *codeString, NSRange codeRange))block;
-
++ (NSArray<QMUIEmotion *> *)qmuiEmotions;
 @end
 
 
@@ -69,3 +68,11 @@
 
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color;
 @end
+
+
+@interface NSString (Code)
+
+- (void)enumerateCodeStringUsingBlock:(void (^)(NSString *codeString, NSRange codeRange))block;
+
+@end
+

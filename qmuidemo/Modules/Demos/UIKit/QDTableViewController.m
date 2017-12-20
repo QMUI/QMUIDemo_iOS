@@ -8,7 +8,7 @@
 
 #import "QDTableViewController.h"
 #import "QDTableViewCellViewController.h"
-#import "QDTableViewIndexViewController.h"
+#import "QDTableViewHeaderFooterViewController.h"
 
 @interface QDTableViewController ()
 
@@ -18,7 +18,7 @@
 
 - (void)initDataSource {
     self.dataSource = @[@"QMUITableViewCell",
-                        @"获取某个 view 所处的 sectionHeader 的 index"];
+                        @"QMUITableViewHeaderFooterView"];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
@@ -26,8 +26,8 @@
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"QMUITableViewCell"]) {
         viewController = [[QDTableViewCellViewController alloc] init];
-    } else if ([title isEqualToString:@"获取某个 view 所处的 sectionHeader 的 index"]) {
-        viewController = [[QDTableViewIndexViewController alloc] init];
+    } else if ([title isEqualToString:@"QMUITableViewHeaderFooterView"]) {
+        viewController = [[QDTableViewHeaderFooterViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

@@ -75,19 +75,38 @@
 @end
 
 
-@implementation NSString (Code)
+@implementation QDUIHelper (Emotion)
 
-- (void)enumerateCodeStringUsingBlock:(void (^)(NSString *, NSRange))block {
-    NSString *pattern = @"\\[?[A-Za-z0-9_.]+\\s?[A-Za-z0-9_:.]+\\]?";
-    NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&error];
-    [regex enumerateMatchesInString:self options:NSMatchingReportCompletion range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        if (result.range.length > 0) {
-            if (block) {
-                block([self substringWithRange:result.range], result.range);
-            }
+NSString *const QMUIEmotionString = @"01-[微笑];02-[开心];03-[生气];04-[委屈]";
+
+static NSArray<QMUIEmotion *> *QMUIEmotionArray;
+
++ (NSArray<QMUIEmotion *> *)qmuiEmotions {
+    if (QMUIEmotionArray) {
+        return QMUIEmotionArray;
+    }
+    
+    NSMutableArray<QMUIEmotion *> *emotions = [[NSMutableArray alloc] init];
+    NSArray<NSString *> *emotionStringArray = [QMUIEmotionString componentsSeparatedByString:@";"];
+    for (NSString *emotionString in emotionStringArray) {
+        NSArray<NSString *> *emotionItem = [emotionString componentsSeparatedByString:@"-"];
+        NSString *identifier = [NSString stringWithFormat:@"emotion_%@", emotionItem.firstObject];
+        QMUIEmotion *emotion = [QMUIEmotion emotionWithIdentifier:identifier displayName:emotionItem.lastObject];
+        [emotions addObject:emotion];
+    }
+    
+    QMUIEmotionArray = [NSArray arrayWithArray:emotions];
+    [self asyncLoadImages:emotions];
+    return QMUIEmotionArray;
+}
+
+// 在子线程预加载
++ (void)asyncLoadImages:(NSArray<QMUIEmotion *> *)emotions {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (QMUIEmotion *e in emotions) {
+            e.image = UIImageMake(e.identifier);
         }
-    }];
+    });
 }
 
 @end
@@ -147,6 +166,24 @@
     
     CGGradientRelease(gradient);
     return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
+}
+
+@end
+
+
+@implementation NSString (Code)
+
+- (void)enumerateCodeStringUsingBlock:(void (^)(NSString *, NSRange))block {
+    NSString *pattern = @"\\[?[A-Za-z0-9_.]+\\s?[A-Za-z0-9_:.]+\\]?";
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&error];
+    [regex enumerateMatchesInString:self options:NSMatchingReportCompletion range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        if (result.range.length > 0) {
+            if (block) {
+                block([self substringWithRange:result.range], result.range);
+            }
+        }
+    }];
 }
 
 @end

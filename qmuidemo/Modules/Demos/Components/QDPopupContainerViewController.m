@@ -10,7 +10,7 @@
 
 @interface QDPopupContainerView : QMUIPopupContainerView
 
-@property(nonatomic, strong) QMUIQQEmotionManager *qqEmotionManager;
+@property(nonatomic, strong) QMUIEmotionInputManager *emotionInputManager;
 @end
 
 @implementation QDPopupContainerView
@@ -19,9 +19,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.contentEdgeInsets = UIEdgeInsetsZero;
-        self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
-        self.qqEmotionManager.emotionView.sendButton.hidden = YES;
-        [self.contentView addSubview:self.qqEmotionManager.emotionView];
+        self.emotionInputManager = [[QMUIEmotionInputManager alloc] init];
+        self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
+        self.emotionInputManager.emotionView.sendButton.hidden = YES;
+        [self.contentView addSubview:self.emotionInputManager.emotionView];
     }
     return self;
 }
@@ -33,7 +34,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     // 所有布局都参照 contentView
-    self.qqEmotionManager.emotionView.frame = self.contentView.bounds;
+    self.emotionInputManager.emotionView.frame = self.contentView.bounds;
 }
 
 @end

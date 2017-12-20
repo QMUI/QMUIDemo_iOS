@@ -30,9 +30,9 @@
     // QD自定义的全局样式渲染
     [QDCommonUI renderGlobalAppearances];
     
-    // 预加载 QQ 表情，避免第一次使用时卡顿（可选）
+    // 预加载 QQ 表情，避免第一次使用时卡顿
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [QMUIQQEmotionManager emotionsForQQ];
+        [QDUIHelper qmuiEmotions];
     });
     
     // 界面

@@ -9,7 +9,7 @@
 #import "QDKeyboardViewController.h"
 
 
-static CGFloat const kToolbarHeight = 50;
+static CGFloat const kToolbarHeight = 56;
 static CGFloat const kEmotionViewHeight = 232;
 
 @interface QDKeyboardCustomViewController : QDCommonViewController <QMUIKeyboardManagerDelegate>
@@ -180,7 +180,7 @@ static CGFloat const kEmotionViewHeight = 232;
 
 @property(nonatomic, strong) CALayer *separatorLayer;
 
-@property(nonatomic, strong) QMUIQQEmotionManager *qqEmotionManager;
+@property(nonatomic, strong) QMUIEmotionInputManager *emotionInputManager;
 
 @end
 
@@ -253,10 +253,11 @@ static CGFloat const kEmotionViewHeight = 232;
     [self.faceButton addTarget:self action:@selector(handleFaceButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.toolbarView addSubview:self.faceButton];
     
-    self.qqEmotionManager = [[QMUIQQEmotionManager alloc] init];
-    self.qqEmotionManager.boundTextField = self.toolbarTextField;
-    self.qqEmotionManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
-    [self.view addSubview:self.qqEmotionManager.emotionView];
+    self.emotionInputManager = [[QMUIEmotionInputManager alloc] init];
+    self.emotionInputManager.boundTextField = self.toolbarTextField;
+    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
+    [self.view addSubview:self.emotionInputManager.emotionView];
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -305,9 +306,9 @@ static CGFloat const kEmotionViewHeight = 232;
     
     self.writeReviewButton.frame = CGRectSetXY(self.writeReviewButton.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.writeReviewButton.bounds)), CGRectGetMaxY(self.commentButton.frame) + buttonSpacing);
     
-    if (self.qqEmotionManager.emotionView) {
+    if (self.emotionInputManager.emotionView) {
         CGRect emotionViewRect = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kEmotionViewHeight);
-        self.qqEmotionManager.emotionView.frame = CGRectApplyAffineTransform(emotionViewRect, self.qqEmotionManager.emotionView.transform);
+        self.emotionInputManager.emotionView.frame = CGRectApplyAffineTransform(emotionViewRect, self.emotionInputManager.emotionView.transform);
     }
 }
 
@@ -363,7 +364,7 @@ static CGFloat const kEmotionViewHeight = 232;
 
 - (void)showEmotionView {
     [UIView animateWithDuration:0.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
-        self.qqEmotionManager.emotionView.layer.transform = CATransform3DMakeTranslation(0, - CGRectGetHeight(self.qqEmotionManager.emotionView.bounds), 0);
+        self.emotionInputManager.emotionView.layer.transform = CATransform3DMakeTranslation(0, - CGRectGetHeight(self.emotionInputManager.emotionView.bounds), 0);
     } completion:NULL];
     [self.toolbarTextField resignFirstResponder];
 }
@@ -376,7 +377,7 @@ static CGFloat const kEmotionViewHeight = 232;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    self.qqEmotionManager.selectedRangeForBoundTextInput = self.toolbarTextField.qmui_selectedRange;
+    self.emotionInputManager.selectedRangeForBoundTextInput = self.toolbarTextField.qmui_selectedRange;
     return YES;
 }
 
@@ -388,12 +389,12 @@ static CGFloat const kEmotionViewHeight = 232;
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
             CGFloat distanceFromBottom = [QMUIKeyboardManager distanceFromMinYToBottomInView:self.view keyboardRect:keyboardUserInfo.endFrame];
             self.toolbarView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom - kToolbarHeight, 0);
-            self.qqEmotionManager.emotionView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom, 0);
+            self.emotionInputManager.emotionView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom, 0);
         } completion:NULL];
     } else {
         // 相对于表情面板
         [UIView animateWithDuration:0.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
-            self.toolbarView.layer.transform = CATransform3DMakeTranslation(0, - CGRectGetHeight(self.qqEmotionManager.emotionView.bounds) - kToolbarHeight, 0);
+            self.toolbarView.layer.transform = CATransform3DMakeTranslation(0, - CGRectGetHeight(self.emotionInputManager.emotionView.bounds) - kToolbarHeight, 0);
         } completion:NULL];
     }
 }
@@ -402,12 +403,12 @@ static CGFloat const kEmotionViewHeight = 232;
     if (keyboardUserInfo) {
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
             self.toolbarView.layer.transform = CATransform3DIdentity;
-            self.qqEmotionManager.emotionView.layer.transform = CATransform3DIdentity;
+            self.emotionInputManager.emotionView.layer.transform = CATransform3DIdentity;
         } completion:NULL];
     } else {
         [UIView animateWithDuration:0.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
             self.toolbarView.layer.transform = CATransform3DIdentity;
-            self.qqEmotionManager.emotionView.layer.transform = CATransform3DIdentity;
+            self.emotionInputManager.emotionView.layer.transform = CATransform3DIdentity;
         } completion:NULL];
     }
 }
