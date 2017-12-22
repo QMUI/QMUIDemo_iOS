@@ -35,6 +35,16 @@
 @end
 
 
+@implementation QDUIHelper (QMUIEmotionView)
+
++ (void)customEmotionViewAppearance {
+    [QMUIEmotionView appearance].emotionSize = CGSizeMake(24, 24);
+    [QMUIEmotionView appearance].minimumEmotionHorizontalSpacing = 14;
+}
+
+@end
+
+
 @implementation QDUIHelper (UITabBarItem)
 
 + (UITabBarItem *)tabBarItemWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage tag:(NSInteger)tag {
@@ -77,7 +87,7 @@
 
 @implementation QDUIHelper (Emotion)
 
-NSString *const QMUIEmotionString = @"01-[微笑];02-[开心];03-[生气];04-[委屈]";
+NSString *const QMUIEmotionString = @"01-[微笑];02-[开心];03-[生气];04-[委屈];05-[亲亲];06-[坏笑];07-[鄙视];08-[啊]";
 
 static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 
