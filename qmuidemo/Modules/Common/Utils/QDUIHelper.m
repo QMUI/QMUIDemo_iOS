@@ -21,6 +21,7 @@
 
 + (void)customMoreOperationAppearance {
     // 如果需要统一修改全局的 QMUIMoreOperationController 样式，在这里修改 appearance 的值即可
+    [QMUIMoreOperationController appearance].cancelButtonTitleColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
 }
 
 @end
@@ -34,12 +35,28 @@
 
 @end
 
+@implementation QDUIHelper (QMUIDialogViewControllerAppearance)
+
++ (void)customDialogViewControllerAppearance {
+    // 如果需要统一修改全局的 QMUIDialogViewController 样式，在这里修改 appearance 的值即可
+    QMUIDialogViewController *appearance = [QMUIDialogViewController appearance];
+    
+    NSMutableDictionary<NSString *, id> *buttonTitleAttributes = [appearance.buttonTitleAttributes mutableCopy];
+    buttonTitleAttributes[NSForegroundColorAttributeName] = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    appearance.buttonTitleAttributes = [buttonTitleAttributes copy];
+    
+    appearance.buttonHighlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.25];
+}
+
+@end
+
 
 @implementation QDUIHelper (QMUIEmotionView)
 
 + (void)customEmotionViewAppearance {
     [QMUIEmotionView appearance].emotionSize = CGSizeMake(24, 24);
     [QMUIEmotionView appearance].minimumEmotionHorizontalSpacing = 14;
+    [QMUIEmotionView appearance].sendButtonBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
 }
 
 @end
@@ -114,9 +131,13 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 + (void)asyncLoadImages:(NSArray<QMUIEmotion *> *)emotions {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         for (QMUIEmotion *e in emotions) {
-            e.image = UIImageMake(e.identifier);
+            e.image = [UIImageMake(e.identifier) qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
         }
     });
+}
+
++ (void)updateEmotionImages {
+    [self asyncLoadImages:[self qmuiEmotions]];
 }
 
 @end

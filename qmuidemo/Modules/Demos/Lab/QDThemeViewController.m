@@ -29,11 +29,22 @@
 
 - (void)didInitialized {
     [super didInitialized];
-    self.themes = @[[[QMUIConfigurationTemplate alloc] init],
-                    [[QMUIConfigurationTemplateGrapefruit alloc] init],
-                    [[QMUIConfigurationTemplateGrass alloc] init],
-                    [[QMUIConfigurationTemplatePinkRose alloc] init]];
     
+    // 因为配置表在 QMUIConfiguration 里也可能会自动 init，所以这里为了避免重复 init，就做了复用处理
+    NSMutableArray<NSObject<QDThemeProtocol> *> *themes = [[NSMutableArray alloc] init];
+    NSArray<NSString *> *allThemeClassName = @[NSStringFromClass([QMUIConfigurationTemplate class]),
+                                               NSStringFromClass([QMUIConfigurationTemplateGrapefruit class]),
+                                               NSStringFromClass([QMUIConfigurationTemplateGrass class]),
+                                               NSStringFromClass([QMUIConfigurationTemplatePinkRose class])];
+    [allThemeClassName enumerateObjectsUsingBlock:^(NSString * _Nonnull className, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([QDThemeManager sharedInstance].currentTheme && [className isEqualToString:NSStringFromClass([QDThemeManager sharedInstance].currentTheme.class)]) {
+            [themes addObject:[QDThemeManager sharedInstance].currentTheme];
+        } else {
+            [themes addObject:[[NSClassFromString(className) alloc] init]];
+        }
+    }];
+    
+    self.themes = [themes copy];
     self.themeButtons = [[NSMutableArray alloc] init];
 }
 

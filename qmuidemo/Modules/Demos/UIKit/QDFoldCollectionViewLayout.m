@@ -10,7 +10,7 @@
 
 @interface QDFoldCollectionViewLayout ()
 
-@property (nonatomic, strong) NSMutableArray *deleteIndexPaths;
+@property(nonatomic, strong) NSMutableArray *deleteIndexPaths;
 
 @end
 

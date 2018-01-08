@@ -22,7 +22,7 @@ extern NSString *const QDThemeAfterChangedName;
  *  QMUI Demo 的皮肤管理器，当需要换肤时，请为 currentTheme 赋值；当需要获取当前皮肤时，可访问 currentTheme 属性。
  *  可通过监听 QDThemeChangedNotification 通知来捕获换肤事件，默认地，QDCommonViewController 及 QDCommonTableViewController 均已支持响应换肤，其响应方法是通过 QDChangingThemeDelegate 接口来实现的。
  */
-@interface QDThemeManager : NSObject
+@interface QDThemeManager : NSObject<QDChangingThemeDelegate>
 
 + (instancetype)sharedInstance;
 

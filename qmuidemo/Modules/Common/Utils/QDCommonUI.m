@@ -18,6 +18,7 @@ const CGFloat QDButtonSpacingHeight = 72;
 + (void)renderGlobalAppearances {
     [QDUIHelper customMoreOperationAppearance];
     [QDUIHelper customAlertControllerAppearance];
+    [QDUIHelper customDialogViewControllerAppearance];
     [QDUIHelper customEmotionViewAppearance];
 }
 

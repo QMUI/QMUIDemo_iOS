@@ -124,7 +124,8 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     
     // 自定义样式
     dialogViewController.headerViewBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-    dialogViewController.headerFooterSeparatorColor = UIColorClear;
+    dialogViewController.headerSeparatorColor = nil;
+    dialogViewController.footerSeparatorColor = nil;
     dialogViewController.titleTintColor = UIColorWhite;
     dialogViewController.titleView.horizontalTitleFont = UIFontBoldMake(17);
     dialogViewController.buttonHighlightedBackgroundColor = [dialogViewController.headerViewBackgroundColor qmui_colorWithAlphaAddedToWhite:.3];

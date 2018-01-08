@@ -14,18 +14,10 @@
 #import "QDUIKitViewController.h"
 #import "QDComponentsViewController.h"
 #import "QDLabViewController.h"
-#import "QMUIConfigurationTemplate.h"
-#import "QMUIConfigurationTemplateGrapefruit.h"
-#import "QMUIConfigurationTemplateGrass.h"
-#import "QMUIConfigurationTemplatePinkRose.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    // 应用 QMUI Demo 皮肤
-    NSString *themeClassName = [[NSUserDefaults standardUserDefaults] stringForKey:QDSelectedThemeClassName] ?: NSStringFromClass([QMUIConfigurationTemplate class]);
-    [QDThemeManager sharedInstance].currentTheme = [[NSClassFromString(themeClassName) alloc] init];
     
     // QD自定义的全局样式渲染
     [QDCommonUI renderGlobalAppearances];

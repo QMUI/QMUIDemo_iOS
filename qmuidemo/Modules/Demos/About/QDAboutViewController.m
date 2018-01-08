@@ -78,7 +78,7 @@
     
     self.copyrightLabel = [[UILabel alloc] init];
     self.copyrightLabel.numberOfLines = 0;
-    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2017 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray5, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2018 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray5, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
@@ -118,13 +118,12 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat tabBarHeight = 0;
     CGFloat navigationBarHeight = self.qmui_navigationBarMaxYInViewCoordinator;
     UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
     CGFloat versionLabelMarginTop = 10;
     CGFloat buttonHeight = TableViewCellNormalHeight;
     
-    self.scrollView.frame = CGRectSetHeight(self.view.bounds, CGRectGetHeight(self.view.bounds) - tabBarHeight);
+    self.scrollView.frame = CGRectSetHeight(self.view.bounds, CGRectGetHeight(self.view.bounds));
     
     if (IS_IPHONE && IS_LANDSCAPE) {
         CGFloat leftWidth = flat(CGRectGetWidth(self.scrollView.bounds) / 2);

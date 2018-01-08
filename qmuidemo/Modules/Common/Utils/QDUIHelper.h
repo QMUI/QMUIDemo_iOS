@@ -28,6 +28,12 @@
 
 @end
 
+@interface QDUIHelper (QMUIDialogViewControllerAppearance)
+
++ (void)customDialogViewControllerAppearance;
+
+@end
+
 
 @interface QDUIHelper (QMUIEmotionView)
 
@@ -53,6 +59,9 @@
 @interface QDUIHelper (Emotion)
 
 + (NSArray<QMUIEmotion *> *)qmuiEmotions;
+
+/// 用于主题更新后，更新表情 icon 的颜色
++ (void)updateEmotionImages;
 @end
 
 

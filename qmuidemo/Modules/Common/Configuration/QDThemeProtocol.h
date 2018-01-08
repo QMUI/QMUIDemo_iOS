@@ -9,12 +9,9 @@
 #import <Foundation/Foundation.h>
 
 /// 所有主题均应实现这个协议，规定了 QMUI Demo 里常用的几个关键外观属性
-@protocol QDThemeProtocol <NSObject>
+@protocol QDThemeProtocol <QMUIConfigurationTemplateProtocol>
 
 @required
-
-/// 来自于 QMUIConfigurationTemplate 里的自带方法，用于应用配置表里的设置
-- (void)setupConfigurationTemplate;
 
 - (UIColor *)themeTintColor;
 - (UIColor *)themeListTextColor;
