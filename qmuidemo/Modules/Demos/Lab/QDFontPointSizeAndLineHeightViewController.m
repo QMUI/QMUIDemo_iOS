@@ -29,7 +29,7 @@
 
 - (void)initSubviews {
     [super initSubviews];
-    self.fontPointSizeLabel = [[UILabel alloc] initWithFont:UIFontMake(18) textColor:UIColorGray1];
+    self.fontPointSizeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(18) textColor:UIColorGray1];
     [self.fontPointSizeLabel qmui_calculateHeightAfterSetAppearance];
     [self.view addSubview:self.fontPointSizeLabel];
     

@@ -40,7 +40,7 @@
                        @"QMUICollectionViewLayout", UIImageMake(@"icon_grid_collection"),
                        @"QMUISearchController", UIImageMake(@"icon_grid_search"),
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
-                       @"UINavigationController+QMUI", UIImageMake(@"icon_grid_navigation"),
+                       @"QMUINavigationController", UIImageMake(@"icon_grid_navigation"),
                        @"UITabBarItem+QMUI", UIImageMake(@"icon_grid_tabBarItem"),
                        @"UIColor+QMUI", UIImageMake(@"icon_grid_color"),
                        @"UIImage+QMUI", UIImageMake(@"icon_grid_image"),
@@ -94,7 +94,7 @@
     else if ([title isEqualToString:@"ViewController Orientation"]) {
         viewController = [[QDOrientationViewController alloc] init];
     }
-    else if ([title isEqualToString:@"UINavigationController+QMUI"]) {
+    else if ([title isEqualToString:@"QMUINavigationController"]) {
         viewController = [[QDNavigationListViewController alloc] init];
     }
     else if ([title isEqualToString:@"UITabBarItem+QMUI"]) {

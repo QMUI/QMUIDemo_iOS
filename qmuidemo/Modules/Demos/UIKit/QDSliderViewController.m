@@ -42,7 +42,7 @@
     self.systemSlider.value = self.slider.value;
     [self.view addSubview:self.systemSlider];
     
-    self.label1 = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:TableViewSectionHeaderTextColor];
+    self.label1 = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:TableViewSectionHeaderTextColor];
     self.label1.text = @"QMUISlider";
     [self.label1 sizeToFit];
     [self.view addSubview:self.label1];

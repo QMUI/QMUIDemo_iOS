@@ -138,14 +138,14 @@
 }
 
 - (UILabel *)generateTitleLabel {
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(12) textColor:UIColorWhite];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColorWhite];
     [label qmui_calculateHeightAfterSetAppearance];
     [self addSubview:label];
     return label;
 }
 
 - (UILabel *)generateValueLabel {
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(12) textColor:UIColorWhite];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColorWhite];
     label.textAlignment = NSTextAlignmentRight;
     [label qmui_calculateHeightAfterSetAppearance];
     [self addSubview:label];

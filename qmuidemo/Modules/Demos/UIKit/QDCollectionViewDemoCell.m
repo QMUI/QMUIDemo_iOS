@@ -15,7 +15,7 @@
     if (self) {
         self.layer.cornerRadius = 3;
         
-        _contentLabel = [[UILabel alloc] initWithFont:UIFontLightMake(100) textColor:UIColorWhite];
+        _contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontLightMake(100) textColor:UIColorWhite];
         self.contentLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.contentLabel];
     }

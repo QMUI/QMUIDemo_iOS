@@ -93,7 +93,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 }
 
 - (UILabel *)generateLabelWithTitle:(NSString *)title {
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorGray3];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray3];
     label.numberOfLines = 0;
     label.qmui_lineHeight = 20;
     label.text = title;
@@ -281,7 +281,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 }
 
 - (UILabel *)generateLabelWithText:(NSString *)text {
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorGray3];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray3];
     label.text = text;
     [label sizeToFit];
     [self.contentView addSubview:label];

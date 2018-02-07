@@ -23,7 +23,7 @@
         
         self.autocompletionClasses = [[NSMutableArray alloc] init];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
             self.allClasses = [self allClassesArray];
         });
     }

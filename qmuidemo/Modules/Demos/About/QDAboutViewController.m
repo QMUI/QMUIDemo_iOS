@@ -34,11 +34,13 @@
         }
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
         UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
         [self saveImageAsFile:blendedAboutLogoImage];
-        self.themeAboutLogoImage = blendedAboutLogoImage;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.themeAboutLogoImage = blendedAboutLogoImage;
+        });
     });
 }
 

@@ -44,7 +44,7 @@
     [self.progressView1 addTarget:self action:@selector(handleProgressViewValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.section1 addSubview:self.progressView1];
     
-    self.titleLabel1 = [[UILabel alloc] initWithFont:UIFontMake(13) textColor:self.progressView1.tintColor];
+    self.titleLabel1 = [[UILabel alloc] qmui_initWithFont:UIFontMake(13) textColor:self.progressView1.tintColor];
     [self.titleLabel1 qmui_calculateHeightAfterSetAppearance];
     self.titleLabel1.textAlignment = NSTextAlignmentCenter;
     [self.section1 addSubview:self.titleLabel1];
@@ -82,7 +82,7 @@
     [self.progressView4 setProgress:.28];
     [self.section2 addSubview:self.progressView4];
 
-    self.titleLabel2 = [[UILabel alloc] initWithFont:UIFontMake(11) textColor:self.titleLabel1.textColor];
+    self.titleLabel2 = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:self.titleLabel1.textColor];
     self.titleLabel2.numberOfLines = 0;
     self.titleLabel2.text = @"通过 backgroundColor 或 tintColor 修改颜色";
     [self.titleLabel2 sizeToFit];

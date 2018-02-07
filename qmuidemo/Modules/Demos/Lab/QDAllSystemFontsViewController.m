@@ -18,15 +18,17 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         self.allFonts = [[NSMutableArray alloc] init];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
             for (NSString *familyName in [UIFont familyNames]) {
                 for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
                     [self.allFonts addObject:[UIFont fontWithName:fontName size:16]];
                 }
             }
-            if ([self isViewLoaded]) {
-                [self.tableView reloadData];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self isViewLoaded]) {
+                    [self.tableView reloadData];
+                }
+            });
         });
     }
     return self;

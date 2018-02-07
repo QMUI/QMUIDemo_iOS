@@ -27,8 +27,8 @@
                                      @"- qmui_imageWithImageAbove:atPoint:", @"将一张图片叠在当前图片上方的指定位置",
                                      @"- qmui_imageWithSpacingExtensionInsets:", @"拓展当前图片外部边距，拓展的区域填充透明",
                                      @"- qmui_imageWithClippedRect:", @"将图片内指定区域的矩形裁剪出来，返回裁剪出来的区域",
-                                     @"- qmui_imageWithScaleToSize:contentMode:", @"将当前图片缩放到指定的大小，缩放策略可以指定不同的contentMode，经过缩放后的图片倍数保持不变",
-                                     @"- qmui_imageWithScaleToSize:contentMode:scale:", @"同上，只是可以指定倍数",
+                                     @"- qmui_imageResizedInLimitedSize:contentMode:", @"将当前图片缩放到指定的大小，缩放策略可以指定不同的contentMode，经过缩放后的图片倍数保持不变",
+                                     @"- qmui_imageResizedInLimitedSize:contentMode:scale:", @"同上，只是可以指定倍数",
                                      @"- qmui_imageWithOrientation:", @"将图片旋转到指定方向，支持上下左右、水平&垂直翻转",
                                      @"- qmui_imageWithBorderColor:path:", @"在当前图片上叠加绘制一条路径",
                                      @"- qmui_imageWithBorderColor:borderWidth:cornerRadius:", @"在当前图片上加上一条外边框，可指定边框大小和圆角",
@@ -66,7 +66,7 @@
     }
     [self.contentView addSubview:self.scrollView];
     
-    self.methodNameLabel = [[UILabel alloc] initWithFont:CodeFontMake(16) textColor:[QDThemeManager sharedInstance].currentTheme.themeCodeColor];
+    self.methodNameLabel = [[UILabel alloc] qmui_initWithFont:CodeFontMake(16) textColor:[QDThemeManager sharedInstance].currentTheme.themeCodeColor];
     self.methodNameLabel.numberOfLines = 0;
     self.methodNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.scrollView addSubview:self.methodNameLabel];
@@ -111,8 +111,8 @@
         contentSizeHeight = [self generateExampleViewForImageWithSpacingExtensionInsets];
     } else if ([title isEqualToString:@"- qmui_imageWithClippedRect:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithClippedRect];
-    } else if ([title isEqualToString:@"- qmui_imageWithScaleToSize:contentMode:"] || [title isEqualToString:@"- qmui_imageWithScaleToSize:contentMode:scale:"]) {
-        contentSizeHeight = [self generateExampleViewForImageWithScaleToSize];
+    } else if ([title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:"] || [title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:scale:"]) {
+        contentSizeHeight = [self generateExampleViewForResizedImage];
     } else if ([title isEqualToString:@"- qmui_imageWithOrientation:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithDirection];
     } else if ([title isEqualToString:@"- qmui_imageWithBorderColor:path:"]) {
@@ -179,7 +179,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -214,7 +214,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -249,7 +249,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -293,7 +293,7 @@
 - (CGFloat)generateExampleViewForImageWithTintColor {
     CGFloat minY = [self contentViewLayoutStartingMinY];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -328,14 +328,14 @@
     CGFloat minY = [self contentViewLayoutStartingMinY];
     CGFloat contentWidth = [self contentViewLimitWidth];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
     [self.scrollView addSubview:originImageLabel];
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
-    UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"image0") qmui_imageWithScaleToSize:CGSizeMake(contentWidth, contentWidth)]];
+    UIImageView *originImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"image0") qmui_imageResizedInLimitedSize:CGSizeMake(contentWidth, contentWidth)]];
     originImageView.contentMode = UIViewContentModeScaleAspectFit;
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.scrollView addSubview:originImageView];
@@ -362,7 +362,7 @@
 - (CGFloat)generateExampleViewForImageWithImageAbove {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -397,7 +397,7 @@
 - (CGFloat)generateExampleViewForImageWithSpacingExtensionInsets {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图（UIImageView带边框）";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -434,7 +434,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -467,11 +467,11 @@
     return minY;
 }
 
-- (CGFloat)generateExampleViewForImageWithScaleToSize {
+- (CGFloat)generateExampleViewForResizedImage {
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -494,8 +494,9 @@
     [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
-    // 对原图进行缩放操作
-    UIImage *afterImage = [originImageView.image qmui_imageWithScaleToSize:CGSizeMake(80, 80)];
+    // 对原图进行缩放操作，以保证缩放后的图的 size 不超过 limitedSize 的大小，至于缩放策略则由 contentMode 决定。contentMode 默认是 UIViewContentModeScaleAspectFit。
+    // 特别的，对于 ScaleAspectFit 类型，你可以对不关心大小的那一边传 CGFLOAT_MAX 来表示“我不关心这一边缩放后的大小限制”，但对其他类型的 contentMode 则宽高都必须传一个确切的值。
+    UIImage *afterImage = [originImageView.image qmui_imageResizedInLimitedSize:CGSizeMake(80, CGFLOAT_MAX)];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
@@ -508,7 +509,7 @@
 - (CGFloat)generateExampleViewForImageWithDirection {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -548,7 +549,7 @@
 - (CGFloat)generateExampleViewForImageWithBorder {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -584,7 +585,7 @@
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadiusWithDashedBorder:(BOOL)dashedBorder {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -623,7 +624,7 @@
 - (CGFloat)generateExampleViewForImageWithBorderColorAndCornerRadiusAndPosition {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -657,7 +658,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"处理前的原图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -672,7 +673,7 @@
     [self.scrollView addSubview:originImageView];
     minY = CGRectGetMaxY(originImageView.frame) + 16;
     
-    UILabel *maskImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *maskImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     maskImageLabel.text = @"A.用来做遮罩的图片";
     [maskImageLabel sizeToFit];
     maskImageLabel.frame = CGRectSetY(maskImageLabel.frame, minY);
@@ -701,7 +702,7 @@
     [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame) + 16;
     
-    UILabel *maskImageLabel2 = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *maskImageLabel2 = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     maskImageLabel2.text = @"B.用来做遮罩的图片";
     [maskImageLabel2 sizeToFit];
     maskImageLabel2.frame = CGRectSetY(maskImageLabel2.frame, minY);
@@ -738,7 +739,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"生成一张圆角图片";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -758,7 +759,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"生成一张图片，右边带圆角";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -778,7 +779,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"用椭圆路径生成一张图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -801,7 +802,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在给定的大小里绘制一条带圆角的路径";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -821,7 +822,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"在左、下、右绘制一条边框";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -841,7 +842,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *titleLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *titleLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     titleLabel.text = @"生成预设的形状图片";
     [titleLabel sizeToFit];
     titleLabel.frame = CGRectSetY(titleLabel.frame, minY);
@@ -869,7 +870,7 @@
 }
 
 - (CGFloat)generateExampleLabelAndImageViewWithImage:(UIImage *)image shapeName:(NSString *)shapeName minY:(CGFloat)minY {
-    UILabel *exampleLabel = [[UILabel alloc] initWithFont:UIFontMake(12) textColor:UIColorGrayDarken];
+    UILabel *exampleLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColorGrayDarken];
     exampleLabel.text = shapeName;
     [exampleLabel sizeToFit];
     exampleLabel.frame = CGRectSetY(exampleLabel.frame, minY);
@@ -886,7 +887,7 @@
 - (CGFloat)generateExampleViewForImageWithAttributedString {
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"将NSAttributedString生成为一张图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
@@ -918,7 +919,7 @@
     CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
     
-    UILabel *originImageLabel = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     originImageLabel.text = @"将当前UINavigationController.view截图";
     [originImageLabel sizeToFit];
     originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);

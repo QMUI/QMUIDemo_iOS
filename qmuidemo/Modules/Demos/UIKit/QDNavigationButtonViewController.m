@@ -43,8 +43,7 @@
         self.navigationItem.leftBarButtonItem = [QMUINavigationButton closeBarButtonItemWithTarget:self action:@selector(handleCloseButtonEvent:)];
     } else if ([title isEqualToString:@"自定义返回按钮(支持手势返回)"]) {
         self.forceEnableBackGesture = YES;
-        QMUINavigationButton *backButton = [[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeBack title:@"返回"];
-        self.navigationItem.leftBarButtonItem = [QMUINavigationButton barButtonItemWithNavigationButton:backButton position:QMUINavigationButtonPositionLeft target:self action:@selector(handleBackButtonEvent:)];
+        self.navigationItem.leftBarButtonItem = [QMUINavigationButton backBarButtonItemWithTarget:self action:@selector(handleBackButtonEvent:)];
     }
     [self.tableView qmui_clearsSelection];
 }

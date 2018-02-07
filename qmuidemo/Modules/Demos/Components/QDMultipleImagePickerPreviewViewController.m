@@ -68,6 +68,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateOriginImageCheckboxButtonWithIndex:self.imagePreviewView.currentImageIndex];
+    if ([self.selectedImageAssetArray count] > 0) {
+        NSUInteger selectedCount = [self.selectedImageAssetArray count];
+        _imageCountLabel.text = [[NSString alloc] initWithFormat:@"%@", @(selectedCount)];
+        _imageCountLabel.hidden = NO;
+    } else {
+        _imageCountLabel.hidden = YES;
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -75,7 +82,7 @@
     CGFloat bottomToolBarPaddingHorizontal = 12.0f;
     _bottomToolBarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - BottomToolBarViewHeight, CGRectGetWidth(self.view.bounds), BottomToolBarViewHeight);
     _sendButton.frame = CGRectSetXY(_sendButton.frame, CGRectGetWidth(_bottomToolBarView.frame) - bottomToolBarPaddingHorizontal - CGRectGetWidth(_sendButton.frame), CGFloatGetCenter(CGRectGetHeight(_bottomToolBarView.frame), CGRectGetHeight(_sendButton.frame)));
-    _imageCountLabel.frame = CGRectMake(CGRectGetMinX(_sendButton.frame) - 5 - ImageCountLabelSize.width, CGRectGetMinY(_sendButton.frame) + CGFloatGetCenter(CGRectGetHeight(_sendButton.frame), CGRectGetHeight(_imageCountLabel.frame)), ImageCountLabelSize.width, ImageCountLabelSize.height);
+    _imageCountLabel.frame = CGRectMake(CGRectGetMinX(_sendButton.frame) - 5 - ImageCountLabelSize.width, CGRectGetMinY(_sendButton.frame) + CGFloatGetCenter(CGRectGetHeight(_sendButton.frame), ImageCountLabelSize.height), ImageCountLabelSize.width, ImageCountLabelSize.height);
     _originImageCheckboxButton.frame = CGRectSetXY(_originImageCheckboxButton.frame, bottomToolBarPaddingHorizontal, CGFloatGetCenter(CGRectGetHeight(_bottomToolBarView.frame), CGRectGetHeight(_originImageCheckboxButton.frame)));
 }
 
@@ -87,15 +94,6 @@
 - (void)zoomImageView:(QMUIZoomImageView *)imageView didHideVideoToolbar:(BOOL)didHide {
     [super zoomImageView:imageView didHideVideoToolbar:didHide];
     _bottomToolBarView.hidden = didHide;
-}
-
-- (void)setDownloadStatus:(QMUIAssetDownloadStatus)downloadStatus {
-    [super setDownloadStatus:downloadStatus];
-    if (downloadStatus == QMUIAssetDownloadStatusSucceed) {
-        _originImageCheckboxButton.enabled = YES;
-    } else {
-        _originImageCheckboxButton.enabled = NO;
-    }
 }
 
 - (void)handleSendButtonClick:(id)sender {

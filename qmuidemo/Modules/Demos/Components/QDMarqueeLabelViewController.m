@@ -61,7 +61,7 @@
 }
 
 - (QMUIMarqueeLabel *)generateLabelWithText:(NSString *)text {
-    QMUIMarqueeLabel *label = [[QMUIMarqueeLabel alloc] initWithFont:UIFontMake(16) textColor:UIColorGray1];
+    QMUIMarqueeLabel *label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorGray1];
     label.textAlignment = NSTextAlignmentCenter;// 跑马灯文字一般都是居中显示，所以 Demo 里默认使用 center
     [label qmui_calculateHeightAfterSetAppearance];
     label.text = text;
@@ -125,7 +125,7 @@
         self.backgroundColor = [QDCommonUI randomThemeColor];
         self.layer.cornerRadius = 3;
         
-        self.label = [[QMUIMarqueeLabel alloc] initWithFont:UIFontMake(16) textColor:UIColorWhite];
+        self.label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorWhite];
         [self.label qmui_calculateHeightAfterSetAppearance];
         self.label.fadeStartColor = self.backgroundColor;
         self.label.fadeEndColor = [self.backgroundColor colorWithAlphaComponent:0];

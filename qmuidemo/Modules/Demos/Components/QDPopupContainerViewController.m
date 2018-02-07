@@ -75,7 +75,7 @@
     
     // 使用方法 1，以 addSubview: 的形式显示到界面上
     self.popupView1 = [[QMUIPopupContainerView alloc] init];
-    self.popupView1.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+    self.popupView1.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
     self.popupView1.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
     self.popupView1.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     self.popupView1.didHideBlock = ^(BOOL hidesByUserTap) {

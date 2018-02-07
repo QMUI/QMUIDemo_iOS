@@ -20,6 +20,7 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 @interface QDImagePickerExampleViewController ()
 
 @property(nonatomic, strong) UIImage *selectedAvatarImage;
+
 @end
 
 @implementation QDImagePickerExampleViewController
@@ -127,10 +128,8 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 - (void)imagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController didFinishPickingImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
     // 储存最近选择了图片的相册，方便下次直接进入该相册
     [QMUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerViewController.assetsGroup ablumContentType:kAlbumContentType userIdentify:nil];
-    // 显示 loading
-    [self startLoading];
-    // 使用 delay 模拟网络请求时长
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%@个资源", @([imagesAssetArray count])] afterDelay:1.5];
+    
+    [self sendImageWithImagesAssetArray:imagesAssetArray];
 }
 
 - (QMUIImagePickerPreviewViewController *)imagePickerPreviewViewControllerForImagePickerViewController:(QMUIImagePickerViewController *)imagePickerViewController {
@@ -183,16 +182,8 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 - (void)imagePickerPreviewViewController:(QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController sendImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
     // 储存最近选择了图片的相册，方便下次直接进入该相册
     [QMUIImagePickerHelper updateLastestAlbumWithAssetsGroup:imagePickerPreviewViewController.assetsGroup ablumContentType:kAlbumContentType userIdentify:nil];
-    // 显示 loading
-    [self startLoading];
-    // 使用 delay 模拟网络请求时长
-    NSString *succeedTip;
-    if (imagePickerPreviewViewController.shouldUseOriginImage) {
-        succeedTip = @"成功发送%@张原图";
-    } else {
-        succeedTip = @"成功发送%@张图片";
-    }
-    [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:succeedTip, @([imagesAssetArray count])] afterDelay:1.5];
+    
+    [self sendImageWithImagesAssetArray:imagesAssetArray];
 }
 
 #pragma mark - <QDSingleImagePickerPreviewViewControllerDelegate>
@@ -219,6 +210,10 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
     [QMUITips showLoadingInView:self.view];
 }
 
+- (void)startLoadingWithText:(NSString *)text {
+    [QMUITips showLoading:text inView:self.view];
+}
+
 - (void)stopLoading {
     [QMUITips hideAllToastInView:self.view animated:YES];
 }
@@ -230,6 +225,32 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 
 - (void)hideTipLabel {
     [QMUITips hideAllToastInView:self.view animated:YES];
+}
+
+- (void)sendImageWithImagesAssetArrayIfDownloadStatusSucceed:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
+    if ([QMUIImagePickerHelper imageAssetsDownloaded:imagesAssetArray]) {
+        // 所有资源从 iCloud 下载成功，模拟发送图片到服务器
+        // 显示发送中
+        [self showTipLabelWithText:@"发送中"];
+        // 使用 delay 模拟网络请求时长
+        [self performSelector:@selector(showTipLabelWithText:) withObject:[NSString stringWithFormat:@"成功发送%@个资源", @([imagesAssetArray count])] afterDelay:1.5];
+    }
+}
+
+- (void)sendImageWithImagesAssetArray:(NSMutableArray<QMUIAsset *> *)imagesAssetArray {
+    __weak __typeof(self)weakSelf = self;
+    
+    for (QMUIAsset *asset in imagesAssetArray) {
+        [QMUIImagePickerHelper requestImageAssetIfNeeded:asset completion:^(QMUIAssetDownloadStatus downloadStatus, NSError *error) {
+            if (downloadStatus == QMUIAssetDownloadStatusDownloading) {
+                [weakSelf startLoadingWithText:@"从 iCloud 加载中"];
+            } else if (downloadStatus == QMUIAssetDownloadStatusSucceed) {
+                [weakSelf sendImageWithImagesAssetArrayIfDownloadStatusSucceed:imagesAssetArray];
+            } else {
+                [weakSelf showTipLabelWithText:@"iCloud 下载错误，请重新选图"];
+            }
+        }];
+    }
 }
 
 - (void)setAvatarWithAvatarImage:(UIImage *)avatarImage {

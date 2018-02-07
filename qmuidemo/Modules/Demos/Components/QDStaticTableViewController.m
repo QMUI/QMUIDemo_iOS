@@ -187,8 +187,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 因为需要自定义 cell 的内容，所以才需要重写 tableView:didSelectRowAtIndexPath: 方法。
-    // 当重写这个方法时，请调用 qmui_staticCellDataSource 的同名方法以保证功能的完整
+    // 如果你实现了 tableView:didSelectRowAtIndexPath: 这个方法，请在里面调用 qmui_staticCellDataSource 的同名方法，否则 staticCellDataSource 里的事件无法正常响应
+    // 另外由于 iOS 8 下有这个 bug：https://github.com/QMUI/QMUI_iOS/issues/277，所以建议都实现 tableView:didSelectRowAtIndexPath:。
+    
     [tableView.qmui_staticCellDataSource didSelectRowAtIndexPath:indexPath];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

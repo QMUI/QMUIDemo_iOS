@@ -73,7 +73,7 @@ const NSInteger kIdentifierForDoneCell = 999;
         d;
     })]]];
     
-    self.orientationLabel = [[QMUILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorGray7];
+    self.orientationLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray7];
     self.orientationLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"当前界面支持的方向：\n%@", [self descriptionStringWithOrientationMask:self.supportedOrientationMask]] attributes:@{NSFontAttributeName: UIFontMake(14), NSForegroundColorAttributeName: UIColorGray7, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     self.orientationLabel.numberOfLines = 2;
     self.orientationLabel.contentEdgeInsets = UIEdgeInsetsMake(24, 24, 24, 24);

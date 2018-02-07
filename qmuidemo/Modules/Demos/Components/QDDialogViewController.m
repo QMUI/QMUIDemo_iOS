@@ -92,7 +92,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     dialogViewController.title = @"标题";
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
     contentView.backgroundColor = UIColorWhite;
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
     label.text = @"自定义contentView";
     [label sizeToFit];
     label.center = CGPointMake(CGRectGetWidth(contentView.bounds) / 2.0, CGRectGetHeight(contentView.bounds) / 2.0);
@@ -110,7 +110,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     dialogViewController.title = @"标题";
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
     contentView.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-    UILabel *label = [[UILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorWhite];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorWhite];
     label.text = @"自定义contentView";
     [label sizeToFit];
     label.center = CGPointMake(CGRectGetWidth(contentView.bounds) / 2.0, CGRectGetHeight(contentView.bounds) / 2.0);
@@ -132,7 +132,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     NSMutableDictionary *buttonTitleAttributes = dialogViewController.buttonTitleAttributes.mutableCopy;
     buttonTitleAttributes[NSForegroundColorAttributeName] = dialogViewController.headerViewBackgroundColor;
     dialogViewController.buttonTitleAttributes = buttonTitleAttributes;
-    [dialogViewController.submitButton setImage:[[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:buttonTitleAttributes[NSForegroundColorAttributeName]] forState:UIControlStateNormal];
+    [dialogViewController.submitButton setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:buttonTitleAttributes[NSForegroundColorAttributeName]] forState:UIControlStateNormal];
     dialogViewController.submitButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
     [dialogViewController show];

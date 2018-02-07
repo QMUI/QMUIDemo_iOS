@@ -54,7 +54,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         // 底部按钮
         QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
         QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDefault handler:NULL];
-        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
+        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
         action2.button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
         
         // 弹窗
@@ -116,7 +116,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     if ([title isEqualToString:@"支持自定义 actionSheet 样式"]) {
         QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
         QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDefault handler:NULL];
-        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageWithScaleToSize:CGSizeMake(22, 22) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
+        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(22, 22) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
         action2.button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
         QMUIAlertController *alertController = [[QMUIAlertController alloc] initWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
         NSMutableDictionary *titleAttributs = [[NSMutableDictionary alloc] initWithDictionary:alertController.sheetTitleAttributes];

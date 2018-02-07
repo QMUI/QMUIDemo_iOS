@@ -24,6 +24,7 @@
                         @"Default Line Height",
                         @"Theme",
                         @"Animation",
+                        @"Log Manager"
                         ];
 }
 
@@ -37,6 +38,15 @@
         viewController = [[QDThemeViewController alloc] init];
     } else if ([title isEqualToString:@"Animation"]) {
         viewController = [[QDAnimationViewController alloc] init];
+    } else if ([title isEqualToString:@"Log Manager"]) {
+        viewController = [[QMUILogManagerViewController alloc] init];
+        ((QMUILogManagerViewController *)viewController).formatLogNameForSortingBlock = ^NSString *(NSString *logName) {
+            NSString *projectPrefix = @"QMUI";
+            if ([logName hasPrefix:projectPrefix]) {
+                return [logName substringFromIndex:projectPrefix.length];
+            }
+            return logName;
+        };
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

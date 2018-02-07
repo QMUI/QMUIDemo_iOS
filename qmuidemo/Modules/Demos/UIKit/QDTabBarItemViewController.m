@@ -79,7 +79,7 @@
     NSInteger labelTag = 1024;
     QMUILabel *numberLabel = [view viewWithTag:labelTag];
     if (!numberLabel) {
-        numberLabel = [[QMUILabel alloc] initWithFont:UIFontBoldMake(14) textColor:UIColorWhite];
+        numberLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontBoldMake(14) textColor:UIColorWhite];
         numberLabel.backgroundColor = UIColorRed;
         numberLabel.textAlignment = NSTextAlignmentCenter;
         numberLabel.contentEdgeInsets = UIEdgeInsetsMake(2, 5, 2, 5);

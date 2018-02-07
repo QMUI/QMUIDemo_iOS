@@ -97,9 +97,15 @@ static CGFloat const kEmotionViewHeight = 232;
     self.textView.frame = CGRectFlatMake(0, 0, CGRectGetWidth(self.containerView.bounds), CGRectGetHeight(self.containerView.bounds) - kToolbarHeight);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.view endEditing:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)showInParentViewController:(UIViewController *)controller {
@@ -112,6 +118,7 @@ static CGFloat const kEmotionViewHeight = 232;
     self.view.frame = controller.view.bounds;
     
     // 需要先布局好
+    [controller addChildViewController:self];
     [controller.view addSubview:self.view];
     [self.view layoutIfNeeded];
     
@@ -123,6 +130,7 @@ static CGFloat const kEmotionViewHeight = 232;
     [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
         self.maskControl.alpha = 1.0;
     } completion:^(BOOL finished) {
+        [self didMoveToParentViewController:self];
         // 这一句触发viewDidAppear:
         [self endAppearanceTransition];
     }];
@@ -131,11 +139,14 @@ static CGFloat const kEmotionViewHeight = 232;
 }
 
 - (void)hide {
+    [self willMoveToParentViewController:nil];
     // 这一句触发viewWillDisappear:
     [self beginAppearanceTransition:NO animated:YES];
     [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
         self.maskControl.alpha = 0.0;
     } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
         // 这一句触发viewDidDisappear:
         [self endAppearanceTransition];
         [self.view removeFromSuperview];
@@ -268,6 +279,21 @@ static CGFloat const kEmotionViewHeight = 232;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.toolbarTextField.qmui_keyboardManager.delegateEnabled = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // 避免手势返回的时候输入框往下掉
+    self.toolbarTextField.qmui_keyboardManager.delegateEnabled = NO;
+}
+
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
+    return NO;// 那个 childViewController 是加到 navController.view 上的，所以需要手动管理
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGRect toolbarRect = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kToolbarHeight);
@@ -330,6 +356,7 @@ static CGFloat const kEmotionViewHeight = 232;
     } else {
         [self.customViewController.textView resignFirstResponder];
     }
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
 - (void)handleCommentButtonEvent:(id)sender {

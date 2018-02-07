@@ -21,7 +21,7 @@
     if (self) {
         self.backgroundColor = UIColorWhite;
         
-        self.titleLabel = [[QMUILabel alloc] initWithFont:UIFontMake(14) textColor:UIColorGray2];
+        self.titleLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray2];
         self.titleLabel.text = @"最近搜索";
         self.titleLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 8, 0);
         [self.titleLabel sizeToFit];
