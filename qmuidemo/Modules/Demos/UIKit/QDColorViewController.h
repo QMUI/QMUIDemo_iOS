@@ -20,8 +20,6 @@
 @property(nonatomic, assign) UIEdgeInsets contentViewInsets;    // default to (0, 0, 0, 0)
 @property(nonatomic, assign) CGFloat titleLabelMarginBottom;    // default to 12
 
-- (void)initSubviews;
-
 - (UIView *)generateCircleWithColor:(UIColor *)color;
 - (UIImageView *)generateArrowIcon;
 - (UIImageView *)generatePlusIcon;

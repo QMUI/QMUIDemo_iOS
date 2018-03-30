@@ -34,12 +34,20 @@
         }
     }
     
+    // 如果是第一次进来，则在 viewDidAppear 之后再让 logo 图渐变显示出来
+    __weak __typeof(self)weakSelf = self;
+    self.qmui_didAppearAndLoadDataBlock = ^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf transitLogoImageIfNeeded];
+    };
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
         UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
         [self saveImageAsFile:blendedAboutLogoImage];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.themeAboutLogoImage = blendedAboutLogoImage;
+            self.qmui_dataLoaded = YES;
         });
     });
 }
@@ -84,9 +92,13 @@
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (self.themeAboutLogoImage && self.logoImageView.image != self.themeAboutLogoImage) {
+- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
+    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
+    self.title = @"关于";
+}
+
+- (void)transitLogoImageIfNeeded {
+    if (self.themeAboutLogoImage && self.logoImageView && self.logoImageView.image != self.themeAboutLogoImage) {
         UIImageView *templateImageView = [[UIImageView alloc] initWithFrame:self.logoImageView.bounds];
         templateImageView.image = self.themeAboutLogoImage;
         templateImageView.alpha = 0;
@@ -98,11 +110,6 @@
             [templateImageView removeFromSuperview];
         }];
     }
-}
-
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
-    self.title = @"关于";
 }
 
 - (QMUIButton *)generateCellButtonWithTitle:(NSString *)title {

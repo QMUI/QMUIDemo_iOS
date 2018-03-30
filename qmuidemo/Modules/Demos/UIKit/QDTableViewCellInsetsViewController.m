@@ -33,19 +33,14 @@
     return nil;
 }
 
-- (UITableViewCell *)qmui_tableView:(UITableView *)tableView cellWithIdentifier:(NSString *)identifier {
-    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
-        cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
         cell.imageView.image = [UIImage qmui_imageWithShape:QMUIImageShapeOval size:CGSizeMake(16, 16) lineWidth:2 tintColor:[QDCommonUI randomThemeColor]];
         cell.textLabel.text = NSStringFromClass([QMUITableViewCell class]);
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    return cell;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QMUITableViewCell *cell = [self qmui_tableView:tableView cellWithIdentifier:@"cell"];
     
     // reset
     cell.imageEdgeInsets = UIEdgeInsetsZero;

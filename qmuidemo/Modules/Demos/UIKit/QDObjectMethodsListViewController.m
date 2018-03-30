@@ -40,7 +40,7 @@
 }
 
 - (NSAttributedString *)attributedStringForTextView {
-    NSDictionary<NSString *, id> *attributes = @{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24]};
+    NSDictionary<NSString *, id> *attributes = @{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24 lineBreakMode:NSLineBreakByCharWrapping]};
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[self.selectorNames componentsJoinedByString:@"\n"] attributes:attributes];
     return attributedString;
 }

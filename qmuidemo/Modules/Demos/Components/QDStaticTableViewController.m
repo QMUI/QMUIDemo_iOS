@@ -79,6 +79,11 @@
                                                             d.accessoryValueObject = @YES;// switch 类型的，可以通过传一个 NSNumber 对象给 accessoryValueObject 来指定这个 switch.on 的值
                                                             d.accessoryTarget = self;
                                                             d.accessoryAction = @selector(handleSwitchCellEvent:);
+                                                            d.cellForRowBlock = ^(UITableView *tableView, __kindof QMUITableViewCell *cell, QMUIStaticTableViewCellData *cellData) {
+                                                                UISwitch *switchControl = (UISwitch *)cell.accessoryView;
+                                                                switchControl.onTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+                                                                switchControl.tintColor = switchControl.onTintColor;
+                                                            };
                                                             d;
                                                         })],
                                                       
@@ -140,11 +145,12 @@
     
     // 刷新除了被点击的那个 cell 外的其他单选 cell
     NSMutableArray<NSIndexPath *> *indexPathsAnimated = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0, l = [self.tableView.dataSource tableView:self.tableView numberOfRowsInSection:cellData.indexPath.section]; i < l; i++) {
+    for (NSInteger i = 0, l = [self.tableView numberOfRowsInSection:cellData.indexPath.section]; i < l; i++) {
         if (i != cellData.indexPath.row) {
             [indexPathsAnimated addObject:[NSIndexPath indexPathForRow:i inSection:cellData.indexPath.section]];
         }
     }
+    
     [self.tableView reloadRowsAtIndexPaths:indexPathsAnimated withRowAnimation:UITableViewRowAnimationNone];
     
     // 直接拿到 cell 去修改 accessoryType，保证动画不受 reload 的影响
@@ -170,29 +176,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return section == 2 ? @"单选" : nil;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 因为需要自定义 cell 的内容，所以才需要重写 tableView:cellForRowAtIndexPath: 方法。
-    // 当重写这个方法时，请通过 qmui_staticCellDataSource 同名方法获取到 cell 实例
-    QMUITableViewCell *cell = [tableView.qmui_staticCellDataSource cellForRowAtIndexPath:indexPath];
-    
-    if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
-        UISwitch *switchControl = (UISwitch *)cell.accessoryView;
-        switchControl.onTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-        switchControl.tintColor = switchControl.onTintColor;
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 如果你实现了 tableView:didSelectRowAtIndexPath: 这个方法，请在里面调用 qmui_staticCellDataSource 的同名方法，否则 staticCellDataSource 里的事件无法正常响应
-    // 另外由于 iOS 8 下有这个 bug：https://github.com/QMUI/QMUI_iOS/issues/277，所以建议都实现 tableView:didSelectRowAtIndexPath:。
-    
-    [tableView.qmui_staticCellDataSource didSelectRowAtIndexPath:indexPath];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

@@ -36,6 +36,7 @@
     } else if ([title isEqualToString:@"加粗导航栏按钮"]) {
         self.navigationItem.rightBarButtonItems = @[[QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeBold title:@"完成(5)" position:QMUINavigationButtonPositionRight target:nil action:NULL]];
     } else if ([title isEqualToString:@"图标导航栏按钮"]) {
+        // 注意，UIBarButtonItem 的 image 默认为 UIImageRenderingModeAlwaysTemplate，所以如果要修改图片的颜色，应该同时设置图片的 renderingMode 为 UIImageRenderingModeAlwaysOriginal
         UIImage *image = [UIImage qmui_imageWithStrokeColor:UIColorWhite size:CGSizeMake(20, 20) lineWidth:3 cornerRadius:10];
         self.navigationItem.rightBarButtonItems = @[[QMUINavigationButton barButtonItemWithImage:image position:QMUINavigationButtonPositionRight target:nil action:NULL]];
     } else if ([title isEqualToString:@"关闭导航栏按钮(支持手势返回)"]) {

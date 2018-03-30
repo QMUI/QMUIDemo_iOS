@@ -25,6 +25,8 @@
 #import "QDToastListViewController.h"
 #import "QDKeyboardViewController.h"
 #import "QDMarqueeLabelViewController.h"
+#import "QDCellKeyCacheViewController.h"
+#import "QDMultipleDelegatesViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -47,6 +49,7 @@
                        @"QMUIGridView", UIImageMake(@"icon_grid_gridView"),
                        @"QMUIFloatLayoutView", UIImageMake(@"icon_grid_floatView"),
                        @"QMUIStaticTableView", UIImageMake(@"icon_grid_staticTableView"),
+                       @"QMUICellKeyCache", UIImageMake(@"icon_grid_cellKeyCache"),
                        @"QMUIPickingImage", UIImageMake(@"icon_grid_pickingImage"),
                        @"QMUIAssetsManager", UIImageMake(@"icon_grid_assetsManager"),
                        @"QMUIImagePreviewView", UIImageMake(@"icon_grid_previewImage"),
@@ -54,6 +57,7 @@
                        @"QMUIPopupContainerView", UIImageMake(@"icon_grid_popupView"),
                        @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
                        @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_marquee"),
+                       @"QMUIMultipleDelegates", UIImageMake(@"icon_grid_multipleDelegates"),
                        nil];
 }
 
@@ -70,6 +74,9 @@
     }
     else if ([title isEqualToString:@"QMUIStaticTableView"]) {
         viewController = [[QDStaticTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    }
+    else if ([title isEqualToString:@"QMUICellKeyCache"]) {
+        viewController = [[QDCellKeyCacheViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUIImagePreviewView"]) {
         viewController = [[QDImagePreviewExampleViewController alloc] init];
@@ -109,6 +116,9 @@
     }
     else if ([title isEqualToString:@"QMUIMarqueeLabel"]) {
         viewController = [[QDMarqueeLabelViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIMultipleDelegates"]) {
+        viewController = [[QDMultipleDelegatesViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

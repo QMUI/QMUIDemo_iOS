@@ -96,17 +96,12 @@
     return self.autocompletionClasses.count;
 }
 
-- (UITableViewCell *)qmui_tableView:(UITableView *)tableView cellWithIdentifier:(NSString *)identifier {
-    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
-        cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withReuseIdentifier:identifier];
+        cell = [[QMUITableViewCell alloc] initForTableView:tableView withReuseIdentifier:@"cell"];
         cell.textLabel.numberOfLines = 0;
     }
-    return cell;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QMUITableViewCell *cell = [self qmui_tableView:tableView cellWithIdentifier:@"cell"];
     NSString *className = self.autocompletionClasses[indexPath.row];
     NSRange matchingRange = [className.lowercaseString rangeOfString:self.searchBar.text.lowercaseString];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:className attributes:@{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1}];

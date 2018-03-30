@@ -89,7 +89,7 @@
     self.lineHeightLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.fontPointSizeLabel.frame) + 16, contentWidth, CGRectGetHeight(self.lineHeightLabel.frame));
     self.fontPointSizeSlider.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.lineHeightLabel.frame) + 16, contentWidth, CGRectGetHeight(self.fontPointSizeSlider.frame));
     
-    CGSize exampleLabelSize = [self.exampleLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
+    CGSize exampleLabelSize = [self.exampleLabel sizeThatFits:CGSizeMax];
     self.exampleLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.fontPointSizeSlider.frame) + 40, contentWidth, exampleLabelSize.height);
 }
 

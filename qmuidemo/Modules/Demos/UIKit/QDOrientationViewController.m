@@ -70,6 +70,10 @@ const NSInteger kIdentifierForDoneCell = 999;
         d.text = @"完成方向选择，进入该界面";
         d.didSelectTarget = self;
         d.didSelectAction = @selector(handleDoneCellEvent:);
+        d.cellForRowBlock = ^(UITableView *tableView, __kindof QMUITableViewCell *cell, QMUIStaticTableViewCellData *cellData) {
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.textColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+        };
         d;
     })]]];
     
@@ -86,12 +90,6 @@ const NSInteger kIdentifierForDoneCell = 999;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     QMUITableViewCell *cell = [tableView.qmui_staticCellDataSource cellForRowAtIndexPath:indexPath];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    
-    QMUIStaticTableViewCellData *cellData = [tableView.qmui_staticCellDataSource cellDataAtIndexPath:indexPath];
-    if (cellData.identifier == kIdentifierForDoneCell) {
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-    }
     return cell;
 }
 

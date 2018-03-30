@@ -27,6 +27,7 @@
                                      @"- qmui_imageWithImageAbove:atPoint:", @"将一张图片叠在当前图片上方的指定位置",
                                      @"- qmui_imageWithSpacingExtensionInsets:", @"拓展当前图片外部边距，拓展的区域填充透明",
                                      @"- qmui_imageWithClippedRect:", @"将图片内指定区域的矩形裁剪出来，返回裁剪出来的区域",
+                                     @"- qmui_imageWithClippedCornerRadius:", @"将图片按指定圆角裁剪出来，返回裁剪出来的区域",
                                      @"- qmui_imageResizedInLimitedSize:contentMode:", @"将当前图片缩放到指定的大小，缩放策略可以指定不同的contentMode，经过缩放后的图片倍数保持不变",
                                      @"- qmui_imageResizedInLimitedSize:contentMode:scale:", @"同上，只是可以指定倍数",
                                      @"- qmui_imageWithOrientation:", @"将图片旋转到指定方向，支持上下左右、水平&垂直翻转",
@@ -109,6 +110,8 @@
         contentSizeHeight = [self generateExampleViewForImageWithImageAbove];
     } else if ([title isEqualToString:@"- qmui_imageWithSpacingExtensionInsets:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithSpacingExtensionInsets];
+    } else if ([title isEqualToString:@"- qmui_imageWithClippedCornerRadius:"]) {
+        contentSizeHeight = [self generateExampleViewForImageWithClippedCornerRadius];
     } else if ([title isEqualToString:@"- qmui_imageWithClippedRect:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithClippedRect];
     } else if ([title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:"] || [title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:scale:"]) {
@@ -423,6 +426,46 @@
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.layer.borderWidth = originImageView.layer.borderWidth;
     afterImageView.layer.borderColor = originImageView.layer.borderColor;
+    afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
+    [self.scrollView addSubview:afterImageView];
+    minY = CGRectGetMaxY(afterImageView.frame);
+    
+    return minY;
+}
+
+- (CGFloat)generateExampleViewForImageWithClippedCornerRadius {
+    CGFloat contentWidth = [self contentViewLimitWidth];
+    CGFloat minY = [self contentViewLayoutStartingMinY];
+    
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    originImageLabel.text = @"处理前的原图";
+    [originImageLabel sizeToFit];
+    originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
+    [self.scrollView addSubview:originImageLabel];
+    minY = CGRectGetMaxY(originImageLabel.frame) + 6;
+    
+    UIImage *originImage = UIImageMake(@"image1");
+    originImage = [originImage qmui_imageWithClippedRect:CGRectFlatMake(CGFloatGetCenter(originImage.size.width, 200), CGFloatGetCenter(originImage.size.height, 200), 200, 200)];
+    UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
+    originImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [originImageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
+    originImageView.frame = CGRectFlatMake(0, minY, originImage.size.width, originImage.size.height);
+    originImageView.clipsToBounds = YES;
+    [self.scrollView addSubview:originImageView];
+    minY = CGRectGetMaxY(originImageView.frame) + 16;
+    
+    UILabel *afterLabel = [[UILabel alloc] init];
+    [afterLabel qmui_setTheSameAppearanceAsLabel:originImageLabel];
+    afterLabel.text = @"按宽度一半作为圆角裁剪";
+    [afterLabel sizeToFit];
+    afterLabel.frame = CGRectSetY(afterLabel.frame, minY);
+    [self.scrollView addSubview:afterLabel];
+    minY = CGRectGetMaxY(afterLabel.frame) + 6;
+    
+    CGFloat cornerRadius = CGRectGetWidth(originImageView.bounds) / 2;
+    UIImage *afterImage = [originImageView.image qmui_imageWithClippedCornerRadius:cornerRadius];
+    UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
+    afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);
     [self.scrollView addSubview:afterImageView];
     minY = CGRectGetMaxY(afterImageView.frame);

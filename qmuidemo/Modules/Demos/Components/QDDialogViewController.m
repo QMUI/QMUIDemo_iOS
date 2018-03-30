@@ -12,7 +12,7 @@ static NSString * const kSectionTitleForNormal = @"QMUIDialogViewController";
 static NSString * const kSectionTitleForSelection = @"QMUIDialogSelectionViewController";
 static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewController";
 
-@interface QDDialogViewController ()<QMUITextFieldDelegate>
+@interface QDDialogViewController ()
 
 @property(nonatomic, weak) QMUIDialogTextFieldViewController *currentTextFieldDialogViewController;
 @end
@@ -33,6 +33,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
                                                                      nil],
                                          kSectionTitleForTextField, [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                                                                      @"输入框弹窗", @"",
+                                                                     @"支持通过键盘 Return 按键触发弹窗提交按钮事件", @"默认开启，当需要自己管理输入框 shouldReturn 事件时请将其关闭",
                                                                      @"支持自动控制提交按钮的 enable 状态", @"默认开启，只要文字不为空则允许点击",
                                                                      @"支持自定义提交按钮的 enable 状态", @"通过 block 来控制状态",
                                                                      nil],
@@ -67,12 +68,17 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     }
     
     if ([title isEqualToString:@"支持多选"]) {
-        [self showMutipleSelectionDialogViewController];
+        [self showMultipleSelectionDialogViewController];
         return;
     }
     
     if ([title isEqualToString:@"输入框弹窗"]) {
         [self showNormalTextFieldDialogViewController];
+        return;
+    }
+    
+    if ([title isEqualToString:@"支持通过键盘 Return 按键触发弹窗提交按钮事件"]) {
+        [self showReturnKeyDialogViewController];
         return;
     }
     
@@ -183,7 +189,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     [dialogViewController show];
 }
 
-- (void)showMutipleSelectionDialogViewController {
+- (void)showMultipleSelectionDialogViewController {
     QMUIDialogSelectionViewController *dialogViewController = [[QMUIDialogSelectionViewController alloc] init];
     dialogViewController.titleView.style = QMUINavigationTitleViewStyleSubTitleVertical;
     dialogViewController.title = @"你常用的编程语言";
@@ -204,23 +210,23 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
         [d hide];
         
         if ([d.selectedItemIndexes containsObject:@(5)]) {
-            [QMUITips showInfo:@"PHP 是世界上最好的编程语言" inView:weakSelf.view hideAfterDelay:2.0];
+            [QMUITips showInfo:@"PHP 是世界上最好的编程语言" inView:weakSelf.view hideAfterDelay:1.8];
             return;
         }
         if ([d.selectedItemIndexes containsObject:@(4)]) {
-            [QMUITips showInfo:@"你代码缩进用 Tab 还是 Space？" inView:weakSelf.view hideAfterDelay:2.0];
+            [QMUITips showInfo:@"你代码缩进用 Tab 还是 Space？" inView:weakSelf.view hideAfterDelay:1.8];
             return;
         }
         if ([d.selectedItemIndexes containsObject:@(3)]) {
-            [QMUITips showInfo:@"JavaScript 即将一统江湖" inView:weakSelf.view hideAfterDelay:2.0];
+            [QMUITips showInfo:@"JavaScript 即将一统江湖" inView:weakSelf.view hideAfterDelay:1.8];
             return;
         }
         if ([d.selectedItemIndexes containsObject:@(2)]) {
-            [QMUITips showInfo:@"Android 7 都出了，我还在兼容 Android 4" inView:weakSelf.view hideAfterDelay:2.0];
+            [QMUITips showInfo:@"Android 7 都出了，我还在兼容 Android 4" inView:weakSelf.view hideAfterDelay:1.8];
             return;
         }
         if ([d.selectedItemIndexes containsObject:@(0)] || [d.selectedItemIndexes containsObject:@(1)]) {
-            [QMUITips showInfo:@"iOS 开发你好" inView:weakSelf.view hideAfterDelay:2.0];
+            [QMUITips showInfo:@"iOS 开发你好" inView:weakSelf.view hideAfterDelay:1.8];
             return;
         }
     }];
@@ -230,11 +236,31 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showNormalTextFieldDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入昵称";
-    dialogViewController.textField.delegate = self;
     dialogViewController.textField.placeholder = @"昵称";
+    dialogViewController.enablesSubmitButtonAutomatically = NO;// 为了演示效果与第二个 cell 的区分开，这里手动置为 NO
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
-    [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *aDialogViewController) {
+    [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogTextFieldViewController *aDialogViewController) {
+        if (aDialogViewController.textField.text.length > 0) {
+            [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
+        } else {
+            [QMUITips showInfo:@"请填写内容" inView:self.view hideAfterDelay:1.2];
+        }
         [aDialogViewController hide];
+    }];
+    [dialogViewController show];
+    self.currentTextFieldDialogViewController = dialogViewController;
+}
+
+- (void)showReturnKeyDialogViewController {
+    QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
+    dialogViewController.title = @"请输入别名";
+    dialogViewController.textField.placeholder = @"点击键盘 Return 键视为点击确定按钮";
+    dialogViewController.textField.maximumTextLength = 10;
+    dialogViewController.shouldManageTextFieldsReturnEventAutomatically = YES;// 让键盘的 Return 键也能触发确定按钮的事件。这个属性默认就是 YES，这里为写出来只是为了演示
+    [dialogViewController addCancelButtonWithText:@"取消" block:nil];
+    [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {
+        [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
+        [dialogViewController hide];
     }];
     [dialogViewController show];
     self.currentTextFieldDialogViewController = dialogViewController;
@@ -243,12 +269,12 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showSubmitButtonEnablesDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入签名";
-    dialogViewController.textField.delegate = self;
     dialogViewController.textField.placeholder = @"不超过10个字";
     dialogViewController.textField.maximumTextLength = 10;
+    dialogViewController.enablesSubmitButtonAutomatically = YES;// 自动根据输入框的内容是否为空来控制 submitButton.enabled 状态。这个属性默认就是 YES，这里为写出来只是为了演示
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {
-        [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:2.0];
+        [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
         [dialogViewController hide];
     }];
     [dialogViewController show];
@@ -258,30 +284,21 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showCustomSubmitButtonEnablesDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入手机号码";
-    dialogViewController.textField.delegate = self;
     dialogViewController.textField.placeholder = @"11位手机号码";
+    dialogViewController.textField.keyboardType = UIKeyboardTypePhonePad;
     dialogViewController.textField.maximumTextLength = 11;
+    dialogViewController.enablesSubmitButtonAutomatically = YES;// 自动根据输入框的内容是否为空来控制 submitButton.enabled 状态。这个属性默认就是 YES，这里为写出来只是为了演示
     dialogViewController.shouldEnableSubmitButtonBlock = ^BOOL(QMUIDialogTextFieldViewController *aDialogViewController) {
+        // 条件改为一定要写满11位才允许提交
         return aDialogViewController.textField.text.length == aDialogViewController.textField.maximumTextLength;
     };
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {
-        [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:2.0];
+        [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
         [dialogViewController hide];
     }];
     [dialogViewController show];
     self.currentTextFieldDialogViewController = dialogViewController;
-}
-
-#pragma mark - <QMUITextFieldDelegate>
-
-- (BOOL)textFieldShouldReturn:(QMUITextField *)textField {
-    if (self.currentTextFieldDialogViewController.submitButton.enabled) {
-        [self.currentTextFieldDialogViewController hide];
-    } else {
-        [QMUITips showSucceed:@"请输入文字" inView:self.currentTextFieldDialogViewController.qmui_modalPresentationViewController.view hideAfterDelay:2.0];
-    }
-    return NO;
 }
 
 @end
