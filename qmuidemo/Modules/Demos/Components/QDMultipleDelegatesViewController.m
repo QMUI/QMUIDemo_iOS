@@ -55,7 +55,7 @@
     
     self.descriptionLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColorGray6];
     self.descriptionLabel.numberOfLines = 0;
-    self.descriptionLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ 对所有 NSObject 有效，只要该 object 具备 setDelegate: 接口即可。这里只拿 UITextField 展示。", NSStringFromClass([QMUIMultipleDelegates class])] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];;
+    self.descriptionLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ 对所有 NSObject 有效，这里只拿 UITextField 展示。", NSStringFromClass([QMUIMultipleDelegates class])] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];;
     [self.view addSubview:self.descriptionLabel];
 }
 
