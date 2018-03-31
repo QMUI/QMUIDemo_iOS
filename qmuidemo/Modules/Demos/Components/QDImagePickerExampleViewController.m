@@ -163,8 +163,16 @@ static QMUIAlbumContentType const kAlbumContentType = QMUIAlbumContentTypeAll;
 #pragma mark - <QMUIImagePickerPreviewViewControllerDelegate>
 
 - (void)imagePickerPreviewViewController:(QMUIImagePickerPreviewViewController *)imagePickerPreviewViewController didCheckImageAtIndex:(NSInteger)index {
+    [self updateImageCountLabelForPreviewView:imagePickerPreviewViewController];
+}
+
+- (void)imagePickerPreviewViewController:(QMUIImagePickerPreviewViewController *)imagePickerPreviewViewController didUncheckImageAtIndex:(NSInteger)index {
+    [self updateImageCountLabelForPreviewView:imagePickerPreviewViewController];
+}
+
+// 更新选中的图片数量
+- (void)updateImageCountLabelForPreviewView:(QMUIImagePickerPreviewViewController *)imagePickerPreviewViewController {
     if (imagePickerPreviewViewController.view.tag == MultipleImagePickingTag) {
-        // 在预览界面选择图片时，控制显示当前所选的图片，并且展示动画
         QDMultipleImagePickerPreviewViewController *customImagePickerPreviewViewController = (QDMultipleImagePickerPreviewViewController *)imagePickerPreviewViewController;
         NSUInteger selectedCount = [imagePickerPreviewViewController.selectedImageAssetArray count];
         if (selectedCount > 0) {

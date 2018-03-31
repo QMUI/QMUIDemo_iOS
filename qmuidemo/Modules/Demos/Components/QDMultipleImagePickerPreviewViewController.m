@@ -8,7 +8,6 @@
 
 #import "QDMultipleImagePickerPreviewViewController.h"
 
-#define BottomToolBarViewHeight 45
 #define ImageCountLabelSize CGSizeMake(18, 18)
 
 @implementation QDMultipleImagePickerPreviewViewController {
@@ -80,10 +79,12 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat bottomToolBarPaddingHorizontal = 12.0f;
-    _bottomToolBarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - BottomToolBarViewHeight, CGRectGetWidth(self.view.bounds), BottomToolBarViewHeight);
-    _sendButton.frame = CGRectSetXY(_sendButton.frame, CGRectGetWidth(_bottomToolBarView.frame) - bottomToolBarPaddingHorizontal - CGRectGetWidth(_sendButton.frame), CGFloatGetCenter(CGRectGetHeight(_bottomToolBarView.frame), CGRectGetHeight(_sendButton.frame)));
+    CGFloat bottomToolBarContentHeight = 44;
+    CGFloat bottomToolBarHeight = bottomToolBarContentHeight + self.view.qmui_safeAreaInsets.bottom;
+    _bottomToolBarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - bottomToolBarHeight, CGRectGetWidth(self.view.bounds), bottomToolBarHeight);
+    _sendButton.frame = CGRectSetXY(_sendButton.frame, CGRectGetWidth(_bottomToolBarView.frame) - bottomToolBarPaddingHorizontal - CGRectGetWidth(_sendButton.frame), CGFloatGetCenter(bottomToolBarContentHeight, CGRectGetHeight(_sendButton.frame)));
     _imageCountLabel.frame = CGRectMake(CGRectGetMinX(_sendButton.frame) - 5 - ImageCountLabelSize.width, CGRectGetMinY(_sendButton.frame) + CGFloatGetCenter(CGRectGetHeight(_sendButton.frame), ImageCountLabelSize.height), ImageCountLabelSize.width, ImageCountLabelSize.height);
-    _originImageCheckboxButton.frame = CGRectSetXY(_originImageCheckboxButton.frame, bottomToolBarPaddingHorizontal, CGFloatGetCenter(CGRectGetHeight(_bottomToolBarView.frame), CGRectGetHeight(_originImageCheckboxButton.frame)));
+    _originImageCheckboxButton.frame = CGRectSetXY(_originImageCheckboxButton.frame, bottomToolBarPaddingHorizontal, CGFloatGetCenter(bottomToolBarContentHeight, CGRectGetHeight(_originImageCheckboxButton.frame)));
 }
 
 - (void)singleTouchInZoomingImageView:(QMUIZoomImageView *)zoomImageView location:(CGPoint)location {
