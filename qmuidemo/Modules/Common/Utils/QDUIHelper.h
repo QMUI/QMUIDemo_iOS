@@ -41,6 +41,13 @@
 @end
 
 
+@interface QDUIHelper (QMUIImagePicker)
+
++ (void)customImagePickerAppearance;
+
+@end
+
+
 @interface QDUIHelper (UITabBarItem)
 
 + (UITabBarItem *)tabBarItemWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage tag:(NSInteger)tag;

@@ -10,7 +10,7 @@
 
 @interface QDCommonGridViewController : QDCommonViewController
 
-@property(nonatomic, strong) QMUIOrderedDictionary *dataSource;
+@property(nonatomic, strong) QMUIOrderedDictionary<NSString *, UIImage *> *dataSource;
 @property(nonatomic, strong, readonly) QMUIGridView *gridView;
 
 @end

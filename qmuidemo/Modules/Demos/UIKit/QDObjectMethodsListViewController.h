@@ -6,9 +6,9 @@
 //  Copyright © 2017年 QMUI Team. All rights reserved.
 //
 
-#import "QDCommonViewController.h"
+#import "QDCommonTableViewController.h"
 
-@interface QDObjectMethodsListViewController : QDCommonViewController
+@interface QDObjectMethodsListViewController : QDCommonTableViewController
 
 - (instancetype)initWithClass:(Class)aClass;
 @end

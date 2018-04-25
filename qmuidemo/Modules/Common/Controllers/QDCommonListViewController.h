@@ -11,7 +11,7 @@
 @interface QDCommonListViewController : QDCommonTableViewController
 
 @property(nonatomic, strong) NSArray<NSString *> *dataSource;
-@property(nonatomic, strong) QMUIOrderedDictionary *dataSourceWithDetailText;
+@property(nonatomic, strong) QMUIOrderedDictionary<NSString *, NSString *> *dataSourceWithDetailText;
 
 @end
 

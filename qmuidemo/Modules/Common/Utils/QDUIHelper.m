@@ -61,6 +61,17 @@
 
 @end
 
+@implementation QDUIHelper (QMUIImagePicker)
+
++ (void)customImagePickerAppearance {
+    UIImage *checkboxImage = [QMUIHelper imageWithName:@"QMUI_pickerImage_checkbox"];
+    UIImage *checkboxCheckedImage = [QMUIHelper imageWithName:@"QMUI_pickerImage_checkbox_checked"];
+    [QMUIImagePickerCollectionViewCell appearance].checkboxImage = [checkboxImage qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+    [QMUIImagePickerCollectionViewCell appearance].checkboxCheckedImage = [checkboxCheckedImage qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+    [QMUIImagePickerPreviewViewController appearance].toolBarTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+}
+
+@end
 
 @implementation QDUIHelper (UITabBarItem)
 
@@ -146,13 +157,15 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 @implementation QDUIHelper (SavePhoto)
 
 + (void)showAlertWhenSavedPhotoFailureByPermissionDenied {
-    QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"无法保存" message:@"你未开启“允许 QMUI 访问照片”选项" preferredStyle:QMUIAlertControllerStyleAlert];
+    NSString *tipString = nil;
+    NSDictionary *mainInfoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appName = [mainInfoDictionary objectForKey:@"CFBundleDisplayName"];
+    if (!appName) {
+        appName = [mainInfoDictionary objectForKey:(NSString *)kCFBundleNameKey];
+    }
+    tipString = [NSString stringWithFormat:@"请在设备的\"设置-隐私-照片\"选项中，允许%@访问你的手机相册", appName];
     
-    QMUIAlertAction *settingAction = [QMUIAlertAction actionWithTitle:@"去设置" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
-        NSURL *url = [[NSURL alloc] initWithString:@"prefs:root=Privacy&path=PHOTOS"];
-        [[UIApplication sharedApplication] openURL:url];
-    }];
-    [alertController addAction:settingAction];
+    QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"无法保存" message:tipString preferredStyle:QMUIAlertControllerStyleAlert];
     
     QMUIAlertAction *okAction = [QMUIAlertAction actionWithTitle:@"我知道了" style:QMUIAlertActionStyleCancel handler:nil];
     [alertController addAction:okAction];

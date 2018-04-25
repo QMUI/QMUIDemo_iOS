@@ -8,14 +8,17 @@
 
 #import "QDCustomToastAnimator.h"
 
-@implementation QDCustomToastAnimator {
-    BOOL _isShowing;
-    BOOL _isAnimating;
-}
+@interface QDCustomToastAnimator ()
+
+@property(nonatomic, assign) BOOL isShowing;
+@property(nonatomic, assign) BOOL isAnimating;
+@end
+
+@implementation QDCustomToastAnimator
 
 - (void)showWithCompletion:(void (^)(BOOL finished))completion {
-    _isShowing = YES;
-    _isAnimating = YES;
+    self.isShowing = YES;
+    self.isAnimating = YES;
     self.toastView.backgroundView.layer.transform = CATransform3DMakeTranslation(0, -30, 0);
     self.toastView.contentView.layer.transform = CATransform3DMakeTranslation(0, -30, 0);
     [UIView animateWithDuration:0.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
@@ -24,7 +27,7 @@
         self.toastView.backgroundView.layer.transform = CATransform3DIdentity;
         self.toastView.contentView.layer.transform = CATransform3DIdentity;
     } completion:^(BOOL finished) {
-        _isAnimating = NO;
+        self.isAnimating = NO;
         if (completion) {
             completion(finished);
         }
@@ -32,15 +35,15 @@
 }
 
 - (void)hideWithCompletion:(void (^)(BOOL finished))completion {
-    _isShowing = NO;
-    _isAnimating = YES;
+    self.isShowing = NO;
+    self.isAnimating = YES;
     [UIView animateWithDuration:0.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
         self.toastView.backgroundView.alpha = 0.0;
         self.toastView.contentView.alpha = 0.0;
         self.toastView.backgroundView.layer.transform = CATransform3DMakeTranslation(0, -30, 0);
         self.toastView.contentView.layer.transform = CATransform3DMakeTranslation(0, -30, 0);
     } completion:^(BOOL finished) {
-        _isAnimating = NO;
+        self.isAnimating = NO;
         self.toastView.backgroundView.layer.transform = CATransform3DIdentity;
         self.toastView.contentView.layer.transform = CATransform3DIdentity;
         if (completion) {
@@ -50,11 +53,11 @@
 }
 
 - (BOOL)isShowing {
-    return _isShowing;
+    return self.isShowing;
 }
 
 - (BOOL)isAnimating {
-    return _isAnimating;
+    return self.isAnimating;
 }
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QDCommonListViewController.h"
+#import "QDCommonGroupListViewController.h"
 
-@interface QDNavigationButtonViewController : QDCommonListViewController
+@interface QDNavigationButtonViewController : QDCommonGroupListViewController
 
 @end

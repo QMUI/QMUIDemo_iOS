@@ -44,6 +44,12 @@
     self.textField.delegate = self.delegator1;
     self.textField.delegate = self.delegator2;
     
+    // 示例：如何清除某些指定的 delegate
+//    [self.textField qmui_removeDelegate:self.delegator1];
+    
+    // 示例：如何清除所有的 delegate
+//    self.textField.delegate = nil;
+    
     // 后面的代码不用看了
     self.textField.leftViewMode = UITextFieldViewModeAlways;
     self.textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 12)];

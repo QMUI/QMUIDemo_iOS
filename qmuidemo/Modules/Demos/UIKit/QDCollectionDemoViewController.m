@@ -35,7 +35,7 @@
     self.titleView.userInteractionEnabled = YES;
     [self.titleView addTarget:self action:@selector(handleTitleViewTouchEvent) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.rightBarButtonItem = [QMUINavigationButton barButtonItemWithType:QMUINavigationButtonTypeNormal title:self.debug ? @"普通模式" : @"调试模式" position:QMUINavigationButtonPositionRight target:self action:@selector(handleDebugItemEvent)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithTitle:self.debug ? @"普通模式" : @"调试模式" target:self action:@selector(handleDebugItemEvent)];
 }
 
 - (void)initSubviews {

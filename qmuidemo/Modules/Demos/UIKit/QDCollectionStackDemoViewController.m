@@ -12,45 +12,44 @@
 
 @interface QDCollectionStackDemoViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
 
+@property(nonatomic, strong) UIPanGestureRecognizer *panGesture;
+@property(nonatomic, strong) UICollectionView *collectionView;
+@property(nonatomic, strong) QDFoldCollectionViewLayout *collectionViewLayout;
+@property(nonatomic, strong) NSMutableArray *datas;
 @end
 
-@implementation QDCollectionStackDemoViewController {
-    UIPanGestureRecognizer *_panGesture;
-    UICollectionView *_collectionView;
-    QDFoldCollectionViewLayout *_collectionViewLayout;
-    NSMutableArray *_datas;
-}
+@implementation QDCollectionStackDemoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _datas = [[NSMutableArray alloc] initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", nil];
+    self.datas = [[NSMutableArray alloc] initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", nil];
 }
 
 - (void)initSubviews {
     [super initSubviews];
-    _collectionViewLayout = [[QDFoldCollectionViewLayout alloc] init];
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_collectionViewLayout];
-    _collectionView.backgroundColor = UIColorClear; // 不设置貌似会变黑色
-    _collectionView.showsHorizontalScrollIndicator = NO; // 隐藏滚动条
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    [_collectionView registerClass:[QDCollectionViewDemoCell class] forCellWithReuseIdentifier:@"cell"];
-    [self.view addSubview:_collectionView];
+    self.collectionViewLayout = [[QDFoldCollectionViewLayout alloc] init];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.collectionViewLayout];
+    self.collectionView.backgroundColor = UIColorClear; // 不设置貌似会变黑色
+    self.collectionView.showsHorizontalScrollIndicator = NO; // 隐藏滚动条
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerClass:[QDCollectionViewDemoCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.view addSubview:self.collectionView];
     // 初始化收拾
     [self initGesture];
 }
 
 - (void)initGesture {
-    if (!_panGesture) {
-        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-        _panGesture.delegate = self;
-        [_collectionView addGestureRecognizer:_panGesture];
+    if (!self.panGesture) {
+        self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+        self.panGesture.delegate = self;
+        [self.collectionView addGestureRecognizer:self.panGesture];
     }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    _collectionView.frame = self.view.bounds;
+    self.collectionView.frame = self.view.bounds;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,12 +63,12 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _datas.count;
+    return self.datas.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[_collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contentLabel.text = [NSString stringWithFormat:@"%@", [_datas objectAtIndex:indexPath.item]];
+    QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.contentLabel.text = [NSString stringWithFormat:@"%@", [self.datas objectAtIndex:indexPath.item]];
     [cell setNeedsLayout];
     return cell;
 }
@@ -79,44 +78,44 @@
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"gesture begin");
-        // CGPoint point = [gesture locationInView:_collectionView];
-        // NSIndexPath *indexPath = [_collectionView indexPathForItemAtPoint:point];
+        // CGPoint point = [gesture locationInView:self.collectionView];
+        // NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
         if (indexPath) {
-            _collectionViewLayout.curIndexPath = indexPath;
-            _collectionViewLayout.isMoving = YES;
+            self.collectionViewLayout.curIndexPath = indexPath;
+            self.collectionViewLayout.isMoving = YES;
         }
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         NSLog(@"gesture chagned");
-        CGPoint point = [gesture translationInView:_collectionView];
-        _collectionViewLayout.curPoint = point;
-        [_collectionViewLayout invalidateLayout];
+        CGPoint point = [gesture translationInView:self.collectionView];
+        self.collectionViewLayout.curPoint = point;
+        [self.collectionViewLayout invalidateLayout];
     }
     else if (gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateEnded) {
         NSLog(@"gesture canceled or ended");
-        CGFloat maxDistance = fmax(fabs(_collectionViewLayout.curPoint.x), fabs(_collectionViewLayout.curPoint.y));
-        _collectionViewLayout.isMoving = NO;
-        _collectionViewLayout.curIndexPath = nil;
+        CGFloat maxDistance = fmax(fabs(self.collectionViewLayout.curPoint.x), fabs(self.collectionViewLayout.curPoint.y));
+        self.collectionViewLayout.isMoving = NO;
+        self.collectionViewLayout.curIndexPath = nil;
         if (maxDistance > 80) {
             NSIndexPath *deleteIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-            [_datas removeObjectAtIndex:0];
+            [self.datas removeObjectAtIndex:0];
             [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[_collectionView cellForItemAtIndexPath:deleteIndexPath];
-                cell.layer.transform = CATransform3DMakeTranslation(_collectionViewLayout.curPoint.x * 10, _collectionViewLayout.curPoint.y * 10, 0);
+                QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[self.collectionView cellForItemAtIndexPath:deleteIndexPath];
+                cell.layer.transform = CATransform3DMakeTranslation(self.collectionViewLayout.curPoint.x * 10, self.collectionViewLayout.curPoint.y * 10, 0);
                 cell.alpha = 0;
             } completion:^(BOOL finished) {
-                [_collectionView performBatchUpdates:^{
-                    [_collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:deleteIndexPath]];
+                [self.collectionView performBatchUpdates:^{
+                    [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:deleteIndexPath]];
                 } completion:^(BOOL finished) {
-                    _collectionViewLayout.curPoint = CGPointZero;
+                    self.collectionViewLayout.curPoint = CGPointZero;
                 }];
             }];
         } else {
-            [_collectionView performBatchUpdates:^{
-                [_collectionView reloadData];
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView reloadData];
             } completion:^(BOOL finished) {
-                _collectionViewLayout.curPoint = CGPointZero;
+                self.collectionViewLayout.curPoint = CGPointZero;
             }];
         }
     }

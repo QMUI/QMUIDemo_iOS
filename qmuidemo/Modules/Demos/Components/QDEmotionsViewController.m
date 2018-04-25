@@ -79,6 +79,11 @@
     self.emotionInputManager.emotionView.alpha = 0;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.textField.qmui_keyboardManager.delegateEnabled = NO;
+}
+
 // 布局时依赖 self.view.safeAreaInset.bottom，但由于前一个界面有 tabBar，导致 push 进来后第一次布局，self.view.safeAreaInset.bottom 依然是以存在 tabBar 的方式来计算的，所以会有跳动，简单处理，这里通过动画来掩饰这个跳动，哈哈
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -90,6 +95,8 @@
         self.toolbar.transform = CGAffineTransformIdentity;
         self.emotionInputManager.emotionView.transform = CGAffineTransformIdentity;
     } completion:NULL];
+    
+    self.textField.qmui_keyboardManager.delegateEnabled = YES;
 }
 
 - (void)viewDidLayoutSubviews {

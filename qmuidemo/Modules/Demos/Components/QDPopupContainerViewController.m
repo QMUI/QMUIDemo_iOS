@@ -49,6 +49,7 @@
 @property(nonatomic, strong) QDPopupContainerView *popupView3;
 @property(nonatomic, strong) CALayer *separatorLayer1;
 @property(nonatomic, strong) CALayer *separatorLayer2;
+@property(nonatomic, strong) QMUIPopupMenuView *popupView4;
 @end
 
 @implementation QDPopupContainerViewController
@@ -81,7 +82,7 @@
     self.popupView1.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button1 setTitle:@"显示默认浮层" forState:UIControlStateNormal];
     };
-    // 使用方法 1 时需要隐藏浮层，并自行添加到目标 UIView 上
+    // 使用方法 1 时，显示浮层前需要先手动隐藏浮层，并自行添加到目标 UIView 上
     self.popupView1.hidden = YES;
     [self.view addSubview:self.popupView1];
     
@@ -124,6 +125,21 @@
     self.popupView3.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button3 setTitle:@"显示自定义浮层" forState:UIControlStateNormal];
     };
+    
+    // 在 UIBarButtonItem 上显示
+    self.popupView4 = [[QMUIPopupMenuView alloc] init];
+    self.popupView4.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
+    self.popupView4.maximumWidth = 180;
+    self.popupView4.shouldShowItemSeparator = YES;
+    self.popupView4.separatorInset = UIEdgeInsetsMake(0, self.popupView4.padding.left, 0, self.popupView4.padding.right);
+    self.popupView4.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];
+}
+
+- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
+    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:self action:@selector(handleRightBarButtonItemEvent)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -154,6 +170,11 @@
     
     self.button3.frame = CGRectSetY(self.button1.frame, CGRectGetMaxY(self.button2.frame) + sectionHeight - CGRectGetHeight(self.button3.frame));
     [self.popupView3 layoutWithTargetRectInScreenCoordinate:[self.button3 convertRect:self.button3.bounds toView:nil]];// 将 button3 的坐标转换到相对于 UIWindow 的坐标系里，然后再传给浮层布局
+    
+    // 在横竖屏旋转时，viewDidLayoutSubviews 这个时机还无法获取到正确的 navigationItem 的 frame，所以直接隐藏掉
+    if (self.popupView4.isShowing) {
+        [self.popupView4 hideWithAnimated:NO];
+    }
 }
 
 - (void)handleButtonEvent:(QMUIButton *)button {
@@ -182,6 +203,16 @@
             [self.button3 setTitle:@"隐藏自定义浮层" forState:UIControlStateNormal];
         }
         return;
+    }
+}
+
+- (void)handleRightBarButtonItemEvent {
+    if (self.popupView4.isShowing) {
+        [self.popupView4 hideWithAnimated:YES];
+    } else {
+        // 相对于右上角的按钮布局，显示前重新对准布局，避免横竖屏导致位置不准确
+        [self.popupView4 layoutWithTargetView:self.navigationItem.rightBarButtonItem.qmui_view];
+        [self.popupView4 showWithAnimated:YES];
     }
 }
 

@@ -12,19 +12,17 @@
 @interface QDSaveVideoToSpecifiedAlbumViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property(nonatomic,copy) NSString *videoPath;
+@property(nonatomic, strong) QMUIButton *takeVideoButton;
+@property(nonatomic, strong) UIImagePickerController *pickerController;
+@property(nonatomic, strong) QMUIAlertController *actionSheet;
+@property(nonatomic, strong) NSMutableArray *albumsArray;
 @end
 
-@implementation QDSaveVideoToSpecifiedAlbumViewController {
-    QMUIButton *_takeVideoButton;
-    UIImagePickerController *_pickerController;
-    QMUIAlertController *_actionSheet;
-    
-    NSMutableArray *_albumsArray;
-}
+@implementation QDSaveVideoToSpecifiedAlbumViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        _albumsArray = [[NSMutableArray alloc] init];
+        self.albumsArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -48,13 +46,13 @@
 }
 
 - (void)saveVideoToAlbumWithMediaInfo:(NSDictionary *)info {
-    if (!_actionSheet) {
-        _actionSheet = [QMUIAlertController alertControllerWithTitle:@"保存到指定相册" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
+    if (!self.actionSheet) {
+        self.actionSheet = [QMUIAlertController alertControllerWithTitle:@"保存到指定相册" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
         
         // 显示空相册，不显示智能相册
         [[QMUIAssetsManager sharedInstance] enumerateAllAlbumsWithAlbumContentType:QMUIAlbumContentTypeAll showEmptyAlbum:YES showSmartAlbumIfSupported:NO usingBlock:^(QMUIAssetsGroup *resultAssetsGroup) {
             if (resultAssetsGroup) {
-                [_albumsArray addObject:resultAssetsGroup];
+                [self.albumsArray addObject:resultAssetsGroup];
                 __weak typeof(self) weakSelf = self;
                 QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:[resultAssetsGroup name] style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
                     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(weakSelf.videoPath)) {
@@ -65,29 +63,29 @@
                         [QMUITips showError:@"保存失败，视频格式不符合当前设备要求" inView:self.view hideAfterDelay:2];
                     }
                 }];
-                [_actionSheet addAction:action];
+                [self.actionSheet addAction:action];
             } else {
                 // group 为 nil，即遍历相册完毕
                 QMUIAlertAction *cancelAction = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:nil];
-                [_actionSheet addAction:cancelAction];
+                [self.actionSheet addAction:cancelAction];
             }
         }];
     }
     NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
     self.videoPath = [videoURL path];
-    [_actionSheet showWithAnimated:YES];
+    [self.actionSheet showWithAnimated:YES];
 }
 
 - (void)handleTakeVideoButtonClick:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        if (!_pickerController) {
-            _pickerController = [[UIImagePickerController alloc] init];
-            _pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-            _pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];;
-            _pickerController.delegate = self;
+        if (!self.pickerController) {
+            self.pickerController = [[UIImagePickerController alloc] init];
+            self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];;
+            self.pickerController.delegate = self;
         }
         
-        [self presentViewController:_pickerController animated:YES completion:^(void) {
+        [self presentViewController:self.pickerController animated:YES completion:^(void) {
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
         }];
     } else {

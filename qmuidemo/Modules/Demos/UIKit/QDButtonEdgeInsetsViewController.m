@@ -133,7 +133,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
     [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
     self.title = @"Button EdgeInsets Testing";
     if (self.qmui_isPresented) {
-        self.navigationItem.leftBarButtonItem = [QMUINavigationButton closeBarButtonItemWithTarget:self action:@selector(handleCloseItemEvent)];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem qmui_closeItemWithTarget:self action:@selector(handleCloseItemEvent)];
     }
 }
 

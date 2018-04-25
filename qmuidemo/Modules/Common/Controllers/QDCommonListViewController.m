@@ -28,9 +28,9 @@
     QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierNormal];
     if (!cell) {
         if (self.dataSourceWithDetailText) {
-            cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
+            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
         } else {
-            cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifierNormal];
+            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifierNormal];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

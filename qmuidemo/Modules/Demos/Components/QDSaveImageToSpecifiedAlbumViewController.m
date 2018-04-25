@@ -11,20 +11,23 @@
 
 #define TestImageSize CGSizeMake(160, 160)
 
-@implementation QDSaveImageToSpecifiedAlbumViewController {
-    QMUIButton *_changeImageButton;
-    QMUIButton *_saveButton;
-    QMUIAlertController *_alertController;
-    UIImageView *_testImageView;
-    
-    NSArray *_textArray;
-    NSMutableArray *_albumsArray;
-}
+@interface QDSaveImageToSpecifiedAlbumViewController ()
+
+@property(nonatomic, strong) QMUIButton *changeImageButton;
+@property(nonatomic, strong) QMUIButton *saveButton;
+@property(nonatomic, strong) QMUIAlertController *alertController;
+@property(nonatomic, strong) UIImageView *testImageView;
+@property(nonatomic, copy) NSArray *textArray;
+@property(nonatomic, strong) NSMutableArray *albumsArray;
+
+@end
+
+@implementation QDSaveImageToSpecifiedAlbumViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        _textArray = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
-        _albumsArray = [[NSMutableArray alloc] init];
+        self.textArray = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
+        self.albumsArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -32,21 +35,21 @@
 - (void)initSubviews {
     [super initSubviews];
     
-    _testImageView = [[UIImageView alloc] init];
-    [_testImageView setImage:[self randomImage]];
-    [self.view addSubview:_testImageView];
+    self.testImageView = [[UIImageView alloc] init];
+    [self.testImageView setImage:[self randomImage]];
+    [self.view addSubview:self.testImageView];
     
     // 普通按钮
-    _changeImageButton = [QDUIHelper generateLightBorderedButton];
-    [_changeImageButton setTitle:@"更换随机图片" forState:UIControlStateNormal];
-    [_changeImageButton addTarget:self action:@selector(handleGeneratedButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_changeImageButton];
+    self.changeImageButton = [QDUIHelper generateLightBorderedButton];
+    [self.changeImageButton setTitle:@"更换随机图片" forState:UIControlStateNormal];
+    [self.changeImageButton addTarget:self action:@selector(handleGeneratedButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.changeImageButton];
     
     // 边框按钮
-    _saveButton = [QDUIHelper generateDarkFilledButton];
-    [_saveButton setTitle:@"保存图片到指定相册" forState:UIControlStateNormal];
-    [_saveButton addTarget:self action:@selector(handleSaveButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_saveButton];
+    self.saveButton = [QDUIHelper generateDarkFilledButton];
+    [self.saveButton setTitle:@"保存图片到指定相册" forState:UIControlStateNormal];
+    [self.saveButton addTarget:self action:@selector(handleSaveButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.saveButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,9 +64,9 @@
     [super viewDidLayoutSubviews];
     CGFloat contentMinY = self.qmui_navigationBarMaxYInViewCoordinator;
     
-    _testImageView.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), TestImageSize.width), contentMinY + 60, TestImageSize.width, TestImageSize.height);
-    _changeImageButton.frame = CGRectSetXY(_changeImageButton.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(_changeImageButton.frame)), CGRectGetMaxY(_testImageView.frame) + 50);
-    _saveButton.frame = CGRectSetY(_changeImageButton.frame, CGRectGetMaxY(_changeImageButton.frame) + 30);
+    self.testImageView.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), TestImageSize.width), contentMinY + 60, TestImageSize.width, TestImageSize.height);
+    self.changeImageButton.frame = CGRectSetXY(self.changeImageButton.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.changeImageButton.frame)), CGRectGetMaxY(self.testImageView.frame) + 50);
+    self.saveButton.frame = CGRectSetY(self.changeImageButton.frame, CGRectGetMaxY(self.changeImageButton.frame) + 30);
 }
 
 - (UIImage *)imageFromText:(NSString *)text textColor:(UIColor *)textColor {
@@ -82,8 +85,8 @@
 }
 
 - (NSString *)randomText {
-    NSInteger index = arc4random() % [_textArray count];
-    NSString *text = [_textArray objectAtIndex:index];
+    NSInteger index = arc4random() % [self.textArray count];
+    NSString *text = [self.textArray objectAtIndex:index];
     return text;
 }
 
@@ -95,31 +98,31 @@
 }
 
 - (void)handleGeneratedButtonClick:(id)sender {
-    [_testImageView setImage:[self randomImage]];
+    [self.testImageView setImage:[self randomImage]];
 }
 
 - (void)saveImageToAlbum {
-    if (!_alertController) {
-        _alertController = [QMUIAlertController alertControllerWithTitle:@"保存到指定相册" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
+    if (!self.alertController) {
+        self.alertController = [QMUIAlertController alertControllerWithTitle:@"保存到指定相册" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
         // 显示空相册，不显示智能相册
         [[QMUIAssetsManager sharedInstance] enumerateAllAlbumsWithAlbumContentType:QMUIAlbumContentTypeAll showEmptyAlbum:YES showSmartAlbumIfSupported:NO usingBlock:^(QMUIAssetsGroup *resultAssetsGroup) {
             if (resultAssetsGroup) {
-                [_albumsArray addObject:resultAssetsGroup];
+                [self.albumsArray addObject:resultAssetsGroup];
                 QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:[resultAssetsGroup name] style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
-                    QMUIImageWriteToSavedPhotosAlbumWithAlbumAssetsGroup(_testImageView.image, resultAssetsGroup, ^(QMUIAsset *asset, NSError *error) {
+                    QMUIImageWriteToSavedPhotosAlbumWithAlbumAssetsGroup(self.testImageView.image, resultAssetsGroup, ^(QMUIAsset *asset, NSError *error) {
                         if (asset) {
                             [QMUITips showSucceed:[NSString stringWithFormat:@"已保存到相册-%@", [resultAssetsGroup name]] inView:self.navigationController.view hideAfterDelay:2];
                         }
                     });
                 }];
-                [_alertController addAction:action];
+                [self.alertController addAction:action];
             } else {
                 QMUIAlertAction *cancelAction = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:nil];
-                [_alertController addAction:cancelAction];
+                [self.alertController addAction:cancelAction];
             }
         }];
     }
-    [_alertController showWithAnimated:YES];
+    [self.alertController showWithAnimated:YES];
 }
 
 - (void)handleSaveButtonClick:(id)sender {
