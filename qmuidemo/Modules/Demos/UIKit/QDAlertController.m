@@ -39,10 +39,8 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     [self.tableView qmui_clearsSelection];
     
     if ([title isEqualToString:@"显示一个 alert 弹窗"]) {
-        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertAction *action) {
-        }];
-        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertAction *action) {
-        }];
+        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
+        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:NULL];
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleAlert];
         [alertController addAction:action1];
         [alertController addAction:action2];
@@ -84,10 +82,8 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     }
     
     if ([title isEqualToString:@"支持自定义内容"]) {
-        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertAction *action) {
-        }];
-        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"确定" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertAction *action) {
-        }];
+        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
+        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"确定" style:QMUIAlertActionStyleDestructive handler:NULL];
         UIView *customView = [self animationView];
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"正在加载" message:@"加载结束之前请勿取消" preferredStyle:QMUIAlertControllerStyleAlert];
         [alertController addAction:action1];
@@ -98,11 +94,11 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     }
     
     if ([title isEqualToString:@"显示一个 actionSheet 菜单"]) {
-        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertAction *action) {
+        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
         }];
-        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertAction *action) {
+        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
         }];
-        QMUIAlertAction *action3 = [QMUIAlertAction actionWithTitle:@"置灰按钮" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+        QMUIAlertAction *action3 = [QMUIAlertAction actionWithTitle:@"置灰按钮" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
         }];
         action3.enabled = NO;
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];

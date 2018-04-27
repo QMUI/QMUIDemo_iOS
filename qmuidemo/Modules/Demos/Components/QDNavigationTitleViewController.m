@@ -98,17 +98,17 @@
             // 水平对齐方式
         {
             QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"水平对齐方式" message:nil preferredStyle:QMUIAlertControllerStyleActionSheet];
-            [alertController addAction:[QMUIAlertAction actionWithTitle:@"左对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"左对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
                 self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
                 [self.tableView reloadData];
             }]];
-            [alertController addAction:[QMUIAlertAction actionWithTitle:@"居中对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"居中对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
                 self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
                 self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
                 [self.tableView reloadData];
             }]];
-            [alertController addAction:[QMUIAlertAction actionWithTitle:@"右对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+            [alertController addAction:[QMUIAlertAction actionWithTitle:@"右对齐" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
                 self.titleView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
                 self.horizontalAlignment = self.titleView.contentHorizontalAlignment;
                 [self.tableView reloadData];

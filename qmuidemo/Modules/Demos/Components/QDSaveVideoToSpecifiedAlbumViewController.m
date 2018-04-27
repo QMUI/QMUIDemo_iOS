@@ -54,13 +54,13 @@
             if (resultAssetsGroup) {
                 [self.albumsArray addObject:resultAssetsGroup];
                 __weak typeof(self) weakSelf = self;
-                QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:[resultAssetsGroup name] style:QMUIAlertActionStyleDefault handler:^(QMUIAlertAction *action) {
+                QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:[resultAssetsGroup name] style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
                     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(weakSelf.videoPath)) {
                         QMUISaveVideoAtPathToSavedPhotosAlbumWithAlbumAssetsGroup(weakSelf.videoPath, resultAssetsGroup, ^(QMUIAsset *asset, NSError *error) {
-                            [QMUITips showSucceed:[NSString stringWithFormat:@"已保存到相册-%@", [resultAssetsGroup name]] inView:self.navigationController.view hideAfterDelay:2];
+                            [QMUITips showSucceed:[NSString stringWithFormat:@"已保存到相册-%@", [resultAssetsGroup name]] inView:weakSelf.navigationController.view hideAfterDelay:2];
                         });
                     } else {
-                        [QMUITips showError:@"保存失败，视频格式不符合当前设备要求" inView:self.view hideAfterDelay:2];
+                        [QMUITips showError:@"保存失败，视频格式不符合当前设备要求" inView:weakSelf.view hideAfterDelay:2];
                     }
                 }];
                 [self.actionSheet addAction:action];
