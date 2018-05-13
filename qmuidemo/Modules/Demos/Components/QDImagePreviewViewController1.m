@@ -53,8 +53,8 @@
     self.imagePreviewView.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imagePreviewViewSize.width), originY, imagePreviewViewSize.width, imagePreviewViewSize.height);
 }
 
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
+- (void)setupNavigationItems {
+    [super setupNavigationItems];
     self.title = [self titleForIndex:self.imagePreviewView.currentImageIndex];
 }
 

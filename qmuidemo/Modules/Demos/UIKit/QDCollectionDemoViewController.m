@@ -29,8 +29,8 @@
     return [self initWithLayoutStyle:QMUICollectionViewPagingLayoutStyleDefault];
 }
 
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
+- (void)setupNavigationItems {
+    [super setupNavigationItems];
     
     self.titleView.userInteractionEnabled = YES;
     [self.titleView addTarget:self action:@selector(handleTitleViewTouchEvent) forControlEvents:UIControlEventTouchUpInside];
@@ -86,7 +86,7 @@
         self.debugLayer = nil;
     }
     
-    [self setNavigationItemsIsInEditMode:NO animated:NO];
+    [self setupNavigationItems];
 }
 
 - (UIEdgeInsets)sectionInset {

@@ -12,7 +12,6 @@
 
 @property(nonatomic,strong) QMUITextView *textView;
 @property(nonatomic, assign) CGFloat textViewMinimumHeight;
-@property(nonatomic, assign) CGFloat textViewMaximumHeight;
 
 @property(nonatomic, strong) UILabel *tipsLabel;
 @end
@@ -23,7 +22,6 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.textViewMinimumHeight = 96;
-        self.textViewMaximumHeight = 200;
     }
     return self;
 }
@@ -34,7 +32,6 @@
     self.textView.delegate = self;
     self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持限制文本输入长度";
     self.textView.placeholderColor = UIColorPlaceholder; // 自定义 placeholder 的颜色
-    self.textView.autoResizable = YES;
     self.textView.textContainerInset = UIEdgeInsetsMake(10, 7, 10, 7);
     self.textView.returnKeyType = UIReturnKeySend;
     self.textView.enablesReturnKeyAutomatically = YES;
@@ -43,6 +40,9 @@
                                        NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]};
     // 限制可输入的字符长度
     self.textView.maximumTextLength = 100;
+    
+    // 限制输入框自增高的最大高度
+    self.textView.maximumHeight = 200;
     
     self.textView.layer.borderWidth = PixelOne;
     self.textView.layer.borderColor = UIColorSeparator.CGColor;
@@ -61,7 +61,7 @@
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     CGSize textViewSize = [self.textView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
-    self.textView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), fmin(self.textViewMaximumHeight, fmax(textViewSize.height, self.textViewMinimumHeight)));
+    self.textView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), fmax(textViewSize.height, self.textViewMinimumHeight));
     
     CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
     self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textView.frame) + 8, contentWidth, tipsLabelHeight);
@@ -74,8 +74,9 @@
 
 #pragma mark - <QMUITextViewDelegate>
 
+// 实现这个 delegate 方法就可以实现自增高
 - (void)textView:(QMUITextView *)textView newHeightAfterTextChanged:(CGFloat)height {
-    height = fmin(self.textViewMaximumHeight, fmax(height, self.textViewMinimumHeight));
+    height = fmax(height, self.textViewMinimumHeight);
     BOOL needsChangeHeight = CGRectGetHeight(textView.frame) != height;
     if (needsChangeHeight) {
         [self.view setNeedsLayout];

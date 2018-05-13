@@ -129,8 +129,8 @@ const CGSize SizeForStaticSizeView = {140, 60};
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), minY);
 }
 
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
+- (void)setupNavigationItems {
+    [super setupNavigationItems];
     self.title = @"Button EdgeInsets Testing";
     if (self.qmui_isPresented) {
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem qmui_closeItemWithTarget:self action:@selector(handleCloseItemEvent)];

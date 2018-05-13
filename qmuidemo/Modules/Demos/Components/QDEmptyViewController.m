@@ -23,14 +23,6 @@
 
 #pragma mark - 工具方法
 
-- (void)setNavigationItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setNavigationItemsIsInEditMode:isInEditMode animated:animated];
-}
-
-- (void)setToolbarItemsIsInEditMode:(BOOL)isInEditMode animated:(BOOL)animated {
-    [super setToolbarItemsIsInEditMode:isInEditMode animated:animated];
-}
-
 - (void)reload:(id)sender {
     [self hideEmptyView];
     [self.tableView reloadData];
