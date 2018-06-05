@@ -49,59 +49,25 @@
 }
 
 - (void)initDataSource {
-    self.dataSource = @[@"在屏幕底部的 UITabBarItem 上显示未读数",
-                        @"去掉屏幕底部 UITabBarItem 上的未读数",
-                        @"双击 UITabBarItem 可触发双击事件"];
+    self.dataSource = @[@"双击 UITabBarItem 可触发双击事件",
+                        @"可获取 UITabBarItem 上的 imageView"];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
     
-    // 利用 [UITabBarItem imageView] 方法获取到某个 UITabBarItem 内的图片容器
-    UIImageView *imageViewInTabBarItem = self.tabBar.items.firstObject.qmui_imageView;
-    
-    if ([title isEqualToString:@"在屏幕底部的 UITabBarItem 上显示未读数"]) {
-        
-        QMUILabel *messageNumberLabel = [self generateMessageNumberLabelWithInteger:8 inView:imageViewInTabBarItem];
-        messageNumberLabel.frame = CGRectSetXY(messageNumberLabel.frame, CGRectGetWidth(imageViewInTabBarItem.frame) - 8, -5);
-        messageNumberLabel.hidden = NO;
-        
-    } else if ([title isEqualToString:@"去掉屏幕底部 UITabBarItem 上的未读数"]) {
-        
-        QMUILabel *messageNumberLabel = [self messageNumberLabelInView:imageViewInTabBarItem];
-        messageNumberLabel.hidden = YES;
-        
+    if ([title isEqualToString:@"可获取 UITabBarItem 上的 imageView"]) {
+        // 注意只有在 UITabBar 可见的时候才能获取到这个 view，如果一初始化 UITabBarItem 就立马获取，是获取不到的。
+        UIImageView *imageViewInTabBarItem = self.tabBar.items.firstObject.qmui_imageView;
+        if (imageViewInTabBarItem) {
+            [UIView animateWithDuration:.25 delay:0 usingSpringWithDamping:.1 initialSpringVelocity:5 options:QMUIViewAnimationOptionsCurveOut animations:^{
+                imageViewInTabBarItem.transform = CGAffineTransformMakeScale(1.4, 1.4);
+            } completion:^(BOOL finished) {
+                imageViewInTabBarItem.transform = CGAffineTransformIdentity;
+            }];
+        }
     }
     
     [self.tableView qmui_clearsSelection];
-}
-
-- (QMUILabel *)generateMessageNumberLabelWithInteger:(NSInteger)integer inView:(UIView *)view {
-    NSInteger labelTag = 1024;
-    QMUILabel *numberLabel = [view viewWithTag:labelTag];
-    if (!numberLabel) {
-        numberLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontBoldMake(14) textColor:UIColorWhite];
-        numberLabel.backgroundColor = UIColorRed;
-        numberLabel.textAlignment = NSTextAlignmentCenter;
-        numberLabel.contentEdgeInsets = UIEdgeInsetsMake(2, 5, 2, 5);
-        numberLabel.clipsToBounds = YES;
-        numberLabel.tag = labelTag;
-        [view addSubview:numberLabel];
-    }
-    numberLabel.text = [NSString qmui_stringWithNSInteger:integer];
-    [numberLabel sizeToFit];
-    if (numberLabel.text.length == 1) {
-        // 一位数字时，保证宽高相等（因为有些字符可能宽度比较窄）
-        CGFloat diameter = fmax(CGRectGetWidth(numberLabel.bounds), CGRectGetHeight(numberLabel.bounds));
-        numberLabel.frame = CGRectMake(CGRectGetMinX(numberLabel.frame), CGRectGetMinY(numberLabel.frame), diameter, diameter);
-    }
-    numberLabel.layer.cornerRadius = flat(CGRectGetHeight(numberLabel.bounds) / 2.0);
-    return numberLabel;
-}
-
-- (QMUILabel *)messageNumberLabelInView:(UIView *)view {
-    NSInteger labelTag = 1024;
-    QMUILabel *numberLabel = [view viewWithTag:labelTag];
-    return numberLabel;
 }
 
 @end

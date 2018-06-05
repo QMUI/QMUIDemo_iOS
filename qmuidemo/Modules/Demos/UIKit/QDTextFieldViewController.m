@@ -16,8 +16,8 @@
 
 @implementation QDTextFieldViewController
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     // https://github.com/QMUI/QMUI_iOS/issues/114
     self.automaticallyAdjustsScrollViewInsets = NO;
 }

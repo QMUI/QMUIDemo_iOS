@@ -15,8 +15,8 @@
 
 @implementation QDTableViewCellAccessoryTypeViewController
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     self.dataSource = @[@"UITableViewCellAccessoryNone",
                         @"UITableViewCellAccessoryDisclosureIndicator",
                         @"UITableViewCellAccessoryDetailDisclosureButton",

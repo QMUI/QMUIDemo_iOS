@@ -186,8 +186,8 @@ const CGSize SizeForStaticSizeView = {140, 60};
     CALayer *_verticalAlignmentSeparatorLayer;
 }
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     
     self.contentEdgeInsets = UIEdgeInsetsSetTop(self.contentEdgeInsets, 0);
     

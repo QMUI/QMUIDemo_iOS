@@ -14,8 +14,8 @@
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (void)didInitializedWithStyle:(UITableViewStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewStyle)style {
+    [super didInitializeWithStyle:style];
     [self initDataSource];
 }
 
@@ -37,7 +37,7 @@
     static NSString *identifierNormal = @"cellNormal";
     QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierNormal];
     if (!cell) {
-        cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
+        cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     NSString *keyName = [self keyNameAtIndexPath:indexPath];

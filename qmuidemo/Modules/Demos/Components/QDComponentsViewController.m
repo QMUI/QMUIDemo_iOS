@@ -27,6 +27,7 @@
 #import "QDMarqueeLabelViewController.h"
 #import "QDCellKeyCacheViewController.h"
 #import "QDMultipleDelegatesViewController.h"
+#import "QDBadgeViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -58,6 +59,7 @@
                        @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
                        @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_marquee"),
                        @"QMUIMultipleDelegates", UIImageMake(@"icon_grid_multipleDelegates"),
+                       @"QMUIBadge", UIImageMake(@"icon_grid_tabBarItem"),
                        nil];
 }
 
@@ -119,6 +121,9 @@
     }
     else if ([title isEqualToString:@"QMUIMultipleDelegates"]) {
         viewController = [[QDMultipleDelegatesViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIBadge"]) {
+        viewController = [[QDBadgeViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

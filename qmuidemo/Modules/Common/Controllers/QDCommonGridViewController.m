@@ -19,8 +19,8 @@
 
 @implementation QDCommonGridViewController
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     [self initDataSource];
 }
 

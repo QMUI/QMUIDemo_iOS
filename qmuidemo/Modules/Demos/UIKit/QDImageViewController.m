@@ -154,7 +154,6 @@
     
     __weak QDImageViewController *weakSelf = self;
     QMUIModalPresentationViewController *modalPresentationViewController = [[QMUIModalPresentationViewController alloc] init];
-    modalPresentationViewController.maximumContentViewWidth = CGFLOAT_MAX;
     modalPresentationViewController.contentView = self.contentView;
     modalPresentationViewController.didHideByDimmingViewTappedBlock = ^{
         for (UIView *subview in weakSelf.scrollView.subviews) {

@@ -27,8 +27,8 @@
 
 @implementation QDThemeViewController
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     
     // 因为配置表在 QMUIConfiguration 里也可能会自动 init，所以这里为了避免重复 init，就做了复用处理
     NSMutableArray<NSObject<QDThemeProtocol> *> *themes = [[NSMutableArray alloc] init];

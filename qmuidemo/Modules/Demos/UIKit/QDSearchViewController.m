@@ -102,7 +102,7 @@
     static NSString *identifier = @"cell";
     QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[QMUITableViewCell alloc] initForTableView:self.tableView withReuseIdentifier:identifier];
+        cell = [[QMUITableViewCell alloc] initForTableView:tableView withReuseIdentifier:identifier];
     }
     
     if (tableView == self.tableView) {

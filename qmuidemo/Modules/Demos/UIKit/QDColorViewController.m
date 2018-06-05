@@ -79,8 +79,8 @@
 
 @implementation QDColorTableViewCell
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     self.titleLabelMarginBottom = 12;
     self.titleLabel = [[QMUILabel alloc] init];
     self.titleLabel.font = UIFontMake(14);
@@ -130,8 +130,8 @@
     QMUILabel *_label;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     self.titleLabel.text = @"通过HEX创建";
 
     UIColor *resultColor = [UIColor qmui_colorWithHexString:@"#cddc39"]; // 关键方法
@@ -163,8 +163,8 @@
     NSMutableArray *_labels;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     self.titleLabel.text = @"获取颜色信息";
     
@@ -247,8 +247,8 @@
     QMUILabel *_label2;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     self.titleLabel.text = @"去除alpha通道";
     
@@ -297,8 +297,8 @@
     UIView *_arrow;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     self.titleLabel.text = @"计算反色";
     
@@ -334,8 +334,8 @@
     UIView *_arrow;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     self.titleLabel.text = @"计算过渡色";
     
@@ -379,8 +379,8 @@
     UIView *_arrow;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     self.titleLabel.text = @"计算叠加色";
     
@@ -421,8 +421,8 @@
     QMUILabel *_label;
 }
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
 
     self.titleLabel.text = @"先更改alpha，再与另一个颜色叠加";
     

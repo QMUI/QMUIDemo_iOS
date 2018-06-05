@@ -25,8 +25,8 @@
 
 @implementation QDCellSizeKeyCacheViewController
 
-- (void)didInitialized {
-    [super didInitialized];
+- (void)didInitialize {
+    [super didInitialize];
     self.dataSource = @[@"UIViewController is a generic controller base class that manages a view.  It has methods that are called when a view appears or disappears.",
                         @"Subclasses can override -loadView to create their custom view hierarchy, or specify a nib name to be loaded automatically.  This class is also a good place for delegate & datasource methods, and other controller stuff.",
                         @"Views are the fundamental building blocks of your app's user interface, and the UIView class defines the behaviors that are common to all views. A view object renders content within its bounds rectangle and handles any interactions with that content.",

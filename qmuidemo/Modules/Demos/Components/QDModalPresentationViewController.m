@@ -102,7 +102,6 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentViewController = contentViewController;
-    modalViewController.maximumContentViewWidth = CGFLOAT_MAX;// 表示宽度无限制，按照屏幕宽度减去左右 contentViewMargins 算出即可。实际情况下可能要考虑 iPad 或横屏等屏幕较宽的场景的表现。
     [modalViewController showWithAnimated:YES completion:nil];
 }
 

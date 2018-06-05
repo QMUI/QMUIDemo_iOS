@@ -34,8 +34,8 @@ const CGFloat kContentMarginBotom = 10;
 
 @implementation QDCellHeightKeyCacheViewController
 
-- (void)didInitializedWithStyle:(UITableViewStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewStyle)style {
+    [super didInitializeWithStyle:style];
     self.dataSource = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                        @"张三 的想法", @"全局 UI 配置：只需要修改一份配置表就可以调整 App 的全局样式，包括颜色、导航栏、输入框、列表等。一处修改，全局生效。",
                        @"李四 的想法", @"UIKit 拓展及版本兼容：拓展多个 UIKit 的组件，提供更加丰富的特性和功能，提高开发效率；解决不同 iOS 版本常见的兼容性问题。",
@@ -114,8 +114,8 @@ const CGFloat kContentMarginBotom = 10;
 
 @implementation QDDynamicHeightTableViewCell
 
-- (void)didInitializedWithStyle:(UITableViewCellStyle)style {
-    [super didInitializedWithStyle:style];
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
     
     UIImage *avatarImage = [UIImage qmui_imageWithStrokeColor:[QDCommonUI randomThemeColor] size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
