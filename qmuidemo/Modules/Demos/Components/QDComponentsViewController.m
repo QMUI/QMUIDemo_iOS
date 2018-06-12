@@ -59,7 +59,7 @@
                        @"QMUIKeyboardManager", UIImageMake(@"icon_grid_keyboard"),
                        @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_marquee"),
                        @"QMUIMultipleDelegates", UIImageMake(@"icon_grid_multipleDelegates"),
-                       @"QMUIBadge", UIImageMake(@"icon_grid_tabBarItem"),
+                       @"QMUIBadge", UIImageMake(@"icon_grid_badge"),
                        nil];
 }
 

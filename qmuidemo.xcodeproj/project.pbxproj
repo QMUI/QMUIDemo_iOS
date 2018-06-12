@@ -129,7 +129,6 @@
 		CDE50AD91DAA6ED9000D5414 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50AD81DAA6ED9000D5414 /* Security.framework */; };
 		CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADA1DAA6EE5000D5414 /* SystemConfiguration.framework */; };
 		CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADC1DAA6EEA000D5414 /* CFNetwork.framework */; };
-		CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */; };
 		CDE85CB51F95E21500E622E8 /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; };
 		CDE85CB61F95E21500E622E8 /* QMUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */; };
@@ -412,7 +411,6 @@
 				CD7593651EF7A39A004B5819 /* MediaPlayer.framework in Frameworks */,
 				CD7593631EF7A388004B5819 /* Photos.framework in Frameworks */,
 				CD7593621EF7A380004B5819 /* libxml2.tbd in Frameworks */,
-				CDE50ADF1DAA7059000D5414 /* libstdc++.6.0.9.tbd in Frameworks */,
 				CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */,
 				CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */,
 				CDE50AD91DAA6ED9000D5414 /* Security.framework in Frameworks */,

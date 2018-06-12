@@ -18,14 +18,14 @@
 
 - (void)initDataSource {
     self.dataSource = @[@"QMUICellHeightKeyCache",
-                        @"QMUICellSizeKeyCache"];
+                        @"QMUICellSizeKeyCache(暂不能使用)"];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"QMUICellHeightKeyCache"]) {
         viewController = [[QDCellHeightKeyCacheViewController alloc] init];
-    } else if ([title isEqualToString:@"QMUICellSizeKeyCache"]) {
+    } else if ([title isEqualToString:@"QMUICellSizeKeyCache(暂不能使用)"]) {
         viewController = [[QDCellSizeKeyCacheViewController alloc] init];
     }
     viewController.title = title;

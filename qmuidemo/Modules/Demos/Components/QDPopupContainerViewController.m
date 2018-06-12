@@ -100,14 +100,14 @@
     self.popupView2.maximumWidth = 180;
     self.popupView2.shouldShowItemSeparator = YES;
     self.popupView2.separatorInset = UIEdgeInsetsMake(0, self.popupView2.padding.left, 0, self.popupView2.padding.right);
-    self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^{
-                                  [weakSelf.popupView2 hideWithAnimated:YES];
+    self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
+                                  [aMenuView hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^{
-                                  [weakSelf.popupView2 hideWithAnimated:YES];
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
+                                  [aMenuView hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^{
-                                  [weakSelf.popupView2 hideWithAnimated:YES];
+                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
+                                  [aMenuView hideWithAnimated:YES];
                               }]];
     self.popupView2.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button2 setTitle:@"显示菜单浮层" forState:UIControlStateNormal];

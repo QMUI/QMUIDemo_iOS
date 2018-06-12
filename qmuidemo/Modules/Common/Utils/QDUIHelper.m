@@ -202,12 +202,14 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
     
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGGradientRef gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), (CFArrayRef)@[(id)color.CGColor, (id)[color qmui_colorWithAlphaAddedToWhite:.86].CGColor], NULL);
+    CGColorSpaceRef spaceRef = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColors(spaceRef, (CFArrayRef)@[(id)color.CGColor, (id)[color qmui_colorWithAlphaAddedToWhite:.86].CGColor], NULL);
     CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
     
     resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    CGColorSpaceRelease(spaceRef);
     CGGradientRelease(gradient);
     return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
 }

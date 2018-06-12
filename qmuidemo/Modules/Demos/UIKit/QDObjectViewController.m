@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self showEmptyViewWithText:@"NSObject (QMUI) 支持列出给定的 Class、Protocol 的方法。本示例允许你查看任意 Class 的实例方法，请通过上方搜索框搜索。" detailText:nil buttonTitle:nil buttonAction:NULL];
+    [self showEmptyViewWithText:@"NSObject (QMUI) 支持列出给定的 Class、Protocol 的方法和成员变量。\n本示例允许你搜索任意 Class 的方法和成员变量，请在上方搜索框输入 Class 名。" detailText:nil buttonTitle:nil buttonAction:NULL];
 }
 
 - (void)showEmptyView {
@@ -135,11 +135,6 @@
             double matchingWeight1 = [self matchingWeightForResult:obj1 withSearchString:searchString];
             double matchingWeight2 = [self matchingWeightForResult:obj2 withSearchString:searchString];
             NSComparisonResult result = matchingWeight1 == matchingWeight2 ? NSOrderedSame : (matchingWeight1 > matchingWeight2 ? NSOrderedAscending : NSOrderedDescending);
-            if ([obj1 isEqualToString:@"PLUIView"] && [obj2 isEqualToString:@"UIViewAnimation"]) {
-                NSLog(@"1, searchString = %@, %@ vs. %@ = %.3f, %.3f", searchString, obj1, obj2, matchingWeight1, matchingWeight2);
-            } else if ([obj1 isEqualToString:@"UIViewAnimation"] && [obj2 isEqualToString:@"PLUIView"]) {
-                NSLog(@"2, searchString = %@, %@ vs. %@ = %.3f, %.3f", searchString, obj1, obj2, matchingWeight1, matchingWeight2);
-            }
             return result;
         }];
     }

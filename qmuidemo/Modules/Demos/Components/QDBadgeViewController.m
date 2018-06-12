@@ -28,7 +28,7 @@
     UITabBarItem *item1 = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
     
     UITabBarItem *item2 = [QDUIHelper tabBarItemWithTitle:@"Components" image:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_component_selected") tag:1];
-    item2.qmui_badgeValue = 8;// 在 item 上显示未读数字“8”
+    item2.qmui_badgeString = @"99+";// 支持字符串
     
     UITabBarItem *item3 = [QDUIHelper tabBarItemWithTitle:@"Lab" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_lab_selected") tag:2];
     
@@ -67,18 +67,18 @@
         
         UITabBarItem *item = self.tabBar.items.firstObject;
         item.qmui_shouldShowUpdatesIndicator = YES;
-        item.qmui_badgeValue = 0;
+        item.qmui_badgeInteger = 0;
         
     } else if ([title isEqualToString:@"在 UITabBarItem 上显示未读数"]) {
         
         UITabBarItem *item = self.tabBar.items.firstObject;
         item.qmui_shouldShowUpdatesIndicator = NO;
-        item.qmui_badgeValue = 12;
+        item.qmui_badgeInteger = 12;
         
     } else if ([title isEqualToString:@"修改红点/未读数的样式（多点几次试试）"]) {
         
         UITabBarItem *item = self.tabBar.items[1];
-        item.qmui_badgeValue = 8;
+        item.qmui_badgeString = @"99+";// 支持字符串
         item.qmui_badgeBackgroundColor = [QDCommonUI randomThemeColor];
         
     } else if ([title isEqualToString:@"隐藏所有红点、未读数"]) {
@@ -86,7 +86,7 @@
         self.navigationItem.rightBarButtonItem.qmui_shouldShowUpdatesIndicator = NO;
         [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             item.qmui_shouldShowUpdatesIndicator = NO;
-            item.qmui_badgeValue = 0;
+            item.qmui_badgeInteger = 0;
         }];
         
     }
