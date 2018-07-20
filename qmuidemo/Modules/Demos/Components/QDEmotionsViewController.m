@@ -34,7 +34,7 @@
     [self.view addSubview:self.descriptionLabel];
     
     self.toolbar = [[UIView alloc] init];
-    self.toolbar.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.toolbar.qmui_borderPosition = QMUIViewBorderPositionTop;
     self.toolbar.backgroundColor = UIColorWhite;
     [self.view addSubview:self.toolbar];
     
@@ -71,7 +71,7 @@
     
     self.emotionInputManager = [[QMUIEmotionInputManager alloc] init];
     self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
-    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIViewBorderPositionTop;
     self.emotionInputManager.boundTextField = self.textField;
     [self.view addSubview:self.emotionInputManager.emotionView];
     
@@ -104,8 +104,7 @@
     
     UIEdgeInsets padding = UIEdgeInsetsMake(20, 20 + self.view.qmui_safeAreaInsets.left, 20, 20 + self.view.qmui_safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
-    CGSize descriptionLabelSize = [self.descriptionLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
-    self.descriptionLabel.frame = CGRectFlatMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, descriptionLabelSize.height);
+    self.descriptionLabel.frame = CGRectFlatMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, QMUIViewSelfSizingHeight);
     
     CGFloat toolbarHeight = 56;
     CGFloat emotionViewHeight = 232;

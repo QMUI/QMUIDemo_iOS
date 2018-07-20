@@ -47,14 +47,13 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
-    CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
-    self.descriptionLabel.frame = CGRectMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, [self.descriptionLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height);
+    self.descriptionLabel.frame = CGRectMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), QMUIViewSelfSizingHeight);
     
     self.subview1.qmui_left = 24;
     self.subview1.qmui_top = 24;
     self.subview2.qmui_left = self.subview1.qmui_left;
     self.subview2.qmui_top = self.subview1.qmui_bottom + 24;
-    self.parentView.frame = CGRectMake(padding.left, CGRectGetMaxY(self.descriptionLabel.frame) + 24, contentWidth, self.subview2.qmui_bottom + 24);
+    self.parentView.frame = CGRectMake(padding.left, CGRectGetMaxY(self.descriptionLabel.frame) + 24, CGRectGetWidth(self.descriptionLabel.frame), self.subview2.qmui_bottom + 24);
 }
 
 @end

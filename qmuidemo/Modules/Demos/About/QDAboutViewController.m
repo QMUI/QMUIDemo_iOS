@@ -7,6 +7,7 @@
 //
 
 #import "QDAboutViewController.h"
+#import "QDAAViewController.h"
 
 @interface QDAboutViewController ()
 
@@ -18,6 +19,7 @@
 @property(nonatomic, strong) QMUIButton *documentButton;
 @property(nonatomic, strong) QMUIButton *gitHubButton;
 @property(nonatomic, strong) UILabel *copyrightLabel;
+@property(nonatomic, assign) NSInteger tapCount;
 @end
 
 @implementation QDAboutViewController
@@ -59,7 +61,11 @@
     [self.view addSubview:self.scrollView];
     
     self.logoImageView = [[UIImageView alloc] initWithImage:self.themeAboutLogoImage ?: UIImageMake(@"about_logo_monochrome")];
+    self.logoImageView.userInteractionEnabled = YES;
     [self.scrollView addSubview:self.logoImageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tap.numberOfTapsRequired = 3;
+    [self.logoImageView addGestureRecognizer:tap];
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     self.versionButton = [[QMUIButton alloc] init];
@@ -72,17 +78,17 @@
     [self.scrollView addSubview:self.versionButton];
     
     self.websiteButton = [self generateCellButtonWithTitle:@"访问官网"];
-    self.websiteButton.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.websiteButton.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.websiteButton addTarget:self action:@selector(handleWebsiteButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.websiteButton];
     
     self.documentButton = [self generateCellButtonWithTitle:@"功能列表"];
-    self.documentButton.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.documentButton.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.documentButton addTarget:self action:@selector(handleDocumentButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.documentButton];
     
     self.gitHubButton = [self generateCellButtonWithTitle:@"GitHub"];
-    self.gitHubButton.qmui_borderPosition = QMUIBorderViewPositionTop | QMUIBorderViewPositionBottom;
+    self.gitHubButton.qmui_borderPosition = QMUIViewBorderPositionTop | QMUIViewBorderPositionBottom;
     [self.gitHubButton addTarget:self action:@selector(handleGitHubButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.gitHubButton];
     
@@ -219,6 +225,11 @@
     } else {
         [application openURL:url];
     }
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)gesture {
+    QDAAViewController *viewController = [[QDAAViewController alloc] init];
+    [viewController show];
 }
 
 @end

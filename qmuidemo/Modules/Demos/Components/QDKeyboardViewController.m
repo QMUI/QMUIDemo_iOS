@@ -60,7 +60,7 @@ static CGFloat const kEmotionViewHeight = 232;
     _toolbarView = [[UIView alloc] init];
     self.toolbarView.backgroundColor = UIColorMake(246, 246, 246);
     self.toolbarView.qmui_borderColor = UIColorSeparator;
-    self.toolbarView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.toolbarView.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.containerView addSubview:self.toolbarView];
     
     _cancelButton = [[QMUIButton alloc] init];
@@ -232,7 +232,7 @@ static CGFloat const kEmotionViewHeight = 232;
     _toolbarView = [[UIView alloc] init];
     self.toolbarView.backgroundColor = UIColorWhite;
     self.toolbarView.qmui_borderColor = UIColorSeparator;
-    self.toolbarView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.toolbarView.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.view addSubview:self.toolbarView];
     
     _toolbarTextField = [[QMUITextField alloc] init];
@@ -266,7 +266,7 @@ static CGFloat const kEmotionViewHeight = 232;
     
     self.emotionInputManager = [[QMUIEmotionInputManager alloc] init];
     self.emotionInputManager.boundTextField = self.toolbarTextField;
-    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIBorderViewPositionTop;
+    self.emotionInputManager.emotionView.qmui_borderPosition = QMUIViewBorderPositionTop;
     self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
     [self.view addSubview:self.emotionInputManager.emotionView];
 }

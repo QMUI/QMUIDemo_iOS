@@ -158,10 +158,10 @@
         NSMutableArray<NSNumber *> *highlightedLocation = [[NSMutableArray alloc] init];
         for (NSInteger i = 0; i < searchStringArray.count; i++) {
             NSString *searchChar = searchStringArray[i].lowercaseString;
-            NSString *selectorString = lastLocation == NSNotFound ? obj : [obj substringFromIndex:lastLocation];// 从上一次查询到的位置往后查询，避免某个字符在 obj 里重复出现，则每次都会取到第一次出现的 location，就不准了
+            NSString *selectorString = lastLocation == NSNotFound ? obj : [obj substringFromIndex:lastLocation + 1];// 从上一次查询到的位置往后查询，避免某个字符在 obj 里重复出现，则每次都会取到第一次出现的 location，就不准了
             NSUInteger location = [selectorString.lowercaseString rangeOfString:searchChar].location;
             if (location != NSNotFound) {
-                location += (lastLocation == NSNotFound ? 0 : lastLocation);
+                location += (lastLocation == NSNotFound ? 0 : lastLocation + 1);
             }
             if (location == NSNotFound || (lastLocation != NSNotFound && location < lastLocation)) {
                 lastLocation = NSNotFound;

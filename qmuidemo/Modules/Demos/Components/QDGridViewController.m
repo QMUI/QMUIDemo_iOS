@@ -45,11 +45,9 @@
     [super viewDidLayoutSubviews];
     UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24, 24, 24);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
-    CGFloat gridViewHeight = [self.gridView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
-    self.gridView.frame = CGRectMake(padding.left, padding.top, contentWidth, gridViewHeight);
+    self.gridView.frame = CGRectMake(padding.left, padding.top, contentWidth, QMUIViewSelfSizingHeight);
     
-    CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
-    self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.gridView.frame) + 16, contentWidth, tipsLabelHeight);
+    self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.gridView.frame) + 16, contentWidth, QMUIViewSelfSizingHeight);
 }
 
 @end

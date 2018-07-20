@@ -28,8 +28,7 @@
                                      @"- qmui_imageWithSpacingExtensionInsets:", @"拓展当前图片外部边距，拓展的区域填充透明",
                                      @"- qmui_imageWithClippedRect:", @"将图片内指定区域的矩形裁剪出来，返回裁剪出来的区域",
                                      @"- qmui_imageWithClippedCornerRadius:", @"将图片按指定圆角裁剪出来，返回裁剪出来的区域",
-                                     @"- qmui_imageResizedInLimitedSize:contentMode:", @"将当前图片缩放到指定的大小，缩放策略可以指定不同的contentMode，经过缩放后的图片倍数保持不变",
-                                     @"- qmui_imageResizedInLimitedSize:contentMode:scale:", @"同上，只是可以指定倍数",
+                                     @"- qmui_imageResizedInLimitedSize:resizingMode:", @"将当前图片缩放到指定的大小，缩放策略可以指定不同的resizingMode，经过缩放后的图片倍数保持不变",
                                      @"- qmui_imageWithOrientation:", @"将图片旋转到指定方向，支持上下左右、水平&垂直翻转",
                                      @"- qmui_imageWithBorderColor:path:", @"在当前图片上叠加绘制一条路径",
                                      @"- qmui_imageWithBorderColor:borderWidth:cornerRadius:", @"在当前图片上加上一条外边框，可指定边框大小和圆角",
@@ -92,8 +91,7 @@
     CGFloat contentViewLimitWidth = [self contentViewLimitWidth];
     
     self.methodNameLabel.text = title;
-    CGSize methodLabelSize = [self.methodNameLabel sizeThatFits:CGSizeMake(contentViewLimitWidth, CGFLOAT_MAX)];
-    self.methodNameLabel.frame = CGRectMake(0, 0, contentViewLimitWidth, methodLabelSize.height);
+    self.methodNameLabel.frame = CGRectMake(0, 0, contentViewLimitWidth, QMUIViewSelfSizingHeight);
     
     CGFloat contentSizeHeight = 0;
     if ([title isEqualToString:@"- qmui_averageColor"]) {
@@ -114,7 +112,7 @@
         contentSizeHeight = [self generateExampleViewForImageWithClippedCornerRadius];
     } else if ([title isEqualToString:@"- qmui_imageWithClippedRect:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithClippedRect];
-    } else if ([title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:"] || [title isEqualToString:@"- qmui_imageResizedInLimitedSize:contentMode:scale:"]) {
+    } else if ([title isEqualToString:@"- qmui_imageResizedInLimitedSize:resizingMode:"]) {
         contentSizeHeight = [self generateExampleViewForResizedImage];
     } else if ([title isEqualToString:@"- qmui_imageWithOrientation:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithDirection];
@@ -536,9 +534,9 @@
     [self.scrollView addSubview:afterLabel];
     minY = CGRectGetMaxY(afterLabel.frame) + 6;
     
-    // 对原图进行缩放操作，以保证缩放后的图的 size 不超过 limitedSize 的大小，至于缩放策略则由 contentMode 决定。contentMode 默认是 UIViewContentModeScaleAspectFit。
+    // 对原图进行缩放操作，以保证缩放后的图的 size 不超过 limitedSize 的大小，至于缩放策略则由 resizingMode 决定。resizingMode 默认是 QMUIImageResizingModeScaleAspectFit。
     // 特别的，对于 ScaleAspectFit 类型，你可以对不关心大小的那一边传 CGFLOAT_MAX 来表示“我不关心这一边缩放后的大小限制”，但对其他类型的 contentMode 则宽高都必须传一个确切的值。
-    UIImage *afterImage = [originImageView.image qmui_imageResizedInLimitedSize:CGSizeMake(80, CGFLOAT_MAX)];
+    UIImage *afterImage = [originImageView.image qmui_imageResizedInLimitedSize:CGSizeMake(100, 50) resizingMode:QMUIImageResizingModeScaleAspectFill];
     UIImageView *afterImageView = [[UIImageView alloc] initWithImage:afterImage];
     afterImageView.contentMode = originImageView.contentMode;
     afterImageView.frame = CGRectSetY(afterImageView.frame, minY);

@@ -66,19 +66,18 @@
     
     for (NSInteger i = 0; i < self.gridView.subviews.count; i++) {
         UIView *item = self.gridView.subviews[i];
-        item.qmui_borderPosition = QMUIBorderViewPositionLeft | QMUIBorderViewPositionTop;
+        item.qmui_borderPosition = QMUIViewBorderPositionLeft | QMUIViewBorderPositionTop;
         if ((i % self.gridView.columnCount == self.gridView.columnCount - 1) || (i == self.gridView.subviews.count - 1)) {
             // 每行最后一个，或者所有的最后一个（因为它可能不是所在行的最后一个）
-            item.qmui_borderPosition |= QMUIBorderViewPositionRight;
+            item.qmui_borderPosition |= QMUIViewBorderPositionRight;
         }
         if (i + self.gridView.columnCount >= self.gridView.subviews.count) {
             // 那些下方没有其他 item 的 item，底部都加个边框
-            item.qmui_borderPosition |= QMUIBorderViewPositionBottom;
+            item.qmui_borderPosition |= QMUIViewBorderPositionBottom;
         }
     }
     
-    CGFloat gridViewHeight = [self.gridView sizeThatFits:CGSizeMake(gridViewWidth, CGFLOAT_MAX)].height;
-    self.gridView.frame = CGRectMake(self.scrollView.qmui_safeAreaInsets.left, 0, gridViewWidth, gridViewHeight);
+    self.gridView.frame = CGRectMake(self.scrollView.qmui_safeAreaInsets.left, 0, gridViewWidth, QMUIViewSelfSizingHeight);
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.gridView.frame), CGRectGetMaxY(self.gridView.frame));
 }
 
@@ -165,8 +164,7 @@
     
     self.imageView.center = CGPointMake(center.x, center.y - 12);
     
-    CGSize titleLabelSize = [self.titleLabel sizeThatFits:contentSize];
-    self.titleLabel.frame = CGRectFlatMake(self.contentEdgeInsets.left, center.y + PreferredVarForDevices(27, 27, 21, 21), contentSize.width, titleLabelSize.height);
+    self.titleLabel.frame = CGRectFlatMake(self.contentEdgeInsets.left, center.y + PreferredVarForDevices(27, 27, 21, 21), contentSize.width, QMUIViewSelfSizingHeight);
 }
 
 @end

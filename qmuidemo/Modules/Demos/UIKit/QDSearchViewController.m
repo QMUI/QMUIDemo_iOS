@@ -25,7 +25,7 @@
         self.titleLabel.text = @"最近搜索";
         self.titleLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 8, 0);
         [self.titleLabel sizeToFit];
-        self.titleLabel.qmui_borderPosition = QMUIBorderViewPositionBottom;
+        self.titleLabel.qmui_borderPosition = QMUIViewBorderPositionBottom;
         [self addSubview:self.titleLabel];
         
         self.floatLayoutView = [[QMUIFloatLayoutView alloc] init];

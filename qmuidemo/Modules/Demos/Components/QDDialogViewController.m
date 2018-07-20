@@ -138,7 +138,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     NSMutableDictionary *buttonTitleAttributes = dialogViewController.buttonTitleAttributes.mutableCopy;
     buttonTitleAttributes[NSForegroundColorAttributeName] = dialogViewController.headerViewBackgroundColor;
     dialogViewController.buttonTitleAttributes = buttonTitleAttributes;
-    [dialogViewController.submitButton setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:buttonTitleAttributes[NSForegroundColorAttributeName]] forState:UIControlStateNormal];
+    [dialogViewController.submitButton setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:buttonTitleAttributes[NSForegroundColorAttributeName]] forState:UIControlStateNormal];
     dialogViewController.submitButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
     [dialogViewController show];
@@ -235,17 +235,28 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 
 - (void)showNormalTextFieldDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
-    dialogViewController.title = @"请输入昵称";
-    dialogViewController.textField.placeholder = @"昵称";
-    dialogViewController.enablesSubmitButtonAutomatically = NO;// 为了演示效果与第二个 cell 的区分开，这里手动置为 NO
+    dialogViewController.title = @"注册用户";
+    [dialogViewController addTextFieldWithTitle:@"昵称" configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
+        textField.placeholder = @"不超过10个字符";
+        textField.maximumTextLength = 10;
+    }];
+    [dialogViewController addTextFieldWithTitle:@"密码" configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
+        textField.placeholder = @"6位数字";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.maximumTextLength = 6;
+        textField.secureTextEntry = YES;
+    }];
+    dialogViewController.enablesSubmitButtonAutomatically = NO;// 为了演示效果与第二个 cell 的区分开，这里手动置为 NO，平时的默认值为 YES
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogTextFieldViewController *aDialogViewController) {
-        if (aDialogViewController.textField.text.length > 0) {
-            [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
+        if (aDialogViewController.textFields.firstObject.text.length > 0) {
+            [aDialogViewController hide];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [QMUITips showSucceed:@"提交成功" inView:self.view hideAfterDelay:1.2];
+            });
         } else {
             [QMUITips showInfo:@"请填写内容" inView:self.view hideAfterDelay:1.2];
         }
-        [aDialogViewController hide];
     }];
     [dialogViewController show];
     self.currentTextFieldDialogViewController = dialogViewController;
@@ -254,8 +265,10 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showReturnKeyDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入别名";
-    dialogViewController.textField.placeholder = @"点击键盘 Return 键视为点击确定按钮";
-    dialogViewController.textField.maximumTextLength = 10;
+    [dialogViewController addTextFieldWithTitle:nil configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
+        textField.placeholder = @"点击键盘 Return 键视为点击确定按钮";
+        textField.maximumTextLength = 10;
+    }];
     dialogViewController.shouldManageTextFieldsReturnEventAutomatically = YES;// 让键盘的 Return 键也能触发确定按钮的事件。这个属性默认就是 YES，这里为写出来只是为了演示
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {
@@ -269,8 +282,10 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showSubmitButtonEnablesDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入签名";
-    dialogViewController.textField.placeholder = @"不超过10个字";
-    dialogViewController.textField.maximumTextLength = 10;
+    [dialogViewController addTextFieldWithTitle:nil configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
+        textField.placeholder = @"不超过10个字";
+        textField.maximumTextLength = 10;
+    }];
     dialogViewController.enablesSubmitButtonAutomatically = YES;// 自动根据输入框的内容是否为空来控制 submitButton.enabled 状态。这个属性默认就是 YES，这里为写出来只是为了演示
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {
@@ -284,13 +299,15 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showCustomSubmitButtonEnablesDialogViewController {
     QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
     dialogViewController.title = @"请输入手机号码";
-    dialogViewController.textField.placeholder = @"11位手机号码";
-    dialogViewController.textField.keyboardType = UIKeyboardTypePhonePad;
-    dialogViewController.textField.maximumTextLength = 11;
+    [dialogViewController addTextFieldWithTitle:nil configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
+        textField.placeholder = @"11位手机号码";
+        textField.keyboardType = UIKeyboardTypePhonePad;
+        textField.maximumTextLength = 11;
+    }];
     dialogViewController.enablesSubmitButtonAutomatically = YES;// 自动根据输入框的内容是否为空来控制 submitButton.enabled 状态。这个属性默认就是 YES，这里为写出来只是为了演示
     dialogViewController.shouldEnableSubmitButtonBlock = ^BOOL(QMUIDialogTextFieldViewController *aDialogViewController) {
         // 条件改为一定要写满11位才允许提交
-        return aDialogViewController.textField.text.length == aDialogViewController.textField.maximumTextLength;
+        return aDialogViewController.textFields.firstObject.text.length == aDialogViewController.textFields.firstObject.maximumTextLength;
     };
     [dialogViewController addCancelButtonWithText:@"取消" block:nil];
     [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *dialogViewController) {

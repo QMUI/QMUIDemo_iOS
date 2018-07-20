@@ -49,8 +49,7 @@
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     self.textField.frame = CGRectMake(padding.left, padding.top, contentWidth, 40);
     
-    CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
-    self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textField.frame) + 8, contentWidth, tipsLabelHeight);
+    self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textField.frame) + 8, contentWidth, QMUIViewSelfSizingHeight);
 }
 
 #pragma mark - <QMUITextFieldDelegate>

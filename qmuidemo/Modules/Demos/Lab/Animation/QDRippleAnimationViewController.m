@@ -94,9 +94,7 @@
     _scrollView.frame = self.view.bounds;
     
     CGFloat insetLeft = 20;
-    CGFloat labelWidth = CGRectGetWidth(self.view.bounds) - insetLeft * 2;
-    CGSize labelSize = [_textLabel sizeThatFits:CGSizeMake(labelWidth, CGFLOAT_MAX)];
-    _textLabel.frame = CGRectFlatMake(insetLeft, 40, labelWidth, labelSize.height);
+    _textLabel.frame = CGRectFlatMake(insetLeft, 40, CGRectGetWidth(self.view.bounds) - insetLeft * 2, QMUIViewSelfSizingHeight);
     
     _avatarWrapView1.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), RippleAnimationAvatarSize.width), CGRectGetMaxY(_textLabel.frame) + 70, RippleAnimationAvatarSize.width, RippleAnimationAvatarSize.height);
     _avatarWrapView2.frame = CGRectMake(CGRectGetMinX(_avatarWrapView1.frame), CGRectGetMaxY(_avatarWrapView1.frame) + 100, RippleAnimationAvatarSize.width, RippleAnimationAvatarSize.height);

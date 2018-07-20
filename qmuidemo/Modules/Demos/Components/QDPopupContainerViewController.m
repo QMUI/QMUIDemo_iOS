@@ -42,14 +42,14 @@
 @interface QDPopupContainerViewController ()
 
 @property(nonatomic, strong) QMUIButton *button1;
-@property(nonatomic, strong) QMUIPopupContainerView *popupView1;
+@property(nonatomic, strong) QMUIPopupContainerView *popupByAddSubview;
 @property(nonatomic, strong) QMUIButton *button2;
-@property(nonatomic, strong) QMUIPopupMenuView *popupView2;
+@property(nonatomic, strong) QMUIPopupMenuView *popupByWindow;
 @property(nonatomic, strong) QMUIButton *button3;
-@property(nonatomic, strong) QDPopupContainerView *popupView3;
+@property(nonatomic, strong) QDPopupContainerView *popupWithCustomView;
 @property(nonatomic, strong) CALayer *separatorLayer1;
 @property(nonatomic, strong) CALayer *separatorLayer2;
-@property(nonatomic, strong) QMUIPopupMenuView *popupView4;
+@property(nonatomic, strong) QMUIPopupMenuView *popupAtBarButtonItem;
 @end
 
 @implementation QDPopupContainerViewController
@@ -75,16 +75,16 @@
     [self.view addSubview:self.button1];
     
     // 使用方法 1，以 addSubview: 的形式显示到界面上
-    self.popupView1 = [[QMUIPopupContainerView alloc] init];
-    self.popupView1.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) contentMode:UIViewContentModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
-    self.popupView1.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
-    self.popupView1.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
-    self.popupView1.didHideBlock = ^(BOOL hidesByUserTap) {
+    self.popupByAddSubview = [[QMUIPopupContainerView alloc] init];
+    self.popupByAddSubview.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+    self.popupByAddSubview.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
+    self.popupByAddSubview.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+    self.popupByAddSubview.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button1 setTitle:@"显示默认浮层" forState:UIControlStateNormal];
     };
     // 使用方法 1 时，显示浮层前需要先手动隐藏浮层，并自行添加到目标 UIView 上
-    self.popupView1.hidden = YES;
-    [self.view addSubview:self.popupView1];
+    self.popupByAddSubview.hidden = YES;
+    [self.view addSubview:self.popupByAddSubview];
     
     
     
@@ -94,13 +94,17 @@
     [self.view addSubview:self.button2];
     
     // 使用方法 2，以 UIWindow 的形式显示到界面上，这种无需默认隐藏，也无需 add 到某个 UIView 上
-    self.popupView2 = [[QMUIPopupMenuView alloc] init];
-    self.popupView2.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
-    self.popupView2.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
-    self.popupView2.maximumWidth = 180;
-    self.popupView2.shouldShowItemSeparator = YES;
-    self.popupView2.separatorInset = UIEdgeInsetsMake(0, self.popupView2.padding.left, 0, self.popupView2.padding.right);
-    self.popupView2.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
+    self.popupByWindow = [[QMUIPopupMenuView alloc] init];
+    self.popupByWindow.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
+    self.popupByWindow.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
+    self.popupByWindow.maximumWidth = 180;
+    self.popupByWindow.shouldShowItemSeparator = YES;
+    self.popupByWindow.separatorInset = UIEdgeInsetsMake(0, self.popupByWindow.padding.left, 0, self.popupByWindow.padding.right);
+    self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem, NSInteger section, NSInteger index) {
+        // 利用 itemConfigurationHandler 批量设置所有 item 的样式
+        aItem.button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.2];
+    };
+    self.popupByWindow.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
                                   [aMenuView hideWithAnimated:YES];
                               }],
                               [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
@@ -109,7 +113,7 @@
                               [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
                                   [aMenuView hideWithAnimated:YES];
                               }]];
-    self.popupView2.didHideBlock = ^(BOOL hidesByUserTap) {
+    self.popupByWindow.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button2 setTitle:@"显示菜单浮层" forState:UIControlStateNormal];
     };
     
@@ -120,19 +124,19 @@
     [self.button3 setTitle:@"显示自定义浮层" forState:UIControlStateNormal];
     [self.view addSubview:self.button3];
     
-    self.popupView3 = [[QDPopupContainerView alloc] init];
-    self.popupView3.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;// 默认在目标的下方，如果目标下方空间不够，会尝试放到目标上方。若上方空间也不够，则缩小自身的高度。
-    self.popupView3.didHideBlock = ^(BOOL hidesByUserTap) {
+    self.popupWithCustomView = [[QDPopupContainerView alloc] init];
+    self.popupWithCustomView.preferLayoutDirection = QMUIPopupContainerViewLayoutDirectionBelow;// 默认在目标的下方，如果目标下方空间不够，会尝试放到目标上方。若上方空间也不够，则缩小自身的高度。
+    self.popupWithCustomView.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button3 setTitle:@"显示自定义浮层" forState:UIControlStateNormal];
     };
     
     // 在 UIBarButtonItem 上显示
-    self.popupView4 = [[QMUIPopupMenuView alloc] init];
-    self.popupView4.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
-    self.popupView4.maximumWidth = 180;
-    self.popupView4.shouldShowItemSeparator = YES;
-    self.popupView4.separatorInset = UIEdgeInsetsMake(0, self.popupView4.padding.left, 0, self.popupView4.padding.right);
-    self.popupView4.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
+    self.popupAtBarButtonItem = [[QMUIPopupMenuView alloc] init];
+    self.popupAtBarButtonItem.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
+    self.popupAtBarButtonItem.maximumWidth = 180;
+    self.popupAtBarButtonItem.shouldShowItemSeparator = YES;
+    self.popupAtBarButtonItem.separatorInset = UIEdgeInsetsMake(0, self.popupAtBarButtonItem.padding.left, 0, self.popupAtBarButtonItem.padding.right);
+    self.popupAtBarButtonItem.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
                               [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
                               [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];
 }
@@ -146,8 +150,8 @@
     [super viewWillDisappear:animated];
     
     // popupView3 使用方法 2 显示，并且没有打开 automaticallyHidesWhenUserTap，则需要手动隐藏
-    if (self.popupView3.isShowing) {
-        [self.popupView3 hideWithAnimated:animated];
+    if (self.popupWithCustomView.isShowing) {
+        [self.popupWithCustomView hideWithAnimated:animated];
     }
 }
 
@@ -158,48 +162,48 @@
     CGFloat sectionHeight = viewportHeight / 3.0;
     
     self.button1.frame = CGRectSetXY(self.button1.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.button1.frame)), minY + (sectionHeight - CGRectGetHeight(self.button1.frame)) / 2.0);
-    self.popupView1.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupView1.safetyMarginsOfSuperview, self.qmui_navigationBarMaxYInViewCoordinator + 10);
-    [self.popupView1 layoutWithTargetView:self.button1];// 相对于 button1 布局
+    self.popupByAddSubview.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupByAddSubview.safetyMarginsOfSuperview, self.qmui_navigationBarMaxYInViewCoordinator + 10);
+    [self.popupByAddSubview layoutWithTargetView:self.button1];// 相对于 button1 布局
     
     self.separatorLayer1.frame = CGRectFlatMake(0, minY + sectionHeight, CGRectGetWidth(self.view.bounds), PixelOne);
     
     self.button2.frame = CGRectSetY(self.button1.frame, CGRectGetMaxY(self.button1.frame) + sectionHeight - CGRectGetHeight(self.button2.frame));
-    [self.popupView2 layoutWithTargetView:self.button2];// 相对于 button2 布局
+    [self.popupByWindow layoutWithTargetView:self.button2];// 相对于 button2 布局
     
     self.separatorLayer2.frame = CGRectSetY(self.separatorLayer1.frame, minY + sectionHeight * 2.0);
     
     self.button3.frame = CGRectSetY(self.button1.frame, CGRectGetMaxY(self.button2.frame) + sectionHeight - CGRectGetHeight(self.button3.frame));
-    [self.popupView3 layoutWithTargetRectInScreenCoordinate:[self.button3 convertRect:self.button3.bounds toView:nil]];// 将 button3 的坐标转换到相对于 UIWindow 的坐标系里，然后再传给浮层布局
+    [self.popupWithCustomView layoutWithTargetRectInScreenCoordinate:[self.button3 convertRect:self.button3.bounds toView:nil]];// 将 button3 的坐标转换到相对于 UIWindow 的坐标系里，然后再传给浮层布局
     
     // 在横竖屏旋转时，viewDidLayoutSubviews 这个时机还无法获取到正确的 navigationItem 的 frame，所以直接隐藏掉
-    if (self.popupView4.isShowing) {
-        [self.popupView4 hideWithAnimated:NO];
+    if (self.popupAtBarButtonItem.isShowing) {
+        [self.popupAtBarButtonItem hideWithAnimated:NO];
     }
 }
 
 - (void)handleButtonEvent:(QMUIButton *)button {
     if (button == self.button1) {
-        if (self.popupView1.isShowing) {
-            [self.popupView1 hideWithAnimated:YES];
+        if (self.popupByAddSubview.isShowing) {
+            [self.popupByAddSubview hideWithAnimated:YES];
             [self.button1 setTitle:@"显示默认浮层" forState:UIControlStateNormal];
         } else {
-            [self.popupView1 showWithAnimated:YES];
+            [self.popupByAddSubview showWithAnimated:YES];
             [self.button1 setTitle:@"隐藏默认浮层" forState:UIControlStateNormal];
         }
         return;
     }
     
     if (button == self.button2) {
-        [self.popupView2 showWithAnimated:YES];
+        [self.popupByWindow showWithAnimated:YES];
         [self.button2 setTitle:@"隐藏菜单浮层" forState:UIControlStateNormal];
         return;
     }
     
     if (button == self.button3) {
-        if (self.popupView3.isShowing) {
-            [self.popupView3 hideWithAnimated:YES];
+        if (self.popupWithCustomView.isShowing) {
+            [self.popupWithCustomView hideWithAnimated:YES];
         } else {
-            [self.popupView3 showWithAnimated:YES];
+            [self.popupWithCustomView showWithAnimated:YES];
             [self.button3 setTitle:@"隐藏自定义浮层" forState:UIControlStateNormal];
         }
         return;
@@ -207,12 +211,12 @@
 }
 
 - (void)handleRightBarButtonItemEvent {
-    if (self.popupView4.isShowing) {
-        [self.popupView4 hideWithAnimated:YES];
+    if (self.popupAtBarButtonItem.isShowing) {
+        [self.popupAtBarButtonItem hideWithAnimated:YES];
     } else {
         // 相对于右上角的按钮布局，显示前重新对准布局，避免横竖屏导致位置不准确
-        [self.popupView4 layoutWithTargetView:self.navigationItem.rightBarButtonItem.qmui_view];
-        [self.popupView4 showWithAnimated:YES];
+        [self.popupAtBarButtonItem layoutWithTargetView:self.navigationItem.rightBarButtonItem.qmui_view];
+        [self.popupAtBarButtonItem showWithAnimated:YES];
     }
 }
 

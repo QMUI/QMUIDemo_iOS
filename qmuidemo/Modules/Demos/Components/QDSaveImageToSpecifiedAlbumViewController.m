@@ -74,14 +74,9 @@
     NSDictionary *fontAttributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: textColor};
     CGSize size = [text sizeWithAttributes:fontAttributes];
     
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-    
-    [text drawAtPoint:CGPointMake(0.0, 0.0) withAttributes:fontAttributes];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+    return [UIImage qmui_imageWithSize:size opaque:NO scale:0 actions:^(CGContextRef contextRef) {
+        [text drawAtPoint:CGPointMake(0.0, 0.0) withAttributes:fontAttributes];
+    }];
 }
 
 - (NSString *)randomText {

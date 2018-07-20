@@ -88,9 +88,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentView = contentView;
@@ -125,9 +123,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.animationStyle = self.currentAnimationStyle % 3;
@@ -161,9 +157,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     UIImage *blurredBackgroundImage = [UIImage qmui_imageWithView:self.navigationController.view];
     blurredBackgroundImage = [UIImageEffects imageByApplyingExtraLightEffectToImage:blurredBackgroundImage];
@@ -196,9 +190,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     contentView.contentSize = CGSizeMake(CGRectGetWidth(contentView.bounds), CGRectGetMaxY(label.frame) + contentViewPadding.bottom);
     
@@ -263,8 +255,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.attributedText = attributedString;
     [contentView addSubview:label];
     
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, CGRectGetMaxY(textField.frame) + 8, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, CGRectGetMaxY(textField.frame) + 8, contentLimitWidth, QMUIViewSelfSizingHeight);
     
     contentView.frame = CGRectSetHeight(contentView.frame, CGRectGetMaxY(label.frame) + contentViewPadding.bottom);
     
@@ -292,9 +283,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentView = contentView;
@@ -320,9 +309,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentView = contentView;
@@ -360,9 +347,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
-    CGFloat contentLimitWidth = CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding);
-    CGSize labelSize = [label sizeThatFits:CGSizeMake(contentLimitWidth, CGFLOAT_MAX)];
-    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, contentLimitWidth, labelSize.height);
+    label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
 }
 
 @end
@@ -415,17 +400,14 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
         [self.imageView qmui_sizeToFitKeepingImageAspectRatioInSize:CGSizeMake(imageViewLimitWidth, CGFLOAT_MAX)];
         
         CGFloat textLabelMarginLeft = 20;
-        CGFloat textLabelLimitWidth = contentSize.width - CGRectGetWidth(self.imageView.frame) - textLabelMarginLeft;
-        CGSize textLabelSize = [self.textLabel sizeThatFits:CGSizeMake(textLabelLimitWidth, CGFLOAT_MAX)];
-        self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + textLabelMarginLeft, padding.top - 6, textLabelLimitWidth, textLabelSize.height);
+        self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + textLabelMarginLeft, padding.top - 6, contentSize.width - CGRectGetWidth(self.imageView.frame) - textLabelMarginLeft, QMUIViewSelfSizingHeight);
     } else {
         // 竖屏下图文垂直布局
         CGFloat imageViewLimitHeight = 120;
         self.imageView.frame = CGRectMake(padding.left, padding.top, contentSize.width, imageViewLimitHeight);
         
         CGFloat textLabelMarginTop = 20;
-        CGSize textLabelSize = [self.textLabel sizeThatFits:CGSizeMake(contentSize.width, CGFLOAT_MAX)];
-        self.textLabel.frame = CGRectMake(padding.left, CGRectGetMaxY(self.imageView.frame) + textLabelMarginTop, contentSize.width, textLabelSize.height);
+        self.textLabel.frame = CGRectMake(padding.left, CGRectGetMaxY(self.imageView.frame) + textLabelMarginTop, contentSize.width, QMUIViewSelfSizingHeight);
     }
     
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.textLabel.frame) + padding.bottom);

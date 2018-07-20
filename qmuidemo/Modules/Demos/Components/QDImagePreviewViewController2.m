@@ -54,9 +54,7 @@
     CGSize imageButtonSize = CGSizeMake(self.images.firstObject.size.width / 2, self.images.firstObject.size.height / 2);
     self.imageButton.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imageButtonSize.width), self.qmui_navigationBarMaxYInViewCoordinator + 24, imageButtonSize.width, imageButtonSize.height);
     
-    CGFloat labelWidth = CGRectGetWidth(self.view.bounds) - 32 * 2;
-    CGFloat tipsLabelHeight = [self.tipsLabel sizeThatFits:CGSizeMake(labelWidth, CGFLOAT_MAX)].height;
-    self.tipsLabel.frame = CGRectFlatMake(32, CGRectGetMaxY(self.imageButton.frame) + 8, labelWidth, tipsLabelHeight);
+    self.tipsLabel.frame = CGRectFlatMake(32, CGRectGetMaxY(self.imageButton.frame) + 8, CGRectGetWidth(self.view.bounds) - 32 * 2, QMUIViewSelfSizingHeight);
 }
 
 - (void)handleImageButtonEvent:(UIButton *)button {
@@ -64,8 +62,16 @@
         self.imagePreviewViewController = [[QMUIImagePreviewViewController alloc] init];
         self.imagePreviewViewController.imagePreviewView.delegate = self;
         self.imagePreviewViewController.imagePreviewView.currentImageIndex = 2;// 默认查看的图片的 index
+        
+        // QMUIImagePreviewViewController 对于以 window 的方式展示的情况，默认会开启手势拖拽退出预览功能。
+        // 如果使用了手势拖拽，并且退出预览时需要飞到某个 rect，则需要实现这个 block，在里面自己去 exit，如果不实现这个 block，退出动画会使用 fadeOut 那种
+        __weak __typeof(self)weakSelf = self;
+        self.imagePreviewViewController.customGestureExitBlock = ^(QMUIImagePreviewViewController *aImagePreviewViewController, QMUIZoomImageView *currentZoomImageView) {
+            [weakSelf.imageButton setImage:currentZoomImageView.image forState:UIControlStateNormal];
+            [aImagePreviewViewController exitPreviewToRectInScreenCoordinate:[weakSelf.imageButton convertRect:weakSelf.imageButton.imageView.frame toView:nil]];
+        };
     }
-    [self.imagePreviewViewController startPreviewFromRectInScreen:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil] cornerRadius:self.imageButton.layer.cornerRadius];
+    [self.imagePreviewViewController startPreviewFromRectInScreenCoordinate:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil] cornerRadius:self.imageButton.layer.cornerRadius];
 }
 
 #pragma mark - <QMUIImagePreviewViewDelegate>
@@ -85,8 +91,7 @@
 #pragma mark - <QMUIZoomImageViewDelegate>
 
 - (void)singleTouchInZoomingImageView:(QMUIZoomImageView *)zoomImageView location:(CGPoint)location {
-    [self.imageButton setImage:zoomImageView.image forState:UIControlStateNormal];
-    [self.imagePreviewViewController endPreviewToRectInScreen:[self.imageButton convertRect:self.imageButton.imageView.frame toView:nil]];
+    self.imagePreviewViewController.customGestureExitBlock(self.imagePreviewViewController, zoomImageView);
 }
 
 @end

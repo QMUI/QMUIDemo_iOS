@@ -35,7 +35,7 @@
     
     self.section1 = [[UIView alloc] init];
     self.section1.qmui_borderColor = UIColorSeparator;
-    self.section1.qmui_borderPosition = QMUIBorderViewPositionBottom;
+    self.section1.qmui_borderPosition = QMUIViewBorderPositionBottom;
     self.section1.qmui_borderWidth = PixelOne;
     [self.view addSubview:self.section1];
     
@@ -62,7 +62,7 @@
     
     self.section2 = [[UIView alloc] init];
     self.section2.qmui_borderColor = UIColorSeparator;
-    self.section2.qmui_borderPosition = QMUIBorderViewPositionBottom;
+    self.section2.qmui_borderPosition = QMUIViewBorderPositionBottom;
     self.section2.qmui_borderWidth = PixelOne;
     [self.view addSubview:self.section2];
     

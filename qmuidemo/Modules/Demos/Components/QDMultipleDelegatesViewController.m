@@ -73,8 +73,7 @@
     [super viewDidLayoutSubviews];
     UIEdgeInsets paddings = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24, 24, 24);
     
-    self.descriptionLabel.frame = CGRectMake(paddings.left, paddings.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(paddings), 0);
-    self.descriptionLabel.frame = CGRectSetHeight(self.descriptionLabel.frame, [self.descriptionLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.descriptionLabel.frame), CGFLOAT_MAX)].height);
+    self.descriptionLabel.frame = CGRectMake(paddings.left, paddings.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(paddings), QMUIViewSelfSizingHeight);
     
     self.textField.frame = CGRectMake(paddings.left, CGRectGetMaxY(self.descriptionLabel.frame) + 12, CGRectGetWidth(self.descriptionLabel.frame), 44);
     
@@ -82,12 +81,10 @@
     CGFloat delegatorHorizontalSpacing = 24;
     [self.delegator1.titleLabel sizeToFit];
     self.delegator1.titleLabel.frame = CGRectSetXY(self.delegator1.titleLabel.frame, CGRectGetMinX(self.textField.frame), CGRectGetMaxY(self.textField.frame) + delegatorMarginTop);
-    self.delegator1.printLabel.frame = CGRectMake(CGRectGetMinX(self.delegator1.titleLabel.frame), CGRectGetMaxY(self.delegator1.titleLabel.frame) + 12, (CGRectGetWidth(self.textField.frame) - delegatorHorizontalSpacing) / 2, 0);
-    CGFloat printLabelHeight = [self.delegator1.printLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.delegator1.printLabel.frame), CGFLOAT_MAX)].height;
-    self.delegator1.printLabel.frame = CGRectSetHeight(self.delegator1.printLabel.frame, printLabelHeight);
+    self.delegator1.printLabel.frame = CGRectMake(CGRectGetMinX(self.delegator1.titleLabel.frame), CGRectGetMaxY(self.delegator1.titleLabel.frame) + 12, (CGRectGetWidth(self.textField.frame) - delegatorHorizontalSpacing) / 2, QMUIViewSelfSizingHeight);
     
     self.delegator2.printLabel.frame = CGRectSetX(self.delegator1.printLabel.frame, CGRectGetMaxX(self.delegator1.printLabel.frame) + delegatorHorizontalSpacing);
-    printLabelHeight = [self.delegator2.printLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.delegator2.printLabel.frame), CGFLOAT_MAX)].height;
+    CGFloat printLabelHeight = [self.delegator2.printLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.delegator2.printLabel.frame), CGFLOAT_MAX)].height;
     self.delegator2.printLabel.frame = CGRectSetHeight(self.delegator2.printLabel.frame, printLabelHeight);
     
     [self.delegator2.titleLabel sizeToFit];

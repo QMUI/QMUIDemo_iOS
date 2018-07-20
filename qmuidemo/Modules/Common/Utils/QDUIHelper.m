@@ -197,20 +197,15 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color {
     CGSize size = CGSizeMake(4, 88);// iPhone X，navigationBar 背景图 88，所以直接用 88 的图，其他手机会取这张图在 y 轴上的 0-64 部分的图片
-    UIImage *resultImage = nil;
     color = color ? color : UIColorClear;
     
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorSpaceRef spaceRef = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradient = CGGradientCreateWithColors(spaceRef, (CFArrayRef)@[(id)color.CGColor, (id)[color qmui_colorWithAlphaAddedToWhite:.86].CGColor], NULL);
-    CGContextDrawLinearGradient(context, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
-    
-    resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CGColorSpaceRelease(spaceRef);
-    CGGradientRelease(gradient);
+    UIImage *resultImage = [UIImage qmui_imageWithSize:size opaque:YES scale:0 actions:^(CGContextRef contextRef) {
+        CGColorSpaceRef spaceRef = CGColorSpaceCreateDeviceRGB();
+        CGGradientRef gradient = CGGradientCreateWithColors(spaceRef, (CFArrayRef)@[(id)color.CGColor, (id)[color qmui_colorWithAlphaAddedToWhite:.86].CGColor], NULL);
+        CGContextDrawLinearGradient(contextRef, gradient, CGPointZero, CGPointMake(0, size.height), kCGGradientDrawsBeforeStartLocation);
+        CGColorSpaceRelease(spaceRef);
+        CGGradientRelease(gradient);
+    }];
     return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)];
 }
 
