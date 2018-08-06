@@ -26,7 +26,7 @@
     
     // 普通按钮
     self.normalButton = [QDUIHelper generateDarkFilledButton];
-    [self.normalButton setTitle:@"按钮，支持高亮背景色" forState:UIControlStateNormal];
+    [self.normalButton setTitle:NSLocalizedString(@"QMUIButton_Normal_Button_Title", @"按钮，支持高亮背景色") forState:UIControlStateNormal];
     [self.view addSubview:self.normalButton];
     
     self.separatorLayer = [CALayer qmui_separatorLayer];
@@ -34,7 +34,7 @@
     
     // 边框按钮
     self.borderedButton = [QDUIHelper generateLightBorderedButton];
-    [self.borderedButton setTitle:@"边框支持高亮的按钮" forState:UIControlStateNormal];
+    [self.borderedButton setTitle:NSLocalizedString(@"QMUIButton_Bordered_Button_Title", @"边框支持高亮的按钮") forState:UIControlStateNormal];
     [self.view addSubview:self.borderedButton];
     
     // 图片+文字按钮
@@ -43,7 +43,7 @@
     self.imagePositionButton1.imagePosition = QMUIButtonImagePositionTop;// 将图片位置改为在文字上方
     self.imagePositionButton1.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton1 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
-    [self.imagePositionButton1 setTitle:@"图片在上方的按钮" forState:UIControlStateNormal];
+    [self.imagePositionButton1 setTitle:NSLocalizedString(@"QMUIButton_Image_Position_Button_Title_1", @"Text below image") forState:UIControlStateNormal];
     self.imagePositionButton1.titleLabel.font = UIFontMake(11);
     self.imagePositionButton1.qmui_borderPosition = QMUIViewBorderPositionTop | QMUIViewBorderPositionBottom;
     [self.view addSubview:self.imagePositionButton1];
@@ -53,7 +53,7 @@
     self.imagePositionButton2.imagePosition = QMUIButtonImagePositionBottom;// 将图片位置改为在文字下方
     self.imagePositionButton2.spacingBetweenImageAndTitle = 8;
     [self.imagePositionButton2 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
-    [self.imagePositionButton2 setTitle:@"图片在下方的按钮" forState:UIControlStateNormal];
+    [self.imagePositionButton2 setTitle:NSLocalizedString(@"QMUIButton_Image_Position_Button_Title_2", @"Text above image") forState:UIControlStateNormal];
     self.imagePositionButton2.titleLabel.font = UIFontMake(11);
     self.imagePositionButton2.qmui_borderPosition = QMUIViewBorderPositionTop | QMUIViewBorderPositionBottom;
     [self.view addSubview:self.imagePositionButton2];

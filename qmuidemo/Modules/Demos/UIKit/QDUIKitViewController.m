@@ -25,6 +25,7 @@
 #import "QDFontViewController.h"
 #import "QDSliderViewController.h"
 #import "QDOrientationViewController.h"
+#import "QDCAAnimationViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -47,6 +48,7 @@
                        @"UIFont+QMUI", UIImageMake(@"icon_grid_font"),
                        @"UIView+QMUI", UIImageMake(@"icon_grid_view"),
                        @"NSObject+QMUI", UIImageMake(@"icon_grid_nsobject"),
+                       @"CAAnimation+QMUI", UIImageMake(@"icon_grid_caanimation"),
                        nil];
 }
 
@@ -108,6 +110,9 @@
     }
     else if ([title isEqualToString:@"NSObject+QMUI"]) {
         viewController = [[QDObjectViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"CAAnimation+QMUI"]) {
+        viewController = [[QDCAAnimationViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

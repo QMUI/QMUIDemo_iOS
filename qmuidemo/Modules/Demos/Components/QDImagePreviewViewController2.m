@@ -36,9 +36,9 @@
     [super initSubviews];
     
     self.imageButton = [[UIButton alloc] init];
+    self.imageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.imageButton setImage:self.images[2] forState:UIControlStateNormal];
     [self.imageButton addTarget:self action:@selector(handleImageButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    self.imageButton.layer.cornerRadius = 20;
     self.imageButton.clipsToBounds = YES;
     [self.view addSubview:self.imageButton];
     
@@ -51,8 +51,9 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    CGSize imageButtonSize = CGSizeMake(self.images.firstObject.size.width / 2, self.images.firstObject.size.height / 2);
+    CGSize imageButtonSize = CGSizeMake(self.images.firstObject.size.height / 2, self.images.firstObject.size.height / 2);
     self.imageButton.frame = CGRectFlatMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), imageButtonSize.width), self.qmui_navigationBarMaxYInViewCoordinator + 24, imageButtonSize.width, imageButtonSize.height);
+    self.imageButton.layer.cornerRadius = CGRectGetHeight(self.imageButton.frame) / 2;
     
     self.tipsLabel.frame = CGRectFlatMake(32, CGRectGetMaxY(self.imageButton.frame) + 8, CGRectGetWidth(self.view.bounds) - 32 * 2, QMUIViewSelfSizingHeight);
 }
@@ -81,7 +82,15 @@
 }
 
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView renderZoomImageView:(QMUIZoomImageView *)zoomImageView atIndex:(NSUInteger)index {
-    zoomImageView.image = self.images[index];
+    // 模拟异步加载的情况
+    zoomImageView.reusedIdentifier = @(index);
+    [zoomImageView showLoading];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([zoomImageView.reusedIdentifier isEqual:@(index)]) {
+            [zoomImageView hideEmptyView];
+            zoomImageView.image = self.images[index];
+        }
+    });
 }
 
 - (QMUIImagePreviewMediaType)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView assetTypeAtIndex:(NSUInteger)index {

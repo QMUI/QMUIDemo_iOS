@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  qmuidemo
+
+  Created by Michael Zhang on 07/26/2018.
+  Copyright © 2018 QMUI Team. All rights reserved.
+*/
+"QMUIButton_Normal_Button_Title" = "按钮，支持高亮背景色";
+"QMUIButton_Bordered_Button_Title" = "边框支持高亮的按钮";
+"QMUIButton_Image_Position_Button_Title_1" = "图片在上方的按钮";
+"QMUIButton_Image_Position_Button_Title_2" = "图片在下方的按钮";

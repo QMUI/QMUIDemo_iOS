@@ -11,6 +11,16 @@
 @interface QDAAViewController ()
 
 @property(nonatomic, copy) void (^textFieldConfigurationHandler)(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer);
+@property(nonatomic, strong) QMUIFillButton *addPeopleButton;
+
+/// 优惠金额
+@property(nonatomic, weak) QMUITextField *discountPayField;
+
+/// 实付金额
+@property(nonatomic, weak) QMUITextField *actuallyPayField;
+
+/// 其中运费
+@property(nonatomic, weak) QMUITextField *freightPayField;
 @end
 
 @implementation QDAAViewController
@@ -37,6 +47,8 @@
     [self addTextFieldWithTitle:@"团友1" configurationHandler:self.textFieldConfigurationHandler];
     [self addTextFieldWithTitle:@"团友2" configurationHandler:self.textFieldConfigurationHandler];
     [self addTextFieldWithTitle:@"团友3" configurationHandler:self.textFieldConfigurationHandler];
+    [self addTextFieldWithTitle:@"团友4" configurationHandler:self.textFieldConfigurationHandler];
+    [self addTextFieldWithTitle:@"团友5" configurationHandler:self.textFieldConfigurationHandler];
     [self addTextFieldWithTitle:@"优惠金额" configurationHandler:^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
         weakSelf.textFieldConfigurationHandler(titleLabel, textField, separatorLayer);
         textField.placeholder = @"减免的那部分";
@@ -84,12 +96,14 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSArray<QMUITextField *> *textFields = self.textFields;
-    textFields[0].text = @"35.8";
-    textFields[1].text = @"13.9";
-    textFields[2].text = @"20.8";
-    textFields[3].text = @"20";
-    textFields[4].text = @"57.5";
-    textFields[5].text = @"7";
+    textFields[0].text = @"17.9";
+    textFields[1].text = @"16.8";
+    textFields[2].text = @"29.9";
+    textFields[3].text = @"49.9";
+    textFields[4].text = @"71.6";
+    textFields[5].text = @"20";
+    textFields[6].text = @"166.6";
+    textFields[7].text = @"0";
 }
 
 @end

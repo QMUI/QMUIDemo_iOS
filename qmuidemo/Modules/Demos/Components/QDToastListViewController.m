@@ -29,7 +29,7 @@
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    UIView *parentView = self.navigationController.view;
+    UIView *parentView = self.view;
     
     if ([title isEqualToString:@"Loading"]) {
         // 如果不需要修改contentView的样式，可以直接使用下面这个工具方法
