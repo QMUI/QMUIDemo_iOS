@@ -27,7 +27,7 @@
         
         // 成员变量
         self.ivarNames = [[NSMutableArray alloc] init];
-        [NSObject qmui_enumrateIvarsOfClass:aClass usingBlock:^(Ivar ivar, NSString *ivarName) {
+        [NSObject qmui_enumrateIvarsOfClass:aClass includingInherited:NO usingBlock:^(Ivar ivar, NSString *ivarName) {
             [self.ivarNames addObject:ivarName];
         }];
         self.ivarNames = [self.ivarNames sortedArrayUsingSelector:@selector(compare:)].mutableCopy;
@@ -35,7 +35,7 @@
         // 方法
         self.selectorNames = [[NSMutableArray alloc] init];
         NSMutableArray<NSString *> *selectorNames = [[NSMutableArray alloc] init];
-        [NSObject qmui_enumrateInstanceMethodsOfClass:aClass usingBlock:^(SEL selector) {
+        [NSObject qmui_enumrateInstanceMethodsOfClass:aClass includingInherited:NO usingBlock:^(Method method, SEL selector) {
             [selectorNames addObject:[NSString stringWithFormat:@"- %@", NSStringFromSelector(selector)]];
         }];
         selectorNames = [selectorNames sortedArrayUsingSelector:@selector(compare:)].mutableCopy;

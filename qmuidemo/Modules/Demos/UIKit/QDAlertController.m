@@ -134,8 +134,13 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
         [alertController addAction:action1];
         [alertController addAction:action2];
-        alertController.mainVisualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];// 这个负责上半部分的磨砂
-        alertController.cancelButtonVisualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];// 这个负责取消按钮的磨砂
+        QMUIVisualEffectView *visualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        visualEffectView.foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
+        alertController.mainVisualEffectView = visualEffectView;// 这个负责上半部分的磨砂
+        
+        visualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        visualEffectView.foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
+        alertController.cancelButtonVisualEffectView = visualEffectView;// 这个负责取消按钮的磨砂
         alertController.sheetHeaderBackgroundColor = nil;
         alertController.sheetButtonBackgroundColor = nil;
         [alertController showWithAnimated:YES];

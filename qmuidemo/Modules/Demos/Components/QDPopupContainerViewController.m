@@ -100,18 +100,18 @@
     self.popupByWindow.maximumWidth = 180;
     self.popupByWindow.shouldShowItemSeparator = YES;
     self.popupByWindow.separatorInset = UIEdgeInsetsMake(0, self.popupByWindow.padding.left, 0, self.popupByWindow.padding.right);
-    self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem, NSInteger section, NSInteger index) {
+    self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuButtonItem *aItem, NSInteger section, NSInteger index) {
         // 利用 itemConfigurationHandler 批量设置所有 item 的样式
         aItem.button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.2];
     };
-    self.popupByWindow.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
-                                  [aMenuView hideWithAnimated:YES];
+    self.popupByWindow.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuButtonItem *aItem) {
+                                  [aItem.menuView hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
-                                  [aMenuView hideWithAnimated:YES];
+                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuButtonItem *aItem) {
+                                  [aItem.menuView hideWithAnimated:YES];
                               }],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuItem *aItem) {
-                                  [aMenuView hideWithAnimated:YES];
+                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuButtonItem *aItem) {
+                                  [aItem.menuView hideWithAnimated:YES];
                               }]];
     self.popupByWindow.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button2 setTitle:@"显示菜单浮层" forState:UIControlStateNormal];
@@ -136,9 +136,9 @@
     self.popupAtBarButtonItem.maximumWidth = 180;
     self.popupAtBarButtonItem.shouldShowItemSeparator = YES;
     self.popupAtBarButtonItem.separatorInset = UIEdgeInsetsMake(0, self.popupAtBarButtonItem.padding.left, 0, self.popupAtBarButtonItem.padding.right);
-    self.popupAtBarButtonItem.items = @[[QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
-                              [QMUIPopupMenuItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];
+    self.popupAtBarButtonItem.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
+                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
+                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];
 }
 
 - (void)setupNavigationItems {

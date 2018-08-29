@@ -88,7 +88,7 @@ static CGFloat const kEmotionViewHeight = 232;
     self.maskControl.frame = self.view.bounds;
     
     CGRect containerRect = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 300);
-    self.containerView.frame = CGRectApplyAffineTransform(containerRect, self.containerView.transform);
+    self.containerView.frame = CGRectApplyAffineTransformWithAnchorPoint(containerRect, self.containerView.transform, self.containerView.layer.anchorPoint);
     
     self.toolbarView.frame = CGRectFlatMake(0, CGRectGetHeight(self.containerView.bounds) - kToolbarHeight, CGRectGetWidth(self.containerView.bounds), kToolbarHeight);
     self.cancelButton.frame = CGRectFlatMake(20, CGFloatGetCenter(CGRectGetHeight(self.toolbarView.bounds), CGRectGetHeight(self.cancelButton.bounds)), CGRectGetWidth(self.cancelButton.bounds), CGRectGetHeight(self.cancelButton.bounds));
@@ -297,7 +297,7 @@ static CGFloat const kEmotionViewHeight = 232;
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGRect toolbarRect = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kToolbarHeight);
-    self.toolbarView.frame = CGRectApplyAffineTransform(toolbarRect, self.toolbarView.transform);
+    self.toolbarView.frame = CGRectApplyAffineTransformWithAnchorPoint(toolbarRect, self.toolbarView.transform, self.toolbarView.layer.anchorPoint);
     
     CGFloat textFieldInset = 8;
     CGFloat textFieldHeight = kToolbarHeight - textFieldInset * 2;
@@ -334,7 +334,7 @@ static CGFloat const kEmotionViewHeight = 232;
     
     if (self.emotionInputManager.emotionView) {
         CGRect emotionViewRect = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kEmotionViewHeight);
-        self.emotionInputManager.emotionView.frame = CGRectApplyAffineTransform(emotionViewRect, self.emotionInputManager.emotionView.transform);
+        self.emotionInputManager.emotionView.frame = CGRectApplyAffineTransformWithAnchorPoint(emotionViewRect, self.emotionInputManager.emotionView.transform, self.emotionInputManager.emotionView.layer.anchorPoint);
     }
 }
 

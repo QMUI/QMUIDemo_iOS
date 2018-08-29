@@ -127,8 +127,6 @@
         
         self.label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorWhite];
         [self.label qmui_calculateHeightAfterSetAppearance];
-        self.label.fadeStartColor = self.backgroundColor;
-        self.label.fadeEndColor = [self.backgroundColor colorWithAlphaComponent:0];
         [self.contentView addSubview:self.label];
     }
     return self;
