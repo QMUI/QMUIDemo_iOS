@@ -10,7 +10,8 @@
 
 @interface QDObjectMethodsListViewController ()
 
-@property(nonatomic, strong) NSMutableArray<NSString *> *ivarNames;// 如果存在 ivar 则它放在 section0
+@property(nonatomic, strong) NSMutableArray<NSString *> *properties;// 如果存在 property 则它放在 section0
+@property(nonatomic, strong) NSMutableArray<NSString *> *ivarNames;// 如果存在 ivar 则它放在 section1
 @property(nonatomic, strong) NSMutableArray<NSMutableArray<NSString *> *> *selectorNames;
 @property(nonatomic, strong) NSMutableArray<NSString *> *indexesString;
 @property(nonatomic, strong) NSMutableArray<NSAttributedString *> *searchResults;
@@ -24,6 +25,14 @@
         // 显示搜索框
         self.shouldShowSearchBar = YES;
         self.searchResults = [[NSMutableArray alloc] init];
+        
+        // 属性
+        self.properties = [[NSMutableArray alloc] init];
+        [NSObject qmui_enumratePropertiesOfClass:aClass includingInherited:NO usingBlock:^(objc_property_t property, NSString *propertyName) {
+            QMUIPropertyDescriptor *descriptor = [QMUIPropertyDescriptor descriptorWithProperty:property];
+            [self.properties addObject:descriptor.description];
+        }];
+        self.properties = [[[NSOrderedSet alloc] initWithArray:self.properties].array sortedArrayUsingSelector:@selector(compare:)].mutableCopy;
         
         // 成员变量
         self.ivarNames = [[NSMutableArray alloc] init];
@@ -54,12 +63,16 @@
             [selectorNamesInCurrentSection addObject:selectorName];
         }
         
-        // 处理完 selectorName 再将 ivars 插入 section0，是为了避免 selectorName 里也存在字母“V”，会导致一些逻辑判断错误
+        // 处理完 selectorName 再将 ivars 插入 dataSource，是为了避免 selectorName 里也存在字母“V”，会导致一些逻辑判断错误
         if (self.ivarNames.count > 0) {
             [self.indexesString insertObject:@"V" atIndex:0];
         }
         
-        self.titleView.subtitle = [NSString stringWithFormat:@"%@个成员变量，%@个方法", @(self.ivarNames.count), @(selectorNames.count)];
+        if (self.properties.count > 0) {
+            [self.indexesString insertObject:@"P" atIndex:0];
+        }
+        
+        self.titleView.subtitle = [NSString stringWithFormat:@"%@个属性，%@个成员变量，%@个方法", @(self.properties.count), @(self.ivarNames.count), @(selectorNames.count)];
         self.titleView.style = QMUINavigationTitleViewStyleSubTitleVertical;
     }
     return self;
@@ -75,22 +88,32 @@
     self.searchBar.placeholder = @"支持模糊搜索";
 }
 
+- (BOOL)isPropertiesSection:(NSInteger)section {
+    return self.properties.count > 0 && section == 0;
+}
+
+- (BOOL)isIvarSection:(NSInteger)section {
+    return self.ivarNames.count > 0 && ((self.properties.count > 0 && section == 1) || (self.properties.count <=0 && section == 0));
+}
+
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableView) {
-        return self.selectorNames.count + (self.ivarNames.count > 0 ? 1 : 0);
+        return self.selectorNames.count + (self.properties.count > 0 ? 1 : 0) + (self.ivarNames.count > 0 ? 1 : 0);
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        BOOL hasIvars = self.ivarNames.count > 0;
-        if (hasIvars && section == 0) {
+        if ([self isPropertiesSection:section]) {
+            return self.properties.count;
+        }
+        if ([self isIvarSection:section]) {
             return self.ivarNames.count;
         }
-        return self.selectorNames[section - (hasIvars ? 1 : 0)].count;
+        return self.selectorNames[section - (self.properties.count > 0 ? 1 : 0) - (self.ivarNames.count > 0 ? 1 : 0)].count;
     }
     return self.searchResults.count;
 }
@@ -100,17 +123,19 @@
     QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[QMUITableViewCell alloc] initForTableView:tableView withReuseIdentifier:identifier];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
     }
     
     if (tableView == self.tableView) {
         cell.textLabel.font = CodeFontMake(14);
         cell.textLabel.textColor = UIColorGray1;
         NSString *name = nil;
-        BOOL hasIvars = self.ivarNames.count > 0;
-        if (hasIvars && indexPath.section == 0) {
+        if ([self isPropertiesSection:indexPath.section]) {
+            name = self.properties[indexPath.row];
+        } else if ([self isIvarSection:indexPath.section]) {
             name = self.ivarNames[indexPath.row];
         } else {
-            name = self.selectorNames[indexPath.section - (hasIvars ? 1 : 0)][indexPath.row];
+            name = self.selectorNames[indexPath.section - ((self.properties.count ? 1 : 0)) - (self.ivarNames.count ? 1 : 0)][indexPath.row];
         }
         cell.textLabel.text = name;
     } else {
@@ -125,8 +150,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        BOOL hasIvars = self.ivarNames.count > 0;
-        if (hasIvars && section == 0) {
+        if ([self isPropertiesSection:section]) {
+            return @"Properties";
+        }
+        if ([self isIvarSection:section]) {
             return @"Ivars";
         }
         return self.indexesString[section];
@@ -179,6 +206,9 @@
         }
     };
     
+    [self.properties enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        searchBlock(obj, stop);
+    }];
     [self.ivarNames enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         searchBlock(obj, stop);
     }];

@@ -97,22 +97,20 @@
     self.popupByWindow = [[QMUIPopupMenuView alloc] init];
     self.popupByWindow.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
     self.popupByWindow.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
-    self.popupByWindow.maximumWidth = 180;
     self.popupByWindow.shouldShowItemSeparator = YES;
-    self.popupByWindow.separatorInset = UIEdgeInsetsMake(0, self.popupByWindow.padding.left, 0, self.popupByWindow.padding.right);
     self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuButtonItem *aItem, NSInteger section, NSInteger index) {
         // 利用 itemConfigurationHandler 批量设置所有 item 的样式
         aItem.button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.2];
     };
     self.popupByWindow.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuButtonItem *aItem) {
-                                  [aItem.menuView hideWithAnimated:YES];
-                              }],
-                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuButtonItem *aItem) {
-                                  [aItem.menuView hideWithAnimated:YES];
-                              }],
-                              [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuButtonItem *aItem) {
-                                  [aItem.menuView hideWithAnimated:YES];
-                              }]];
+        [aItem.menuView hideWithAnimated:YES];
+    }],
+                                 [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:^(QMUIPopupMenuButtonItem *aItem) {
+                                     [aItem.menuView hideWithAnimated:YES];
+                                 }],
+                                 [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:^(QMUIPopupMenuButtonItem *aItem) {
+                                     [aItem.menuView hideWithAnimated:YES];
+                                 }]];
     self.popupByWindow.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button2 setTitle:@"显示菜单浮层" forState:UIControlStateNormal];
     };
@@ -135,7 +133,6 @@
     self.popupAtBarButtonItem.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
     self.popupAtBarButtonItem.maximumWidth = 180;
     self.popupAtBarButtonItem.shouldShowItemSeparator = YES;
-    self.popupAtBarButtonItem.separatorInset = UIEdgeInsetsMake(0, self.popupAtBarButtonItem.padding.left, 0, self.popupAtBarButtonItem.padding.right);
     self.popupAtBarButtonItem.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
                               [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
                               [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];

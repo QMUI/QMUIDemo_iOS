@@ -164,7 +164,7 @@
     
     self.imageView.center = CGPointMake(center.x, center.y - 12);
     
-    self.titleLabel.frame = CGRectFlatMake(self.contentEdgeInsets.left, center.y + PreferredVarForDevices(27, 27, 21, 21), contentSize.width, QMUIViewSelfSizingHeight);
+    self.titleLabel.frame = CGRectFlatMake(self.contentEdgeInsets.left, center.y + PreferredValueForiPhone(27, 27, 21, 21), contentSize.width, QMUIViewSelfSizingHeight);
 }
 
 @end

@@ -206,11 +206,11 @@
 }
 
 - (void)handleWebsiteButtonEvent:(QMUIButton *)button {
-    [self openUrlString:@"http://www.qmuiteam.com/ios"];
+    [self openUrlString:@"https://qmuiteam.com/ios"];
 }
 
 - (void)handleDocumentButtonEvent:(QMUIButton *)button {
-    [self openUrlString:@"http://qmuiteam.com/ios/page/document.html"];
+    [self openUrlString:@"https://qmuiteam.com/ios/page/document.html"];
 }
 
 - (void)handleGitHubButtonEvent:(QMUIButton *)button {

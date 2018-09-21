@@ -32,6 +32,9 @@
     self.label1.font = UIFontMake(15);
     self.label1.textColor = UIColorGray5;
     self.label1.canPerformCopyAction = YES;
+    self.label1.didCopyBlock = ^(QMUILabel *label, NSString *stringCopied) {
+        [QMUITips showSucceed:@"已复制"];
+    };
     [self.label1 sizeToFit];
     [self.view addSubview:self.label1];
     

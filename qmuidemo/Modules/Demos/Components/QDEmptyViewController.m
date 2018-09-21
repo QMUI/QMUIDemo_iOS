@@ -64,7 +64,7 @@
     } else if (row == 2) {
         [self showEmptyViewWithText:@"请求失败" detailText:@"请检查网络连接" buttonTitle:@"重试" buttonAction:@selector(reload:)];
     } else if (row == 3) {
-        [self showEmptyViewWithImage:UIImageMake(@"image1") text:nil detailText:@"图片间距可通过imageInsets来调整" buttonTitle:nil buttonAction:NULL];
+        [self showEmptyViewWithImage:UIImageMake(@"icon_grid_emptyView") text:nil detailText:@"图片间距可通过imageInsets来调整" buttonTitle:nil buttonAction:NULL];
     }
     [self.tableView reloadData];
 }
