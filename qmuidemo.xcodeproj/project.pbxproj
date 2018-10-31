@@ -35,6 +35,8 @@
 		CD1229A71DF677AC003B9649 /* QDImagePreviewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229A61DF677AC003B9649 /* QDImagePreviewExampleViewController.m */; };
 		CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */; };
 		CD1229B21DF67922003B9649 /* QDImagePreviewViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229B11DF67922003B9649 /* QDImagePreviewViewController2.m */; };
+		CD18BD8221870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18BD8121870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m */; };
+		CD18BD8521871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18BD8421871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m */; };
 		CD18CF2320F76A3D00EED53C /* QDAAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18CF2220F76A3D00EED53C /* QDAAViewController.m */; };
 		CD1A8A721EC3110300B81693 /* QDThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8A711EC3110300B81693 /* QDThemeViewController.m */; };
 		CD1A8AA11EC4012400B81693 /* QMUIConfigurationTemplateGrass.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */; };
@@ -53,6 +55,7 @@
 		CD7593621EF7A380004B5819 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7593601EF7A35B004B5819 /* libxml2.tbd */; };
 		CD7593631EF7A388004B5819 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7593611EF7A362004B5819 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD7593651EF7A39A004B5819 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7593641EF7A391004B5819 /* MediaPlayer.framework */; };
+		CD766F7E216B6A6D005155BD /* QDScrollAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD766F7D216B6A6D005155BD /* QDScrollAnimatorViewController.m */; };
 		CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */; };
 		CD9D6EC6211064060004E222 /* QDCAAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9D6EC5211064060004E222 /* QDCAAnimationViewController.m */; };
 		CDA05DA51FB18FC900606756 /* QDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA05DA41FB18FC900606756 /* QDTableViewController.m */; };
@@ -212,6 +215,10 @@
 		CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDImagePreviewViewController1.m; sourceTree = "<group>"; };
 		CD1229B01DF67922003B9649 /* QDImagePreviewViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDImagePreviewViewController2.h; sourceTree = "<group>"; };
 		CD1229B11DF67922003B9649 /* QDImagePreviewViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDImagePreviewViewController2.m; sourceTree = "<group>"; };
+		CD18BD8021870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBarScrollingAnimatorViewController.h; sourceTree = "<group>"; };
+		CD18BD8121870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarScrollingAnimatorViewController.m; sourceTree = "<group>"; };
+		CD18BD8321871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBarScrollingSnapAnimatorViewController.h; sourceTree = "<group>"; };
+		CD18BD8421871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarScrollingSnapAnimatorViewController.m; sourceTree = "<group>"; };
 		CD18CF2120F76A3D00EED53C /* QDAAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAAViewController.h; sourceTree = "<group>"; };
 		CD18CF2220F76A3D00EED53C /* QDAAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAAViewController.m; sourceTree = "<group>"; };
 		CD1A8A701EC3110300B81693 /* QDThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDThemeViewController.h; sourceTree = "<group>"; };
@@ -246,6 +253,8 @@
 		CD7593601EF7A35B004B5819 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		CD7593611EF7A362004B5819 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		CD7593641EF7A391004B5819 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		CD766F7C216B6A6D005155BD /* QDScrollAnimatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDScrollAnimatorViewController.h; sourceTree = "<group>"; };
+		CD766F7D216B6A6D005155BD /* QDScrollAnimatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDScrollAnimatorViewController.m; sourceTree = "<group>"; };
 		CD9207241DD49CD100AE32C0 /* QDFloatLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFloatLayoutViewController.h; sourceTree = "<group>"; };
 		CD9207251DD49CD100AE32C0 /* QDFloatLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFloatLayoutViewController.m; sourceTree = "<group>"; };
 		CD9D6EC4211064060004E222 /* QDCAAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDCAAnimationViewController.h; sourceTree = "<group>"; };
@@ -647,6 +656,10 @@
 				CDA74F9B206BC1D000AE3830 /* QDMultipleDelegatesViewController.m */,
 				CDB8C9631DCC815A00769DF0 /* QDMultipleImagePickerPreviewViewController.h */,
 				CDB8C9641DCC815A00769DF0 /* QDMultipleImagePickerPreviewViewController.m */,
+				CD18BD8021870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.h */,
+				CD18BD8121870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m */,
+				CD18BD8321871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.h */,
+				CD18BD8421871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m */,
 				CDB8C9651DCC815A00769DF0 /* QDNavigationTitleViewController.h */,
 				CDB8C9661DCC815A00769DF0 /* QDNavigationTitleViewController.m */,
 				CDB8C9671DCC815A00769DF0 /* QDPieProgressViewController.h */,
@@ -657,6 +670,8 @@
 				CDB8C9721DCC815A00769DF0 /* QDSaveImageToSpecifiedAlbumViewController.m */,
 				CDB8C9731DCC815A00769DF0 /* QDSaveVideoToSpecifiedAlbumViewController.h */,
 				CDB8C9741DCC815A00769DF0 /* QDSaveVideoToSpecifiedAlbumViewController.m */,
+				CD766F7C216B6A6D005155BD /* QDScrollAnimatorViewController.h */,
+				CD766F7D216B6A6D005155BD /* QDScrollAnimatorViewController.m */,
 				CDB8C9751DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.h */,
 				CDB8C9761DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.m */,
 				CD4D339C1F010FD100FB81B0 /* QDStaticTableViewController.h */,
@@ -988,6 +1003,7 @@
 				CDB8C9DA1DCC815A00769DF0 /* UIImageEffects.m in Sources */,
 				CD9D6EC6211064060004E222 /* QDCAAnimationViewController.m in Sources */,
 				CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */,
+				CD18BD8521871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m in Sources */,
 				D021DE46205E889100FFA408 /* QDCellSizeKeyCacheViewController.m in Sources */,
 				CDB8C9DC1DCC815A00769DF0 /* QDComponentsViewController.m in Sources */,
 				CD4A05F220288980000159E9 /* QDNavigationTransitionViewController.m in Sources */,
@@ -1024,6 +1040,7 @@
 				CDB8C9DE1DCC815A00769DF0 /* QDEmotionsViewController.m in Sources */,
 				CDB8CA051DCC815A00769DF0 /* QDFillButtonViewController.m in Sources */,
 				165F42F61ADB60180057EF6A /* main.m in Sources */,
+				CD766F7E216B6A6D005155BD /* QDScrollAnimatorViewController.m in Sources */,
 				CDB8C9D81DCC815A00769DF0 /* QDCommonUI.m in Sources */,
 				CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */,
 				CDB8CA001DCC815A00769DF0 /* QDCollectionDemoViewController.m in Sources */,
@@ -1049,6 +1066,7 @@
 				CDB8CA121DCC815A00769DF0 /* QDTabBarItemViewController.m in Sources */,
 				CD4421CF1E84C74C001B8C2A /* QDObjectViewController.m in Sources */,
 				CDB8C9FB1DCC815A00769DF0 /* QDLabViewController.m in Sources */,
+				CD18BD8221870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m in Sources */,
 				CD1A8A721EC3110300B81693 /* QDThemeViewController.m in Sources */,
 				CDB8C9F01DCC815A00769DF0 /* QDCAShapeLoadingViewController.m in Sources */,
 				CDB8C9F81DCC815A00769DF0 /* QDRippleAnimationViewController.m in Sources */,

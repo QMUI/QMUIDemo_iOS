@@ -21,6 +21,10 @@
     [self themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
 }
 
+- (BOOL)shouldCustomizeNavigationBarTransitionIfHideable {
+    return YES;
+}
+
 #pragma mark - <QDChangingThemeDelegate>
 
 - (void)themeBeforeChanged:(NSObject<QDThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<QDThemeProtocol> *)themeAfterChanged {

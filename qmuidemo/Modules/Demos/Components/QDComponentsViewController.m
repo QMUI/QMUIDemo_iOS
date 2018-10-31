@@ -28,6 +28,7 @@
 #import "QDCellKeyCacheViewController.h"
 #import "QDMultipleDelegatesViewController.h"
 #import "QDBadgeViewController.h"
+#import "QDScrollAnimatorViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -60,6 +61,7 @@
                        @"QMUIMarqueeLabel", UIImageMake(@"icon_grid_marquee"),
                        @"QMUIMultipleDelegates", UIImageMake(@"icon_grid_multipleDelegates"),
                        @"QMUIBadge", UIImageMake(@"icon_grid_badge"),
+                       @"QMUIScrollAnimator", UIImageMake(@"icon_grid_scrollAnimator"),
                        nil];
 }
 
@@ -124,6 +126,9 @@
     }
     else if ([title isEqualToString:@"QMUIBadge"]) {
         viewController = [[QDBadgeViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIScrollAnimator"]) {
+        viewController = [[QDScrollAnimatorViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];
