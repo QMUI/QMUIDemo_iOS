@@ -97,32 +97,23 @@
 
 - (UIColor *)titleViewTintColor {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
-        return [QMUINavigationTitleView appearance].tintColor;
+        return NavBarTitleColor;
     } else if (self.barStyle == QDNavigationBarStyleLight) {
         return UIColorBlack;
     } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return [QMUINavigationTitleView appearance].tintColor;
+        return UIColorWhite;
     } else {
-        return [QMUINavigationTitleView appearance].tintColor;
+        return NavBarTitleColor;
     }
 }
 
-#pragma mark - NavigationBarTransition
+#pragma mark - <QMUICustomNavigationBarTransitionDelegate>
 
-//- (BOOL)shouldCustomNavigationBarTransitionWhenPushAppearing {
-//    return self.customNavBarTransition;
-//}
-
-- (BOOL)shouldCustomNavigationBarTransitionWhenPushDisappearing {
-    return self.customNavBarTransition && (self.barStyle != self.viewController.barStyle);
-}
-
-//- (BOOL)shouldCustomNavigationBarTransitionWhenPopAppearing {
-//    return self.customNavBarTransition;
-//}
-
-- (BOOL)shouldCustomNavigationBarTransitionWhenPopDisappearing {
-    return self.customNavBarTransition && (self.barStyle != self.previousBarStyle);
+- (NSString *)customNavigationBarTransitionKey {
+    // 不同的 barStyle 返回不同的 key，这样在不同 barStyle 的界面之间切换时就能使用自定义的 navigationBar 样式，会带来更好的视觉体验
+    // 返回 nil 则表示当前界面没有修改过导航栏样式
+    // 注意，如果你使用配置表，建议打开 AutomaticCustomNavigationBarTransitionStyle，由 QMUI 自动帮你判断是否需要使用自定义样式，这样就无需再实现 customNavigationBarTransitionKey 方法。QMUI Demo 里为了展示接口的使用，没有打开这个开关。
+    return self.barStyle == QDNavigationBarStyleOrigin ? nil : [NSString qmui_stringWithNSInteger:self.barStyle];
 }
 
 @end

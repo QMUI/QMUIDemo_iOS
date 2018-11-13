@@ -36,6 +36,7 @@
     [super setupNavigationItems];
     self.title = @"Components";
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:self action:@selector(handleAboutItemEvent)];
+    AddAccessibilityLabel(self.navigationItem.rightBarButtonItem, @"打开关于界面");
 }
 
 - (void)initDataSource {

@@ -45,18 +45,21 @@
     uikitViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *uikitNavController = [[QDNavigationController alloc] initWithRootViewController:uikitViewController];
     uikitNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
+    AddAccessibilityHint(uikitNavController.tabBarItem, @"展示一系列对系统原生控件的拓展的能力");
     
     // UIComponents
     QDComponentsViewController *componentViewController = [[QDComponentsViewController alloc] init];
     componentViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *componentNavController = [[QDNavigationController alloc] initWithRootViewController:componentViewController];
     componentNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Components" image:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_component_selected") tag:1];
+    AddAccessibilityHint(componentNavController.tabBarItem, @"展示 QMUI 自己的组件库");
     
     // Lab
     QDLabViewController *labViewController = [[QDLabViewController alloc] init];
     labViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *labNavController = [[QDNavigationController alloc] initWithRootViewController:labViewController];
     labNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Lab" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_lab_selected") tag:2];
+    AddAccessibilityHint(labNavController.tabBarItem, @"集合一些非正式但可能很有用的小功能");
     
     // window root controller
     tabBarViewController.viewControllers = @[uikitNavController, componentNavController, labNavController];

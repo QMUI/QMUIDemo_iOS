@@ -156,7 +156,7 @@
     self.visibleHeadersValue.text = [tableView.qmui_indexForVisibleSectionHeaders componentsJoinedByString:@", "];
     
     NSInteger indexOfPinnedSectionHeader = tableView.qmui_indexOfPinnedSectionHeader;
-    NSString *pinnedHeaderString = [NSString qmui_hexStringWithInteger:indexOfPinnedSectionHeader];
+    NSString *pinnedHeaderString = [NSString qmui_stringWithNSInteger:indexOfPinnedSectionHeader];
     self.pinnedHeaderValue.text = pinnedHeaderString;
     self.pinnedHeaderValue.textColor = indexOfPinnedSectionHeader == -1 ? UIColorRed : UIColorWhite;
     

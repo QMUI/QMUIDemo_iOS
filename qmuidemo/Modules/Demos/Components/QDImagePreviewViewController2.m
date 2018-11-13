@@ -68,7 +68,13 @@
         // 如果使用了手势拖拽，并且退出预览时需要飞到某个 rect，则需要实现这个 block，在里面自己去 exit，如果不实现这个 block，退出动画会使用 fadeOut 那种
         __weak __typeof(self)weakSelf = self;
         self.imagePreviewViewController.customGestureExitBlock = ^(QMUIImagePreviewViewController *aImagePreviewViewController, QMUIZoomImageView *currentZoomImageView) {
-            [weakSelf.imageButton setImage:currentZoomImageView.image forState:UIControlStateNormal];
+            if (currentZoomImageView.image) {
+                [weakSelf.imageButton setImage:currentZoomImageView.image forState:UIControlStateNormal];
+            } else {
+                // 退出大图预览模式时，需要考虑当前图片尚未加载完成的情况下的展示
+                NSInteger index = [aImagePreviewViewController.imagePreviewView indexForZoomImageView:currentZoomImageView];
+                [weakSelf.imageButton setImage:weakSelf.images[index] forState:UIControlStateNormal];
+            }
             [aImagePreviewViewController exitPreviewToRectInScreenCoordinate:[weakSelf.imageButton convertRect:weakSelf.imageButton.imageView.frame toView:nil]];
         };
     }

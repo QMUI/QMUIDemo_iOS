@@ -64,22 +64,6 @@
     return [self navigationBarTintColor];
 }
 
-- (BOOL)shouldCustomNavigationBarTransitionWhenPushAppearing {
-    return self.navigationAnimator.progress < 1;
-}
-
-- (BOOL)shouldCustomNavigationBarTransitionWhenPushDisappearing {
-    return self.navigationAnimator.progress < 1;
-}
-
-- (BOOL)shouldCustomNavigationBarTransitionWhenPopAppearing {
-    return self.navigationAnimator.progress < 1;
-}
-
-- (BOOL)shouldCustomNavigationBarTransitionWhenPopDisappearing {
-    return self.navigationAnimator.progress < 1;
-}
-
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

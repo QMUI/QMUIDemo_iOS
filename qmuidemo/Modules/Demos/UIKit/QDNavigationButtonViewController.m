@@ -50,35 +50,35 @@ NSString *const kSectionTitleForCloseButton = @"关闭按钮";
 - (void)didSelectCellWithTitle:(NSString *)title {
     if ([title isEqualToString:@"[系统]文本按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithTitle:@"文字" target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[item];
     } else if ([title isEqualToString:@"[QMUI]文本按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeNormal title:@"文字"] target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[item];
     } else if ([title isEqualToString:@"[系统]加粗文本按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithBoldTitle:@"加粗" target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[item];
     } else if ([title isEqualToString:@"[QMUI]加粗文本按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeBold title:@"加粗"] target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[item];
     } else if ([title isEqualToString:@"[系统]图片按钮"]) {
-        UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:nil action:NULL],
+                                                    [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:nil action:NULL]];
     } else if ([title isEqualToString:@"[QMUI]图片按钮"]) {
-        UIBarButtonItem *item = [UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithImage:UIImageMake(@"icon_nav_about")] target:nil action:NULL];
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithImage:UIImageMake(@"icon_nav_about")] target:nil action:NULL],
+                                                    [UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithImage:UIImageMake(@"icon_nav_about")] target:nil action:NULL]];
     } else if ([title isEqualToString:@"[系统]返回按钮"]) {
         self.navigationItem.leftBarButtonItem = nil;// 只要不设置 leftBarButtonItem，就会显示系统的返回按钮
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     } else if ([title isEqualToString:@"[QMUI]返回按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_backItemWithTarget:self action:@selector(handleBackButtonEvent:)];// 自定义返回按钮要自己写代码去 pop 界面
         self.navigationItem.leftBarButtonItem = item;
         self.forceEnableBackGesture = YES;// 当系统的返回按钮被屏蔽的时候，系统的手势返回也会跟着失效，所以这里要手动强制打开手势返回
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     } else if ([title isEqualToString:@"[QMUI]关闭按钮"]) {
         UIBarButtonItem *item = [UIBarButtonItem qmui_closeItemWithTarget:self action:@selector(handleCloseButtonEvent:)];
         self.navigationItem.leftBarButtonItem = item;
         self.forceEnableBackGesture = YES;
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     }
     [self.tableView qmui_clearsSelection];
 }

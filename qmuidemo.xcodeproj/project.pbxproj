@@ -869,7 +869,7 @@
 					165F42EF1ADB60180057EF6A = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeamName = "沛钞 陈 (Personal Team)";
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					CDE85CF01F9701D600E622E8 = {
 						CreatedOnToolsVersion = 9.0;
@@ -1238,10 +1238,11 @@
 				BUNDLE_DISPLAY_NAME = "QMUI (Debug)";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FP989NU38H;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1262,7 +1263,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qmuidemo.qmui-debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = qmuidemo;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1277,6 +1278,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peichao Chen (S96GZGJFS6)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FP989NU38H;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1359,6 +1361,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tencent Technology (Shenzhen) Co., Ltd";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = HKB8WPFBR9;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

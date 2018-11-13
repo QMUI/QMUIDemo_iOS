@@ -23,8 +23,17 @@
 @property(nonatomic, strong) QMUIButton *positionBottomButton;
 @property(nonatomic, strong) QMUIButton *positionRightButton;
 
+@property(nonatomic, strong) QMUILabel *maskedCornersTitleLabel;
+@property(nonatomic, strong) QMUIButton *maskedCornersMinXMinYButton;
+@property(nonatomic, strong) QMUIButton *maskedCornersMaxXMinYButton;
+@property(nonatomic, strong) QMUIButton *maskedCornersMinXMaxYButton;
+@property(nonatomic, strong) QMUIButton *maskedCornersMaxXMaxYButton;
+
 @property(nonatomic, strong) QMUILabel *widthTitleLabel;
 @property(nonatomic, strong) QMUITextField *widthTextField;
+
+@property(nonatomic, strong) QMUILabel *cornerRadiusTitleLabel;
+@property(nonatomic, strong) QMUITextField *cornerRadiusTextField;
 
 @property(nonatomic, strong) QMUILabel *colorTitleLabel;
 @property(nonatomic, strong) QMUISegmentedControl *colorSegmentedControl;
@@ -63,8 +72,17 @@
     self.positionBottomButton = [self generateSelectableButtonWithTitle:@"Bottom"];
     self.positionRightButton = [self generateSelectableButtonWithTitle:@"Right"];
     
+    self.maskedCornersTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(qmui_maskedCorners))];
+    self.maskedCornersMinXMinYButton = [self generateSelectableButtonWithTitle:@"MinXMinY"];
+    self.maskedCornersMaxXMinYButton = [self generateSelectableButtonWithTitle:@"MaxXMinY"];
+    self.maskedCornersMinXMaxYButton = [self generateSelectableButtonWithTitle:@"MinXMaxY"];
+    self.maskedCornersMaxXMaxYButton = [self generateSelectableButtonWithTitle:@"MaxXMaxY"];
+    
     self.widthTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(qmui_borderWidth))];
     self.widthTextField = [self generateNumericTextField];
+    
+    self.cornerRadiusTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(cornerRadius))];
+    self.cornerRadiusTextField = [self generateNumericTextField];
     
     self.colorTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(qmui_borderColor))];
     self.colorSegmentedControl = [self generateSegmentedControlWithItems:@[@"Translucence", @"Opacity", @"Black"]];
@@ -83,6 +101,7 @@
     self.locationSegmentedControl.selectedSegmentIndex = 0;
     self.positionTopButton.selected = YES;
     self.widthTextField.text = [NSString stringWithFormat:@"%.1f", 3.0];
+    self.cornerRadiusTextField.text = @"0";
     self.colorSegmentedControl.selectedSegmentIndex = 0;
     self.dashPatternWidthTextField.text = @"0";
     self.dashPatternSpacingTextField.text = @"0";
@@ -230,6 +249,23 @@
     self.colorSegmentedControl.center = CGPointMake(CGRectGetWidth(self.scrollView.bounds) - marginRight - CGRectGetWidth(self.colorSegmentedControl.frame) / 2.0, self.colorTitleLabel.center.y);
     maxY += defaultLineHeight;
     
+    self.cornerRadiusTitleLabel.qmui_left = marginLeft;
+    self.cornerRadiusTitleLabel.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.cornerRadiusTitleLabel.frame));
+    self.cornerRadiusTextField.qmui_right = CGRectGetWidth(self.scrollView.bounds) - marginRight;
+    self.cornerRadiusTextField.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.cornerRadiusTextField.frame));
+    maxY += defaultLineHeight;
+    
+    self.maskedCornersTitleLabel.qmui_left = marginLeft;
+    self.maskedCornersTitleLabel.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.maskedCornersTitleLabel.frame));
+    maxY += defaultLineHeight;
+    [@[self.maskedCornersMinXMinYButton, self.maskedCornersMaxXMinYButton, self.maskedCornersMinXMaxYButton, self.maskedCornersMaxXMaxYButton] enumerateObjectsUsingBlock:^(QMUIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.contentEdgeInsets = UIEdgeInsetsMake(0, marginLeft + 18, 0, marginRight);
+        obj.qmui_top = maxY;
+        obj.qmui_width = CGRectGetWidth(self.scrollView.bounds);
+        obj.qmui_height = 32;
+        maxY = obj.qmui_bottom;
+    }];
+    
     self.dashPatternTitleLabel.qmui_left = marginLeft;
     self.dashPatternTitleLabel.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.dashPatternTitleLabel.frame));
     self.dashPatternSpacingTextField.qmui_right = CGRectGetWidth(self.scrollView.bounds) - marginRight;
@@ -270,7 +306,11 @@
 
 - (void)handleSelectableButtonEvent:(QMUIButton *)button {
     button.selected = !button.selected;
-    [self updateBorderPosition];
+    if (button == self.positionTopButton || button == self.positionLeftButton || button == self.positionBottomButton || button == self.positionRightButton) {
+        [self updateBorderPosition];
+    } else {
+        [self updateMaskedCorners];
+    }
 }
 
 - (void)handleTextFieldChangedEvent:(QMUITextField *)textField {
@@ -278,6 +318,8 @@
         self.targetView.qmui_borderWidth = [textField.text doubleValue];
     } else if (textField == self.dashPhaseTextField) {
         self.targetView.qmui_dashPhase = [textField.text doubleValue];
+    } else if (textField == self.cornerRadiusTextField) {
+        self.targetView.layer.cornerRadius = [textField.text doubleValue];
     } else {
         CGFloat width = [self.dashPatternWidthTextField.text doubleValue];
         CGFloat spacing = [self.dashPatternSpacingTextField.text doubleValue];
@@ -306,6 +348,27 @@
     self.targetView.qmui_borderPosition = position;
 }
 
+- (void)updateMaskedCorners {
+    QMUICornerMask cornerMask = 0;
+    if (self.maskedCornersMinXMinYButton.isSelected) {
+        cornerMask |= QMUILayerMinXMinYCorner;
+    }
+    if (self.maskedCornersMaxXMinYButton.isSelected) {
+        cornerMask |= QMUILayerMaxXMinYCorner;
+    }
+    if (self.maskedCornersMinXMaxYButton.isSelected) {
+        cornerMask |= QMUILayerMinXMaxYCorner;
+    }
+    if (self.maskedCornersMaxXMaxYButton.isSelected) {
+        cornerMask |= QMUILayerMaxXMaxYCorner;
+    }
+    if (cornerMask == 0) {
+        // 默认值
+        cornerMask = QMUILayerMinXMinYCorner|QMUILayerMaxXMinYCorner|QMUILayerMinXMaxYCorner|QMUILayerMaxXMaxYCorner;
+    }
+    self.targetView.layer.qmui_maskedCorners = cornerMask;
+}
+
 - (void)fireAllEvents {
     [@[self.locationSegmentedControl, self.widthTextField, self.colorSegmentedControl, self.dashPatternWidthTextField, self.dashPatternSpacingTextField, self.dashPhaseTextField] enumerateObjectsUsingBlock:^(UIControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj sendActionsForControlEvents:UIControlEventValueChanged];
@@ -327,13 +390,17 @@
     }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
         CGSize size = self.targetView.frame.size;
         size.width += offset * 2;
         size.height += offset * 2;
+        
         UIImage *snapshotImage = [UIImage qmui_imageWithSize:size opaque:NO scale:ScreenScale * scale actions:^(CGContextRef contextRef) {
             CGContextTranslateCTM(contextRef, offset, offset);
+            // 当你使用了 qmui_maskedCorners 并且只指定某几个角为圆角时，用以下这种方式绘制出来的图片会让直角也绘制为圆角，这是 iOS 11 及以上的系统 bug，暂不处理
             [self.targetView.layer renderInContext:contextRef];
         }];
+        
         self.magnifyingImageView.image = snapshotImage;
         [self.magnifyingImageView sizeToFit];
         self.magnifyingImageView.transform = CGAffineTransformMakeScale(scale, scale);

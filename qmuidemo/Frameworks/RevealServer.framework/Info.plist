@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>18A389</string>
+	<string>18B75</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>18</string>
+	<string>19</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -25,28 +25,29 @@
 		<string>iPhoneOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>11101</string>
+	<string>11309</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>16A366</string>
+	<string>16B91</string>
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
 	<key>DTPlatformVersion</key>
-	<string>12.0</string>
+	<string>12.1</string>
 	<key>DTSDKBuild</key>
-	<string>16A366</string>
+	<string>16B91</string>
 	<key>DTSDKName</key>
-	<string>iphoneos12.0</string>
+	<string>iphoneos12.1</string>
 	<key>DTXcode</key>
-	<string>1000</string>
+	<string>1010</string>
 	<key>DTXcodeBuild</key>
-	<string>10A255</string>
+	<string>10B61</string>
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer>
 	</array>
 </dict>
 </plist>

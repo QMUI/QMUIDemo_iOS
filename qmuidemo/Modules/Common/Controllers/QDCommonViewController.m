@@ -28,7 +28,6 @@
 #pragma mark - <QDChangingThemeDelegate>
 
 - (void)themeBeforeChanged:(NSObject<QDThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<QDThemeProtocol> *)themeAfterChanged {
-    
 }
 
 @end
