@@ -64,6 +64,13 @@
     return [self navigationBarTintColor];
 }
 
+#pragma mark - <QMUICustomNavigationBarTransitionDelegate>
+
+// 为了展示接口的使用，QMUI Demo 没有打开配置表的 AutomaticCustomNavigationBarTransitionStyle，因此当 navigationBar 样式与默认样式不同时，需要手动在 customNavigationBarTransitionKey 里返回一个与其他界面不相同的值，这样才能使用自定义的 navigationBar 转场样式
+- (NSString *)customNavigationBarTransitionKey {
+    return self.navigationAnimator.progress >= 1 ? nil : @"progress";
+}
+
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
