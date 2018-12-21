@@ -2,7 +2,7 @@
 //  QDImagePreviewExampleViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2016/12/6.
+//  Created by QMUI Team on 2016/12/6.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  QDCommonGroupListViewController.h
 //  qmuidemo
 //
-//  Created by 李浩成 on 2016/10/10.
+//  Created by QMUI Team on 2016/10/10.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

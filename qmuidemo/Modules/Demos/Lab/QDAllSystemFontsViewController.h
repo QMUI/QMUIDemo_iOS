@@ -2,7 +2,7 @@
 //  QDAllSystemFontsViewController.h
 //  qmuidemo
 //
-//  Created by MoLice on 16/9/20.
+//  Created by QMUI Team on 16/9/20.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

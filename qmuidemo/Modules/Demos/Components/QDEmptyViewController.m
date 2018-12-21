@@ -2,7 +2,7 @@
 //  QDEmptyViewController.m
 //  qmui
 //
-//  Created by MoLice on 14-7-3.
+//  Created by QMUI Team on 14-7-3.
 //  Copyright (c) 2014年 QMUI Team. All rights reserved.
 //
 
@@ -10,15 +10,21 @@
 
 @interface QDEmptyViewController ()
 
+@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDEmptyViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         self.shouldShowSearchBar = YES;
+        self.statusBarStyle = [super preferredStatusBarStyle];
     }
     return self;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.statusBarStyle;
 }
 
 #pragma mark - 工具方法
@@ -72,11 +78,13 @@
 #pragma mark - <QMUISearchControllerDelegate>
 
 - (void)willPresentSearchController:(QMUISearchController *)searchController {
-    [QMUIHelper renderStatusBarStyleDark];
+    self.statusBarStyle = UIStatusBarStyleDefault;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)willDismissSearchController:(QMUISearchController *)searchController {
-    [QMUIHelper renderStatusBarStyleLight];
+    self.statusBarStyle = [super preferredStatusBarStyle];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

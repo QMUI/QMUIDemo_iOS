@@ -2,7 +2,7 @@
 //  QDMoreOperationViewController.h
 //  qmuidemo
 //
-//  Created by Kayo Lee on 15/5/18.
+//  Created by QMUI Team on 15/5/18.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 

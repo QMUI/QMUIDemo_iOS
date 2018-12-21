@@ -2,7 +2,7 @@
 //  QDFillButtonViewController.m
 //  qmuidemo
 //
-//  Created by ZhoonChen on 15/5/23.
+//  Created by QMUI Team on 15/5/23.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 

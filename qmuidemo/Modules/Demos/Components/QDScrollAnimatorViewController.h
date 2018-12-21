@@ -2,7 +2,7 @@
 //  QDScrollAnimatorViewController.h
 //  qmuidemo
 //
-//  Created by MoLice on 2018/O/8.
+//  Created by QMUI Team on 2018/O/8.
 //  Copyright © 2018 QMUI Team. All rights reserved.
 //
 

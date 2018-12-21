@@ -2,7 +2,7 @@
 //  QDCollectionDemoViewController.m
 //  qmuidemo
 //
-//  Created by zhoonchen on 16/9/8.
+//  Created by QMUI Team on 16/9/8.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

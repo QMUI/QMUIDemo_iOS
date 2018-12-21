@@ -2,7 +2,7 @@
 //  QDNavigationBarScrollingAnimatorViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2018/O/29.
+//  Created by QMUI Team on 2018/O/29.
 //  Copyright © 2018 QMUI Team. All rights reserved.
 //
 
@@ -40,13 +40,16 @@
     };
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if (self.navigationAnimator) {
+        return self.navigationAnimator.statusbarStyleBlock(self.navigationAnimator, self.navigationAnimator.progress);
+    }
+    return [super preferredStatusBarStyle];
+}
+
 // 建议配合 QMUINavigationControllerAppearanceDelegate 控制不同界面切换时的 navigationBar 样式，否则需自己在 viewWillAppear:、viewWillDisappear: 里控制
 
 #pragma mark - <QMUINavigationControllerAppearanceDelegate>
-
-- (BOOL)shouldSetStatusBarStyleLight {
-    return self.navigationAnimator.statusbarStyleBlock(self.navigationAnimator, self.navigationAnimator.progress) >= UIStatusBarStyleLightContent;
-}
 
 - (UIImage *)navigationBarBackgroundImage {
     return self.navigationAnimator.backgroundImageBlock(self.navigationAnimator, self.navigationAnimator.progress);

@@ -2,7 +2,7 @@
 //  QDFontViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2017/5/29.
+//  Created by QMUI Team on 2017/5/29.
 //  Copyright © 2017年 QMUI Team. All rights reserved.
 //
 

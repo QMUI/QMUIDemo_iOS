@@ -2,7 +2,7 @@
 //  QDSingleImagePickerPreviewViewController.h
 //  qmuidemo
 //
-//  Created by Kayo Lee on 15/5/17.
+//  Created by QMUI Team on 15/5/17.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 

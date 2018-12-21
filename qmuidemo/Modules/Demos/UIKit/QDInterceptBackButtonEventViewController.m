@@ -2,7 +2,7 @@
 //  QDInterceptBackButtonEventViewController.m
 //  qmuidemo
 //
-//  Created by zhoonchen on 16/9/5.
+//  Created by QMUI Team on 16/9/5.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

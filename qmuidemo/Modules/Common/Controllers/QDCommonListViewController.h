@@ -2,7 +2,7 @@
 //  QDCommonListViewController.h
 //  qmuidemo
 //
-//  Created by ZhoonChen on 15/9/15.
+//  Created by QMUI Team on 15/9/15.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 

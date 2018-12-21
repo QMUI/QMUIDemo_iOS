@@ -2,7 +2,7 @@
 //  QDTabBarItemViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2016/10/9.
+//  Created by QMUI Team on 2016/10/9.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 

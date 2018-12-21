@@ -2,7 +2,7 @@
 //  QDChangeNavBarStyleViewController.m
 //  qmuidemo
 //
-//  Created by zhoonchen on 16/9/5.
+//  Created by QMUI Team on 16/9/5.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
@@ -49,15 +49,15 @@
     [self.navigationController pushViewController:self.viewController animated:YES];
 }
 
-#pragma mark - QMUINavigationControllerDelegate
-
-- (BOOL)shouldSetStatusBarStyleLight {
+- (UIStatusBarStyle)preferredStatusBarStyle {
     if (self.barStyle == QDNavigationBarStyleOrigin || self.barStyle == QDNavigationBarStyleDark) {
-        return YES;
+        return UIStatusBarStyleLightContent;
     } else {
-        return NO;
+        return UIStatusBarStyleDefault;
     }
 }
+
+#pragma mark - QMUINavigationControllerDelegate
 
 - (UIImage *)navigationBarBackgroundImage {
     if (self.barStyle == QDNavigationBarStyleOrigin) {

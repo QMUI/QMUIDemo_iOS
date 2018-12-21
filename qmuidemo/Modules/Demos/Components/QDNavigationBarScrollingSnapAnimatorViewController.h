@@ -2,7 +2,7 @@
 //  QDNavigationBarScrollingSnapAnimatorViewController.h
 //  qmuidemo
 //
-//  Created by MoLice on 2018/O/29.
+//  Created by QMUI Team on 2018/O/29.
 //  Copyright © 2018 QMUI Team. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  QDNavigationBarScrollingSnapAnimatorViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2018/O/29.
+//  Created by QMUI Team on 2018/O/29.
 //  Copyright © 2018 QMUI Team. All rights reserved.
 //
 
@@ -36,9 +36,10 @@
 }
 
 - (void)viewDidLayoutSubviews {
-    self.tableViewInitialContentInset = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator, 0, self.view.qmui_safeAreaInsets.bottom, 0);
-    self.tableViewInitialScrollIndicatorInsets = self.tableViewInitialContentInset;
     [super viewDidLayoutSubviews];
+    self.tableView.contentInset = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator, 0, self.view.qmui_safeAreaInsets.bottom, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    [self.tableView qmui_scrollToTopUponContentInsetTopChange];
 }
 
 // 建议配合 QMUINavigationControllerDelegate 控制不同界面切换时的 navigationBar 样式/显隐，否则需自己在 viewWillAppear:、viewWillDisappear: 里控制

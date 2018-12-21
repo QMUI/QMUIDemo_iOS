@@ -2,7 +2,7 @@
 //  QDAssetsManagerViewController.m
 //  qmuidemo
 //
-//  Created by Kayo Lee on 15/6/9.
+//  Created by QMUI Team on 15/6/9.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 
@@ -39,16 +39,6 @@
         viewController.title = title;
         [self.navigationController pushViewController:viewController animated:YES];
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

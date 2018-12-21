@@ -2,7 +2,7 @@
 //  QDObjectMethodsListViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2017/3/24.
+//  Created by QMUI Team on 2017/3/24.
 //  Copyright © 2017年 QMUI Team. All rights reserved.
 //
 
@@ -15,12 +15,14 @@
 @property(nonatomic, strong) NSMutableArray<NSMutableArray<NSString *> *> *selectorNames;
 @property(nonatomic, strong) NSMutableArray<NSString *> *indexesString;
 @property(nonatomic, strong) NSMutableArray<NSAttributedString *> *searchResults;
+
+@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDObjectMethodsListViewController
 
 - (instancetype)initWithClass:(Class)aClass {
-    if (self = [super initWithNibName:nil bundle:nil]) {
+    if (self = [self initWithStyle:UITableViewStylePlain]) {
         
         // 显示搜索框
         self.shouldShowSearchBar = YES;
@@ -78,6 +80,13 @@
     return self;
 }
 
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    if (self = [super initWithStyle:style]) {
+        self.statusBarStyle = [super preferredStatusBarStyle];
+    }
+    return self;
+}
+
 - (void)initTableView {
     [super initTableView];
     self.tableView.rowHeight = 50;
@@ -94,6 +103,10 @@
 
 - (BOOL)isIvarSection:(NSInteger)section {
     return self.ivarNames.count > 0 && ((self.properties.count > 0 && section == 1) || (self.properties.count <=0 && section == 0));
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.statusBarStyle;
 }
 
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
@@ -218,19 +231,13 @@
 }
 
 - (void)willPresentSearchController:(QMUISearchController *)searchController {
-    [QMUIHelper renderStatusBarStyleDark];
+    self.statusBarStyle = UIStatusBarStyleDefault;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)willDismissSearchController:(QMUISearchController *)searchController {
-    BOOL oldStatusbarLight = NO;
-    if ([self respondsToSelector:@selector(shouldSetStatusBarStyleLight)]) {
-        oldStatusbarLight = [self shouldSetStatusBarStyleLight];
-    }
-    if (oldStatusbarLight) {
-        [QMUIHelper renderStatusBarStyleLight];
-    } else {
-        [QMUIHelper renderStatusBarStyleDark];
-    }
+    self.statusBarStyle = [super preferredStatusBarStyle];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

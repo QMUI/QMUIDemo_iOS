@@ -2,7 +2,7 @@
 //  QDActivityIndicator.h
 //  WeRead
 //
-//  Created by MoLice on 15/5/13.
+//  Created by QMUI Team on 15/5/13.
 //  Copyright (c) 2015年 QMUI Team. All rights reserved.
 //
 

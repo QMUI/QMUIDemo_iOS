@@ -2,7 +2,7 @@
 //  QDSearchViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 16/5/25.
+//  Created by QMUI Team on 16/5/25.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
@@ -63,6 +63,7 @@
 @property(nonatomic, strong) NSArray<NSString *> *keywords;
 @property(nonatomic, strong) NSMutableArray<NSString *> *searchResultsKeywords;
 @property(nonatomic, strong) QMUISearchController *mySearchController;
+@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDSearchViewController
@@ -75,6 +76,8 @@
         
         self.keywords = @[@"Helps", @"Maintain", @"Liver", @"Health", @"Function", @"Supports", @"Healthy", @"Fat", @"Metabolism", @"Nuturally"];
         self.searchResultsKeywords = [[NSMutableArray alloc] init];
+        
+        self.statusBarStyle = [super preferredStatusBarStyle];
     }
     return self;
 }
@@ -87,6 +90,10 @@
     self.mySearchController.launchView = [[QDRecentSearchView alloc] init];// launchView 会自动布局，无需处理 frame
     self.mySearchController.searchBar.qmui_usedAsTableHeaderView = YES;// 以 tableHeaderView 的方式使用 searchBar 的话，将其置为 YES，以辅助兼容一些系统 bug
     self.tableView.tableHeaderView = self.mySearchController.searchBar;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.statusBarStyle;
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>
@@ -146,19 +153,13 @@
 }
 
 - (void)willPresentSearchController:(QMUISearchController *)searchController {
-    [QMUIHelper renderStatusBarStyleDark];
+    self.statusBarStyle = UIStatusBarStyleDefault;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)willDismissSearchController:(QMUISearchController *)searchController {
-    BOOL oldStatusbarLight = NO;
-    if ([self respondsToSelector:@selector(shouldSetStatusBarStyleLight)]) {
-        oldStatusbarLight = [self shouldSetStatusBarStyleLight];
-    }
-    if (oldStatusbarLight) {
-        [QMUIHelper renderStatusBarStyleLight];
-    } else {
-        [QMUIHelper renderStatusBarStyleDark];
-    }
+    self.statusBarStyle = [super preferredStatusBarStyle];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

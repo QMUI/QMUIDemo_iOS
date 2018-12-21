@@ -2,7 +2,7 @@
 //  QDTableViewCellDynamicHeightViewController.h
 //  qmuidemo
 //
-//  Created by MoLice on 2018/03/16.
+//  Created by QMUI Team on 2018/03/16.
 //  Copyright © 2018年 QMUI Team. All rights reserved.
 //
 

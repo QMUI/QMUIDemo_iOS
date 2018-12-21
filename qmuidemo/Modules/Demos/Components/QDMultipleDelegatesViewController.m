@@ -2,7 +2,7 @@
 //  QDMultipleDelegatesViewController.m
 //  qmuidemo
 //
-//  Created by MoLice on 2018/3/28.
+//  Created by QMUI Team on 2018/3/28.
 //  Copyright © 2018年 QMUI Team. All rights reserved.
 //
 

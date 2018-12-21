@@ -2,7 +2,7 @@
 //  QDCommonUI.h
 //  qmuidemo
 //
-//  Created by MoLice on 16/8/8.
+//  Created by QMUI Team on 16/8/8.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
