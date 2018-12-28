@@ -9,13 +9,6 @@
 #import "QDCollectionDemoViewController.h"
 #import "QDCollectionViewDemoCell.h"
 
-@interface QDCollectionDemoViewController ()<QMUINavigationTitleViewDelegate>
-
-@property(nonatomic, assign) BOOL debug;
-@property(nonatomic, strong) CALayer *debugLayer;
-
-@end
-
 @implementation QDCollectionDemoViewController
 
 - (instancetype)initWithLayoutStyle:(QMUICollectionViewPagingLayoutStyle)style {
@@ -35,7 +28,8 @@
     self.titleView.userInteractionEnabled = YES;
     [self.titleView addTarget:self action:@selector(handleTitleViewTouchEvent) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithTitle:self.debug ? @"普通模式" : @"调试模式" target:self action:@selector(handleDebugItemEvent)];
+    self.navigationItem.rightBarButtonItems = @[[UIBarButtonItem qmui_itemWithTitle:self.collectionViewLayout.debug ? @"普通模式" : @"调试模式" target:self action:@selector(handleDebugItemEvent)],
+                                                [UIBarButtonItem qmui_itemWithTitle:self.collectionViewLayout.scrollDirection == UICollectionViewScrollDirectionVertical ? @"水平" : @"垂直" target:self action:@selector(handleDirectionItemEvent)]];
 }
 
 - (void)initSubviews {
@@ -59,42 +53,38 @@
         self.collectionViewLayout.sectionInset = [self sectionInset];
         [self.collectionViewLayout invalidateLayout];
     }
-    
-    if (self.debugLayer) {
-        self.debugLayer.frame = CGRectMake(self.view.center.x, 0, PixelOne, CGRectGetHeight(self.view.bounds));
-    }
 }
 
 - (void)handleTitleViewTouchEvent {
     [self.collectionView qmui_scrollToTopAnimated:YES];
 }
 
-- (void)handleDebugItemEvent {
-    self.debug = !self.debug;
+- (void)handleDirectionItemEvent {
+    self.collectionViewLayout.scrollDirection = self.collectionViewLayout.scrollDirection == UICollectionViewScrollDirectionVertical ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+    [self.collectionViewLayout invalidateLayout];
+    [self.collectionView qmui_scrollToTopAnimated:YES];
+    [self.collectionView reloadData];
     
+    [self setupNavigationItems];
+    [self.view setNeedsLayout];
+}
+
+- (void)handleDebugItemEvent {
+    self.collectionViewLayout.debug = !self.collectionViewLayout.debug;
     self.collectionViewLayout.sectionInset = [self sectionInset];
     [self.collectionViewLayout invalidateLayout];
     [self.collectionView qmui_scrollToTopAnimated:YES];
-    
-    if (self.debug) {
-        self.debugLayer = [CALayer layer];
-        [self.debugLayer qmui_removeDefaultAnimations];
-        self.debugLayer.backgroundColor = UIColorRed.CGColor;
-        [self.view.layer addSublayer:self.debugLayer];
-    }else {
-        [self.debugLayer removeFromSuperlayer];
-        self.debugLayer = nil;
-    }
+    [self.collectionView reloadData];
     
     [self setupNavigationItems];
 }
 
 - (UIEdgeInsets)sectionInset {
-    if (self.debug) {
+    if (self.collectionViewLayout.debug) {
         CGSize itemSize = CGSizeMake(100, 100);
-        CGFloat horizontalInset = (CGRectGetWidth(self.collectionView.bounds) - itemSize.width) / 2;
+        CGFloat horizontalInset = (CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset) - itemSize.width) / 2;
         CGFloat verticalInset = (CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionView.qmui_contentInset) - itemSize.height) / 2;
-        return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset);
+        return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, CGRectGetWidth(self.collectionView.bounds) - horizontalInset - itemSize.width - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset));
     } else {
         return UIEdgeInsetsMake(36, 36, 36, 36);
     }
@@ -112,6 +102,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.debug = self.collectionViewLayout.debug;
+    cell.pagingThreshold = self.collectionViewLayout.pagingThreshold;
+    cell.scrollDirection = self.collectionViewLayout.scrollDirection;
     cell.contentLabel.text = [NSString qmui_stringWithNSInteger:indexPath.item];
     cell.backgroundColor = [QDCommonUI randomThemeColor];
     [cell setNeedsLayout];
@@ -121,7 +114,11 @@
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize size = CGSizeMake(CGRectGetWidth(collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionViewLayout.sectionInset), CGRectGetHeight(collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionViewLayout.sectionInset) - self.qmui_navigationBarMaxYInViewCoordinator);
+    if (self.collectionViewLayout.debug) {
+        return CGSizeMake(100, 100);
+    }
+    
+    CGSize size = CGSizeMake(CGRectGetWidth(collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset), CGRectGetHeight(collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetVerticalValue(self.collectionView.qmui_contentInset));
     return size;
 }
 

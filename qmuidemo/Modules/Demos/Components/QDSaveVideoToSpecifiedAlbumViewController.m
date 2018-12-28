@@ -85,9 +85,7 @@
             self.pickerController.delegate = self;
         }
         
-        [self presentViewController:self.pickerController animated:YES completion:^(void) {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        }];
+        [self presentViewController:self.pickerController animated:YES completion:nil];
     } else {
         [QMUITips showError:@"检测不到该设备中有可使用的摄像头" inView:self.view hideAfterDelay:2];
     }
@@ -113,14 +111,11 @@
         } else {
             [self saveVideoToAlbumWithMediaInfo:info];
         }
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:^(void) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

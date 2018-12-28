@@ -8,7 +8,7 @@
 
 #import "QDCommonListViewController.h"
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, MoreOperationTag) {
     MoreOperationTagShareWechat,
     MoreOperationTagShareMoment,
     MoreOperationTagShareQzone,
@@ -17,7 +17,7 @@ typedef enum {
     MoreOperationTagBookMark,
     MoreOperationTagSafari,
     MoreOperationTagReport
-} MoreOperationTag;
+};
 
 @interface QDMoreOperationViewController : QDCommonListViewController
 

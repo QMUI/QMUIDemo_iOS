@@ -11,4 +11,7 @@
 @interface QDCollectionViewDemoCell : UICollectionViewCell
 
 @property(nonatomic, strong, readonly) UILabel *contentLabel;
+@property(nonatomic, assign) BOOL debug;
+@property(nonatomic, assign) CGFloat pagingThreshold;
+@property(nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 @end

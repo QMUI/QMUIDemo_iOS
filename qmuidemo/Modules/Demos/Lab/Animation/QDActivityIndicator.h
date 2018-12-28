@@ -10,10 +10,10 @@
 
 #define QDActivityIndicatorColorDefault UIColorSeparator
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, QDActivityIndicatorStyle) {
     QDActivityIndicatorStyleNormal, // 默认大小
     QDActivityIndicatorStyleSmall,  // 小一点的，用于想法圈的下拉刷新
-} QDActivityIndicatorStyle;
+};
 
 @interface QDActivityIndicator : UIView <QMUIEmptyViewLoadingViewProtocol>
 

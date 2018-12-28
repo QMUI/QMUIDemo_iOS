@@ -1252,7 +1252,7 @@
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1291,7 +1291,7 @@
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1377,7 +1377,7 @@
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
