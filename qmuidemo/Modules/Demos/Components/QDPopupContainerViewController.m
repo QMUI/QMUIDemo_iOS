@@ -82,6 +82,7 @@
     self.popupByAddSubview.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button1 setTitle:@"显示默认浮层" forState:UIControlStateNormal];
     };
+    self.popupByAddSubview.sourceView = self.button1;// 相对于 button1 布局
     // 使用方法 1 时，显示浮层前需要先手动隐藏浮层，并自行添加到目标 UIView 上
     self.popupByAddSubview.hidden = YES;
     [self.view addSubview:self.popupByAddSubview];
@@ -114,6 +115,7 @@
     self.popupByWindow.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button2 setTitle:@"显示菜单浮层" forState:UIControlStateNormal];
     };
+    self.popupByWindow.sourceView = self.button2;// 相对于 button2 布局
     
     
     
@@ -158,24 +160,17 @@
     CGFloat viewportHeight = CGRectGetHeight(self.view.bounds) - minY;
     CGFloat sectionHeight = viewportHeight / 3.0;
     
-    self.button1.frame = CGRectSetXY(self.button1.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.button1.frame)), minY + (sectionHeight - CGRectGetHeight(self.button1.frame)) / 2.0);
     self.popupByAddSubview.safetyMarginsOfSuperview = UIEdgeInsetsSetTop(self.popupByAddSubview.safetyMarginsOfSuperview, self.qmui_navigationBarMaxYInViewCoordinator + 10);
-    [self.popupByAddSubview layoutWithTargetView:self.button1];// 相对于 button1 布局
+    self.button1.frame = CGRectSetXY(self.button1.frame, CGFloatGetCenter(CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.button1.frame)), minY + (sectionHeight - CGRectGetHeight(self.button1.frame)) / 2.0);
     
     self.separatorLayer1.frame = CGRectFlatMake(0, minY + sectionHeight, CGRectGetWidth(self.view.bounds), PixelOne);
     
     self.button2.frame = CGRectSetY(self.button1.frame, CGRectGetMaxY(self.button1.frame) + sectionHeight - CGRectGetHeight(self.button2.frame));
-    [self.popupByWindow layoutWithTargetView:self.button2];// 相对于 button2 布局
     
     self.separatorLayer2.frame = CGRectSetY(self.separatorLayer1.frame, minY + sectionHeight * 2.0);
     
     self.button3.frame = CGRectSetY(self.button1.frame, CGRectGetMaxY(self.button2.frame) + sectionHeight - CGRectGetHeight(self.button3.frame));
-    [self.popupWithCustomView layoutWithTargetRectInScreenCoordinate:[self.button3 convertRect:self.button3.bounds toView:nil]];// 将 button3 的坐标转换到相对于 UIWindow 的坐标系里，然后再传给浮层布局
-    
-    // 在横竖屏旋转时，viewDidLayoutSubviews 这个时机还无法获取到正确的 navigationItem 的 frame，所以直接隐藏掉
-    if (self.popupAtBarButtonItem.isShowing) {
-        [self.popupAtBarButtonItem hideWithAnimated:NO];
-    }
+    self.popupWithCustomView.sourceRect = [self.button3 convertRect:self.button3.bounds toView:nil];// 将 button3 的坐标转换到相对于 UIWindow 的坐标系里，然后再传给浮层布局
 }
 
 - (void)handleButtonEvent:(QMUIButton *)button {
@@ -211,11 +206,10 @@
     if (self.popupAtBarButtonItem.isShowing) {
         [self.popupAtBarButtonItem hideWithAnimated:YES];
     } else {
-        // 相对于右上角的按钮布局，显示前重新对准布局，避免横竖屏导致位置不准确
-        [self.popupAtBarButtonItem layoutWithTargetView:self.navigationItem.rightBarButtonItem.qmui_view];
+        // 相对于右上角的按钮布局
+        self.popupAtBarButtonItem.sourceBarItem = self.navigationItem.rightBarButtonItem;
         [self.popupAtBarButtonItem showWithAnimated:YES];
     }
 }
-
 
 @end

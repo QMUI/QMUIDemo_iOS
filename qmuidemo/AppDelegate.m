@@ -19,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // QMUIConsole 默认只在 DEBUG 下会显示，作为 Demo，改为不管什么环境都允许显示
+    [QMUIConsole sharedInstance].canShow = YES;
+    
     // QD自定义的全局样式渲染
     [QDCommonUI renderGlobalAppearances];
     

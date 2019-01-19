@@ -57,7 +57,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16, 16, 16);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16 + self.view.qmui_safeAreaInsets.left, 16 + self.view.qmui_safeAreaInsets.bottom, 16 + self.view.qmui_safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     CGSize textViewSize = [self.textView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];

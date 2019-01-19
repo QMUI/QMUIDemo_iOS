@@ -1,22 +1,22 @@
 //
-//  QDTableViewCellDynamicHeightViewController.m
+//  QDCellHeightCacheViewController.m
 //  qmuidemo
 //
-//  Created by QMUI Team on 2018/03/16.
-//  Copyright © 2018年 QMUI Team. All rights reserved.
+//  Created by MoLice on 2019/J/9.
+//  Copyright © 2019 QMUI Team. All rights reserved.
 //
 
-#import "QDCellHeightKeyCacheViewController.h"
+#import "QDCellHeightCacheViewController.h"
 #import "QDDynamicHeightTableViewCell.h"
 
 static NSString * const kCellIdentifier = @"cell";
 
-@interface QDCellHeightKeyCacheViewController ()
+@interface QDCellHeightCacheViewController ()
 
 @property(nonatomic, strong) QMUIOrderedDictionary *dataSource;
 @end
 
-@implementation QDCellHeightKeyCacheViewController
+@implementation QDCellHeightCacheViewController
 
 - (void)didInitializeWithStyle:(UITableViewStyle)style {
     [super didInitializeWithStyle:style];
@@ -43,22 +43,20 @@ static NSString * const kCellIdentifier = @"cell";
                        nil];
 }
 
+- (void)initTableView {
+    [super initTableView];
+    // 为了展示效果，这里主动把 estimatedRowHeight 关闭，以与 QMUICellHeightKeyCache 区分开，如果你的 tableView 使用了 estimatedRowHeight，请使用 QMUICellHeightKeyCache，用法参考 QDCellHeightKeyCacheViewController
+    self.tableView.estimatedRowHeight = 0;
+}
+
 - (void)setupNavigationItems {
     [super setupNavigationItems];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleDone target:self action:@selector(handleRightBarButtonItem)];
 }
 
-- (void)initTableView {
-    [super initTableView];
-    // 如果需要自动缓存 cell 高度的计算结果，则打开这个属性，然后实现 - [QMUITableViewDelegate qmui_tableView:cacheKeyForRowAtIndexPath:] 方法即可
-    // 只要打开这个属性，cell 的 self-sizing 特性也会被开启，所以请保证你的 cell 正确重写了 sizeThatFits: 方法（Auto-Layout 的忽略这句话）
-    self.tableView.estimatedRowHeight = 300;// 注意，QMUI 通过配置表的开关 TableViewEstimatedHeightEnabled，默认在所有 iOS 版本打开 estimatedRowHeight（系统是在 iOS 11 之后默认打开），所以图方便的话这一句也可以不用写。
-    self.tableView.qmui_cacheCellHeightByKeyAutomatically = YES;
-}
-
 - (void)handleRightBarButtonItem {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
-    id<NSCopying> cachedKey = [self.tableView.delegate qmui_tableView:self.tableView cacheKeyForRowAtIndexPath:indexPath];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    id<NSCopying> cachedKey = [self cachedKeyAtIndexPath:indexPath];
     
     // 1. 模拟业务场景某个 indexPath 的数据发生变化
     [self.dataSource setObject:@"变化后的内容" forKey:self.dataSource.allKeys[indexPath.row]];
@@ -70,13 +68,24 @@ static NSString * const kCellIdentifier = @"cell";
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-#pragma mark - <QMUITableViewDelegate, QMUITableViewDataSource>
-
-- (id<NSCopying>)qmui_tableView:(UITableView *)tableView cacheKeyForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 返回一个用于标记当前 cell 高度的 key，只要 key 不变，高度就不会重新计算，所以建议将有可能影响 cell 高度的数据字段作为 key 的一部分（例如 username、content.md5 等），这样当数据发生变化时，只要触发 cell 的渲染，高度就会自动更新
+- (id<NSCopying>)cachedKeyAtIndexPath:(NSIndexPath *)indexPath {
     NSString *keyName = self.dataSource.allKeys[indexPath.row];
     NSString *contentText = [self.dataSource objectForKey:keyName];
     return @(contentText.length);// 这里简单处理，认为只要长度不同，高度就不同（但实际情况下长度就算相同，高度也有可能不同，要注意）
+}
+
+#pragma mark - <QMUITableViewDelegate, QMUITableViewDataSource>
+
+- (UITableViewCell *)qmui_tableView:(UITableView *)tableView cellWithIdentifier:(NSString *)identifier {
+    if ([identifier isEqualToString:kCellIdentifier]) {
+        QDDynamicHeightTableViewCell *cell = (QDDynamicHeightTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!cell) {
+            cell = [[QDDynamicHeightTableViewCell alloc] initForTableView:tableView withReuseIdentifier:kCellIdentifier];
+        }
+        cell.separatorInset = UIEdgeInsetsZero;
+        return cell;
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -84,15 +93,20 @@ static NSString * const kCellIdentifier = @"cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QDDynamicHeightTableViewCell *cell = (QDDynamicHeightTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
-    if (!cell) {
-        cell = [[QDDynamicHeightTableViewCell alloc] initForTableView:tableView withReuseIdentifier:kCellIdentifier];
-    }
-    cell.separatorInset = UIEdgeInsetsZero;
+    QDDynamicHeightTableViewCell *cell = (QDDynamicHeightTableViewCell *)[self qmui_tableView:tableView cellWithIdentifier:kCellIdentifier];
     NSString *keyName = self.dataSource.allKeys[indexPath.row];
     [cell updateCellAppearanceWithIndexPath:indexPath];
     [cell renderWithNameText:[NSString stringWithFormat:@"%@ - %@", @(indexPath.row), keyName] contentText:[self.dataSource objectForKey:keyName]];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id<NSCopying> cachedKey = [self cachedKeyAtIndexPath:indexPath];
+    NSString *keyName = self.dataSource.allKeys[indexPath.row];
+    return [tableView qmui_heightForCellWithIdentifier:kCellIdentifier cacheByKey:cachedKey configuration:^(QDDynamicHeightTableViewCell *cell) {
+        [cell updateCellAppearanceWithIndexPath:indexPath];
+        [cell renderWithNameText:[NSString stringWithFormat:@"%@ - %@", @(indexPath.row), keyName] contentText:[self.dataSource objectForKey:keyName]];
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

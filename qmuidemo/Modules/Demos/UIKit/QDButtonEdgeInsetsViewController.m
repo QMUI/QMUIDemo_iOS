@@ -143,7 +143,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 
 - (void)handleButtonEvent:(UIButton *)button {
     self.configurePopupView.bindButton = button;
-    [self.configurePopupView layoutWithTargetView:button];
+    self.configurePopupView.sourceView = button;
     [self.configurePopupView showWithAnimated:YES];
 }
 

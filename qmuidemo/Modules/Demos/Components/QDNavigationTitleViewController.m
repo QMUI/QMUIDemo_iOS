@@ -43,17 +43,11 @@
         self.popupMenuView.items = @[[QMUIPopupMenuButtonItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 1" handler:nil],
                                      [QMUIPopupMenuButtonItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 2" handler:nil],
                                      [QMUIPopupMenuButtonItem itemWithImage:UIImageMake(@"icon_emotion") title:@"分类 3" handler:nil]];
+        self.popupMenuView.sourceView = self.titleView;
         __weak __typeof(self)weakSelf = self;
         self.popupMenuView.didHideBlock = ^(BOOL hidesByUserTap) {
             weakSelf.titleView.active = NO;
         };
-    }
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    if (self.popupMenuView.isShowing) {
-        [self.popupMenuView layoutWithTargetView:self.titleView];
     }
 }
 
@@ -181,7 +175,6 @@
 
 - (void)didChangedActive:(BOOL)active forTitleView:(QMUINavigationTitleView *)titleView {
     if (active) {
-        [self.popupMenuView layoutWithTargetView:self.titleView];
         [self.popupMenuView showWithAnimated:YES];
     }
 }

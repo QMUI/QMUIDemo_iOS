@@ -22,7 +22,7 @@
     [super initSubviews];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
-    NSDictionary<NSString *, id> *codeAttributes = CodeAttributes(16);
+    NSDictionary<NSAttributedStringKey, id> *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
     }];
@@ -46,8 +46,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
-    self.descriptionLabel.frame = CGRectMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), QMUIViewSelfSizingHeight);
+    UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.qmui_safeAreaInsets.left, 24 + self.view.qmui_safeAreaInsets.bottom, 24 + self.view.qmui_safeAreaInsets.right);
+    self.descriptionLabel.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), QMUIViewSelfSizingHeight);
     
     self.subview1.qmui_left = 24;
     self.subview1.qmui_top = 24;

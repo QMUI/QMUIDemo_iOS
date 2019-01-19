@@ -72,7 +72,7 @@
     
     self.scrollView.frame = self.view.bounds;
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
+    UIEdgeInsets padding = UIEdgeInsetsMake(24, 24 + self.view.qmui_safeAreaInsets.left, 24, 24 + self.view.qmui_safeAreaInsets.right);
     CGFloat buttonSpacing = 24;
     CGSize buttonSize = CGSizeFlatted(CGSizeMake(CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(padding), 110));
     CGFloat buttonMinY = padding.top;

@@ -71,7 +71,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets paddings = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24, 24, 24);
+    UIEdgeInsets paddings = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.qmui_safeAreaInsets.left, 24 + self.view.qmui_safeAreaInsets.bottom, 24 + self.view.qmui_safeAreaInsets.right);
     
     self.descriptionLabel.frame = CGRectMake(paddings.left, paddings.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(paddings), QMUIViewSelfSizingHeight);
     

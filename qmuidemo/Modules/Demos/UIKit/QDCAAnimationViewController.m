@@ -68,7 +68,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets paddings = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 24, 24, 24, 24);
+    UIEdgeInsets paddings = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.qmui_safeAreaInsets.left, 24 + self.view.qmui_safeAreaInsets.bottom, 24 + self.view.qmui_safeAreaInsets.right);
     self.layer.frame = CGRectMake(paddings.left, paddings.top, 64, 64);
     self.actionButton.frame = CGRectMake(paddings.left, CGRectGetMaxY(self.layer.frame) + 24, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(paddings), CGRectGetHeight(self.actionButton.frame));
     self.tipsLabel.frame = CGRectMake(paddings.left, CGRectGetMaxY(self.actionButton.frame) + 16, CGRectGetWidth(self.actionButton.frame), QMUIViewSelfSizingHeight);

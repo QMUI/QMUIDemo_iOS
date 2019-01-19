@@ -64,6 +64,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.collectionView.frame = self.view.bounds;
+    self.collectionLayout.sectionInset = UIEdgeInsetsMake(24, 24 + self.view.qmui_safeAreaInsets.left, 24, 24 + self.view.qmui_safeAreaInsets.right);;
     self.collectionLayout.estimatedItemSize = CGSizeMake(CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionLayout.sectionInset), 300);
 }
 

@@ -29,6 +29,7 @@
 #import "QDMultipleDelegatesViewController.h"
 #import "QDBadgeViewController.h"
 #import "QDScrollAnimatorViewController.h"
+#import "QDConsoleViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -63,6 +64,7 @@
                        @"QMUIMultipleDelegates", UIImageMake(@"icon_grid_multipleDelegates"),
                        @"QMUIBadge", UIImageMake(@"icon_grid_badge"),
                        @"QMUIScrollAnimator", UIImageMake(@"icon_grid_scrollAnimator"),
+                       @"QMUIConsole", UIImageMake(@"icon_grid_console"),
                        nil];
 }
 
@@ -130,6 +132,9 @@
     }
     else if ([title isEqualToString:@"QMUIScrollAnimator"]) {
         viewController = [[QDScrollAnimatorViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUIConsole"]) {
+        viewController = [[QDConsoleViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

@@ -34,13 +34,13 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
+    UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.qmui_safeAreaInsets.left, 24 + self.view.qmui_safeAreaInsets.bottom, 24 + self.view.qmui_safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     // 所有布局都需要在同一个坐标系里才有效
     
     self.view1.qmui_left = padding.left;
-    self.view1.qmui_top = self.qmui_navigationBarMaxYInViewCoordinator + padding.top;
+    self.view1.qmui_top = padding.top;
     self.view1.qmui_width = contentWidth;
     self.view1.qmui_height = 40;
     
