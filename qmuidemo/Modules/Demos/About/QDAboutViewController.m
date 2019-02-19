@@ -202,7 +202,7 @@
 }
 
 - (void)handleVersionButtonEvent:(QMUIButton *)button {
-    [self openUrlString:@"https://github.com/QMUI/QMUI_iOS/releases"];
+    [self openUrlString:@"https://github.com/Tencent/QMUI_iOS/releases"];
 }
 
 - (void)handleWebsiteButtonEvent:(QMUIButton *)button {

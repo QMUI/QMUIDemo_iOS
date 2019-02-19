@@ -21,7 +21,7 @@ static NSString * const kCellIdentifier = @"cell";
 - (void)didInitializeWithStyle:(UITableViewStyle)style {
     [super didInitializeWithStyle:style];
     self.dataSource = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
-                       @"张三 的想法", @"全局 UI 配置：只需要修改一份配置表就可以调整 App 的全局样式，包括颜色、导航栏、输入框、列表等。一处修改，全局生效。",
+                       @"固定高度", @"这一行的高度在 tableView:heightForRowAtIndexPath: 里控制，不经过 sizeThatFits:",
                        @"李四 的想法", @"UIKit 拓展及版本兼容：拓展多个 UIKit 的组件，提供更加丰富的特性和功能，提高开发效率；解决不同 iOS 版本常见的兼容性问题。",
                        @"王五 的想法", @"高效的工具方法及宏：提供高效的工具方法，包括设备信息、动态字体、键盘管理、状态栏管理等，可以解决各种常见场景并大幅度提升开发效率。",
                        @"QMUI Team 的想法", @"全局 UI 配置：只需要修改一份配置表就可以调整 App 的全局样式，包括颜色、导航栏、输入框、列表等。一处修改，全局生效。\nUIKit 拓展及版本兼容：拓展多个 UIKit 的组件，提供更加丰富的特性和功能，提高开发效率；解决不同 iOS 版本常见的兼容性问题。\n高效的工具方法及宏：提供高效的工具方法，包括设备信息、动态字体、键盘管理、状态栏管理等，可以解决各种常见场景并大幅度提升开发效率。",
@@ -51,8 +51,7 @@ static NSString * const kCellIdentifier = @"cell";
 - (void)initTableView {
     [super initTableView];
     // 如果需要自动缓存 cell 高度的计算结果，则打开这个属性，然后实现 - [QMUITableViewDelegate qmui_tableView:cacheKeyForRowAtIndexPath:] 方法即可
-    // 只要打开这个属性，cell 的 self-sizing 特性也会被开启，所以请保证你的 cell 正确重写了 sizeThatFits: 方法（Auto-Layout 的忽略这句话）
-    self.tableView.estimatedRowHeight = 300;// 注意，QMUI 通过配置表的开关 TableViewEstimatedHeightEnabled，默认在所有 iOS 版本打开 estimatedRowHeight（系统是在 iOS 11 之后默认打开），所以图方便的话这一句也可以不用写。
+    // 请自行确保 tableView 的 estimated height 生效。
     self.tableView.qmui_cacheCellHeightByKeyAutomatically = YES;
 }
 
@@ -64,7 +63,7 @@ static NSString * const kCellIdentifier = @"cell";
     [self.dataSource setObject:@"变化后的内容" forKey:self.dataSource.allKeys[indexPath.row]];
     
     // 2. 在更新 UI 之前先令对应的缓存失效
-    [self.tableView qmui_invalidateHeightForKey:cachedKey];
+    [self.tableView qmui_invalidateCellHeightCachedForKey:cachedKey];
     
     // 3. 更新 UI
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -97,6 +96,20 @@ static NSString * const kCellIdentifier = @"cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView qmui_clearsSelection];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // estimatedHeightForRowAtIndexPath 的返回值会用于“该 indexPath 对应的 key 尚未有被缓存的高度”时，换句话说，如果该 indexPath 对应的 key 已经缓存了高度，则不会再调用该 indexPath 的 estimatedHeightForRowAtIndexPath 方法。
+    // 可通过观察 Xcode 控制台的 log 来判断当前方法是否被调用
+    NSLog(@"%@ - estimatedHeightForRowAtIndexPath called", @(indexPath.row));
+    return 300;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 200;// 返回一个大于等于0的值，则使用业务自己的返回值
+    }
+    return -1;// 返回一个小于0的值，表示交给 QMUICellHeightKeyCache
 }
 
 @end
