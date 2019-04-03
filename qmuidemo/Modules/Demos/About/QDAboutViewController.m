@@ -169,6 +169,11 @@
         CGFloat mainContentHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionButton.frame) + buttonMarginTop + buttonHeight * 2;
         CGFloat mainContentMinY = padding.top + (containerHeight - mainContentHeight) / 6;
         
+        if (DEVICE_HEIGHT <= [QMUIHelper screenSizeFor40Inch].height) {
+            buttonMarginTop -= 8;
+            buttonHeight -= 8;
+        }
+        
         self.logoImageView.frame = CGRectSetXY(self.logoImageView.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.logoImageView.frame), mainContentMinY);
         
         self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);

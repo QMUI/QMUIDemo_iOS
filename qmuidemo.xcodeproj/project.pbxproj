@@ -619,6 +619,14 @@
 		CDB8C9501DCC815A00769DF0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CDB8C99E1DCC815A00769DF0 /* QDCollectionDemoViewController.h */,
+				CDB8C99F1DCC815A00769DF0 /* QDCollectionDemoViewController.m */,
+				CDB8C9A01DCC815A00769DF0 /* QDCollectionListViewController.h */,
+				CDB8C9A11DCC815A00769DF0 /* QDCollectionListViewController.m */,
+				CDB8C99C1DCC815A00769DF0 /* QDCollectionStackDemoViewController.h */,
+				CDB8C99D1DCC815A00769DF0 /* QDCollectionStackDemoViewController.m */,
+				CDB8C9A21DCC815A00769DF0 /* QDCollectionViewDemoCell.h */,
+				CDB8C9A31DCC815A00769DF0 /* QDCollectionViewDemoCell.m */,
 				CDB8C9511DCC815A00769DF0 /* QDAssetsManagerViewController.h */,
 				CDB8C9521DCC815A00769DF0 /* QDAssetsManagerViewController.m */,
 				D0283ECA20C2F2290090DD45 /* QDBadgeViewController.h */,
@@ -745,14 +753,6 @@
 				CD9D6EC5211064060004E222 /* QDCAAnimationViewController.m */,
 				CDB8C99A1DCC815A00769DF0 /* QDChangeNavBarStyleViewController.h */,
 				CDB8C99B1DCC815A00769DF0 /* QDChangeNavBarStyleViewController.m */,
-				CDB8C99E1DCC815A00769DF0 /* QDCollectionDemoViewController.h */,
-				CDB8C99F1DCC815A00769DF0 /* QDCollectionDemoViewController.m */,
-				CDB8C9A01DCC815A00769DF0 /* QDCollectionListViewController.h */,
-				CDB8C9A11DCC815A00769DF0 /* QDCollectionListViewController.m */,
-				CDB8C99C1DCC815A00769DF0 /* QDCollectionStackDemoViewController.h */,
-				CDB8C99D1DCC815A00769DF0 /* QDCollectionStackDemoViewController.m */,
-				CDB8C9A21DCC815A00769DF0 /* QDCollectionViewDemoCell.h */,
-				CDB8C9A31DCC815A00769DF0 /* QDCollectionViewDemoCell.m */,
 				CDB8C9A41DCC815A00769DF0 /* QDColorViewController.h */,
 				CDB8C9A51DCC815A00769DF0 /* QDColorViewController.m */,
 				CDB8C9A81DCC815A00769DF0 /* QDFillButtonViewController.h */,
@@ -894,7 +894,7 @@
 			};
 			buildConfigurationList = 165F42EB1ADB60180057EF6A /* Build configuration list for PBXProject "qmuidemo" */;
 			compatibilityVersion = "Xcode 10.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
@@ -1288,6 +1288,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = Debug;
 		};
@@ -1327,6 +1328,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = Release;
 		};
@@ -1418,6 +1420,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "ea2ce615-e8b3-4c97-87a1-b8386d67eb8c";
 				SDKROOT = iphoneos;
+				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = RDM;
 		};

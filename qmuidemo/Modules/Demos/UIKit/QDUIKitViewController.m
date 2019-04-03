@@ -19,7 +19,6 @@
 #import "QDNavigationListViewController.h"
 #import "QDTabBarItemViewController.h"
 #import "QDUIViewQMUIViewController.h"
-#import "QDCollectionListViewController.h"
 #import "QDAboutViewController.h"
 #import "QDObjectViewController.h"
 #import "QDFontViewController.h"
@@ -38,7 +37,6 @@
                        @"QMUISlider", UIImageMake(@"icon_grid_slider"),
                        @"QMUIAlertController", UIImageMake(@"icon_grid_alert"),
                        @"QMUITableView", UIImageMake(@"icon_grid_cell"),
-                       @"QMUICollectionViewLayout", UIImageMake(@"icon_grid_collection"),
                        @"QMUISearchController", UIImageMake(@"icon_grid_search"),
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
                        @"QMUINavigationController", UIImageMake(@"icon_grid_navigation"),
@@ -81,9 +79,6 @@
     }
     else if ([title isEqualToString:@"QMUITableView"]) {
         viewController = [[QDTableViewController alloc] init];
-    }
-    else if ([title isEqualToString:@"QMUICollectionViewLayout"]) {
-        viewController = [[QDCollectionListViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUIButton"]) {
         viewController = [[QDButtonViewController alloc] init];

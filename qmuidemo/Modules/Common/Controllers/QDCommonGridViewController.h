@@ -11,6 +11,7 @@
 @interface QDCommonGridViewController : QDCommonViewController
 
 @property(nonatomic, strong) QMUIOrderedDictionary<NSString *, UIImage *> *dataSource;
+@property(nonatomic, strong, readonly) UIScrollView *scrollView;
 @property(nonatomic, strong, readonly) QMUIGridView *gridView;
 
 @end

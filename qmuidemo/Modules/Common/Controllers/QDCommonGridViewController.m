@@ -8,11 +8,6 @@
 
 #import "QDCommonGridViewController.h"
 
-@interface QDCommonGridViewController ()
-
-@property(nonatomic, strong) UIScrollView *scrollView;
-@end
-
 @interface QDCommonGridButton : QMUIButton
 
 @end
@@ -27,7 +22,7 @@
 - (void)initSubviews {
     [super initSubviews];
     
-    self.scrollView = [[UIScrollView alloc] init];
+    _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:self.scrollView];
     
     _gridView = [[QMUIGridView alloc] init];

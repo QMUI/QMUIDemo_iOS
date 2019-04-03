@@ -30,6 +30,7 @@
 #import "QDBadgeViewController.h"
 #import "QDScrollAnimatorViewController.h"
 #import "QDConsoleViewController.h"
+#import "QDCollectionListViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -65,6 +66,7 @@
                        @"QMUIBadge", UIImageMake(@"icon_grid_badge"),
                        @"QMUIScrollAnimator", UIImageMake(@"icon_grid_scrollAnimator"),
                        @"QMUIConsole", UIImageMake(@"icon_grid_console"),
+                       @"QMUICollectionViewLayout", UIImageMake(@"icon_grid_collection"),
                        nil];
 }
 
@@ -135,6 +137,9 @@
     }
     else if ([title isEqualToString:@"QMUIConsole"]) {
         viewController = [[QDConsoleViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUICollectionViewLayout"]) {
+        viewController = [[QDCollectionListViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];
