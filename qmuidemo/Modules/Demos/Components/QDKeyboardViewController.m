@@ -105,7 +105,11 @@ static CGFloat const kEmotionViewHeight = 232;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.view endEditing:YES];
+}
+
+- (void)removeFromParentViewController {
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [super removeFromParentViewController];
 }
 
 - (void)showInParentViewController:(UIViewController *)controller {
