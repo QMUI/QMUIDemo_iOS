@@ -10,6 +10,7 @@
 #import "QDInterceptBackButtonEventViewController.h"
 #import "QDChangeNavBarStyleViewController.h"
 #import "QDNavigationTransitionViewController.h"
+#import "QDNavigationBarMaxYViewController.h"
 
 @implementation QDNavigationListViewController
 
@@ -20,6 +21,7 @@
                                      @"感知系统的手势返回", @"可感知到是否成功手势返回或者中断了",
                                      @"方便控制界面导航栏样式", @"方便控制前后两个界面的导航栏和状态栏样式",
                                      @"优化导航栏在转场时的样式", @"优化系统navController只有一个navBar带来的问题",
+                                     @"获取导航栏的正确布局位置", @"特别是前后两个界面导航栏显隐状态不一致时容易出现布局跳动",
                                      nil];
 }
 
@@ -37,6 +39,10 @@
     else if ([title isEqualToString:@"优化导航栏在转场时的样式"]) {
         viewController = [[QDChangeNavBarStyleViewController alloc] init];
         ((QDChangeNavBarStyleViewController *)viewController).customNavBarTransition = YES;
+    }
+    else if ([title isEqualToString:@"获取导航栏的正确布局位置"]) {
+        viewController = [[QDNavigationBarMaxYViewController alloc] init];
+        ((QDNavigationBarMaxYViewController *)viewController).navigationBarHidden = YES;
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

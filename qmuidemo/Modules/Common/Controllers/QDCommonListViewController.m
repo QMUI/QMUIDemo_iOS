@@ -24,17 +24,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifierNormal = @"cellNormal";
-    QMUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierNormal];
+    NSString *identifier = nil;
+    QMUITableViewCell *cell = nil;
+    if (self.dataSourceWithDetailText) {
+        identifier = @"subtitle";
+    } else {
+        identifier = @"normal";
+    }
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        if (self.dataSourceWithDetailText) {
-            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifierNormal];
+        if ([identifier isEqualToString:@"subtitle"]) {
+            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         } else {
-            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifierNormal];
+            cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    if (self.dataSourceWithDetailText) {
+    if ([identifier isEqualToString:@"subtitle"]) {
         NSString *keyName = self.dataSourceWithDetailText.allKeys[indexPath.row];
         cell.textLabel.text = keyName;
         cell.detailTextLabel.text = (NSString *)[self.dataSourceWithDetailText objectForKey:keyName];

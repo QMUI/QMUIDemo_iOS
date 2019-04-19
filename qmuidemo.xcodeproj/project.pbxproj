@@ -43,6 +43,7 @@
 		CD1A8A721EC3110300B81693 /* QDThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8A711EC3110300B81693 /* QDThemeViewController.m */; };
 		CD1A8AA11EC4012400B81693 /* QMUIConfigurationTemplateGrass.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */; };
 		CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA31EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m */; };
+		CD2FEE5C2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */; };
 		CD3CDD4F1F39E977008529DA /* QDUIViewBorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD4E1F39E977008529DA /* QDUIViewBorderViewController.m */; };
 		CD3CDD521F39F077008529DA /* QDUIViewDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD511F39F077008529DA /* QDUIViewDebugViewController.m */; };
 		CD3CDD551F3AAD42008529DA /* QDUIViewLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */; };
@@ -234,6 +235,8 @@
 		CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplateGrass.m; sourceTree = "<group>"; };
 		CD1A8AA21EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplatePinkRose.h; sourceTree = "<group>"; };
 		CD1A8AA31EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplatePinkRose.m; sourceTree = "<group>"; };
+		CD2FEE5A2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBarMaxYViewController.h; sourceTree = "<group>"; };
+		CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarMaxYViewController.m; sourceTree = "<group>"; };
 		CD3CDD4D1F39E977008529DA /* QDUIViewBorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUIViewBorderViewController.h; sourceTree = "<group>"; };
 		CD3CDD4E1F39E977008529DA /* QDUIViewBorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDUIViewBorderViewController.m; sourceTree = "<group>"; };
 		CD3CDD501F39F077008529DA /* QDUIViewDebugViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUIViewDebugViewController.h; sourceTree = "<group>"; };
@@ -817,6 +820,8 @@
 				CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */,
 				CDB8C9CE1DCC815A00769DF0 /* QDUIViewQMUIViewController.h */,
 				CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */,
+				CD2FEE5A2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.h */,
+				CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1090,6 +1095,7 @@
 				CDB8C9F81DCC815A00769DF0 /* QDRippleAnimationViewController.m in Sources */,
 				CD3CDD521F39F077008529DA /* QDUIViewDebugViewController.m in Sources */,
 				CDB8CA0B1DCC815A00769DF0 /* QDLabelViewController.m in Sources */,
+				CD2FEE5C2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m in Sources */,
 				CDB8C9DD1DCC815A00769DF0 /* QDDialogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

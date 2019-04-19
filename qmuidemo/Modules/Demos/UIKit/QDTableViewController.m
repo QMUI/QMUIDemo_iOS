@@ -22,7 +22,6 @@
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    [self.tableView qmui_clearsSelection];
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"QMUITableViewCell"]) {
         viewController = [[QDTableViewCellViewController alloc] init];
