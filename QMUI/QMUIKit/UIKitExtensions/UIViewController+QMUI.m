@@ -244,10 +244,63 @@ static char kAssociatedObjectKey_visibleState;
         }
     }
     
-    UINavigationBar *navigationBar = (!navigationController.navigationBarHidden && navigationController.navigationBar) ? navigationController.navigationBar : nil;
-    
-    if (!navigationBar) {
+    if (!navigationController) {
         return 0;
+    }
+    
+    UINavigationBar *navigationBar = navigationController.navigationBar;
+    CGFloat barMinX = CGRectGetMinX(navigationBar.frame);
+    CGFloat barPresentationMinX = CGRectGetMinX(navigationBar.layer.presentationLayer.frame);
+    CGFloat superviewX = CGRectGetMinX(self.view.superview.frame);
+    CGFloat superviewX2 = CGRectGetMinX(self.view.superview.superview.frame);
+    
+    if (self.qmui_navigationControllerPoppingInteracted) {
+        if (barMinX != 0 && barMinX == barPresentationMinX) {
+            // 返回到无 bar 的界面
+            return 0;
+        } else if (barMinX > 0) {
+            if (self.qmui_willAppearByInteractivePopGestureRecognizer) {
+                // 要手势返回去的那个界面隐藏了 bar
+                return 0;
+            }
+        } else if (barMinX < 0) {
+            // 正在手势返回的这个界面隐藏了 bar
+            if (!self.qmui_willAppearByInteractivePopGestureRecognizer) {
+                return 0;
+            }
+        } else {
+            // 正在手势返回的这个界面隐藏了 bar
+            if (barPresentationMinX != 0 && !self.qmui_willAppearByInteractivePopGestureRecognizer) {
+                return 0;
+            }
+        }
+    } else {
+        if (barMinX > 0) {
+            // 正在 pop 回无 bar 的界面
+            if (superviewX2 <= 0) {
+                // 即将回到的那个无 bar 的界面
+                return 0;
+            }
+        } else if (barMinX < 0) {
+            if (barPresentationMinX < 0) {
+                // 从无 bar push 进无 bar 的界面
+                return 0;
+            }
+            // 正在从有 bar 的界面 push 到无 bar 的界面（bar 被推到左边屏幕外，所以是负数）
+            if (superviewX >= 0) {
+                // 即将进入的那个无 bar 的界面
+                return 0;
+            }
+        } else {
+            if (superviewX < 0 && barPresentationMinX != 0) {
+                // 无 bar push 进有 bar 的界面时，背后的那个无 bar 的界面
+                return 0;
+            }
+            if (superviewX2 > 0) {
+                // 无 bar pop 回有 bar 的界面时，被 pop 掉的那个无 bar 的界面
+                return 0;
+            }
+        }
     }
     
     CGRect navigationBarFrameInView = [self.view convertRect:navigationBar.frame fromView:navigationBar.superview];
@@ -435,6 +488,18 @@ static char kAssociatedObjectKey_dataLoaded;
 
 - (BOOL)qmui_shouldForceRotateDeviceOrientation {
     return NO;
+}
+
+@end
+
+@implementation UIViewController (QMUINavigationController)
+
+QMUISynthesizeBOOLProperty(qmui_navigationControllerPopGestureRecognizerChanging, setQmui_navigationControllerPopGestureRecognizerChanging)
+QMUISynthesizeBOOLProperty(qmui_poppingByInteractivePopGestureRecognizer, setQmui_poppingByInteractivePopGestureRecognizer)
+QMUISynthesizeBOOLProperty(qmui_willAppearByInteractivePopGestureRecognizer, setQmui_willAppearByInteractivePopGestureRecognizer)
+
+- (BOOL)qmui_navigationControllerPoppingInteracted {
+    return self.qmui_poppingByInteractivePopGestureRecognizer || self.qmui_willAppearByInteractivePopGestureRecognizer;
 }
 
 @end
