@@ -52,6 +52,8 @@
 		CD4421D21E85071A001B8C2A /* QDObjectMethodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4421D11E85071A001B8C2A /* QDObjectMethodsListViewController.m */; };
 		CD4A05F220288980000159E9 /* QDNavigationTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4A05F120288980000159E9 /* QDNavigationTransitionViewController.m */; };
 		CD4D339E1F010FD100FB81B0 /* QDStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */; };
+		CD4EA4B42275D58400A55066 /* animatedImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = CD4EA4B32275D58400A55066 /* animatedImage.gif */; };
+		CD4EA4B72275D5C200A55066 /* QDImageViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4EA4B62275D5C200A55066 /* QDImageViewViewController.m */; };
 		CD5387761EE0096C00654A73 /* QDSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5387751EE0096C00654A73 /* QDSliderViewController.m */; };
 		CD6BE204205BF41500BE093E /* QDCellHeightKeyCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6BE202205BF41500BE093E /* QDCellHeightKeyCacheViewController.m */; };
 		CD6CC62D1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */; };
@@ -253,6 +255,9 @@
 		CD4A05F120288980000159E9 /* QDNavigationTransitionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationTransitionViewController.m; sourceTree = "<group>"; };
 		CD4D339C1F010FD100FB81B0 /* QDStaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDStaticTableViewController.h; sourceTree = "<group>"; };
 		CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDStaticTableViewController.m; sourceTree = "<group>"; };
+		CD4EA4B32275D58400A55066 /* animatedImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedImage.gif; sourceTree = "<group>"; };
+		CD4EA4B52275D5C200A55066 /* QDImageViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDImageViewViewController.h; sourceTree = "<group>"; };
+		CD4EA4B62275D5C200A55066 /* QDImageViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDImageViewViewController.m; sourceTree = "<group>"; };
 		CD5387741EE0096C00654A73 /* QDSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSliderViewController.h; sourceTree = "<group>"; };
 		CD5387751EE0096C00654A73 /* QDSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSliderViewController.m; sourceTree = "<group>"; };
 		CD6BE202205BF41500BE093E /* QDCellHeightKeyCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCellHeightKeyCacheViewController.m; sourceTree = "<group>"; };
@@ -519,6 +524,7 @@
 		165F43551ADB71E90057EF6A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD4EA4B32275D58400A55066 /* animatedImage.gif */,
 				16F42C111B1C60A70038B28F /* image0@2x.png */,
 				165F43561ADB71FF0057EF6A /* image1@2x.png */,
 				CDD0D81A1E0A88B600A38B96 /* image2@2x.png */,
@@ -822,6 +828,8 @@
 				CDB8C9CF1DCC815A00769DF0 /* QDUIViewQMUIViewController.m */,
 				CD2FEE5A2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.h */,
 				CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */,
+				CD4EA4B52275D5C200A55066 /* QDImageViewViewController.h */,
+				CD4EA4B62275D5C200A55066 /* QDImageViewViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -947,6 +955,7 @@
 				CDD0D8221E0A88B600A38B96 /* image5@2x.png in Resources */,
 				CDD0D8211E0A88B600A38B96 /* image4@2x.png in Resources */,
 				16F42C121B1C60A70038B28F /* image0@2x.png in Resources */,
+				CD4EA4B42275D58400A55066 /* animatedImage.gif in Resources */,
 				165F43011ADB60180057EF6A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1023,6 +1032,7 @@
 				CDB8C9F71DCC815A00769DF0 /* QDReplicatorLayerViewController.m in Sources */,
 				CDB8C9DA1DCC815A00769DF0 /* UIImageEffects.m in Sources */,
 				CD9D6EC6211064060004E222 /* QDCAAnimationViewController.m in Sources */,
+				CD4EA4B72275D5C200A55066 /* QDImageViewViewController.m in Sources */,
 				CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */,
 				CD18BD8521871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m in Sources */,
 				D021DE46205E889100FFA408 /* QDCellSizeKeyCacheViewController.m in Sources */,

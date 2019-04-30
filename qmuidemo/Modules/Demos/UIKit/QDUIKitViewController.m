@@ -25,6 +25,7 @@
 #import "QDSliderViewController.h"
 #import "QDOrientationViewController.h"
 #import "QDCAAnimationViewController.h"
+#import "QDImageViewViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -43,6 +44,7 @@
                        @"UITabBarItem+QMUI", UIImageMake(@"icon_grid_tabBarItem"),
                        @"UIColor+QMUI", UIImageMake(@"icon_grid_color"),
                        @"UIImage+QMUI", UIImageMake(@"icon_grid_image"),
+                       @"UIImageView+QMUI", UIImageMake(@"icon_grid_imageView"),
                        @"UIFont+QMUI", UIImageMake(@"icon_grid_font"),
                        @"UIView+QMUI", UIImageMake(@"icon_grid_view"),
                        @"NSObject+QMUI", UIImageMake(@"icon_grid_nsobject"),
@@ -64,6 +66,9 @@
     }
     else if ([title isEqualToString:@"UIImage+QMUI"]) {
         viewController = [[QDImageViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"UIImageView+QMUI"]) {
+        viewController = [[QDImageViewViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUILabel"]) {
         viewController = [[QDLabelViewController alloc] init];
