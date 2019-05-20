@@ -148,8 +148,12 @@ static char kAssociatedObjectKey_textAttributes;
 static char kAssociatedObjectKey_lineHeight;
 - (void)setQmui_lineHeight:(CGFloat)qmui_lineHeight {
     objc_setAssociatedObject(self, &kAssociatedObjectKey_lineHeight, @(qmui_lineHeight), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
     // 注意：对于 UILabel，只要你设置过 text，则 attributedText 就是有值的，因此这里无需区分 setText 还是 setAttributedText
-    [self setAttributedText:self.attributedText];
+    // 注意：这里需要刷新一下 qmui_textAttributes 对 text 的样式，否则刚进行设置的 lineHeight 就会无法设置。
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.attributedText.string attributes:self.qmui_textAttributes];
+    attributedString = [[self attributedStringWithKernAndLineHeightAdjusted:attributedString] mutableCopy];
+    [self setAttributedText:attributedString];
 }
 
 - (CGFloat)qmui_lineHeight {
@@ -177,7 +181,7 @@ static char kAssociatedObjectKey_lineHeight;
 }
 
 - (BOOL)_hasSetQmuiLineHeight {
-    return objc_getAssociatedObject(self, &kAssociatedObjectKey_lineHeight);
+    return !!objc_getAssociatedObject(self, &kAssociatedObjectKey_lineHeight);
 }
 
 - (instancetype)qmui_initWithFont:(UIFont *)font textColor:(UIColor *)textColor {
@@ -197,7 +201,7 @@ static char kAssociatedObjectKey_lineHeight;
     self.textAlignment = label.textAlignment;
     if ([self respondsToSelector:@selector(setContentEdgeInsets:)] && [label respondsToSelector:@selector(contentEdgeInsets)]) {
         UIEdgeInsets contentEdgeInsets;
-        [label qmui_performSelector:@selector(contentEdgeInsets) withReturnValue:&contentEdgeInsets];
+        [label qmui_performSelector:@selector(contentEdgeInsets) withPrimitiveReturnValue:&contentEdgeInsets];
         [self qmui_performSelector:@selector(setContentEdgeInsets:) withArguments:&contentEdgeInsets, nil];
     }
 }
