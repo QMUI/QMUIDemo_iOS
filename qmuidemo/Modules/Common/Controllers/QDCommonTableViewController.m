@@ -15,6 +15,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleThemeChangedNotification:) name:QDThemeChangedNotification object:nil];
 }
 
+- (void)initTableView {
+    [super initTableView];
+    if (IsUITest) {
+        self.tableView.accessibilityLabel = [NSString stringWithFormat:@"viewController-%@", self.title];
+    }
+}
+
+- (void)setTitle:(NSString *)title {
+    [super setTitle:title];
+    if (IsUITest && self.isViewLoaded) {
+        self.tableView.accessibilityLabel = [NSString stringWithFormat:@"viewController-%@", self.title];
+    }
+}
+
 - (void)handleThemeChangedNotification:(NSNotification *)notification {
     NSObject<QDThemeProtocol> *themeBeforeChanged = notification.userInfo[QDThemeBeforeChangedName];
     themeBeforeChanged = [themeBeforeChanged isKindOfClass:[NSNull class]] ? nil : themeBeforeChanged;

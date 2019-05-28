@@ -52,6 +52,10 @@
     self.tipsLabel.frame = CGRectFlatMake(padding.left, CGRectGetMaxY(self.textField.frame) + 8, contentWidth, QMUIViewSelfSizingHeight);
 }
 
+- (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view {
+    return YES;
+}
+
 #pragma mark - <QMUITextFieldDelegate>
 
 - (void)textField:(QMUITextField *)textField didPreventTextChangeInRange:(NSRange)range replacementString:(NSString *)replacementString {

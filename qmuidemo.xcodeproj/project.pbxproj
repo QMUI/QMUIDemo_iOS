@@ -54,6 +54,8 @@
 		CD4D339E1F010FD100FB81B0 /* QDStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4D339D1F010FD100FB81B0 /* QDStaticTableViewController.m */; };
 		CD4EA4B42275D58400A55066 /* animatedImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = CD4EA4B32275D58400A55066 /* animatedImage.gif */; };
 		CD4EA4B72275D5C200A55066 /* QDImageViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4EA4B62275D5C200A55066 /* QDImageViewViewController.m */; };
+		CD4EA598228D87B000A55066 /* QMUIDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4EA597228D87B000A55066 /* QMUIDemoUITests.m */; };
+		CD4EA5A8228E9FCE00A55066 /* QDUITestTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4EA5A7228E9FCE00A55066 /* QDUITestTools.m */; };
 		CD5387761EE0096C00654A73 /* QDSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5387751EE0096C00654A73 /* QDSliderViewController.m */; };
 		CD6BE204205BF41500BE093E /* QDCellHeightKeyCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6BE202205BF41500BE093E /* QDCellHeightKeyCacheViewController.m */; };
 		CD6CC62D1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */; };
@@ -154,6 +156,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CD4EA59A228D87B000A55066 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 165F42E81ADB60180057EF6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 165F42EF1ADB60180057EF6A;
+			remoteInfo = qmuidemo;
+		};
+		CD4EA5A0228D87B000A55066 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD7593531EF7A2EC004B5819 /* qmui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CD4EA571228C401E00A55066;
+			remoteInfo = QMUIKitTests;
+		};
 		CD75935A1EF7A2EC004B5819 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CD7593531EF7A2EC004B5819 /* qmui.xcodeproj */;
@@ -258,6 +274,12 @@
 		CD4EA4B32275D58400A55066 /* animatedImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedImage.gif; sourceTree = "<group>"; };
 		CD4EA4B52275D5C200A55066 /* QDImageViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDImageViewViewController.h; sourceTree = "<group>"; };
 		CD4EA4B62275D5C200A55066 /* QDImageViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDImageViewViewController.m; sourceTree = "<group>"; };
+		CD4EA595228D87B000A55066 /* QMUIDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMUIDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD4EA597228D87B000A55066 /* QMUIDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QMUIDemoUITests.m; sourceTree = "<group>"; };
+		CD4EA599228D87B000A55066 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD4EA5A6228E9FCE00A55066 /* QDUITestTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDUITestTools.h; sourceTree = "<group>"; };
+		CD4EA5A7228E9FCE00A55066 /* QDUITestTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDUITestTools.m; sourceTree = "<group>"; };
+		CD4EA5A9228EDBFF00A55066 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CD5387741EE0096C00654A73 /* QDSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSliderViewController.h; sourceTree = "<group>"; };
 		CD5387751EE0096C00654A73 /* QDSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSliderViewController.m; sourceTree = "<group>"; };
 		CD6BE202205BF41500BE093E /* QDCellHeightKeyCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCellHeightKeyCacheViewController.m; sourceTree = "<group>"; };
@@ -458,6 +480,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD4EA592228D87B000A55066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -465,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				165F42F21ADB60180057EF6A /* qmuidemo */,
+				CD4EA596228D87B000A55066 /* QMUIDemoUITests */,
 				165F42F11ADB60180057EF6A /* Products */,
 				CDE50AD11DAA6E6F000D5414 /* Frameworks */,
 			);
@@ -474,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				165F42F01ADB60180057EF6A /* qmuidemo.app */,
+				CD4EA595228D87B000A55066 /* QMUIDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,6 +567,17 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		CD4EA596228D87B000A55066 /* QMUIDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CD4EA597228D87B000A55066 /* QMUIDemoUITests.m */,
+				CD4EA599228D87B000A55066 /* Info.plist */,
+				CD4EA5A6228E9FCE00A55066 /* QDUITestTools.h */,
+				CD4EA5A7228E9FCE00A55066 /* QDUITestTools.m */,
+			);
+			path = QMUIDemoUITests;
+			sourceTree = "<group>";
+		};
 		CD75934F1EF7A25C004B5819 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */,
+				CD4EA5A1228D87B000A55066 /* QMUIKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -848,6 +891,7 @@
 		CDE50AD11DAA6E6F000D5414 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD4EA5A9228EDBFF00A55066 /* XCTest.framework */,
 				CD7593641EF7A391004B5819 /* MediaPlayer.framework */,
 				CD7593611EF7A362004B5819 /* Photos.framework */,
 				CD7593601EF7A35B004B5819 /* libxml2.tbd */,
@@ -884,6 +928,24 @@
 			productReference = 165F42F01ADB60180057EF6A /* qmuidemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CD4EA594228D87B000A55066 /* QMUIDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD4EA5A2228D87B000A55066 /* Build configuration list for PBXNativeTarget "QMUIDemoUITests" */;
+			buildPhases = (
+				CD4EA591228D87B000A55066 /* Sources */,
+				CD4EA592228D87B000A55066 /* Frameworks */,
+				CD4EA593228D87B000A55066 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD4EA59B228D87B000A55066 /* PBXTargetDependency */,
+			);
+			name = QMUIDemoUITests;
+			productName = QMUIDemoUITests;
+			productReference = CD4EA595228D87B000A55066 /* QMUIDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -898,6 +960,10 @@
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeamName = "沛钞 陈 (Personal Team)";
 						ProvisioningStyle = Automatic;
+					};
+					CD4EA594228D87B000A55066 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 165F42EF1ADB60180057EF6A;
 					};
 					CDE85CF01F9701D600E622E8 = {
 						CreatedOnToolsVersion = 9.0;
@@ -927,11 +993,19 @@
 			targets = (
 				165F42EF1ADB60180057EF6A /* qmuidemo */,
 				CDE85CF01F9701D600E622E8 /* qmuidemo-rdm */,
+				CD4EA594228D87B000A55066 /* QMUIDemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		CD4EA5A1228D87B000A55066 /* QMUIKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = QMUIKitTests.xctest;
+			remoteRef = CD4EA5A0228D87B000A55066 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -957,6 +1031,13 @@
 				16F42C121B1C60A70038B28F /* image0@2x.png in Resources */,
 				CD4EA4B42275D58400A55066 /* animatedImage.gif in Resources */,
 				165F43011ADB60180057EF6A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD4EA593228D87B000A55066 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,9 +1191,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD4EA591228D87B000A55066 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD4EA5A8228E9FCE00A55066 /* QDUITestTools.m in Sources */,
+				CD4EA598228D87B000A55066 /* QMUIDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CD4EA59B228D87B000A55066 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 165F42EF1ADB60180057EF6A /* qmuidemo */;
+			targetProxy = CD4EA59A228D87B000A55066 /* PBXContainerItemProxy */;
+		};
 		CDE85CB81F95E21500E622E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QMUIKit;
@@ -1339,7 +1434,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qmuidemo.qmui;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qmuidemo.qmui-debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1347,6 +1442,88 @@
 				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = Release;
+		};
+		CD4EA59C228D87B000A55066 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QMUIDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qmui.QMUIDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = qmuidemo;
+			};
+			name = Debug;
+		};
+		CD4EA59D228D87B000A55066 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QMUIDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qmui.QMUIDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = qmuidemo;
+			};
+			name = Release;
+		};
+		CD4EA59E228D87B000A55066 /* RDM */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QMUIDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qmui.QMUIDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = qmuidemo;
+			};
+			name = RDM;
 		};
 		CDE85C9E1F95D70F00E622E8 /* RDM */ = {
 			isa = XCBuildConfiguration;
@@ -1431,7 +1608,7 @@
 					"-weak_framework",
 					RevealServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qmuidemo.qmui;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tencent.qmui-debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "ea2ce615-e8b3-4c97-87a1-b8386d67eb8c";
@@ -1483,6 +1660,16 @@
 				165F43141ADB60180057EF6A /* Debug */,
 				165F43151ADB60180057EF6A /* Release */,
 				CDE85C9F1F95D70F00E622E8 /* RDM */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = RDM;
+		};
+		CD4EA5A2228D87B000A55066 /* Build configuration list for PBXNativeTarget "QMUIDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD4EA59C228D87B000A55066 /* Debug */,
+				CD4EA59D228D87B000A55066 /* Release */,
+				CD4EA59E228D87B000A55066 /* RDM */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = RDM;

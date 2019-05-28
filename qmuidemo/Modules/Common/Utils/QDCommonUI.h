@@ -35,6 +35,8 @@ extern NSString *const QDSelectedThemeClassName;
 #define CodeFontMake(_pointSize) [UIFont fontWithName:@"Menlo" size:_pointSize]
 #define CodeAttributes(_fontSize) @{NSFontAttributeName: CodeFontMake(_fontSize), NSForegroundColorAttributeName: [QDThemeManager sharedInstance].currentTheme.themeCodeColor}
 
+#define IsUITest NSProcessInfo.processInfo.environment[@"isUITest"].boolValue
+
 /// QMUIButton 系列 Demo 里的一行高度
 extern const CGFloat QDButtonSpacingHeight;
 
