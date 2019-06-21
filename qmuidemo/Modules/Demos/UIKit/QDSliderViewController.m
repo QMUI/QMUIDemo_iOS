@@ -7,13 +7,16 @@
 //
 
 #import "QDSliderViewController.h"
+#import "QMUIStepSlider.h"
 
 @interface QDSliderViewController ()
 
 @property(nonatomic, strong) QMUISlider *slider;
+@property(nonatomic, strong) QMUIStepSlider *stepSlider;
 @property(nonatomic, strong) UISlider *systemSlider;
 @property(nonatomic, strong) UILabel *label1;
 @property(nonatomic, strong) UILabel *label2;
+@property(nonatomic, strong) UILabel *label3;
 @end
 
 @implementation QDSliderViewController
@@ -52,6 +55,29 @@
     self.label2.text = @"UISlider";
     [self.label2 sizeToFit];
     [self.view addSubview:self.label2];
+    
+    self.label3 = [[UILabel alloc] init];
+    [self.label3 qmui_setTheSameAppearanceAsLabel:self.label2];
+    self.label3.text = @"QMUIStepSlideBar 支持阶梯值滑动，选择范围值";
+    [self.label3 sizeToFit];
+    [self.view addSubview:self.label3];
+    
+    self.stepSlider = [[QMUIStepSlider alloc]initWithFrame:CGRectMake(30, 0, self.view.frame.size.width-60, 20)];
+    self.stepSlider.minimumValue = 0;
+    self.stepSlider.maximumValue = 100;
+    self.stepSlider.currenValueMax = 80;
+    self.stepSlider.currenValueMin = 20;
+    self.stepSlider.stageValue = 5;
+    self.stepSlider.center = self.view.center;
+    self.stepSlider.bStageFlag = YES; //开启阶梯进度值；
+    self.stepSlider.trackColor = UIColorGray9;
+    self.stepSlider.progressColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    [self.stepSlider resetSlideBtnPosition];
+    self.stepSlider.valueChangeListener = ^(NSInteger chooseMinValue, NSInteger chooseMaxValue) {
+        NSLog(@"当前选择的范围:%ld~%ld",chooseMinValue,chooseMaxValue);
+    };
+    [self.view addSubview:self.stepSlider];
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -68,6 +94,10 @@
     
     [self.systemSlider sizeToFit];
     self.systemSlider.frame = CGRectSetY(self.slider.frame, CGRectGetMaxY(self.label2.frame) + 16);
+    
+    self.label3.frame = CGRectSetXY(self.label3.frame, padding.left, CGRectGetMaxY(self.systemSlider.frame) + 64);
+    
+    self.stepSlider.qmui_top = CGRectGetMaxY(self.label3.frame) + 36;
 }
 
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1178D5692198258700AA30E5 /* NSURL+QMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1178D5672198258700AA30E5 /* NSURL+QMUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1178D56A2198258700AA30E5 /* NSURL+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 1178D5682198258700AA30E5 /* NSURL+QMUI.m */; };
+		9B824E8F22BC85EB00A8A280 /* QMUIStepSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B824E8D22BC85EB00A8A280 /* QMUIStepSlider.h */; };
+		9B824E9022BC85EB00A8A280 /* QMUIStepSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B824E8E22BC85EB00A8A280 /* QMUIStepSlider.m */; };
 		AA8860BA2107455C005E4054 /* QMUIWeakObjectContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8860B82107455C005E4054 /* QMUIWeakObjectContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA8860BB2107455C005E4054 /* QMUIWeakObjectContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8860B92107455C005E4054 /* QMUIWeakObjectContainer.m */; };
 		CD046C412018668900092035 /* QMUILogItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD046C3F2018668900092035 /* QMUILogItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -286,6 +288,8 @@
 		165F43DC1ADB786E0057EF6A /* QMUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIViewController.h; sourceTree = "<group>"; };
 		165F43DD1ADB786E0057EF6A /* QMUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIViewController.m; sourceTree = "<group>"; };
 		6D03A56D1B53895D003BDDE4 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9B824E8D22BC85EB00A8A280 /* QMUIStepSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIStepSlider.h; sourceTree = "<group>"; };
+		9B824E8E22BC85EB00A8A280 /* QMUIStepSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIStepSlider.m; sourceTree = "<group>"; };
 		AA8860B82107455C005E4054 /* QMUIWeakObjectContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QMUIWeakObjectContainer.h; sourceTree = "<group>"; };
 		AA8860B92107455C005E4054 /* QMUIWeakObjectContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QMUIWeakObjectContainer.m; sourceTree = "<group>"; };
 		CD046C3F2018668900092035 /* QMUILogItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QMUILogItem.h; sourceTree = "<group>"; };
@@ -926,6 +930,8 @@
 				CDC86F881F68D5F9000E8829 /* QMUISegmentedControl.m */,
 				CDC86F891F68D5F9000E8829 /* QMUISlider.h */,
 				CDC86F8A1F68D5F9000E8829 /* QMUISlider.m */,
+				9B824E8D22BC85EB00A8A280 /* QMUIStepSlider.h */,
+				9B824E8E22BC85EB00A8A280 /* QMUIStepSlider.m */,
 				CDC86F8B1F68D5F9000E8829 /* QMUITableView.h */,
 				CDC86F8C1F68D5F9000E8829 /* QMUITableView.m */,
 				CDC86F8D1F68D5F9000E8829 /* QMUITableViewCell.h */,
@@ -1180,6 +1186,7 @@
 				CDC86FD81F68D617000E8829 /* QMUIOrderedDictionary.h in Headers */,
 				CDC86FD91F68D617000E8829 /* QMUIPieProgressView.h in Headers */,
 				CDC86FDA1F68D617000E8829 /* QMUIPopupContainerView.h in Headers */,
+				9B824E8F22BC85EB00A8A280 /* QMUIStepSlider.h in Headers */,
 				CDC86FDC1F68D617000E8829 /* QMUIEmotionInputManager.h in Headers */,
 				CDC86FDD1F68D617000E8829 /* QMUISearchBar.h in Headers */,
 				CDC86FDE1F68D617000E8829 /* QMUISearchController.h in Headers */,
@@ -1430,6 +1437,7 @@
 				CDC870071F68D63B000E8829 /* QMUICollectionViewPagingLayout.m in Sources */,
 				CDC870081F68D63B000E8829 /* QMUIDialogViewController.m in Sources */,
 				CD8AA7B021E8BF0B00BA7369 /* QMUIConsoleToolbar.m in Sources */,
+				9B824E9022BC85EB00A8A280 /* QMUIStepSlider.m in Sources */,
 				CD18BC7421760D5900E2A4E6 /* QMUINavigationBarScrollingAnimator.m in Sources */,
 				CDC870091F68D63B000E8829 /* QMUIEmotionView.m in Sources */,
 				CDC8700A1F68D63B000E8829 /* QMUIEmptyView.m in Sources */,
