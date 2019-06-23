@@ -1,7 +1,7 @@
 # QMUIDemo_iOS
 Sample Code for QMUI iOS https://github.com/Tencent/QMUI_iOS
 
-支持 iOS 版本：iOS 8.0+
+支持 iOS 版本：iOS 9.0+
 
 ## 关于 GitHub 版本和 AppStore 版本
 
