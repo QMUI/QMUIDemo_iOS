@@ -7,11 +7,25 @@
 //
 
 #import "QDThemeManager.h"
-#import "QMUIConfigurationTemplate.h"
 
-NSString *const QDThemeChangedNotification = @"QDThemeChangedNotification";
-NSString *const QDThemeBeforeChangedName = @"QDThemeBeforeChangedName";
-NSString *const QDThemeAfterChangedName = @"QDThemeAfterChangedName";
+@interface QDThemeManager ()
+
+@property(nonatomic, strong) UIColor *qd_backgroundColor;
+@property(nonatomic, strong) UIColor *qd_backgroundColorLighten;
+@property(nonatomic, strong) UIColor *qd_backgroundColorHighlighted;
+@property(nonatomic, strong) UIColor *qd_tintColor;
+@property(nonatomic, strong) UIColor *qd_titleTextColor;
+@property(nonatomic, strong) UIColor *qd_mainTextColor;
+@property(nonatomic, strong) UIColor *qd_descriptionTextColor;
+@property(nonatomic, strong) UIColor *qd_placeholderColor;
+@property(nonatomic, strong) UIColor *qd_codeColor;
+@property(nonatomic, strong) UIColor *qd_separatorColor;
+@property(nonatomic, strong) UIColor *qd_gridItemTintColor;
+
+@property(nonatomic, strong) UIVisualEffect *qd_standardBlueEffect;
+
+@property(class, nonatomic, strong, readonly) QDThemeManager *sharedInstance;
+@end
 
 @implementation QDThemeManager
 
@@ -30,42 +44,114 @@ NSString *const QDThemeAfterChangedName = @"QDThemeAfterChangedName";
 
 - (instancetype)init {
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleThemeChangedNotification:) name:QDThemeChangedNotification object:nil];
+        self.qd_backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeBackgroundColor;
+        }];
+        self.qd_backgroundColorLighten = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+            return theme.themeBackgroundColorLighten;
+        }];
+        self.qd_backgroundColorHighlighted = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeBackgroundColorHighlighted;
+        }];
+        self.qd_tintColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeTintColor;
+        }];
+        self.qd_titleTextColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeTitleTextColor;
+        }];
+        self.qd_mainTextColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeMainTextColor;
+        }];
+        self.qd_descriptionTextColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeDescriptionTextColor;
+        }];
+        self.qd_placeholderColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themePlaceholderColor;
+        }];
+        self.qd_codeColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeCodeColor;
+        }];
+        self.qd_separatorColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+            return theme.themeSeparatorColor;
+        }];
+        self.qd_gridItemTintColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+            return theme.themeGridItemTintColor;
+        }];
+        
+        self.qd_standardBlueEffect = [UIVisualEffect qmui_effectWithThemeProvider:^UIVisualEffect * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [UIBlurEffect effectWithStyle:[identifier isEqualToString:QDThemeIdentifierDark] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
+        }];
     }
     return self;
 }
 
-- (void)handleThemeChangedNotification:(NSNotification *)notification {
-    NSObject<QDThemeProtocol> *themeBeforeChanged = notification.userInfo[QDThemeBeforeChangedName];
-    themeBeforeChanged = [themeBeforeChanged isKindOfClass:[NSNull class]] ? nil : themeBeforeChanged;
-    
-    NSObject<QDThemeProtocol> *themeAfterChanged = notification.userInfo[QDThemeAfterChangedName];
-    themeAfterChanged = [themeAfterChanged isKindOfClass:[NSNull class]] ? nil : themeAfterChanged;
-    
-    [self themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
++ (NSObject<QDThemeProtocol> *)currentTheme {
+    return QMUIThemeManager.sharedInstance.currentTheme;
 }
 
-- (void)setCurrentTheme:(NSObject<QDThemeProtocol> *)currentTheme {
-    BOOL isThemeChanged = _currentTheme != currentTheme;
-    NSObject<QDThemeProtocol> *themeBeforeChanged = nil;
-    if (isThemeChanged) {
-        themeBeforeChanged = _currentTheme;
-    }
-    _currentTheme = currentTheme;
-    if (isThemeChanged && themeBeforeChanged) {// 从 nil 变成某个 theme 就不发通知了，初始化时会自动 apply，这里只需要处理在 QD 里手动更改 theme 的场景就行
-        [currentTheme applyConfigurationTemplate];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QDThemeChangedNotification object:self userInfo:@{QDThemeBeforeChangedName: themeBeforeChanged ?: [NSNull null], QDThemeAfterChangedName: currentTheme ?: [NSNull null]}];
-    }
+@end
+
+@implementation UIColor (QDTheme)
+
++ (instancetype)qd_sharedInstance {
+    static dispatch_once_t onceToken;
+    static UIColor *instance = nil;
+    dispatch_once(&onceToken,^{
+        instance = [[super allocWithZone:NULL] init];
+    });
+    return instance;
 }
 
-#pragma mark - <QDChangingThemeDelegate>
++ (UIColor *)qd_backgroundColor {
+    return QDThemeManager.sharedInstance.qd_backgroundColor;
+}
 
-- (void)themeBeforeChanged:(NSObject<QDThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<QDThemeProtocol> *)themeAfterChanged {
-    // 主题发生变化，在这里更新全局 UI 控件的 appearance
-    [QDCommonUI renderGlobalAppearances];
-    
-    // 更新表情 icon 的颜色
-    [QDUIHelper updateEmotionImages];
++ (UIColor *)qd_backgroundColorLighten {
+    return QDThemeManager.sharedInstance.qd_backgroundColorLighten;
+}
+
++ (UIColor *)qd_backgroundColorHighlighted {
+    return QDThemeManager.sharedInstance.qd_backgroundColorHighlighted;
+}
+
++ (UIColor *)qd_tintColor {
+    return QDThemeManager.sharedInstance.qd_tintColor;
+}
+
++ (UIColor *)qd_titleTextColor {
+    return QDThemeManager.sharedInstance.qd_titleTextColor;
+}
+
++ (UIColor *)qd_mainTextColor {
+    return QDThemeManager.sharedInstance.qd_mainTextColor;
+}
+
++ (UIColor *)qd_descriptionTextColor {
+    return QDThemeManager.sharedInstance.qd_descriptionTextColor;
+}
+
++ (UIColor *)qd_placeholderColor {
+    return QDThemeManager.sharedInstance.qd_placeholderColor;
+}
+
++ (UIColor *)qd_codeColor {
+    return QDThemeManager.sharedInstance.qd_codeColor;
+}
+
++ (UIColor *)qd_separatorColor {
+    return QDThemeManager.sharedInstance.qd_separatorColor;
+}
+
++ (UIColor *)qd_gridItemTintColor {
+    return QDThemeManager.sharedInstance.qd_gridItemTintColor;
+}
+
+@end
+
+@implementation UIVisualEffect (QDTheme)
+
++ (UIVisualEffect *)qd_standardBlurEffect {
+    return QDThemeManager.sharedInstance.qd_standardBlueEffect;
 }
 
 @end

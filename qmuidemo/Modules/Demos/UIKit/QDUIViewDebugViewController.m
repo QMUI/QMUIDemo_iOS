@@ -21,7 +21,7 @@
 - (void)initSubviews {
     [super initSubviews];
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"通过 qmui_shouldShowDebugColor 让 UIView 以及其所有的 subviews 都加上一个背景色，方便查看其布局情况" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     NSDictionary<NSAttributedStringKey, id> *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];

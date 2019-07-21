@@ -45,7 +45,7 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
-        UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+        UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:UIColor.qd_tintColor];
         [self saveImageAsFile:blendedAboutLogoImage];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.themeAboutLogoImage = blendedAboutLogoImage;
@@ -70,7 +70,7 @@
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     self.versionButton = [[QMUIButton alloc] init];
     self.versionButton.titleLabel.font = UIFontMake(14);
-    [self.versionButton setTitleColor:UIColorGray3 forState:UIControlStateNormal];
+    [self.versionButton setTitleColor:UIColor.qd_mainTextColor forState:UIControlStateNormal];
     [self.versionButton setTitle:[NSString stringWithFormat:@"版本 %@", appVersion] forState:UIControlStateNormal];
     [self.versionButton sizeToFit];
     self.versionButton.qmui_outsideEdge = UIEdgeInsetsMake(-12, -12, -12, -12);
@@ -94,7 +94,7 @@
     
     self.copyrightLabel = [[UILabel alloc] init];
     self.copyrightLabel.numberOfLines = 0;
-    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2019 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray5, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2019 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
@@ -191,7 +191,7 @@
 }
 
 - (NSString *)userDefaultsKeyForAboutLogoImage {
-    return [NSString stringWithFormat:@"about_logo_%@@%.0fx.png", [QDThemeManager sharedInstance].currentTheme.themeName, ScreenScale];
+    return [NSString stringWithFormat:@"about_logo_%@@%.0fx.png", QDThemeManager.currentTheme.themeName, ScreenScale];
 }
 
 - (void)saveImageAsFile:(UIImage *)image {

@@ -16,7 +16,7 @@
 
 - (BOOL)qd_hasKeyboardFocus {
     // https://stackoverflow.com/a/35915719/4250833
-    return [self valueForKey:@"hasKeyboardFocus"];
+    return [self qmui_valueForKey:@"hasKeyboardFocus"];
 }
 
 - (void)qd_clearText {

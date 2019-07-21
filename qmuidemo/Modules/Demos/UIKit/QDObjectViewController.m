@@ -103,9 +103,13 @@
         cell.textLabel.numberOfLines = 0;
     }
     NSString *className = self.autocompletionClasses[indexPath.row];
+    NSString *superclassName = NSStringFromClass(class_getSuperclass(NSClassFromString(className)));
+    NSString *totalName = superclassName ? [NSString qmui_stringByConcat:className, @" : ", superclassName, nil] : className;
     NSRange matchingRange = [className.lowercaseString rangeOfString:self.searchBar.text.lowercaseString];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:className attributes:@{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1}];
-    [attributedString addAttribute:NSForegroundColorAttributeName value:[QDThemeManager sharedInstance].currentTheme.themeTintColor range:matchingRange];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:totalName attributes:@{NSFontAttributeName: CodeFontMake(14)}];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:UIColor.qd_mainTextColor range:NSMakeRange(0, className.length)];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:UIColor.qd_descriptionTextColor range:NSMakeRange(className.length, totalName.length - className.length)];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:UIColor.qd_tintColor range:matchingRange];
     cell.textLabel.attributedText = attributedString;
     [cell updateCellAppearanceWithIndexPath:indexPath];
     return cell;

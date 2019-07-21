@@ -10,11 +10,6 @@
 
 @implementation QDCommonTableViewController
 
-- (void)didInitialize {
-    [super didInitialize];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleThemeChangedNotification:) name:QDThemeChangedNotification object:nil];
-}
-
 - (void)initTableView {
     [super initTableView];
     if (IsUITest) {
@@ -29,23 +24,12 @@
     }
 }
 
-- (void)handleThemeChangedNotification:(NSNotification *)notification {
-    NSObject<QDThemeProtocol> *themeBeforeChanged = notification.userInfo[QDThemeBeforeChangedName];
-    themeBeforeChanged = [themeBeforeChanged isKindOfClass:[NSNull class]] ? nil : themeBeforeChanged;
-    
-    NSObject<QDThemeProtocol> *themeAfterChanged = notification.userInfo[QDThemeAfterChangedName];
-    themeAfterChanged = [themeAfterChanged isKindOfClass:[NSNull class]] ? nil : themeAfterChanged;
-    
-    [self themeBeforeChanged:themeBeforeChanged afterChanged:themeAfterChanged];
-}
-
 - (BOOL)shouldCustomizeNavigationBarTransitionIfHideable {
     return YES;
 }
 
-#pragma mark - <QDChangingThemeDelegate>
-
-- (void)themeBeforeChanged:(NSObject<QDThemeProtocol> *)themeBeforeChanged afterChanged:(NSObject<QDThemeProtocol> *)themeAfterChanged {
+- (void)qmui_themeDidChangeByManager:(QMUIThemeManager *)manager identifier:(__kindof NSObject<NSCopying> *)identifier theme:(__kindof NSObject *)theme {
+    [super qmui_themeDidChangeByManager:manager identifier:identifier theme:theme];
     [self.tableView reloadData];
 }
 

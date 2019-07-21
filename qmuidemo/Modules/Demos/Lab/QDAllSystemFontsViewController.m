@@ -53,8 +53,8 @@
     if (!cell) {
         cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.textColor = UIColorBlack;
-        cell.detailTextLabel.textColor = UIColorGray3;
+        cell.textLabel.textColor = UIColor.qd_mainTextColor;
+        cell.detailTextLabel.textColor = UIColor.qd_descriptionTextColor;
     }
     
     UIFont *font = self.allFonts[indexPath.row];

@@ -35,6 +35,7 @@
     self.textField.layer.borderWidth = PixelOne;
     self.textField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     self.textField.clearButtonMode = UITextFieldViewModeAlways;
+    self.textField.typingAttributes = @{NSForegroundColorAttributeName: UIColorRed};
     [self.view addSubview:self.textField];
     
     self.tipsLabel = [[UILabel alloc] init];

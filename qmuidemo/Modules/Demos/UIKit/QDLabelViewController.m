@@ -30,7 +30,7 @@
     _label1 = [[QMUILabel alloc] init];
     self.label1.text = @"可长按复制";
     self.label1.font = UIFontMake(15);
-    self.label1.textColor = UIColorGray5;
+    self.label1.textColor = UIColor.qd_descriptionTextColor;
     self.label1.canPerformCopyAction = YES;
     self.label1.didCopyBlock = ^(QMUILabel *label, NSString *stringCopied) {
         [QMUITips showSucceed:@"已复制"];
@@ -42,7 +42,9 @@
     self.label2.text = @"可设置 contentInsets";
     self.label2.font = UIFontMake(15);
     self.label2.textColor = UIColorWhite;
-    self.label2.backgroundColor = UIColorGray8;
+    self.label2.backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+        return [theme.themeTintColor colorWithAlphaComponent:.5];
+    }];
     self.label2.contentEdgeInsets = UIEdgeInsetsMake(8, 16, 8, 16);
     [self.label2 sizeToFit];
     [self.view addSubview:self.label2];

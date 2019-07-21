@@ -72,13 +72,13 @@ const NSInteger kIdentifierForDoneCell = 999;
         d.didSelectAction = @selector(handleDoneCellEvent:);
         d.cellForRowBlock = ^(UITableView *tableView, __kindof QMUITableViewCell *cell, QMUIStaticTableViewCellData *cellData) {
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            cell.textLabel.textColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+            cell.textLabel.textColor = UIColor.qd_tintColor;
         };
         d;
     })]]];
     
-    self.orientationLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray7];
-    self.orientationLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"当前界面支持的方向：\n%@", [self descriptionStringWithOrientationMask:self.supportedOrientationMask]] attributes:@{NSFontAttributeName: UIFontMake(14), NSForegroundColorAttributeName: UIColorGray7, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.orientationLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_descriptionTextColor];
+    self.orientationLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"当前界面支持的方向：\n%@", [self descriptionStringWithOrientationMask:self.supportedOrientationMask]] attributes:@{NSFontAttributeName: UIFontMake(14), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     self.orientationLabel.numberOfLines = 2;
     self.orientationLabel.contentEdgeInsets = UIEdgeInsetsMake(24, 24, 24, 24);
     [self.orientationLabel sizeToFit];

@@ -56,7 +56,7 @@
     // 支持 NSAttributedString 自定义 log 样式
 //    [QMUIConsole log:[[NSAttributedString alloc] initWithString:@"NSAttributedString log" attributes:({
 //        NSMutableDictionary<NSAttributedStringKey, id> *attributes = [QMUIConsole appearance].textAttributes.mutableCopy;
-//        attributes[NSForegroundColorAttributeName] = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+//        attributes[NSForegroundColorAttributeName] = UIColor.qd_tintColor;
 //        attributes;
 //    })]];
     
@@ -68,7 +68,7 @@
     [QMUIConsole logWithLevel:@"Info" name:@"QMUIBadge" logString:@"QMUIBadge's info log"];
     [QMUIConsole logWithLevel:@"Warn" name:@"QMUITableView" logString:[[NSAttributedString alloc] initWithString:@"QMUITableView's warn log" attributes:({
         NSMutableDictionary<NSAttributedStringKey, id> *attributes = [QMUIConsole appearance].textAttributes.mutableCopy;
-        attributes[NSForegroundColorAttributeName] = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+        attributes[NSForegroundColorAttributeName] = UIColor.qd_tintColor;
         attributes;
     })]];
     [QMUIConsole logWithLevel:@"Error" name:@"QMUIButton" logString:button];

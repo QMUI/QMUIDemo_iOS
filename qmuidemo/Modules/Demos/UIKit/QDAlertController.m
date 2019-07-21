@@ -69,7 +69,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         // 底部按钮
         QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
         QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDefault handler:NULL];
-        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
+        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(18, 18) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:UIColor.qd_tintColor] forState:UIControlStateNormal];
         action2.button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
         
         // 弹窗
@@ -80,7 +80,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         NSMutableDictionary *messageAttributs = [[NSMutableDictionary alloc] initWithDictionary:alertController.alertMessageAttributes];
         messageAttributs[NSForegroundColorAttributeName] = UIColorMakeWithRGBA(255, 255, 255, 0.75);
         alertController.alertMessageAttributes = messageAttributs;
-        alertController.alertHeaderBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+        alertController.alertHeaderBackgroundColor = UIColor.qd_tintColor;
         alertController.alertSeparatorColor = alertController.alertButtonBackgroundColor;
         alertController.alertTitleMessageSpacing = 7;
         
@@ -150,7 +150,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     if ([title isEqualToString:@"支持自定义 actionSheet 样式"]) {
         QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
         QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDefault handler:NULL];
-        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(22, 22) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor] forState:UIControlStateNormal];
+        [action2.button setImage:[[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(22, 22) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:UIColor.qd_tintColor] forState:UIControlStateNormal];
         action2.button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
         QMUIAlertController *alertController = [[QMUIAlertController alloc] initWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
         NSMutableDictionary *titleAttributs = [[NSMutableDictionary alloc] initWithDictionary:alertController.sheetTitleAttributes];
@@ -159,7 +159,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         NSMutableDictionary *messageAttributs = [[NSMutableDictionary alloc] initWithDictionary:alertController.sheetMessageAttributes];
         messageAttributs[NSForegroundColorAttributeName] = UIColorWhite;
         alertController.sheetMessageAttributes = messageAttributs;
-        alertController.sheetHeaderBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+        alertController.sheetHeaderBackgroundColor = UIColor.qd_tintColor;
         alertController.sheetSeparatorColor = alertController.sheetButtonBackgroundColor;
         
         NSMutableDictionary *buttonAttributes = [[NSMutableDictionary alloc] initWithDictionary:alertController.sheetButtonAttributes];

@@ -23,14 +23,14 @@ const CGFloat kContentMarginBotom = 10;
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
     [self.contentView addSubview:self.avatarImageView];
     
-    _nameLabel = [[UILabel alloc] qmui_initWithFont:UIFontBoldMake(16) textColor:UIColorGray2];
+    _nameLabel = [[UILabel alloc] qmui_initWithFont:UIFontBoldMake(16) textColor:UIColor.qd_mainTextColor];
     [self.contentView addSubview:self.nameLabel];
     
-    _contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(17) textColor:UIColorGray1];
+    _contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(17) textColor:UIColor.qd_mainTextColor];
     self.contentLabel.numberOfLines = 0;
     [self.contentView addSubview:self.contentLabel];
     
-    _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(13) textColor:UIColorGray];
+    _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(13) textColor:UIColor.qd_descriptionTextColor];
     [self.contentView addSubview:self.timeLabel];
 }
 

@@ -38,7 +38,7 @@
     self.layer = [CALayer layer];
     [self.layer qmui_removeDefaultAnimations];
     self.layer.cornerRadius = self.actionButton.layer.cornerRadius;
-    self.layer.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor.CGColor;
+    self.layer.backgroundColor = UIColor.qd_tintColor.CGColor;
     [self.view.layer addSublayer:self.layer];
 }
 

@@ -55,7 +55,7 @@
     _textLabel = [[UILabel alloc] init];
     _textLabel.numberOfLines = 0;
     _textLabel.textAlignment = NSTextAlignmentCenter;
-    _textLabel.textColor = UIColorGray4;
+    _textLabel.textColor = UIColor.qd_descriptionTextColor;
     _textLabel.font = UIFontMake(16);
     _textLabel.text = @"第一个动画使用CAAnimationGroup来实现，第二个动画使用CAReplicatorLayer来实现。";
     [_scrollView addSubview:_textLabel];

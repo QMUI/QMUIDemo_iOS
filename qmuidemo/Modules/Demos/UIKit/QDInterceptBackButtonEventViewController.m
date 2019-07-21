@@ -31,6 +31,7 @@
     [super initSubviews];
     
     _textView = [[QMUITextView alloc] init];
+    self.textView.backgroundColor = nil;
     self.textView.placeholder = @"请输入个人简介...";
     self.textView.font = UIFontMake(15);
     self.textView.layer.borderWidth = PixelOne;
@@ -77,11 +78,7 @@
 
 #pragma mark - UINavigationControllerBackButtonHandlerProtocol
 
-- (BOOL)shouldHoldBackButtonEvent {
-    return YES;
-}
-
-- (BOOL)canPopViewController {
+- (BOOL)shouldPopViewControllerByBackButtonOrPopGesture:(BOOL)byPopGesture {
     // 这里不要做一些费时的操作，否则可能会卡顿。
     if (self.textView.text.length > 0) {
         [self.textView resignFirstResponder];

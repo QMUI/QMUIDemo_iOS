@@ -56,7 +56,7 @@
 - (void)initSubviews {
     [super initSubviews];
     self.targetView = [[UIView alloc] qmui_initWithSize:CGSizeMake(100, 100)];
-    self.targetView.backgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.3];
+    self.targetView.backgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.3];
     [self.view addSubview:self.targetView];
     
     self.scrollView = [[UIScrollView alloc] init];
@@ -152,7 +152,7 @@
 }
 
 - (QMUILabel *)generateTitleLabelWithText:(NSString *)text {
-    QMUILabel *label = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorBlack];
+    QMUILabel *label = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
     label.text = text;
     [label sizeToFit];
     [self.scrollView addSubview:label];
@@ -161,7 +161,7 @@
 
 - (QMUISegmentedControl *)generateSegmentedControlWithItems:(NSArray<NSString *> *)items {
     QMUISegmentedControl *segmentedControl = [[QMUISegmentedControl alloc] initWithItems:items];
-    segmentedControl.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    segmentedControl.tintColor = UIColor.qd_tintColor;
     segmentedControl.frame = CGRectSetWidth(segmentedControl.frame, 240);// 统一按照最长的来就行啦
     segmentedControl.transform = CGAffineTransformMakeScale(.8, .8);
     segmentedControl.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
@@ -179,7 +179,7 @@
     button.imagePosition = QMUIButtonImagePositionRight;
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     button.titleLabel.font = UIFontMake(12);
-    [button setTitleColor:UIColorGray3 forState:UIControlStateNormal];
+    [button setTitleColor:UIColor.qd_descriptionTextColor forState:UIControlStateNormal];
     button.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
     button.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
     [self.scrollView addSubview:button];
@@ -194,7 +194,7 @@
     textField.layer.borderWidth = PixelOne;
     textField.layer.borderColor = UIColorSeparator.CGColor;
     textField.textAlignment = NSTextAlignmentCenter;
-    textField.textColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    textField.textColor = UIColor.qd_tintColor;
     [self.scrollView addSubview:textField];
     [textField addTarget:self action:@selector(handleTextFieldChangedEvent:) forControlEvents:UIControlEventEditingChanged];
     return textField;
@@ -290,10 +290,10 @@
         UIColor *borderColor = nil;
         switch (segmentedControl.selectedSegmentIndex) {
             case 0:
-                borderColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.5];
+                borderColor = [UIColor.qd_tintColor colorWithAlphaComponent:.5];
                 break;
             case 1:
-                borderColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+                borderColor = UIColor.qd_tintColor;
                 break;
             case 2:
                 borderColor = [UIColor blackColor];

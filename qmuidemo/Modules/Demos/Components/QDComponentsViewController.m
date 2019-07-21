@@ -31,6 +31,7 @@
 #import "QDScrollAnimatorViewController.h"
 #import "QDConsoleViewController.h"
 #import "QDCollectionListViewController.h"
+#import "QDThemeViewController.h"
 
 @implementation QDComponentsViewController
 
@@ -67,6 +68,7 @@
                        @"QMUIScrollAnimator", UIImageMake(@"icon_grid_scrollAnimator"),
                        @"QMUIConsole", UIImageMake(@"icon_grid_console"),
                        @"QMUICollectionViewLayout", UIImageMake(@"icon_grid_collection"),
+                       @"QMUITheme", UIImageMake(@"icon_grid_theme"),
                        nil];
 }
 
@@ -140,6 +142,9 @@
     }
     else if ([title isEqualToString:@"QMUICollectionViewLayout"]) {
         viewController = [[QDCollectionListViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"QMUITheme"]) {
+        viewController = [[QDThemeViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

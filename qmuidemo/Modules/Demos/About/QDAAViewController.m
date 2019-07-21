@@ -38,7 +38,7 @@
     __weak __typeof(self)weakSelf = self;
     self.textFieldConfigurationHandler = ^(QMUILabel *titleLabel, QMUITextField *textField, CALayer *separatorLayer) {
         titleLabel.font = UIFontMake(12);
-        titleLabel.textColor = UIColorGray1;
+        titleLabel.textColor = UIColor.qd_mainTextColor;
         textField.placeholder = @"输入原价";
         textField.font = UIFontMake(12);
         textField.keyboardType = UIKeyboardTypeDecimalPad;

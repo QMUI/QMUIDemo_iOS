@@ -22,8 +22,8 @@
     [super initSubviews];
     self.slider = [[QMUISlider alloc] init];
     self.slider.value = .3;
-    self.slider.minimumTrackTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-    self.slider.maximumTrackTintColor = UIColorGray9;
+    self.slider.minimumTrackTintColor = UIColor.qd_tintColor;
+    self.slider.maximumTrackTintColor = UIColor.qd_separatorColor;
     self.slider.trackHeight = 1;// 支持修改背后导轨的高度
     self.slider.thumbColor = self.slider.minimumTrackTintColor;
     self.slider.thumbSize = CGSizeMake(14, 14);// 支持修改拖拽圆点的大小

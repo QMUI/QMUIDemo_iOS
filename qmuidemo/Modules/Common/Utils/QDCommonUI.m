@@ -9,7 +9,12 @@
 #import "QDCommonUI.h"
 #import "QDUIHelper.h"
 
-NSString *const QDSelectedThemeClassName = @"selectedThemeClassName";
+NSString *const QDSelectedThemeIdentifier = @"selectedThemeIdentifier";
+NSString *const QDThemeIdentifierDefault = @"Default";
+NSString *const QDThemeIdentifierGrapefruit = @"Grapefruit";
+NSString *const QDThemeIdentifierGrass = @"Grass";
+NSString *const QDThemeIdentifierPinkRose = @"Pink Rose";
+NSString *const QDThemeIdentifierDark = @"Dark";
 
 const CGFloat QDButtonSpacingHeight = 72;
 
@@ -24,6 +29,9 @@ const CGFloat QDButtonSpacingHeight = 72;
     
     UISearchBar *searchBar = [UISearchBar appearance];
     searchBar.searchTextPositionAdjustment = UIOffsetMake(4, 0);
+    
+    QMUILabel *label = [QMUILabel appearance];
+    label.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;
 }
 
 @end
@@ -41,9 +49,10 @@ static NSArray<UIColor *> *themeColors = nil;
                         UIColorTheme6,
                         UIColorTheme7,
                         UIColorTheme8,
-                        UIColorTheme9];
+                        UIColorTheme9,
+                        UIColorTheme10];
     }
-    return themeColors[arc4random() % 9];
+    return themeColors[arc4random() % themeColors.count];
 }
 
 @end

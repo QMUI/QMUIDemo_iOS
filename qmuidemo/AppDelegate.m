@@ -14,10 +14,44 @@
 #import "QDUIKitViewController.h"
 #import "QDComponentsViewController.h"
 #import "QDLabViewController.h"
+#import "QMUIConfigurationTemplateGrapefruit.h"
+#import "QMUIConfigurationTemplateGrass.h"
+#import "QMUIConfigurationTemplatePinkRose.h"
+#import "QMUIConfigurationTemplateDark.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // 1. 先注册主题监听，在回调里将主题持久化存储，避免启动过程中主题发生变化时读取到错误的值
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleThemeDidChangeNotification:) name:QMUIThemeDidChangeNotification object:nil];
+    
+    // 2. 然后设置主题的生成器
+    QMUIThemeManager.sharedInstance.themeGenerator = ^__kindof NSObject * _Nonnull(NSString * _Nonnull identifier) {
+        if ([identifier isEqualToString:QDThemeIdentifierDefault]) return QMUIConfigurationTemplate.new;
+        if ([identifier isEqualToString:QDThemeIdentifierGrapefruit]) return QMUIConfigurationTemplateGrapefruit.new;
+        if ([identifier isEqualToString:QDThemeIdentifierGrass]) return QMUIConfigurationTemplateGrass.new;
+        if ([identifier isEqualToString:QDThemeIdentifierPinkRose]) return QMUIConfigurationTemplatePinkRose.new;
+        if ([identifier isEqualToString:QDThemeIdentifierDark]) return QMUIConfigurationTemplateDark.new;
+        return nil;
+    };
+    
+    // 3. 再针对 iOS 13 开启自动响应系统的 Dark Mode 切换
+    // 如果不需要这个功能，则不需要这一段代码
+    if (@available(iOS 13.0, *)) {
+        QMUIThemeManager.sharedInstance.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
+            if (trait.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return QDThemeIdentifierDark;
+            }
+            
+            if ([QMUIThemeManager.sharedInstance.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+                return QDThemeIdentifierDefault;
+            }
+            
+            return QMUIThemeManager.sharedInstance.currentThemeIdentifier;
+        };
+        QMUIThemeManager.sharedInstance.respondsSystemStyleAutomatically = YES;
+    }
     
     // QMUIConsole 默认只在 DEBUG 下会显示，作为 Demo，改为不管什么环境都允许显示
     [QMUIConsole sharedInstance].canShow = YES;
@@ -108,6 +142,19 @@
     } completion:^(BOOL finished) {
         [launchScreenView removeFromSuperview];
     }];
+}
+
+- (void)handleThemeDidChangeNotification:(NSNotification *)notification {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:QMUIThemeManager.sharedInstance.currentThemeIdentifier forKey:QDSelectedThemeIdentifier];
+    
+    [QDThemeManager.currentTheme applyConfigurationTemplate];
+    
+    // 主题发生变化，在这里更新全局 UI 控件的 appearance
+    [QDCommonUI renderGlobalAppearances];
+    
+    // 更新表情 icon 的颜色
+    [QDUIHelper updateEmotionImages];
 }
 
 @end

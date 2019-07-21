@@ -29,7 +29,7 @@
 
 - (void)initSubviews {
     [super initSubviews];
-    self.fontPointSizeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(18) textColor:UIColorGray1];
+    self.fontPointSizeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(18) textColor:UIColor.qd_mainTextColor];
     [self.fontPointSizeLabel qmui_calculateHeightAfterSetAppearance];
     [self.view addSubview:self.fontPointSizeLabel];
     
@@ -39,7 +39,7 @@
     [self.view addSubview:self.lineHeightLabel];
     
     self.fontPointSizeSlider = [[QMUISlider alloc] init];
-    self.fontPointSizeSlider.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.fontPointSizeSlider.tintColor = UIColor.qd_tintColor;
     self.fontPointSizeSlider.thumbSize = CGSizeMake(16, 16);
     self.fontPointSizeSlider.thumbColor = self.fontPointSizeSlider.tintColor;
     self.fontPointSizeSlider.thumbShadowColor = [self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3];
@@ -53,7 +53,7 @@
     [self.view addSubview:self.fontPointSizeSlider];
     
     self.exampleLabel = [[UILabel alloc] init];
-    self.exampleLabel.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.exampleLabel.backgroundColor = UIColor.qd_tintColor;
     self.exampleLabel.textColor = UIColorWhite;
     self.exampleLabel.text = @"字体大小与其对应的默认行高";
     [self.view addSubview:self.exampleLabel];

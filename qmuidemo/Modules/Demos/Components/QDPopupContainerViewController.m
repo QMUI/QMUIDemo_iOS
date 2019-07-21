@@ -76,7 +76,7 @@
     
     // 使用方法 1，以 addSubview: 的形式显示到界面上
     self.popupByAddSubview = [[QMUIPopupContainerView alloc] init];
-    self.popupByAddSubview.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+    self.popupByAddSubview.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:UIColor.qd_tintColor];
     self.popupByAddSubview.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
     self.popupByAddSubview.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     self.popupByAddSubview.didHideBlock = ^(BOOL hidesByUserTap) {
@@ -101,7 +101,7 @@
     self.popupByWindow.shouldShowItemSeparator = YES;
     self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuButtonItem *aItem, NSInteger section, NSInteger index) {
         // 利用 itemConfigurationHandler 批量设置所有 item 的样式
-        aItem.button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.2];
+        aItem.button.highlightedBackgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.2];
     };
     self.popupByWindow.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:^(QMUIPopupMenuButtonItem *aItem) {
         [aItem.menuView hideWithAnimated:YES];

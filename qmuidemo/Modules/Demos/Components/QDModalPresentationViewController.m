@@ -72,14 +72,14 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)handleShowContentView {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 400)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"默认的布局是上下左右居中，可通过contentViewMargins、maximumContentViewWidth属性来调整宽高、上下左右的偏移。\n你现在可以试试旋转一下设备试试看。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"默认的布局是上下左右居中，可通过contentViewMargins、maximumContentViewWidth属性来调整宽高、上下左右的偏移。\n你现在可以试试旋转一下设备试试看。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -105,14 +105,14 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)handleAnimationStyle {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 400)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"modalViewController提供的显示/隐藏动画总共有3种，可通过animationStyle属性来设置，默认为QMUIModalPresentationAnimationStyleFade。\n多次打开此浮层会在这3种动画之间互相切换。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"modalViewController提供的显示/隐藏动画总共有3种，可通过animationStyle属性来设置，默认为QMUIModalPresentationAnimationStyleFade。\n多次打开此浮层会在这3种动画之间互相切换。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
@@ -135,9 +135,11 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)handleCustomDimmingView {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 400)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
-    contentView.layer.shadowColor = UIColorBlack.CGColor;
+    contentView.layer.shadowColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, __kindof NSObject * _Nullable theme) {
+        return [identifier isEqualToString:QDThemeIdentifierDark] ? UIColorWhite : UIColorBlack;
+    }].CGColor;
     contentView.layer.shadowOpacity = .08;
     contentView.layer.shadowRadius = 15;
     contentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:contentView.bounds cornerRadius:contentView.layer.cornerRadius].CGPath;
@@ -146,7 +148,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController允许自定义背景遮罩的dimmingView，例如这里的背景遮罩是拿当前界面进行截图磨砂后显示出来的。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController允许自定义背景遮罩的dimmingView，例如这里的背景遮罩是拿当前界面进行截图磨砂后显示出来的。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
@@ -160,7 +162,11 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
     
     UIImage *blurredBackgroundImage = [UIImage qmui_imageWithView:self.navigationController.view];
-    blurredBackgroundImage = [UIImageEffects imageByApplyingExtraLightEffectToImage:blurredBackgroundImage];
+    if ([QMUIThemeManager.sharedInstance.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+        blurredBackgroundImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurredBackgroundImage];
+    } else {
+        blurredBackgroundImage = [UIImageEffects imageByApplyingExtraLightEffectToImage:blurredBackgroundImage];
+    }
     UIImageView *blurredDimmingView = [[UIImageView alloc] initWithImage:blurredBackgroundImage];
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
@@ -171,7 +177,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)handleLayoutBlockAndAnimation {
     UIScrollView *contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     contentView.alwaysBounceVertical = NO;
     
@@ -179,7 +185,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"利用layoutBlock可以自定义浮层的布局，注意此时contentViewMargins、maximumContentViewWidth属性均无效，如果需要实现外间距、最大宽高的保护，请自行计算。\n另外搭配showingAnimation、hidingAnimation也可制作自己的显示/隐藏动画，例如这个例子里实现了一个从底部升起的面板，升起后停靠在容器底端，你可以试着旋转设备，会发现依然能正确布局。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"利用layoutBlock可以自定义浮层的布局，注意此时contentViewMargins、maximumContentViewWidth属性均无效，如果需要实现外间距、最大宽高的保护，请自行计算。\n另外搭配showingAnimation、hidingAnimation也可制作自己的显示/隐藏动画，例如这个例子里实现了一个从底部升起的面板，升起后停靠在容器底端，你可以试着旋转设备，会发现依然能正确布局。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
@@ -197,7 +203,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.contentView = contentView;
     modalViewController.layoutBlock = ^(CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewDefaultFrame) {
-        contentView.frame = CGRectSetXY(contentView.frame, CGFloatGetCenter(CGRectGetWidth(containerBounds), CGRectGetWidth(contentView.frame)), CGRectGetHeight(containerBounds) - 20 - CGRectGetHeight(contentView.frame));
+        contentView.qmui_frameApplyTransform = CGRectSetXY(contentView.frame, CGFloatGetCenter(CGRectGetWidth(containerBounds), CGRectGetWidth(contentView.frame)), CGRectGetHeight(containerBounds) - 20 - CGRectGetHeight(contentView.frame));
     };
     modalViewController.showingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewFrame, void(^completion)(BOOL finished)) {
         contentView.frame = CGRectSetY(contentView.frame, CGRectGetHeight(containerBounds));
@@ -227,8 +233,10 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 }
 
 - (void)handleKeyboard {
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
-    contentView.backgroundColor = UIColorWhite;
+    UIScrollView *contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
+    contentView.alwaysBounceVertical = NO;
+    contentView.alwaysBounceHorizontal = NO;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
@@ -245,9 +253,9 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20];
     paragraphStyle.paragraphSpacing = 10;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"如果你的浮层里有输入框，建议在把输入框添加到界面上后立即调用becomeFirstResponder（如果你用contentViewController，则在viewWillAppear:时调用becomeFirstResponder），以保证键盘跟随浮层一起显示。\n而在浮层消失时，modalViewController会自动降下键盘，所以你的浮层里并不需要处理。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGrayDarken, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"如果你的浮层里有输入框，建议在把输入框添加到界面上后立即调用becomeFirstResponder（如果你用contentViewController，则在viewWillAppear:时调用becomeFirstResponder），以保证键盘跟随浮层一起显示。\n而在浮层消失时，modalViewController会自动降下键盘，所以你的浮层里并不需要处理。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     
-    NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(12), NSForegroundColorAttributeName: [[QDThemeManager sharedInstance].currentTheme.themeCodeColor colorWithAlphaComponent:.8]};
+    NSDictionary *codeAttributes = @{NSFontAttributeName: CodeFontMake(12), NSForegroundColorAttributeName: UIColor.qd_codeColor};
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
     }];
@@ -256,25 +264,35 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     [contentView addSubview:label];
     
     label.frame = CGRectMake(contentViewPadding.left, CGRectGetMaxY(textField.frame) + 8, contentLimitWidth, QMUIViewSelfSizingHeight);
-    
-    contentView.frame = CGRectSetHeight(contentView.frame, CGRectGetMaxY(label.frame) + contentViewPadding.bottom);
+    contentView.contentSize = CGSizeMake(CGRectGetWidth(contentView.bounds), CGRectGetMaxY(label.frame) + contentViewPadding.bottom);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
     modalViewController.animationStyle = QMUIModalPresentationAnimationStyleSlide;
+    __weak __typeof(modalViewController)weakModal = modalViewController;
+    modalViewController.layoutBlock = ^(CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewDefaultFrame) {
+        
+        CGSize contentViewContainerSize = CGSizeMake(CGRectGetWidth(containerBounds) - UIEdgeInsetsGetHorizontalValue(weakModal.contentViewMargins), CGRectGetHeight(containerBounds) - keyboardHeight - UIEdgeInsetsGetVerticalValue(weakModal.contentViewMargins));
+        CGSize contentViewLimitSize = CGSizeMake(MIN(weakModal.maximumContentViewWidth, contentViewContainerSize.width), contentViewContainerSize.height);
+        CGSize contentViewSize = contentView.contentSize;
+        contentViewSize.width = MIN(contentViewLimitSize.width, contentViewSize.width);
+        contentViewSize.height = MIN(contentViewLimitSize.height, contentViewSize.height);
+        CGRect contentViewFrame = CGRectMake(CGFloatGetCenter(contentViewContainerSize.width, contentViewSize.width) + weakModal.contentViewMargins.left, CGFloatGetCenter(contentViewContainerSize.height, contentViewSize.height) + weakModal.contentViewMargins.top, contentViewSize.width, contentViewSize.height);
+        contentView.qmui_frameApplyTransform = contentViewFrame;
+    };
     modalViewController.contentView = contentView;
     [modalViewController showWithAnimated:YES completion:nil];
 }
 
 - (void)handleWindowShowing {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 1 种，注意状态栏被遮罩盖住了" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 1 种，注意状态栏被遮罩盖住了" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -293,14 +311,14 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)handlePresentShowing {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     UILabel *label = [[UILabel alloc] init];
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 2 种，注意遮罩无法盖住屏幕顶部的状态栏。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 2 种，注意遮罩无法盖住屏幕顶部的状态栏。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -325,7 +343,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     CGRect modalRect = CGRectMake(40, self.qmui_navigationBarMaxYInViewCoordinator + 40, CGRectGetWidth(self.view.bounds) - 40 * 2, CGRectGetHeight(self.view.bounds) - self.qmui_navigationBarMaxYInViewCoordinator - 40 * 2);
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(modalRect) - 40, 200)];
-    contentView.backgroundColor = UIColorWhite;
+    contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
     self.modalViewControllerForAddSubview = [[QMUIModalPresentationViewController alloc] init];
@@ -338,7 +356,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 3 种，注意可以透过遮罩外的空白地方点击到背后的 cell" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 3 种，注意可以透过遮罩外的空白地方点击到背后的 cell" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -356,7 +374,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColorWhite;
+    self.view.backgroundColor = UIColor.qd_backgroundColorLighten;
     self.view.layer.cornerRadius = 6;
     
     self.scrollView = [[UIScrollView alloc] init];
@@ -368,7 +386,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.borderWidth = PixelOne;
-    self.imageView.layer.borderColor = UIColorSeparator.CGColor;
+    self.imageView.layer.borderColor = UIColor.qd_separatorColor.CGColor;
     self.imageView.image = UIImageMake(@"image0");
     [self.scrollView addSubview:self.imageView];
     
@@ -376,7 +394,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     self.textLabel.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"如果你的浮层是以UIViewController的形式存在的，那么就可以通过modalViewController.contentViewController属性来显示出来。\n利用UIViewController的特点，你可以方便地管理复杂的UI状态，并且响应设备在不同状态下的布局。\n例如这个例子里，图片和文字的排版会随着设备的方向变化而变化，你可以试着旋转屏幕看看效果。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorBlack, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"如果你的浮层是以UIViewController的形式存在的，那么就可以通过modalViewController.contentViewController属性来显示出来。\n利用UIViewController的特点，你可以方便地管理复杂的UI状态，并且响应设备在不同状态下的布局。\n例如这个例子里，图片和文字的排版会随着设备的方向变化而变化，你可以试着旋转屏幕看看效果。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         if (![codeString isEqualToString:@"UI"]) {
@@ -415,7 +433,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 #pragma mark - <QMUIModalPresentationContentViewControllerProtocol>
 
-- (CGSize)preferredContentSizeInModalPresentationViewController:(QMUIModalPresentationViewController *)controller limitSize:(CGSize)limitSize {
+- (CGSize)preferredContentSizeInModalPresentationViewController:(QMUIModalPresentationViewController *)controller keyboardHeight:(CGFloat)keyboardHeight limitSize:(CGSize)limitSize {
     // 高度无穷大表示不显示高度，则默认情况下会保证你的浮层高度不超过QMUIModalPresentationViewController的高度减去contentViewMargins
     return CGSizeMake(CGRectGetWidth(controller.view.bounds) - UIEdgeInsetsGetHorizontalValue(controller.view.qmui_safeAreaInsets) - UIEdgeInsetsGetHorizontalValue(controller.contentViewMargins), CGRectGetHeight(controller.view.bounds) - UIEdgeInsetsGetVerticalValue(controller.view.qmui_safeAreaInsets) - UIEdgeInsetsGetVerticalValue(controller.contentViewMargins));
 }

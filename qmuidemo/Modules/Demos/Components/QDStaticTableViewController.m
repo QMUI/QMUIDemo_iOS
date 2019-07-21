@@ -79,11 +79,6 @@
                                                             d.accessoryValueObject = @YES;// switch 类型的，可以通过传一个 NSNumber 对象给 accessoryValueObject 来指定这个 switch.on 的值
                                                             d.accessoryTarget = self;
                                                             d.accessoryAction = @selector(handleSwitchCellEvent:);
-                                                            d.cellForRowBlock = ^(UITableView *tableView, __kindof QMUITableViewCell *cell, QMUIStaticTableViewCellData *cellData) {
-                                                                UISwitch *switchControl = (UISwitch *)cell.accessoryView;
-                                                                switchControl.onTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-                                                                switchControl.tintColor = switchControl.onTintColor;
-                                                            };
                                                             d;
                                                         })],
                                                       

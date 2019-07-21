@@ -46,15 +46,14 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"qmui_smoothAnimation" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
+            cell.backgroundColor = TableViewCellBackgroundColor;
+            cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"qmui_smoothAnimation" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
             cell.detailTextLabel.attributedText = [[NSAttributedString alloc] initWithString:@"UIImageView (QMUI) 默认打开了 qmui_smoothAnimation，以支持在 UIScrollView 内使用 animatedImage 时依然能保证界面的流畅（系统在这种情况下会有明显的卡顿）。可通过切换右边的开关来对比效果。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
             cell.detailTextLabel.numberOfLines = 0;
             UISwitch *switchControl = [[UISwitch alloc] init];
             [switchControl sizeToFit];
             switchControl.transform = CGAffineTransformMakeScale(.8, .8);
             [switchControl addTarget:self action:@selector(handleSwitchEvent:) forControlEvents:UIControlEventTouchUpInside];
-            switchControl.onTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-            switchControl.tintColor = switchControl.onTintColor;
             cell.accessoryView = switchControl;
         }
         ((UISwitch *)cell.accessoryView).on = self.usingSmoothAnimation;
@@ -62,6 +61,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = TableViewCellBackgroundColor;
             cell.imageView.image = self.animatedImage;
         }
         cell.imageView.qmui_smoothAnimation = self.usingSmoothAnimation;

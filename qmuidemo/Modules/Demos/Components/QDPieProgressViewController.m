@@ -31,11 +31,6 @@
 
 @implementation QDPieProgressViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = UIColorWhite;
-}
-
 - (void)initSubviews {
     [super initSubviews];
     
@@ -49,7 +44,7 @@
     [self.scrollView addSubview:self.section1];
     
     self.progressView1 = [[QMUIPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
-    self.progressView1.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.progressView1.tintColor = UIColor.qd_tintColor;
     self.progressView1.progressAnimationDuration = .2;
     [self.progressView1 addTarget:self action:@selector(handleProgressViewValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.section1 addSubview:self.progressView1];
@@ -77,7 +72,7 @@
     [self.scrollView addSubview:self.section2];
     
     self.progressView2 = [[QMUIPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-    self.progressView2.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    self.progressView2.tintColor = UIColor.qd_tintColor;
     self.progressView2.borderWidth = 2;
     self.progressView2.borderInset = 3;
     [self.progressView2 setProgress:.3];

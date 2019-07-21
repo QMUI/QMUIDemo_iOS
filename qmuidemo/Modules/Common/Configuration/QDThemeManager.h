@@ -9,22 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "QDThemeProtocol.h"
 
-/// 当主题发生变化时，会发送这个通知
-extern NSString *const QDThemeChangedNotification;
+/// 简单对 QMUIThemeManager 做一层业务的封装，省去类型转换的工作量
+@interface QDThemeManager : NSObject
 
-/// 主题发生改变前的值，类型为 NSObject<QDThemeProtocol>，可能为 NSNull
-extern NSString *const QDThemeBeforeChangedName;
+@property(class, nonatomic, readonly, nullable) NSObject<QDThemeProtocol> *currentTheme;
+@end
 
-/// 主题发生改变后的值，类型为 NSObject<QDThemeProtocol>，可能为 NSNull
-extern NSString *const QDThemeAfterChangedName;
+@interface UIColor (QDTheme)
 
-/**
- *  QMUI Demo 的皮肤管理器，当需要换肤时，请为 currentTheme 赋值；当需要获取当前皮肤时，可访问 currentTheme 属性。
- *  可通过监听 QDThemeChangedNotification 通知来捕获换肤事件，默认地，QDCommonViewController 及 QDCommonTableViewController 均已支持响应换肤，其响应方法是通过 QDChangingThemeDelegate 接口来实现的。
- */
-@interface QDThemeManager : NSObject<QDChangingThemeDelegate>
+@property(class, nonatomic, strong, readonly) UIColor *qd_backgroundColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_backgroundColorLighten;
+@property(class, nonatomic, strong, readonly) UIColor *qd_backgroundColorHighlighted;
+@property(class, nonatomic, strong, readonly) UIColor *qd_tintColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_titleTextColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_mainTextColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_descriptionTextColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_placeholderColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_codeColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_separatorColor;
+@property(class, nonatomic, strong, readonly) UIColor *qd_gridItemTintColor;
+@end
 
-+ (instancetype)sharedInstance;
+@interface UIVisualEffect (QDTheme)
 
-@property(nonatomic, strong) NSObject<QDThemeProtocol> *currentTheme;
+@property(class, nonatomic, strong, readonly) UIVisualEffect *qd_standardBlurEffect;
 @end

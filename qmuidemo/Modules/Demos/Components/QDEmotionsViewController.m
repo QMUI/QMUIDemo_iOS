@@ -25,7 +25,7 @@
     
     self.descriptionLabel = [[UILabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIEmotionInputManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIEmotionInputManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColorGray1, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本界面以 QMUIEmotionInputManager 为例，展示 QMUIEmotionView 的功能，若需查看 QMUIEmotionView 的使用方式，请参考 QMUIEmotionInputManager。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -35,10 +35,11 @@
     
     self.toolbar = [[UIView alloc] init];
     self.toolbar.qmui_borderPosition = QMUIViewBorderPositionTop;
-    self.toolbar.backgroundColor = UIColorWhite;
+    self.toolbar.backgroundColor = UIColorForBackground;
     [self.view addSubview:self.toolbar];
     
     self.textField = [[QMUITextField alloc] init];
+    self.textField.backgroundColor = nil;
     self.textField.placeholder = @"请输入文字";
     self.textField.delegate = self;
     

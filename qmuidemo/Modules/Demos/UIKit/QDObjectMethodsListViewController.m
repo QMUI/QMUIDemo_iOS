@@ -141,7 +141,7 @@
     
     if (tableView == self.tableView) {
         cell.textLabel.font = CodeFontMake(14);
-        cell.textLabel.textColor = UIColorGray1;
+        cell.textLabel.textColor = TableViewCellTitleLabelColor;
         NSString *name = nil;
         if ([self isPropertiesSection:indexPath.section]) {
             name = self.properties[indexPath.row];
@@ -211,9 +211,9 @@
             [highlightedLocation addObject:@(location)];
         }
         if (lastLocation != NSNotFound) {
-            NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:obj attributes:@{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: UIColorGray1}];
+            NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:obj attributes:@{NSFontAttributeName: CodeFontMake(14), NSForegroundColorAttributeName: TableViewCellTitleLabelColor}];
             for (NSInteger i = 0; i < highlightedLocation.count; i++) {
-                [result addAttribute:NSForegroundColorAttributeName value:[QDThemeManager sharedInstance].currentTheme.themeCodeColor range:NSMakeRange(highlightedLocation[i].unsignedIntegerValue, 1)];
+                [result addAttribute:NSForegroundColorAttributeName value:QDThemeManager.currentTheme.themeCodeColor range:NSMakeRange(highlightedLocation[i].unsignedIntegerValue, 1)];
             }
             [self.searchResults addObject:result];
         }

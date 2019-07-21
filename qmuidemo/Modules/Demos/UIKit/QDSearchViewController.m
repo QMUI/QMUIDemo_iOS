@@ -21,7 +21,7 @@
     if (self) {
         self.backgroundColor = UIColorWhite;
         
-        self.titleLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray2];
+        self.titleLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
         self.titleLabel.text = @"最近搜索";
         self.titleLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 8, 0);
         [self.titleLabel sizeToFit];
@@ -119,7 +119,7 @@
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
         NSRange range = [keyword rangeOfString:self.mySearchController.searchBar.text];
         if (range.location != NSNotFound) {
-            [attributedString addAttributes:@{NSForegroundColorAttributeName: [QDThemeManager sharedInstance].currentTheme.themeTintColor} range:range];
+            [attributedString addAttributes:@{NSForegroundColorAttributeName: UIColor.qd_tintColor} range:range];
         }
         cell.textLabel.attributedText = attributedString;
     }

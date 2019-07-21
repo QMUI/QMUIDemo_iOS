@@ -45,7 +45,7 @@ static CGFloat const kEmotionViewHeight = 232;
     [self.view addSubview:self.maskControl];
     
     _containerView = [[UIView alloc] init];
-    self.containerView.backgroundColor = UIColorWhite;
+    self.containerView.backgroundColor = UIColorForBackground;
     self.containerView.layer.cornerRadius = 8;
     [self.view addSubview:self.containerView];
     
@@ -55,10 +55,16 @@ static CGFloat const kEmotionViewHeight = 232;
     self.textView.textContainerInset = UIEdgeInsetsMake(16, 12, 16, 12);
     self.textView.layer.cornerRadius = 8;
     self.textView.clipsToBounds = YES;
+    self.textView.backgroundColor = nil;
     [self.containerView addSubview:self.textView];
     
     _toolbarView = [[UIView alloc] init];
-    self.toolbarView.backgroundColor = UIColorMake(246, 246, 246);
+    self.toolbarView.backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+        if ([identifier isEqualToString:QDThemeIdentifierDark]) {
+            return UIColorForBackground;
+        }
+        return UIColorMake(246, 246, 246);
+    }];
     self.toolbarView.qmui_borderColor = UIColorSeparator;
     self.toolbarView.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.containerView addSubview:self.toolbarView];
@@ -87,8 +93,7 @@ static CGFloat const kEmotionViewHeight = 232;
     
     self.maskControl.frame = self.view.bounds;
     
-    CGRect containerRect = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 300);
-    self.containerView.frame = CGRectApplyAffineTransformWithAnchorPoint(containerRect, self.containerView.transform, self.containerView.layer.anchorPoint);
+    self.containerView.qmui_frameApplyTransform = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 300);
     
     self.toolbarView.frame = CGRectFlatMake(0, CGRectGetHeight(self.containerView.bounds) - kToolbarHeight, CGRectGetWidth(self.containerView.bounds), kToolbarHeight);
     self.cancelButton.frame = CGRectFlatMake(20, CGFloatGetCenter(CGRectGetHeight(self.toolbarView.bounds), CGRectGetHeight(self.cancelButton.bounds)), CGRectGetWidth(self.cancelButton.bounds), CGRectGetHeight(self.cancelButton.bounds));
@@ -211,7 +216,7 @@ static CGFloat const kEmotionViewHeight = 232;
     
     _contentLabel = [[QMUILabel alloc] init];
     self.contentLabel.numberOfLines = 0;
-    NSMutableAttributedString *contentAttributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIKeyboardManager 以更方便的方式管理键盘事件，无需再关心 notification、键盘坐标转换、判断是否目标输入框等问题，并兼容 iPad 浮动键盘和外接键盘。\nQMUIKeyboardManager 有两种使用方式，一种是直接使用，一种是集成到 UITextField(QMUI) 及 UITextView(QMUI) 内。" attributes:@{NSFontAttributeName:UIFontMake(16),NSForegroundColorAttributeName:UIColorGray1,NSParagraphStyleAttributeName:[NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24 lineBreakMode:NSLineBreakByCharWrapping]}];
+    NSMutableAttributedString *contentAttributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIKeyboardManager 以更方便的方式管理键盘事件，无需再关心 notification、键盘坐标转换、判断是否目标输入框等问题，并兼容 iPad 浮动键盘和外接键盘。\nQMUIKeyboardManager 有两种使用方式，一种是直接使用，一种是集成到 UITextField(QMUI) 及 UITextView(QMUI) 内。" attributes:@{NSFontAttributeName:UIFontMake(16),NSForegroundColorAttributeName:UIColor.qd_mainTextColor,NSParagraphStyleAttributeName:[NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24 lineBreakMode:NSLineBreakByCharWrapping]}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [contentAttributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         if (![codeString isEqualToString:@"notification"] && ![codeString isEqualToString:@"iPad"]) {
@@ -234,7 +239,7 @@ static CGFloat const kEmotionViewHeight = 232;
     [self.view addSubview:self.writeReviewButton];
     
     _toolbarView = [[UIView alloc] init];
-    self.toolbarView.backgroundColor = UIColorWhite;
+    self.toolbarView.backgroundColor = UIColorForBackground;
     self.toolbarView.qmui_borderColor = UIColorSeparator;
     self.toolbarView.qmui_borderPosition = QMUIViewBorderPositionTop;
     [self.view addSubview:self.toolbarView];
@@ -243,7 +248,7 @@ static CGFloat const kEmotionViewHeight = 232;
     self.toolbarTextField.delegate = self;
     self.toolbarTextField.placeholder = @"发表评论...";
     self.toolbarTextField.font = UIFontMake(15);
-    self.toolbarTextField.backgroundColor = UIColorWhite;
+    self.toolbarTextField.backgroundColor = nil;
     [self.toolbarView addSubview:self.toolbarTextField];
     
     __weak __typeof(self)weakSelf = self;
@@ -262,7 +267,7 @@ static CGFloat const kEmotionViewHeight = 232;
     _faceButton = [[QMUIButton alloc] init];
     self.faceButton.titleLabel.font = UIFontMake(16);
     self.faceButton.qmui_outsideEdge = UIEdgeInsetsMake(-12, -12, -12, -12);
-    [self.faceButton setImage:[UIImageMake(@"icon_emotion") qmui_imageWithTintColor:UIColorGray5] forState:UIControlStateNormal];
+    [self.faceButton setImage:[UIImageMake(@"icon_emotion") qmui_imageWithTintColor:UIColor.qd_descriptionTextColor] forState:UIControlStateNormal];
     [self.faceButton setImage:UIImageMake(@"icon_emotion") forState:UIControlStateSelected];
     [self.faceButton sizeToFit];
     [self.faceButton addTarget:self action:@selector(handleFaceButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -300,8 +305,7 @@ static CGFloat const kEmotionViewHeight = 232;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGRect toolbarRect = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kToolbarHeight);
-    self.toolbarView.frame = CGRectApplyAffineTransformWithAnchorPoint(toolbarRect, self.toolbarView.transform, self.toolbarView.layer.anchorPoint);
+    self.toolbarView.qmui_frameApplyTransform = CGRectFlatMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), kToolbarHeight);
     
     CGFloat textFieldInset = 8;
     CGFloat textFieldHeight = kToolbarHeight - textFieldInset * 2;

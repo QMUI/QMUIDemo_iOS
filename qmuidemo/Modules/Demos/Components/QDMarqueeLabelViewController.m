@@ -55,13 +55,13 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[QDMarqueeCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-    self.collectionView.backgroundColor = UIColorWhite;
+    self.collectionView.backgroundColor = nil;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.collectionView];
 }
 
 - (QMUIMarqueeLabel *)generateLabelWithText:(NSString *)text {
-    QMUIMarqueeLabel *label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorGray1];
+    QMUIMarqueeLabel *label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColor.qd_mainTextColor];
     label.textAlignment = NSTextAlignmentCenter;// 跑马灯文字一般都是居中显示，所以 Demo 里默认使用 center
     [label qmui_calculateHeightAfterSetAppearance];
     label.text = text;

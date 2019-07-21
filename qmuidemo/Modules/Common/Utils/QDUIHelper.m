@@ -21,7 +21,7 @@
 
 + (void)customMoreOperationAppearance {
     // 如果需要统一修改全局的 QMUIMoreOperationController 样式，在这里修改 appearance 的值即可
-    [QMUIMoreOperationController appearance].cancelButtonTitleColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    [QMUIMoreOperationController appearance].cancelButtonTitleColor = UIColor.qd_tintColor;
 }
 
 @end
@@ -40,12 +40,32 @@
 + (void)customDialogViewControllerAppearance {
     // 如果需要统一修改全局的 QMUIDialogViewController 样式，在这里修改 appearance 的值即可
     QMUIDialogViewController *appearance = [QMUIDialogViewController appearance];
+    appearance.backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+        if ([identifier isEqualToString:QDThemeIdentifierDark]) {
+            return UIColorMake(34, 34, 34);
+        }
+        return UIColorWhite;
+    }];
+    appearance.headerViewBackgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+        if ([identifier isEqualToString:QDThemeIdentifierDark]) {
+            return UIColorMake(34, 34, 34);
+        }
+        return UIColorMake(244, 245, 247);
+    }];
+    appearance.contentViewBackgroundColor = appearance.backgroundColor;
+    appearance.headerSeparatorColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+        if ([identifier isEqualToString:QDThemeIdentifierDark]) {
+            return UIColorMake(51, 51, 51);
+        }
+        return UIColorMake(222, 224, 226);
+    }];
+    appearance.footerSeparatorColor = appearance.headerSeparatorColor;
     
     NSMutableDictionary<NSString *, id> *buttonTitleAttributes = [appearance.buttonTitleAttributes mutableCopy];
-    buttonTitleAttributes[NSForegroundColorAttributeName] = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    buttonTitleAttributes[NSForegroundColorAttributeName] = UIColor.qd_tintColor;
     appearance.buttonTitleAttributes = [buttonTitleAttributes copy];
     
-    appearance.buttonHighlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor colorWithAlphaComponent:.25];
+    appearance.buttonHighlightedBackgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.25];
 }
 
 @end
@@ -56,7 +76,7 @@
 + (void)customEmotionViewAppearance {
     [QMUIEmotionView appearance].emotionSize = CGSizeMake(24, 24);
     [QMUIEmotionView appearance].minimumEmotionHorizontalSpacing = 14;
-    [QMUIEmotionView appearance].sendButtonBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    [QMUIEmotionView appearance].sendButtonBackgroundColor = UIColor.qd_tintColor;
 }
 
 @end
@@ -66,9 +86,9 @@
 + (void)customImagePickerAppearance {
     UIImage *checkboxImage = [QMUIHelper imageWithName:@"QMUI_pickerImage_checkbox"];
     UIImage *checkboxCheckedImage = [QMUIHelper imageWithName:@"QMUI_pickerImage_checkbox_checked"];
-    [QMUIImagePickerCollectionViewCell appearance].checkboxImage = [checkboxImage qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
-    [QMUIImagePickerCollectionViewCell appearance].checkboxCheckedImage = [checkboxCheckedImage qmui_imageWithTintColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
-    [QMUIImagePickerPreviewViewController appearance].toolBarTintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    [QMUIImagePickerCollectionViewCell appearance].checkboxImage = [checkboxImage qmui_imageWithTintColor:UIColor.qd_tintColor];
+    [QMUIImagePickerCollectionViewCell appearance].checkboxCheckedImage = [checkboxCheckedImage qmui_imageWithTintColor:UIColor.qd_tintColor];
+    [QMUIImagePickerPreviewViewController appearance].toolBarTintColor = UIColor.qd_tintColor;
 }
 
 @end
@@ -91,8 +111,8 @@
     button.adjustsButtonWhenHighlighted = YES;
     button.titleLabel.font = UIFontBoldMake(14);
     [button setTitleColor:UIColorWhite forState:UIControlStateNormal];
-    button.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
-    button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorBlack progress:.15];// 高亮时的背景色
+    button.backgroundColor = UIColor.qd_tintColor;
+    button.highlightedBackgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorBlack progress:.15];// 高亮时的背景色
     button.layer.cornerRadius = 4;
     return button;
 }
@@ -100,13 +120,13 @@
 + (QMUIButton *)generateLightBorderedButton {
     QMUIButton *button = [[QMUIButton alloc] qmui_initWithSize:CGSizeMake(200, 40)];
     button.titleLabel.font = UIFontBoldMake(14);
-    [button setTitleColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor forState:UIControlStateNormal];
-    button.backgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorWhite progress:.9];
-    button.highlightedBackgroundColor = [[QDThemeManager sharedInstance].currentTheme.themeTintColor qmui_transitionToColor:UIColorWhite progress:.75];// 高亮时的背景色
-    button.layer.borderColor = [button.backgroundColor qmui_transitionToColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor progress:.5].CGColor;
+    [button setTitleColor:UIColor.qd_tintColor forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.9];
+    button.highlightedBackgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.75];// 高亮时的背景色
+    button.layer.borderColor = [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.5].CGColor;
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 4;
-    button.highlightedBorderColor = [button.backgroundColor qmui_transitionToColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor progress:.9];// 高亮时的边框颜色
+    button.highlightedBorderColor = [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.9];// 高亮时的边框颜色
     return button;
 }
 
@@ -142,7 +162,7 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 + (void)asyncLoadImages:(NSArray<QMUIEmotion *> *)emotions {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         for (QMUIEmotion *e in emotions) {
-            e.image = [UIImageMake(e.identifier) qmui_imageWithBlendColor:[QDThemeManager sharedInstance].currentTheme.themeTintColor];
+            e.image = [UIImageMake(e.identifier) qmui_imageWithBlendColor:UIColor.qd_tintColor];
         }
     });
 }

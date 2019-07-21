@@ -49,7 +49,7 @@
 - (QMUILinkButton *)generateLinkButtonWithTitle:(NSString *)title {
     QMUILinkButton *linkButton = [[QMUILinkButton alloc] init];
     linkButton.adjustsTitleTintColorAutomatically = YES;
-    linkButton.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    linkButton.tintColor = UIColor.qd_tintColor;
     linkButton.titleLabel.font = UIFontMake(15);
     [linkButton setTitle:title forState:UIControlStateNormal];
     [linkButton sizeToFit];

@@ -83,6 +83,7 @@
     [super didInitializeWithStyle:style];
     self.titleLabelMarginBottom = 12;
     self.titleLabel = [[QMUILabel alloc] init];
+    self.titleLabel.textColor = TableViewCellTitleLabelColor;
     self.titleLabel.font = UIFontMake(14);
     [self.titleLabel qmui_calculateHeightAfterSetAppearance];
     [self.contentView addSubview:self.titleLabel];
@@ -143,7 +144,7 @@
     _label.text = @"[UIColor qmui_colorWithHexString:@\"#cddc39\"]";
     _label.font = UIFontMake(12);
     [_label sizeToFit];
-    _label.textColor = UIColorGray7;
+    _label.textColor = UIColor.qd_descriptionTextColor;
     [self.contentView addSubview:_label];
 }
 
@@ -203,7 +204,7 @@
         QMUILabel *titleLabel = [[QMUILabel alloc] init];
         titleLabel.text = dict[@"title"];
         titleLabel.font = UIFontMake(12);
-        titleLabel.textColor = UIColorGray7;
+        titleLabel.textColor = UIColor.qd_descriptionTextColor;
         titleLabel.textAlignment = NSTextAlignmentCenter;
         [titleLabel sizeToFit];
         [_labels addObject:titleLabel];
@@ -212,7 +213,7 @@
         QMUILabel *contentLabel = [[QMUILabel alloc] init];
         contentLabel.text = dict[@"content"];
         contentLabel.font = UIFontMake(12);
-        contentLabel.textColor = UIColorGray3;
+        contentLabel.textColor = UIColor.qd_mainTextColor;
         contentLabel.textAlignment = NSTextAlignmentCenter;
         [contentLabel sizeToFit];
         contentLabel.frame = CGRectSetY(contentLabel.frame, CGRectGetMaxY(titleLabel.frame) + 3);
@@ -267,7 +268,7 @@
     _label1 = [[QMUILabel alloc] init];
     _label1.text = @"0.5 ALPHA";
     _label1.font = UIFontMake(12);
-    _label1.textColor = UIColorGray7;
+    _label1.textColor = UIColor.qd_descriptionTextColor;
     [_label1 sizeToFit];
     [self.contentView addSubview:_label1];
     
@@ -438,7 +439,7 @@
     
     _label = [[QMUILabel alloc] init];
     _label.text = @"0.5 ALPHA";
-    _label.textColor = UIColorGray7;;
+    _label.textColor = UIColor.qd_descriptionTextColor;
     _label.font = UIFontMake(12);
     [_label sizeToFit];
 

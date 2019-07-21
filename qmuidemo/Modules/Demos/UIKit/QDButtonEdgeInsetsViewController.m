@@ -93,7 +93,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 }
 
 - (UILabel *)generateLabelWithTitle:(NSString *)title {
-    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray3];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
     label.numberOfLines = 0;
     label.qmui_lineHeight = 20;
     label.text = title;
@@ -281,7 +281,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 }
 
 - (UILabel *)generateLabelWithText:(NSString *)text {
-    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorGray3];
+    UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
     label.text = text;
     [label sizeToFit];
     [self.contentView addSubview:label];
@@ -290,7 +290,6 @@ const CGSize SizeForStaticSizeView = {140, 60};
 
 - (UISwitch *)generateSwitch {
     UISwitch *switchControl = [[UISwitch alloc] init];
-    switchControl.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
     [switchControl sizeToFit];
     switchControl.transform = CGAffineTransformMakeScale(.7, .7);
     [switchControl addTarget:self action:@selector(handleSwitchControlEvent:) forControlEvents:UIControlEventValueChanged];
@@ -300,7 +299,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 
 - (UISegmentedControl *)generateSegmentedWithItems:(NSArray<NSString *> *)items {
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-    segmentedControl.tintColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    segmentedControl.tintColor = UIColor.qd_tintColor;
     segmentedControl.frame = CGRectSetWidth(segmentedControl.frame, 240);// 统一按照最长的来就行啦
     segmentedControl.transform = CGAffineTransformMakeScale(.8, .8);
     [segmentedControl addTarget:self action:@selector(handleSegmentedControlEvent:) forControlEvents:UIControlEventValueChanged];

@@ -115,7 +115,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     QMUIDialogViewController *dialogViewController = [[QMUIDialogViewController alloc] init];
     dialogViewController.title = @"标题";
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
-    contentView.backgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    contentView.backgroundColor = UIColor.qd_tintColor;
     UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorWhite];
     label.text = @"自定义contentView";
     [label sizeToFit];
@@ -129,7 +129,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
     }];
     
     // 自定义样式
-    dialogViewController.headerViewBackgroundColor = [QDThemeManager sharedInstance].currentTheme.themeTintColor;
+    dialogViewController.headerViewBackgroundColor = UIColor.qd_tintColor;
     dialogViewController.headerSeparatorColor = nil;
     dialogViewController.footerSeparatorColor = nil;
     dialogViewController.titleTintColor = UIColorWhite;

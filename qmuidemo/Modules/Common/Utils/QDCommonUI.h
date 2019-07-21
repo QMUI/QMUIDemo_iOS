@@ -20,6 +20,16 @@
 #define UIColorGray8 UIColorMake(196, 200, 208)
 #define UIColorGray9 UIColorMake(216, 220, 228)
 
+#define UIColorDarkGray1 UIColorMake(218, 220, 224)
+#define UIColorDarkGray2 UIColorMake(198, 200, 204)
+#define UIColorDarkGray3 UIColorMake(178, 180, 184)
+#define UIColorDarkGray4 UIColorMake(158, 160, 164)
+#define UIColorDarkGray5 UIColorMake(138, 140, 144)
+#define UIColorDarkGray6 UIColorMake(118, 120, 124)
+#define UIColorDarkGray7 UIColorMake(98, 100, 104)
+#define UIColorDarkGray8 UIColorMake(78, 80, 84)
+#define UIColorDarkGray9 UIColorMake(58, 60, 64)
+
 #define UIColorTheme1 UIColorMake(239, 83, 98) // Grapefruit
 #define UIColorTheme2 UIColorMake(254, 109, 75) // Bittersweet
 #define UIColorTheme3 UIColorMake(255, 207, 71) // Sunflower
@@ -29,11 +39,17 @@
 #define UIColorTheme7 UIColorMake(90, 154, 239) // Blue Jeans
 #define UIColorTheme8 UIColorMake(172, 143, 239) // Lavender
 #define UIColorTheme9 UIColorMake(238, 133, 193) // Pink Rose
+#define UIColorTheme10 UIColorMake(39, 192, 243) // Dark
 
-extern NSString *const QDSelectedThemeClassName;
+extern NSString *const QDSelectedThemeIdentifier;
+extern NSString *const QDThemeIdentifierDefault;
+extern NSString *const QDThemeIdentifierGrapefruit;
+extern NSString *const QDThemeIdentifierGrass;
+extern NSString *const QDThemeIdentifierPinkRose;
+extern NSString *const QDThemeIdentifierDark;
 
 #define CodeFontMake(_pointSize) [UIFont fontWithName:@"Menlo" size:_pointSize]
-#define CodeAttributes(_fontSize) @{NSFontAttributeName: CodeFontMake(_fontSize), NSForegroundColorAttributeName: [QDThemeManager sharedInstance].currentTheme.themeCodeColor}
+#define CodeAttributes(_fontSize) @{NSFontAttributeName: CodeFontMake(_fontSize), NSForegroundColorAttributeName: QDThemeManager.currentTheme.themeCodeColor}
 
 #define IsUITest NSProcessInfo.processInfo.environment[@"isUITest"].boolValue
 
