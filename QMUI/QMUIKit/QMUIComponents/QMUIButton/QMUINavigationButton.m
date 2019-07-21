@@ -20,6 +20,7 @@
 #import "QMUINavigationController.h"
 #import "QMUILog.h"
 #import "UIControl+QMUI.h"
+#import "UIView+QMUI.h"
 
 typedef NS_ENUM(NSInteger, QMUINavigationButtonPosition) {
     QMUINavigationButtonPositionNone = -1,  // 不处于navigationBar最左（右）边的按钮，则使用None。用None则不会在alignmentRectInsets里调整位置
@@ -75,6 +76,10 @@ typedef NS_ENUM(NSInteger, QMUINavigationButtonPosition) {
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
+    
+    // UIBarButtonItem 默认都是跟随 tintColor 的，所以这里让图片也是用 alwaysTemplate 模式
+    self.adjustsImageTintColorAutomatically = YES;
+    
     if (self.type == QMUINavigationButtonTypeImage) {
         if (@available(iOS 11, *)) {
             // 让 iOS 11 及以后也能走到 alignmentRectInsets，iOS 10 及以前的系统就算不置为 NO 也可以走到 alignmentRectInsets，从而保证 image 类型的按钮的布局、间距与系统的保持一致
@@ -133,11 +138,11 @@ typedef NS_ENUM(NSInteger, QMUINavigationButtonPosition) {
 }
 
 - (void)setImage:(UIImage *)image forState:(UIControlState)state {
+    if (image && self.adjustsImageTintColorAutomatically) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    
     if (image && [self imageForState:state] != image) {
-        if (image.renderingMode == UIImageRenderingModeAutomatic) {
-            // UIBarButtonItem 默认都是跟随 tintColor 的，所以这里让图片也是用 AlwaysTemplate 模式
-            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        }
         if (state == UIControlStateNormal) {
             // 将 normal image 处理成对应的 highlighted image 和 disabled image
             self.defaultHighlightedImage = [[image qmui_imageWithAlpha:NavBarHighlightedAlpha] imageWithRenderingMode:image.renderingMode];
@@ -157,7 +162,38 @@ typedef NS_ENUM(NSInteger, QMUINavigationButtonPosition) {
             }
         }
     }
+    
     [super setImage:image forState:state];
+}
+
+- (void)setAdjustsImageTintColorAutomatically:(BOOL)adjustsImageTintColorAutomatically {
+    BOOL valueDifference = _adjustsImageTintColorAutomatically != adjustsImageTintColorAutomatically;
+    _adjustsImageTintColorAutomatically = adjustsImageTintColorAutomatically;
+    
+    if (valueDifference) {
+        [self updateImageRenderingModeIfNeeded];
+    }
+}
+
+- (void)updateImageRenderingModeIfNeeded {
+    if (self.currentImage) {
+        NSArray<NSNumber *> *states = @[@(UIControlStateNormal), @(UIControlStateHighlighted), @(UIControlStateSelected), @(UIControlStateSelected|UIControlStateHighlighted), @(UIControlStateDisabled)];
+        
+        for (NSNumber *number in states) {
+            UIImage *image = [self imageForState:number.unsignedIntegerValue];
+            if (!image) {
+                return;
+            }
+            
+            if (self.adjustsImageTintColorAutomatically) {
+                // 这里的 setImage: 操作不需要使用 renderingMode 对 image 重新处理，而是放到重写的 setImage:forState 里去做就行了
+                [self setImage:image forState:[number unsignedIntegerValue]];
+            } else {
+                // 如果不需要用 template 的模式渲染，并且之前是使用 template 的，则把 renderingMode 改回 original
+                [self setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:[number unsignedIntegerValue]];
+            }
+        }
+    }
 }
 
 // 自定义nav按钮，需要根据这个来修改title的三态颜色。
@@ -370,9 +406,15 @@ QMUISynthesizeIdCopyProperty(tempRightBarButtonItems, setTempRightBarButtonItems
             UINavigationController *navController = (UINavigationController *)self.qmui_navigationBar.delegate;
             
 //            QMUILog(@"UINavigationItem (QMUINavigationButton)", @"navigationController is %@, topViewController is %@, viewControllers is %@, willAppearByInteractivePopGestureRecognizer is %@, navigationControllerPopGestureRecognizerChanging is %@", navController, navController.topViewController, navController.viewControllers, StringFromBOOL(navController.topViewController.qmui_willAppearByInteractivePopGestureRecognizer), StringFromBOOL(navController.topViewController.qmui_navigationControllerPopGestureRecognizerChanging));
+
+            // 判断是否当前处于手势返回的过程中，且背后的控制器的 viewWillAppear: 已经被执行过。
+            // 注意，判断条件里的 qmui_navigationControllerPopGestureRecognizerChanging 关键在于，它是在 viewWillAppear: 执行后才被置为 YES，而 QMUICommonViewController 是在 viewWillAppear: 里调用 setNavigationItems:，所以刚好过滤了这种场景。因为测试过，在 viewWillAppear: 里操作 items 是没问题的，但在那之后的操作就会有问题。
+            BOOL isPopGestureRecognizerChanging = navController.topViewController.qmui_willAppearByInteractivePopGestureRecognizer && navController.topViewController.qmui_navigationControllerPopGestureRecognizerChanging;
             
-            if (navController.topViewController.qmui_willAppearByInteractivePopGestureRecognizer && navController.topViewController.qmui_navigationControllerPopGestureRecognizerChanging) {
-                // 注意，判断条件里的 qmui_navigationControllerPopGestureRecognizerChanging 关键在于，它是在 viewWillAppear: 执行后才被置为 YES，而 QMUICommonViewController 是在 viewWillAppear: 里调用 setNavigationItems:，所以刚好过滤了这种场景。因为测试过，在 viewWillAppear: 里操作 items 是没问题的，但在那之后的操作就会有问题。
+            // 侧滑松手后，如果因为距离不够放弃返回，在还原位置还原的过程中去修改 navigationItem 也会导致布局错误，qmui_willAppearByInteractivePopGestureRecognizer 在 viewDidAppear: 才会被置为 YES，而在松手后 state 会被置为 UIGestureRecognizerStatePossible， navController.topViewController.view.superview.frame < 0 可以作为松手后放弃返回的判断条件（成功返回则等于 0）
+            BOOL isPopGestureRecognizerCanceled = navController.topViewController.qmui_willAppearByInteractivePopGestureRecognizer && navController.interactivePopGestureRecognizer.state == UIGestureRecognizerStatePossible && CGRectGetMinX(navController.topViewController.view.superview.frame) < 0;
+            
+            if (isPopGestureRecognizerChanging || isPopGestureRecognizerCanceled) {
                 QMUILog(@"UINavigationItem (QMUINavigationButton)", @"拦截了一次可能产生顶部按钮混乱的操作");
                 return YES;
             }
@@ -576,22 +618,56 @@ QMUISynthesizeIdCopyProperty(tempRightBarButtonItems, setTempRightBarButtonItems
         });
         
         // 强制修改 contentView 的 directionalLayoutMargins.leading，在使用自定义返回按钮时减小 8
+//        if (@available(iOS 11, *)) {
+//            ExtendImplementationOfVoidMethodWithoutArguments([UINavigationBar class], @selector(layoutSubviews), ^(UINavigationBar *selfObject) {
+//                UIView *contentView = selfObject.qmui_contentView;
+//                if (contentView) {
+//                    NSDirectionalEdgeInsets value = contentView.directionalLayoutMargins;
+//                    value.leading = value.trailing - (selfObject.qmui_customizingBackBarButtonItem ? 8 : 0);
+//                    contentView.directionalLayoutMargins = value;
+//                }
+//            });
+//        }
+        
+        // 强制修改 contentView 的 directionalLayoutMargins.leading，在使用自定义返回按钮时减小 8
+        // Xcode11 beta2 修改私有 view 的 directionalLayoutMargins 会 crash，换个方式
         if (@available(iOS 11, *)) {
-            ExtendImplementationOfVoidMethodWithoutArguments([UINavigationBar class], @selector(layoutSubviews), ^(UINavigationBar *selfObject) {
-                UIView *contentView = selfObject.qmui_contentView;
-                if (contentView) {
-                    NSDirectionalEdgeInsets value = contentView.directionalLayoutMargins;
-                    value.leading = value.trailing - (selfObject.qmui_customizingBackBarButtonItem ? 8 : 0);
-                    contentView.directionalLayoutMargins = value;
-                }
+            
+            NSString *barContentViewString = [NSString stringWithFormat:@"_%@Content%@", @"UINavigationBar", @"View"];
+            
+            OverrideImplementation(NSClassFromString(barContentViewString), @selector(directionalLayoutMargins), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+                return ^NSDirectionalEdgeInsets(UIView *selfObject) {
+                    
+                    // call super
+                    NSDirectionalEdgeInsets (*originSelectorIMP)(id, SEL);
+                    originSelectorIMP = (NSDirectionalEdgeInsets (*)(id, SEL))originalIMPProvider();
+                    NSDirectionalEdgeInsets originResult = originSelectorIMP(selfObject, originCMD);
+                    
+                    // get navbar
+                    UINavigationBar *navBar = nil;
+                    if ([NSStringFromClass([selfObject class]) isEqualToString:barContentViewString] &&
+                        [selfObject.superview isKindOfClass:[UINavigationBar class]]) {
+                        navBar = (UINavigationBar *)selfObject.superview;
+                    }
+                    
+                    // change insets
+                    if (navBar) {
+                        NSDirectionalEdgeInsets value = originResult;
+                        value.leading = value.trailing - (navBar.qmui_customizingBackBarButtonItem ? 8 : 0);
+                        return value;
+                    }
+                    
+                    return originResult;
+                };
             });
         }
+        
     });
 }
 
 - (UIView *)qmui_contentView {
     for (UIView *subview in self.subviews) {
-        if ([NSStringFromClass(subview.class) containsString:@"ContentView"]) {
+        if ([NSStringFromClass(subview.class) containsString:@"BarContentView"]) {
             return subview;
         }
     }

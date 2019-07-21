@@ -28,7 +28,7 @@ static QMUIKeyboardManager *kKeyboardManagerInstance;
 @property(nonatomic, assign) CGRect keyboardMoveBeginRect;
 
 @property(nonatomic, weak) UIResponder *currentResponder;
-@property(nonatomic, weak) UIResponder *currentResponderWhenResign;
+//@property(nonatomic, weak) UIResponder *currentResponderWhenResign;
 
 @property(nonatomic, assign) BOOL debug;
 
@@ -88,12 +88,11 @@ QMUISynthesizeBOOLProperty(keyboardManager_isFirstResponder, setKeyboardManager_
         OverrideImplementation([UIResponder class], @selector(resignFirstResponder), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^BOOL(UIResponder *selfObject) {
                 selfObject.keyboardManager_isFirstResponder = NO;
-                if (selfObject.isFirstResponder &&
-                    selfObject.qmui_keyboardManager &&
-                    [selfObject.qmui_keyboardManager.allTargetResponders containsObject:selfObject]) {
-                    selfObject.qmui_keyboardManager.currentResponderWhenResign = selfObject;
-                }
-                
+//                if (selfObject.isFirstResponder &&
+//                    selfObject.qmui_keyboardManager &&
+//                    [selfObject.qmui_keyboardManager.allTargetResponders containsObject:selfObject]) {
+//                    selfObject.qmui_keyboardManager.currentResponderWhenResign = selfObject;
+//                }
                 // call super
                 BOOL (*originSelectorIMP)(id, SEL);
                 originSelectorIMP = (BOOL (*)(id, SEL))originalIMPProvider();
@@ -213,11 +212,28 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
 - (void)setNotification:(NSNotification *)notification {
     _notification = notification;
     if (self.originUserInfo) {
+        
         _animationDuration = [[self.originUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        
         _animationCurve = (UIViewAnimationCurve)[[self.originUserInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        
         _animationOptions = self.animationCurve<<16;
-        _beginFrame = [[self.originUserInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-        _endFrame = [[self.originUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        
+        CGRect beginFrame = [[self.originUserInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+        CGRect endFrame = [[self.originUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        
+        if (@available(iOS 13.0, *)) {
+            // iOS 13 分屏键盘 x 不是 0，不知道是系统 BUG 还是故意这样，先这样保护，再观察一下后面的 beta 版本
+            if (IS_SPLIT_SCREEN_IPAD && beginFrame.origin.x > 0) {
+                beginFrame.origin.x = 0;
+            }
+            if (IS_SPLIT_SCREEN_IPAD && endFrame.origin.x > 0) {
+                endFrame.origin.x = 0;
+            }
+        }
+        
+        _beginFrame = beginFrame;
+        _endFrame = endFrame;
     }
 }
 
@@ -402,14 +418,24 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidChangeFrameNotification:) name:UIKeyboardDidChangeFrameNotification object:nil];
 }
 
-- (BOOL)isAppActive:(NSNotification *)notification {
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
-        return NO;
+- (BOOL)isAppActive {
+    if (self.ignoreApplicationState) {
+        return YES;
     }
-    if (![[notification.userInfo valueForKey:UIKeyboardIsLocalUserInfoKey] boolValue]) {
-        return NO;
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        return YES;
     }
-    return YES;
+    return NO;
+}
+
+- (BOOL)isLocalKeyboard:(NSNotification *)notification {
+    if ([[notification.userInfo valueForKey:UIKeyboardIsLocalUserInfoKey] boolValue]) {
+        return YES;
+    }
+    if (IS_SPLIT_SCREEN_IPAD) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)keyboardWillShowNotification:(NSNotification *)notification {
@@ -418,7 +444,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardWillShowNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -447,7 +473,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardDidShowNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -476,7 +502,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardWillHideNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -505,7 +531,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardDidHideNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -521,6 +547,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
     }
     
     if (self.currentResponder && !self.currentResponder.keyboardManager_isFirstResponder && !IS_IPAD) {
+        // 时机最晚，设置为 nil
         self.currentResponder = nil;
     }
     
@@ -538,7 +565,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardWillChangeFrameNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -546,9 +573,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
     QMUIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
     self.lastUserInfo = userInfo;
     
-    if ([self shouldReceiveShowNotification]) {
-        userInfo.targetResponder = self.currentResponder ?: nil;
-    } else if ([self shouldReceiveHideNotification]) {
+    if ([self shouldReceiveShowNotification] || [self shouldReceiveHideNotification]) {
         userInfo.targetResponder = self.currentResponder ?: nil;
     } else {
         return;
@@ -570,7 +595,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         QMUILog(NSStringFromClass(self.class), @"keyboardDidChangeFrameNotification - %@", self);
     }
     
-    if (![self isAppActive:notification]) {
+    if (![self isAppActive] || ![self isLocalKeyboard:notification]) {
         QMUILog(NSStringFromClass(self.class), @"app is not active");
         return;
     }
@@ -578,9 +603,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
     QMUIKeyboardUserInfo *userInfo = [self newUserInfoWithNotification:notification];
     self.lastUserInfo = userInfo;
     
-    if ([self shouldReceiveShowNotification]) {
-        userInfo.targetResponder = self.currentResponder ?: nil;
-    } else if ([self shouldReceiveHideNotification]) {
+    if ([self shouldReceiveShowNotification] || [self shouldReceiveHideNotification]) {
         userInfo.targetResponder = self.currentResponder ?: nil;
     } else {
         return;
@@ -604,9 +627,8 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
 }
 
 - (BOOL)shouldReceiveShowNotification {
-    // 这里有BUG，如果点击了webview导致键盘下降，这个时候运行shouldReceiveHideNotification就会判断错误
-    self.currentResponder = self.currentResponderWhenResign ?: [self firstResponderInWindows];
-    self.currentResponderWhenResign = nil;
+    // 这里有 BUG，如果点击了 webview 导致键盘下降，这个时候运行 shouldReceiveHideNotification 就会判断错误，所以如果发现是 nil 则值不变
+    self.currentResponder = [self firstResponderInWindows] ?: self.currentResponder;
     if (self.targetResponderValues.count <= 0) {
         return YES;
     } else {
@@ -682,8 +704,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
         keyboardMoveUserInfo.endFrame = endFrame;
         
         if (self.debug) {
-            NSLog(@"keyboardDidMoveNotification - %@", self);
-            NSLog(@"\n");
+            NSLog(@"keyboardDidMoveNotification - %@\n", self);
         }
         
         [self.delegate keyboardWillChangeFrameWithUserInfo:keyboardMoveUserInfo];
@@ -761,7 +782,7 @@ static char kAssociatedObjectKey_KeyboardViewFrameObserver;
     
     for (UIWindow *window in [UIApplication sharedApplication].windows) {
         NSString *windowName = NSStringFromClass(window.class);
-        if (windowName.length == 22 && [windowName hasPrefix:@"UI"] && [windowName hasSuffix:[NSString stringWithFormat:@"%@%@", @"Remote", @"KeyboardWindow"]]) {
+        if ([windowName isEqualToString:[NSString stringWithFormat:@"UI%@%@", @"Remote", @"KeyboardWindow"]]) {
             // UIRemoteKeyboardWindow（iOS9 以下 UITextEffectsWindow）
             if (!kbWindows) kbWindows = [NSMutableArray new];
             [kbWindows addObject:window];

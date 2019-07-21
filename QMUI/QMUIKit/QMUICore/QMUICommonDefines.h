@@ -18,6 +18,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QMUIHelper.h"
+#import "NSString+QMUI.h"
 
 #pragma mark - 变量-编译相关
 
@@ -48,6 +49,11 @@
 #define IOS12_SDK_ALLOWED YES
 #endif
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+/// 当前编译使用的 Base SDK 版本为 iOS 13.0 及以上
+#define IOS13_SDK_ALLOWED YES
+#endif
+
 #pragma mark - Clang
 
 #define ArgumentToString(macro) #macro
@@ -65,6 +71,12 @@
 
 #define BeginIgnoreDeprecatedWarning BeginIgnoreClangWarning(-Wdeprecated-declarations)
 #define EndIgnoreDeprecatedWarning EndIgnoreClangWarning
+
+#pragma mark - 忽略 iOS 13 KVC 访问私有属性限制
+
+/// 将 KVC 代码包裹在这个宏中，可忽略系统的  KVC 访问限制
+#define BeginIgnoreUIKVCAccessProhibited if (@available(iOS 13.0, *)) NSThread.currentThread.qmui_shouldIgnoreUIKVCAccessProhibited = YES;
+#define EndIgnoreUIKVCAccessProhibited if (@available(iOS 13.0, *)) NSThread.currentThread.qmui_shouldIgnoreUIKVCAccessProhibited = NO;
 
 #pragma mark - 变量-设备相关
 
@@ -97,6 +109,12 @@
 
 /// 屏幕高度，跟横竖屏无关
 #define DEVICE_HEIGHT (IS_LANDSCAPE ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
+
+/// 在 iPad 分屏模式下等于 app 实际运行宽度，否则等同于 SCREEN_WIDTH
+#define APPLICATION_WIDTH [QMUIHelper applicationSize].width
+
+/// 在 iPad 分屏模式下等于 app 实际运行宽度，否则等同于 DEVICE_HEIGHT
+#define APPLICATION_HEIGHT [QMUIHelper applicationSize].height
 
 /// 是否全面屏设备
 #define IS_NOTCHED_SCREEN [QMUIHelper isNotchedScreen]
@@ -135,10 +153,10 @@
 #define ScreenNativeScale ([[UIScreen mainScreen] nativeScale])
 
 /// toolBar相关frame
-#define ToolBarHeight (IS_IPAD ? (IS_NOTCHED_SCREEN ? 65 : 50) : (IS_LANDSCAPE ? PreferredValueForVisualDevice(44, 32) : 44) + PreferredValueForNotchedDevice(39, 0))
+#define ToolBarHeight (IS_IPAD ? (IS_NOTCHED_SCREEN ? 70 : (IOS_VERSION >= 12.0 ? 50 : 44)) : (IS_LANDSCAPE ? PreferredValueForVisualDevice(44, 32) : 44) + SafeAreaInsetsConstantForDeviceWithNotch.bottom)
 
 /// tabBar相关frame
-#define TabBarHeight (IS_IPAD ? (IS_NOTCHED_SCREEN ? 65 : 50) : PreferredValueForNotchedDevice(IS_LANDSCAPE ? 32 : 49, 49) + SafeAreaInsetsConstantForDeviceWithNotch.bottom)
+#define TabBarHeight (IS_IPAD ? (IS_NOTCHED_SCREEN ? 65 : (IOS_VERSION >= 12.0 ? 50 : 49)) : (IS_LANDSCAPE ? PreferredValueForVisualDevice(49, 32) : 49) + SafeAreaInsetsConstantForDeviceWithNotch.bottom)
 
 /// 状态栏高度(来电等情况下，状态栏高度会发生变化，所以应该实时计算)
 #define StatusBarHeight ([UIApplication sharedApplication].statusBarHidden ? 0 : [[UIApplication sharedApplication] statusBarFrame].size.height)
@@ -147,7 +165,7 @@
 #define StatusBarHeightConstant ([UIApplication sharedApplication].statusBarHidden ? (IS_IPAD ? (IS_NOTCHED_SCREEN ? 24 : 20) : PreferredValueForNotchedDevice(IS_LANDSCAPE ? 0 : 44, 20)) : [[UIApplication sharedApplication] statusBarFrame].size.height)
 
 /// navigationBar 的静态高度
-#define NavigationBarHeight (IS_LANDSCAPE ? PreferredValueForVisualDevice(44, 32) : 44)
+#define NavigationBarHeight (IS_IPAD ? (IOS_VERSION >= 12.0 ? 50 : 44) : (IS_LANDSCAPE ? PreferredValueForVisualDevice(44, 32) : 44))
 
 /// 代表(导航栏+状态栏)，这里用于获取其高度
 /// @warn 如果是用于 viewController，请使用 UIViewController(QMUI) qmui_navigationBarMaxYInViewCoordinator 代替
@@ -172,8 +190,34 @@
 /// 将所有屏幕按照宽松/紧凑分类，其中 iPad、iPhone XS Max/XR/Plus 均为宽松屏幕，但开启了放大模式的设备均会视为紧凑屏幕
 #define PreferredValueForVisualDevice(_regular, _compact) ([QMUIHelper isRegularScreen] ? _regular : _compact)
 
-/// 区分全部的设备类型
-#define PreferredValueForAll(_iPad, _65inch, _61inch, _58inch, _55inch, _47inch, _40inch, _35inch) (IS_IPAD ? _iPad : (IS_35INCH_SCREEN ? _35inch : (IS_40INCH_SCREEN ? _40inch : ((IS_47INCH_SCREEN || (IS_55INCH_SCREEN && IS_ZOOMEDMODE)) ? _47inch : (IS_55INCH_SCREEN ? _55inch : ((IS_58INCH_SCREEN || ((IS_61INCH_SCREEN || IS_65INCH_SCREEN) && IS_ZOOMEDMODE)) ? _58inch : (IS_61INCH_SCREEN ? _61inch : _65inch)))))))
+/// 判断当前是否是处于分屏模式的 iPad
+#define IS_SPLIT_SCREEN_IPAD (IS_IPAD && APPLICATION_WIDTH != SCREEN_WIDTH)
+
+/// 若 iPad 处于分屏模式下，返回 iPad 接近 iPhone 宽度（320、375、414）中近似的一种，方便屏幕适配。
+#define IPAD_SIMILAR_SCREEN_WIDTH [QMUIHelper preferredLayoutAsSimilarScreenWidthForIPad]
+
+#define _40INCH_WIDTH [QMUIHelper screenSizeFor40Inch].width
+#define _58INCH_WIDTH [QMUIHelper screenSizeFor58Inch].width
+#define _65INCH_WIDTH [QMUIHelper screenSizeFor65Inch].width
+
+#define AS_IPAD (DynamicPreferredValueForIPad ? ((IS_IPAD && !IS_SPLIT_SCREEN_IPAD) || (IS_SPLIT_SCREEN_IPAD && APPLICATION_WIDTH >= 768)) : IS_IPAD)
+#define AS_65INCH_SCREEN (IS_65INCH_SCREEN || (IS_IPAD && DynamicPreferredValueForIPad && IPAD_SIMILAR_SCREEN_WIDTH == _65INCH_WIDTH))
+#define AS_61INCH_SCREEN IS_61INCH_SCREEN
+#define AS_58INCH_SCREEN (IS_58INCH_SCREEN || ((AS_61INCH_SCREEN || AS_65INCH_SCREEN) && IS_ZOOMEDMODE) || (IS_IPAD && DynamicPreferredValueForIPad && IPAD_SIMILAR_SCREEN_WIDTH == _58INCH_WIDTH))
+#define AS_55INCH_SCREEN IS_55INCH_SCREEN
+#define AS_47INCH_SCREEN (IS_47INCH_SCREEN || (IS_55INCH_SCREEN && IS_ZOOMEDMODE))
+#define AS_40INCH_SCREEN (IS_40INCH_SCREEN || (IS_IPAD && DynamicPreferredValueForIPad && IPAD_SIMILAR_SCREEN_WIDTH == _40INCH_WIDTH))
+#define AS_35INCH_SCREEN IS_35INCH_SCREEN
+#define AS_320WIDTH_SCREEN IS_320WIDTH_SCREEN
+
+#define PreferredValueForAll(_iPad, _65inch, _61inch, _58inch, _55inch, _47inch, _40inch, _35inch) \
+(AS_IPAD ? _iPad :\
+(AS_35INCH_SCREEN ? _35inch :\
+(AS_40INCH_SCREEN ? _40inch :\
+(AS_47INCH_SCREEN ? _47inch :\
+(AS_55INCH_SCREEN ? _55inch :\
+(AS_58INCH_SCREEN ? _58inch :\
+(AS_61INCH_SCREEN ? _61inch : _65inch)))))))
 
 #pragma mark - 方法-创建器
 
@@ -221,6 +265,23 @@ AddAccessibilityHint(NSObject *obj, NSString *hint) {
 #pragma mark - 其他
 
 #define StringFromBOOL(_flag) (_flag ? @"YES" : @"NO")
+
+#pragma mark - Selector
+
+/**
+ 根据给定的 getter selector 获取对应的 setter selector
+ @param getter 目标 getter selector
+ @return 对应的 setter selector
+ */
+CG_INLINE SEL
+setterWithGetter(SEL getter) {
+    NSString *getterString = NSStringFromSelector(getter);
+    NSMutableString *setterString = [[NSMutableString alloc] initWithString:@"set"];
+    [setterString appendString:getterString.qmui_capitalizedString];
+    [setterString appendString:@":"];
+    SEL setter = NSSelectorFromString(setterString);
+    return setter;
+}
 
 #pragma mark - CGFloat
 
