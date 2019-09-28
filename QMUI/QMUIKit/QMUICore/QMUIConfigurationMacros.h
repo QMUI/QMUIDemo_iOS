@@ -101,6 +101,7 @@
 #define NavBarButtonFontBold                            [QMUICMI navBarButtonFontBold]
 #define NavBarBackgroundImage                           [QMUICMI navBarBackgroundImage]
 #define NavBarShadowImage                               [QMUICMI navBarShadowImage]
+#define NavBarShadowImageColor                          [QMUICMI navBarShadowImageColor]
 #define NavBarBarTintColor                              [QMUICMI navBarBarTintColor]
 #define NavBarStyle                                     [QMUICMI navBarStyle]
 #define NavBarTintColor                                 [QMUICMI navBarTintColor]
@@ -125,11 +126,11 @@
 #define TabBarBarTintColor                              [QMUICMI tabBarBarTintColor]
 #define TabBarShadowImageColor                          [QMUICMI tabBarShadowImageColor]
 #define TabBarStyle                                     [QMUICMI tabBarStyle]
-#define TabBarTintColor                                 [QMUICMI tabBarTintColor]
+#define TabBarItemTitleFont                             [QMUICMI tabBarItemTitleFont]
 #define TabBarItemTitleColor                            [QMUICMI tabBarItemTitleColor]
 #define TabBarItemTitleColorSelected                    [QMUICMI tabBarItemTitleColorSelected]
-#define TabBarItemTitleFont                             [QMUICMI tabBarItemTitleFont]
-
+#define TabBarItemImageColor                            [QMUICMI tabBarItemImageColor]
+#define TabBarItemImageColorSelected                    [QMUICMI tabBarItemImageColorSelected]
 
 #pragma mark - Toolbar
 
@@ -147,10 +148,9 @@
 
 #pragma mark - SearchBar
 
-#define SearchBarTextFieldBackground                    [QMUICMI searchBarTextFieldBackground]
 #define SearchBarTextFieldBorderColor                   [QMUICMI searchBarTextFieldBorderColor]
-#define SearchBarBottomBorderColor                      [QMUICMI searchBarBottomBorderColor]
-#define SearchBarBarTintColor                           [QMUICMI searchBarBarTintColor]
+#define SearchBarTextFieldBackgroundImage               [QMUICMI searchBarTextFieldBackgroundImage]
+#define SearchBarBackgroundImage                        [QMUICMI searchBarBackgroundImage]
 #define SearchBarTintColor                              [QMUICMI searchBarTintColor]
 #define SearchBarTextColor                              [QMUICMI searchBarTextColor]
 #define SearchBarPlaceholderColor                       [QMUICMI searchBarPlaceholderColor]

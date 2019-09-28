@@ -131,7 +131,11 @@ extern NSString *const _Nonnull QMUIResourcesMainBundleName;
 
 @interface QMUIHelper (Device)
 
+/// 如 iPhone12,5、iPad6,8
 + (nonnull NSString *)deviceModel;
+
+/// 如 iPhone 11 Pro Max、iPad Pro (12.9 inch)
++ (nonnull NSString *)deviceName;
 
 + (BOOL)isIPad;
 + (BOOL)isIPod;
@@ -144,13 +148,13 @@ extern NSString *const _Nonnull QMUIResourcesMainBundleName;
 /// 将屏幕分为普通和紧凑两种，这个方法用于判断普通屏幕
 + (BOOL)isRegularScreen;
 
-/// iPhone XS Max
+/// iPhone XS Max / 11 Pro Max
 + (BOOL)is65InchScreen;
 
-/// iPhone XR
+/// iPhone XR / 11
 + (BOOL)is61InchScreen;
 
-/// iPhone X/XS
+/// iPhone X / XS / 11Pro
 + (BOOL)is58InchScreen;
 
 /// iPhone 8 Plus
@@ -195,20 +199,6 @@ extern NSString *const _Nonnull QMUIResourcesMainBundleName;
 @interface QMUIHelper (UIApplication)
 
 /**
- *  更改状态栏内容颜色为深色
- *
- *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
- */
-+ (void)renderStatusBarStyleDark DEPRECATED_ATTRIBUTE;
-
-/**
- *  更改状态栏内容颜色为浅色
- *
- *  @warning 需在项目的 Info.plist 文件内设置字段 “View controller-based status bar appearance” 的值为 NO 才能生效，如果不设置，或者值为 YES，则请通过系统的 - UIViewController preferredStatusBarStyle 方法来修改
- */
-+ (void)renderStatusBarStyleLight DEPRECATED_ATTRIBUTE;
-
-/**
  * 把App的主要window置灰，用于浮层弹出时，请注意要在适当时机调用`resetDimmedApplicationWindow`恢复到正常状态
  */
 + (void)dimmedApplicationWindow;
@@ -217,6 +207,13 @@ extern NSString *const _Nonnull QMUIResourcesMainBundleName;
  * 恢复对App的主要window的置灰操作，与`dimmedApplicationWindow`成对调用
  */
 + (void)resetDimmedApplicationWindow;
+
+/**
+ * 黑色的 StatusBarStyle，用于亮色背景
+ * @note 在 iOS 13 以前  UIStatusBarStyleDefault 状态栏内容的颜色固定是黑色的，而在 iOS 13 UIStatusBarStyleDefault 会根据 user interface style 来决定状态栏的颜色，如果你需要一直黑色可以用 QMUIStatusBarStyleDarkContent 来代替以前 UIStatusBarStyleDefault 的写法
+ * @return 在 iOS 13 以上返回 UIStatusBarStyleDarkContent，在 iOS 12 及以下返回 UIStatusBarStyleDefault
+*/
++ (UIStatusBarStyle)statusBarStyleDarkContent;
 
 @end
 

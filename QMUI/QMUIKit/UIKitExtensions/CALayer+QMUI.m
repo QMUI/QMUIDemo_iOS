@@ -315,93 +315,6 @@ static char kAssociatedObjectKey_maskedCorners;
 
 @end
 
-@interface CALayer ()
-
-@property(nonatomic, strong) UIColor *qcl_originalBackgroundColor;
-@property(nonatomic, strong) UIColor *qcl_originalBorderColor;
-@property(nonatomic, strong) UIColor *qcl_originalShadowColor;
-@end
-
-@implementation CALayer (QMUI_DynamicColor)
-
-QMUISynthesizeIdStrongProperty(qcl_originalBackgroundColor, setQcl_originalBackgroundColor)
-QMUISynthesizeIdStrongProperty(qcl_originalBorderColor, setQcl_originalBorderColor)
-QMUISynthesizeIdStrongProperty(qcl_originalShadowColor, setQcl_originalShadowColor)
-
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        OverrideImplementation([CALayer class], @selector(setBackgroundColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(CALayer *selfObject, CGColorRef color) {
-                
-                // iOS 13 的 UIDynamicProviderColor，以及 QMUIThemeColor 在获取 CGColor 时会将自身绑定到 CGColorRef 上，这里把原始的 color 重新获取出来存到 property 里，以备样式更新时调用
-                UIColor *originalColor = [(__bridge id)(color) qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
-                selfObject.qcl_originalBackgroundColor = originalColor;
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL, CGColorRef);
-                originSelectorIMP = (void (*)(id, SEL, CGColorRef))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, color);
-            };
-        });
-        
-        OverrideImplementation([CALayer class], @selector(setBorderColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(CALayer *selfObject, CGColorRef color) {
-                
-                UIColor *originalColor = [(__bridge id)(color) qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
-                selfObject.qcl_originalBorderColor = originalColor;
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL, CGColorRef);
-                originSelectorIMP = (void (*)(id, SEL, CGColorRef))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, color);
-            };
-        });
-        
-        OverrideImplementation([CALayer class], @selector(setShadowColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(CALayer *selfObject, CGColorRef color) {
-                
-                UIColor *originalColor = [(__bridge id)(color) qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
-                selfObject.qcl_originalShadowColor = originalColor;
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL, CGColorRef);
-                originSelectorIMP = (void (*)(id, SEL, CGColorRef))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, color);
-            };
-        });
-        
-        // iOS 13 下，如果系统的主题发生变化，会自动调用每个 view 的 layoutSubviews，所以我们在这里面自动更新样式
-        // 如果是 QMUIThemeManager 引发的主题变化，会在 theme 那边主动调用 qmui_setNeedsUpdateDynamicStyle，就不依赖这里
-        if (@available(iOS 13.0, *)) {
-            ExtendImplementationOfVoidMethodWithoutArguments([UIView class], @selector(layoutSubviews), ^(UIView *selfObject) {
-                [selfObject.layer qmui_setNeedsUpdateDynamicStyle];
-            });
-        }
-    });
-}
-
-- (void)qmui_setNeedsUpdateDynamicStyle {
-    if (self.qcl_originalBackgroundColor) {
-        UIColor *originalColor = self.qcl_originalBackgroundColor;
-        self.backgroundColor = originalColor.CGColor;
-    }
-    if (self.qcl_originalBorderColor) {
-        self.borderColor = self.qcl_originalBorderColor.CGColor;
-    }
-    if (self.qcl_originalShadowColor) {
-        self.shadowColor = self.qcl_originalShadowColor.CGColor;
-    }
-    
-    [self.sublayers enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull sublayer, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (!sublayer.qmui_isRootLayerOfView) {// 如果是 UIView 的 rootLayer，它会依赖 UIView 树自己的 layoutSubviews 去逐个触发，不需要手动遍历到，这里只需要遍历那些额外添加到 layer 上的 sublayer 即可
-            [sublayer qmui_setNeedsUpdateDynamicStyle];
-        }
-    }];
-}
-
-@end
-
 @implementation UIView (QMUI_CornerRadius)
 
 static NSString *kMaskName = @"QMUI_CornerRadius_Mask";
@@ -452,6 +365,122 @@ static NSString *kMaskName = @"QMUI_CornerRadius_Mask";
            (self.layer.qmui_maskedCorners & QMUILayerMaxXMinYCorner) == QMUILayerMaxXMinYCorner &&
            (self.layer.qmui_maskedCorners & QMUILayerMinXMaxYCorner) == QMUILayerMinXMaxYCorner &&
            (self.layer.qmui_maskedCorners & QMUILayerMaxXMaxYCorner) == QMUILayerMaxXMaxYCorner;
+}
+
+@end
+
+@interface CAShapeLayer (QMUI_DynamicColor)
+
+@property(nonatomic, strong) UIColor *qcl_originalFillColor;
+@property(nonatomic, strong) UIColor *qcl_originalStrokeColor;
+
+@end
+
+@implementation CAShapeLayer (QMUI_DynamicColor)
+
+QMUISynthesizeIdStrongProperty(qcl_originalFillColor, setQcl_originalFillColor)
+QMUISynthesizeIdStrongProperty(qcl_originalStrokeColor, setQcl_originalStrokeColor)
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        OverrideImplementation([CAShapeLayer class], @selector(setFillColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(CAShapeLayer *selfObject, CGColorRef color) {
+                
+                UIColor *originalColor = [(__bridge id)(color) qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
+                selfObject.qcl_originalFillColor = originalColor;
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, CGColorRef);
+                originSelectorIMP = (void (*)(id, SEL, CGColorRef))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, color);
+            };
+        });
+        
+        OverrideImplementation([CAShapeLayer class], @selector(setStrokeColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(CAShapeLayer *selfObject, CGColorRef color) {
+                
+                UIColor *originalColor = [(__bridge id)(color) qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
+                selfObject.qcl_originalStrokeColor = originalColor;
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, CGColorRef);
+                originSelectorIMP = (void (*)(id, SEL, CGColorRef))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, color);
+            };
+        });
+    });
+}
+
+- (void)qmui_setNeedsUpdateDynamicStyle {
+    [super qmui_setNeedsUpdateDynamicStyle];
+    
+    if (self.qcl_originalFillColor) {
+        self.fillColor = self.qcl_originalFillColor.CGColor;
+    }
+    
+    if (self.qcl_originalStrokeColor) {
+        self.strokeColor = self.qcl_originalStrokeColor.CGColor;
+    }
+}
+
+@end
+
+@interface CAGradientLayer (QMUI_DynamicColor)
+
+@property(nonatomic, strong) NSArray <UIColor *>* qcl_originalColors;
+
+@end
+
+@implementation CAGradientLayer (QMUI_DynamicColor)
+
+QMUISynthesizeIdStrongProperty(qcl_originalColors, setQcl_originalColors)
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        OverrideImplementation([CAGradientLayer class], @selector(setColors:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(CAGradientLayer *selfObject, NSArray *colors) {
+                
+           
+                void (*originSelectorIMP)(id, SEL, NSArray *);
+                originSelectorIMP = (void (*)(id, SEL, NSArray *))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, colors);
+                
+                
+                __block BOOL hasDynamicColor = NO;
+                NSMutableArray *originalColors = [NSMutableArray array];
+                [colors enumerateObjectsUsingBlock:^(id color, NSUInteger idx, BOOL * _Nonnull stop) {
+                    UIColor *originalColor = [color qmui_getBoundObjectForKey:QMUICGColorOriginalColorBindKey];
+                    if (originalColor) {
+                        hasDynamicColor = YES;
+                        [originalColors addObject:originalColor];
+                    } else {
+                        [originalColors addObject:[UIColor colorWithCGColor:(__bridge CGColorRef _Nonnull)(color)]];
+                    }
+                }];
+                
+                if (hasDynamicColor) {
+                    selfObject.qcl_originalColors = originalColors;
+                } else {
+                    selfObject.qcl_originalColors = nil;
+                }
+                
+            };
+        });
+    });
+}
+
+- (void)qmui_setNeedsUpdateDynamicStyle {
+    [super qmui_setNeedsUpdateDynamicStyle];
+    
+    if (self.qcl_originalColors) {
+        NSMutableArray *colors = [NSMutableArray array];
+        [self.qcl_originalColors enumerateObjectsUsingBlock:^(UIColor * _Nonnull color, NSUInteger idx, BOOL * _Nonnull stop) {
+            [colors addObject:(__bridge id _Nonnull)(color.CGColor)];
+        }];
+        self.colors = colors;
+    }
 }
 
 @end
