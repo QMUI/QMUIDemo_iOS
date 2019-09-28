@@ -15,6 +15,21 @@
 
 @implementation QDNavigationListViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.isMovingToParentViewController) {
+         QMUICMI.needsBackBarButtonItemTitle = YES;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.isMovingFromParentViewController) {
+         QMUICMI.needsBackBarButtonItemTitle = NO;
+    }
+}
+
+
 - (void)initDataSource {
     [super initDataSource];
     if ([UINavigationBar instancesRespondToSelector:@selector(prefersLargeTitles)]) {

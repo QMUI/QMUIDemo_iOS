@@ -8,6 +8,10 @@
 
 #import "QDImageViewViewController.h"
 
+@interface QDImageViewTableViewCell : UITableViewCell
+
+@end
+
 @interface QDImageViewViewController ()
 
 @property(nonatomic, assign) BOOL usingSmoothAnimation;
@@ -48,7 +52,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = TableViewCellBackgroundColor;
             cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:@"qmui_smoothAnimation" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:22]}];
-            cell.detailTextLabel.attributedText = [[NSAttributedString alloc] initWithString:@"UIImageView (QMUI) 默认打开了 qmui_smoothAnimation，以支持在 UIScrollView 内使用 animatedImage 时依然能保证界面的流畅（系统在这种情况下会有明显的卡顿）。可通过切换右边的开关来对比效果。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
+            cell.detailTextLabel.attributedText = [[NSAttributedString alloc] initWithString:@"UIImageView (QMUI) 默认打开了 qmui_smoothAnimation，以支持在 UIScrollView 内使用 animatedImage 时依然能保证界面的流畅（系统在这种情况下会有明显的卡顿）。可通过切换右边的开关来对比效果。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
             cell.detailTextLabel.numberOfLines = 0;
             UISwitch *switchControl = [[UISwitch alloc] init];
             [switchControl sizeToFit];
@@ -59,7 +63,7 @@
         ((UISwitch *)cell.accessoryView).on = self.usingSmoothAnimation;
     } else if ([identifier isEqualToString:@"image"]) {
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[QDImageViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = TableViewCellBackgroundColor;
             cell.imageView.image = self.animatedImage;
@@ -76,6 +80,20 @@
 - (void)handleSwitchEvent:(UISwitch *)switchControl {
     self.usingSmoothAnimation = switchControl.on;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+@end
+
+@implementation QDImageViewTableViewCell
+
+// iOS 13 下系统无法正确地给 imageView 布局，size 总是为 0，所以这里写一个 subclass 专门布局 imageView
+// iOS 12 及以下用系统的 UITableViewCell 就行了没啥问题
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGPoint imageViewOrigin = self.imageView.frame.origin;
+    CGSize imageViewLimitSize = CGSizeMake(self.contentView.bounds.size.width - imageViewOrigin.x * 2, self.contentView.bounds.size.width - imageViewOrigin.y * 2);
+    [self.imageView qmui_sizeToFitKeepingImageAspectRatioInSize:imageViewLimitSize];
+    self.imageView.qmui_top = self.imageView.qmui_topWhenCenterInSuperview;
 }
 
 @end

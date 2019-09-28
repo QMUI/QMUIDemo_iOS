@@ -27,7 +27,7 @@
     
     self.tipsLabel = [[UILabel alloc] init];
     self.tipsLabel.numberOfLines = 0;
-    NSMutableAttributedString *tips = [[NSMutableAttributedString alloc] initWithString:@"CAAnimation (QMUI) 支持用 block 的形式添加对 animationDidStart 和 animationDidStop 的监听，无需自行设置 delegate，从而避免 CAAnimation.delegate 为 strong 带来的一些内存管理上的麻烦。\n同时你也可以继续使用系统原有的 delegate 方法，互不影响。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
+    NSMutableAttributedString *tips = [[NSMutableAttributedString alloc] initWithString:@"CAAnimation (QMUI) 支持用 block 的形式添加对 animationDidStart 和 animationDidStop 的监听，无需自行设置 delegate，从而避免 CAAnimation.delegate 为 strong 带来的一些内存管理上的麻烦。\n同时你也可以继续使用系统原有的 delegate 方法，互不影响。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
     NSDictionary *codeAttributes = CodeAttributes(12);
     [tips.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [tips addAttributes:codeAttributes range:codeRange];

@@ -31,7 +31,7 @@
     
     self.tipsLabel = [[UILabel alloc] init];
     self.tipsLabel.numberOfLines = 0;
-    NSMutableAttributedString *tips = [[NSMutableAttributedString alloc] initWithString:@"[QMUIConsole log:xxx] 可以直接在屏幕上显示日志，通常用于一些重要信息但又不适合用 NSAssert 提示的场景。可通过长按小圆钮关闭控制台。\n支持搜索或按 Level、Name 过滤日志，可以通过配置表 ShouldPrintQMUIWarnLogToConsole 让 QMUILogWarn() 的内容也自动显示到 QMUIConsole 里（默认仅在 DEBUG 下打开）。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
+    NSMutableAttributedString *tips = [[NSMutableAttributedString alloc] initWithString:@"[QMUIConsole log:xxx] 可以直接在屏幕上显示日志，通常用于一些重要信息但又不适合用 NSAssert 提示的场景。可通过长按小圆钮关闭控制台。\n支持搜索或按 Level、Name 过滤日志，可以通过配置表 ShouldPrintQMUIWarnLogToConsole 让 QMUILogWarn() 的内容也自动显示到 QMUIConsole 里（默认仅在 DEBUG 下打开）。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
     NSDictionary *codeAttributes = CodeAttributes(12);
     [tips.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [tips addAttributes:codeAttributes range:codeRange];

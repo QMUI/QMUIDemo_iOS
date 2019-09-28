@@ -59,9 +59,9 @@
     self.textField.placeholder = @"一个输入框，多个 delegate 响应";
     [self.view addSubview:self.textField];
     
-    self.descriptionLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColorGray6];
+    self.descriptionLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(12) textColor:UIColor.qd_descriptionTextColor];
     self.descriptionLabel.numberOfLines = 0;
-    self.descriptionLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ 对所有 NSObject 有效，这里只拿 UITextField 展示。", NSStringFromClass([QMUIMultipleDelegates class])] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];;
+    self.descriptionLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ 对所有 NSObject 有效，这里只拿 UITextField 展示。", NSStringFromClass([QMUIMultipleDelegates class])] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];;
     [self.view addSubview:self.descriptionLabel];
 }
 

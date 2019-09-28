@@ -931,7 +931,7 @@
 				165F42ED1ADB60180057EF6A /* Frameworks */,
 				165F42EE1ADB60180057EF6A /* Resources */,
 				CDE85CB91F95E21500E622E8 /* Embed Frameworks */,
-				AA941D6222D60CFD00FF00EB /* Lookin Setup */,
+				AA941D6222D60CFD00FF00EB /* Integrate Lookin */,
 			);
 			buildRules = (
 			);
@@ -1059,7 +1059,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AA941D6222D60CFD00FF00EB /* Lookin Setup */ = {
+		AA941D6222D60CFD00FF00EB /* Integrate Lookin */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1068,14 +1068,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Lookin Setup";
+			name = "Integrate Lookin";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export LOOKINSERVER_FILENAME=\"LookinServer.framework\"\n\n# Update this path to point to the location of LookinServer.framework in your project.\nexport LOOKINSERVER_PATH=\"${SRCROOT}/qmuidemo/Frameworks/${LOOKINSERVER_FILENAME}\"\n\n# If configuration is not Debug, skip this script.\n[ \"${CONFIGURATION}\" == \"Release\" ] && exit 0\n\n# If LookinServer.framework exists at the specified path, run code signing script.\nif [ -d \"${LOOKINSERVER_PATH}\" ]; then\n\"${LOOKINSERVER_PATH}/lookin_server_setup.sh\"\nelse\necho \"LookinServer not loaded: LookinServer.framework could not be found.\"\nfi\n";
+			shellScript = "FRAMEWORK_FILENAME=\"LookinServer.framework\"\nFRAMEWORK_WORKPATH=\"${CODESIGNING_FOLDER_PATH}/Frameworks\"\n\n# Notify that LookinServer.framework is at the root directory of your Xcode project. If you want to move LookinServer.framework to a subdirectory named \"FavoriteFrameworks\", replace the line below with 'FRAMEWORK_PATH=\"${SRCROOT}/FavoriteFrameworks/${FRAMEWORK_FILENAME}\"'\n# 告知当前 LookinServer.framework 的文件位置位于项目根目录。请确保您确实已经把文件复制到了项目根目录（即和 .xcodeproj 文件处于同一个文件夹内）。如果您希望把 LookinServer.framework 放置到别的地方，比如项目根目录下一个叫 “FavoriteFrameworks” 的文件夹内，则请把下面这句改成 FRAMEWORK_PATH=\"${SRCROOT}/FavoriteFrameworks/${FRAMEWORK_FILENAME}\"，同时在 Build Settings 的 Framework Search Paths 里增加 “$(SRCROOT)/FavoriteFrameworks” \nFRAMEWORK_PATH=\"${SRCROOT}/qmuidemo/Frameworks/${FRAMEWORK_FILENAME}\"\n\n# If configuration is not \"Debug\", do not integrate LookinServer.framework\n# 如果当前不是 Debug 模式则不植入 LookinServer.framework\n[ \"${CONFIGURATION}\" == \"Release\" ] && exit 0\n\n# If you want to use Lookin both in \"Debug\" and another configuration(e.g. \"DailyTest\"), comment the line above and uncomment the line below. Be careful not to integrate LookinServer in \"Release\" configuration.\n# 如果你想同时在 Debug 模式和一个你自定义的叫 \"DailyTest\" 的模式下使用 Lookin，则请注释掉上面那句，同时解开下面这句的注释。再次提醒不要在 Release 模式下植入 LookinServer。\n# [ \"${CONFIGURATION}\" != \"Debug\" && \"${CONFIGURATION}\" != \"DailyTest\"] && exit 0\n\nmkdir -p \"${FRAMEWORK_WORKPATH}\"\n\nif [ -e \"${FRAMEWORK_PATH}\" ]; then\ncp -Rf \"$FRAMEWORK_PATH\" \"${FRAMEWORK_WORKPATH}/${FRAMEWORK_FILENAME}\"\nif [ -n \"${EXPANDED_CODE_SIGN_IDENTITY}\" ]; then\ncodesign -fs \"${EXPANDED_CODE_SIGN_IDENTITY}\" \"${FRAMEWORK_WORKPATH}/${FRAMEWORK_FILENAME}\"\nfi\necho \"LookinServer was integrated successfully.\"\nelse\necho \"Failed to integrate LookinServer. Because the framework could not be found at ${FRAMEWORK_PATH}.\"\nfi\n";
 		};
 		CDE85CF71F9701E300E622E8 /* RDM */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1410,6 +1410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1452,6 +1453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1624,6 +1626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

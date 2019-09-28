@@ -36,7 +36,7 @@
     }
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"适用于那种要将若干个 UIView 以九宫格的布局摆放的情况，支持显示 item 之间的分隔线。\n注意当 QMUIGridView 宽度发生较大变化时（例如横屏旋转），并不会自动增加列数，这种场景要么自己重新设置 columnCount，要么改为用 UICollectionView 实现。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:18]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"适用于那种要将若干个 UIView 以九宫格的布局摆放的情况，支持显示 item 之间的分隔线。\n注意当 QMUIGridView 宽度发生较大变化时（例如横屏旋转），并不会自动增加列数，这种场景要么自己重新设置 columnCount，要么改为用 UICollectionView 实现。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:18]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }

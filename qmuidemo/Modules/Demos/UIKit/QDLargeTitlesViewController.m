@@ -39,11 +39,11 @@
 
 - (void)didSelectCellWithTitle:(NSString *)title {
     if ([title isEqualToString:@"滚动试试"]) {
-        CGPoint contentOffsetWhenLargeTitlDisplaying = CGPointMake(0, -(NavigationContentTop + 52));
-        if (CGPointEqualToPoint(self.tableView.contentOffset, contentOffsetWhenLargeTitlDisplaying)) {
+        CGPoint contentOffsetWhenLargeTitleDisplaying = CGPointMake(0, -(NavigationContentTop + 52));
+        if (CGPointEqualToPoint(self.tableView.contentOffset, contentOffsetWhenLargeTitleDisplaying)) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         } else {
-            [self.tableView setContentOffset:contentOffsetWhenLargeTitlDisplaying animated:YES];
+            [self.tableView setContentOffset:contentOffsetWhenLargeTitleDisplaying animated:YES];
         }
         [self.tableView qmui_clearsSelection];
     } else {

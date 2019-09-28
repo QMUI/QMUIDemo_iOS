@@ -30,6 +30,12 @@
 @property(class, nonatomic, strong, readonly) UIColor *qd_gridItemTintColor;
 @end
 
+@interface UIImage (QDTheme)
+
+@property(class, nonatomic, strong, readonly) UIImage *qd_searchBarTextFieldBackgroundImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_searchBarBackgroundImage;
+@end
+
 @interface UIVisualEffect (QDTheme)
 
 @property(class, nonatomic, strong, readonly) UIVisualEffect *qd_standardBlurEffect;

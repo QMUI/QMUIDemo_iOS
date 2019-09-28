@@ -165,17 +165,8 @@
         [self.imageViewLabel sizeToFit];
         [self addSubview:self.imageViewLabel];
         
-        __block UIImage *darkImage = nil;
         UIImage *image = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
-            if ([identifier isEqualToString:QDThemeIdentifierGrapefruit]) return UIImageMake(@"emotion_02");
-            if ([identifier isEqualToString:QDThemeIdentifierGrass]) return UIImageMake(@"emotion_03");
-            if ([identifier isEqualToString:QDThemeIdentifierPinkRose]) return UIImageMake(@"emotion_04");
-            if ([identifier isEqualToString:QDThemeIdentifierDark]) {
-                // themeProvider block 里不能有耗时操作，所以这里对动态生成的 image 做了缓存
-                if (!darkImage) darkImage = [UIImageMake(@"emotion_05") qmui_imageWithBlendColor:theme.themeTintColor];
-                return darkImage;
-            }
-            return UIImageMake(@"emotion_01");
+            return [UIImageMake(@"icon_grid_assetsManager") qmui_imageWithTintColor:theme.themeTintColor];
         }];
         self.imageView = [[UIImageView alloc] initWithImage:image];
         [self addSubview:self.imageView];
@@ -196,7 +187,9 @@
         [self.visualEffectLabel sizeToFit];
         [self addSubview:self.visualEffectLabel];
         
-        self.visualEffectBackendImageView = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_grid_pieProgressView")];
+        self.visualEffectBackendImageView = [[UIImageView alloc] initWithImage:[UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [UIImageMake(@"icon_grid_pieProgressView") qmui_imageWithTintColor:theme.themeTintColor];
+        }]];
         [self addSubview:self.visualEffectBackendImageView];
         
         self.visualEffectView = [[UIVisualEffectView alloc] init];

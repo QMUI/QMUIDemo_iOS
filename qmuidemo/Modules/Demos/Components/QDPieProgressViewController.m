@@ -78,7 +78,7 @@
     [self.progressView2 setProgress:.3];
     [self.section2 addSubview:self.progressView2];
     
-    self.titleLabel2 = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray6];
+    self.titleLabel2 = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColor.qd_descriptionTextColor];
     self.titleLabel2.numberOfLines = 0;
     self.titleLabel2.text = @"通过 borderWidth、borderInset 修改样式";
     [self.titleLabel2 sizeToFit];
@@ -106,7 +106,7 @@
     [self.progressView33 setProgress:.28];
     [self.section3 addSubview:self.progressView33];
     
-    self.titleLabel3 = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray6];
+    self.titleLabel3 = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColor.qd_descriptionTextColor];
     self.titleLabel3.numberOfLines = 0;
     self.titleLabel3.text = @"通过 backgroundColor 或 tintColor 修改颜色";
     [self.titleLabel3 sizeToFit];

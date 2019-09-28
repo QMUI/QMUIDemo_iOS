@@ -27,7 +27,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleThemeDidChangeNotification:) name:QMUIThemeDidChangeNotification object:nil];
     
     // 2. 然后设置主题的生成器
-    QMUIThemeManager.sharedInstance.themeGenerator = ^__kindof NSObject * _Nonnull(NSString * _Nonnull identifier) {
+    QMUIThemeManagerCenter.defaultThemeManager.themeGenerator = ^__kindof NSObject * _Nonnull(NSString * _Nonnull identifier) {
         if ([identifier isEqualToString:QDThemeIdentifierDefault]) return QMUIConfigurationTemplate.new;
         if ([identifier isEqualToString:QDThemeIdentifierGrapefruit]) return QMUIConfigurationTemplateGrapefruit.new;
         if ([identifier isEqualToString:QDThemeIdentifierGrass]) return QMUIConfigurationTemplateGrass.new;
@@ -39,18 +39,18 @@
     // 3. 再针对 iOS 13 开启自动响应系统的 Dark Mode 切换
     // 如果不需要这个功能，则不需要这一段代码
     if (@available(iOS 13.0, *)) {
-        QMUIThemeManager.sharedInstance.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
+        QMUIThemeManagerCenter.defaultThemeManager.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
             if (trait.userInterfaceStyle == UIUserInterfaceStyleDark) {
                 return QDThemeIdentifierDark;
             }
             
-            if ([QMUIThemeManager.sharedInstance.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+            if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
                 return QDThemeIdentifierDefault;
             }
             
-            return QMUIThemeManager.sharedInstance.currentThemeIdentifier;
+            return QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier;
         };
-        QMUIThemeManager.sharedInstance.respondsSystemStyleAutomatically = YES;
+        QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = YES;
     }
     
     // QMUIConsole 默认只在 DEBUG 下会显示，作为 Demo，改为不管什么环境都允许显示
@@ -81,21 +81,21 @@
     QDUIKitViewController *uikitViewController = [[QDUIKitViewController alloc] init];
     uikitViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *uikitNavController = [[QDNavigationController alloc] initWithRootViewController:uikitViewController];
-    uikitNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
+    uikitNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:UIImageMake(@"icon_tabbar_uikit") selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
     AddAccessibilityHint(uikitNavController.tabBarItem, @"展示一系列对系统原生控件的拓展的能力");
     
     // UIComponents
     QDComponentsViewController *componentViewController = [[QDComponentsViewController alloc] init];
     componentViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *componentNavController = [[QDNavigationController alloc] initWithRootViewController:componentViewController];
-    componentNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Components" image:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_component_selected") tag:1];
+    componentNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Components" image:UIImageMake(@"icon_tabbar_component") selectedImage:UIImageMake(@"icon_tabbar_component_selected") tag:1];
     AddAccessibilityHint(componentNavController.tabBarItem, @"展示 QMUI 自己的组件库");
     
     // Lab
     QDLabViewController *labViewController = [[QDLabViewController alloc] init];
     labViewController.hidesBottomBarWhenPushed = NO;
     QDNavigationController *labNavController = [[QDNavigationController alloc] initWithRootViewController:labViewController];
-    labNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Lab" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_lab_selected") tag:2];
+    labNavController.tabBarItem = [QDUIHelper tabBarItemWithTitle:@"Lab" image:UIImageMake(@"icon_tabbar_lab") selectedImage:UIImageMake(@"icon_tabbar_lab_selected") tag:2];
     AddAccessibilityHint(labNavController.tabBarItem, @"集合一些非正式但可能很有用的小功能");
     
     // window root controller
@@ -146,7 +146,10 @@
 
 - (void)handleThemeDidChangeNotification:(NSNotification *)notification {
     
-    [[NSUserDefaults standardUserDefaults] setObject:QMUIThemeManager.sharedInstance.currentThemeIdentifier forKey:QDSelectedThemeIdentifier];
+    QMUIThemeManager *manager = notification.object;
+    if (![manager.name isEqual:QMUIThemeManagerNameDefault]) return;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:manager.currentThemeIdentifier forKey:QDSelectedThemeIdentifier];
     
     [QDThemeManager.currentTheme applyConfigurationTemplate];
     

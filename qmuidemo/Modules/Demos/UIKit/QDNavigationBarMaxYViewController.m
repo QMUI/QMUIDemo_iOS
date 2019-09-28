@@ -30,7 +30,7 @@
     footerView.backgroundView.backgroundColor = UIColorClear;
     footerView.contentEdgeInsets = UIEdgeInsetsSetTop(footerView.contentEdgeInsets, 0);
     footerView.titleLabel.font = UIFontMake(12);
-    footerView.titleLabel.textColor = UIColorGray6;
+    footerView.titleLabel.textColor = UIColor.qd_descriptionTextColor;
     footerView.titleLabel.qmui_borderPosition = QMUIViewBorderPositionTop;
     footerView.titleLabel.qmui_borderColor = TableViewSeparatorColor;
     return footerView;

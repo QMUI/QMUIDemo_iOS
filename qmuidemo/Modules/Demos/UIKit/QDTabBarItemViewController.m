@@ -25,7 +25,6 @@
     };
     
     self.tabBar = [[UITabBar alloc] init];
-    self.tabBar.tintColor = TabBarTintColor;
     
     UITabBarItem *item1 = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
     item1.qmui_doubleTapBlock = tabBarItemDoubleTapBlock;

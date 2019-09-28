@@ -22,6 +22,9 @@
 @property(nonatomic, strong) UIColor *qd_separatorColor;
 @property(nonatomic, strong) UIColor *qd_gridItemTintColor;
 
+@property(nonatomic, strong) UIImage *qd_searchBarTextFieldBackgroundImage;
+@property(nonatomic, strong) UIImage *qd_searchBarBackgroundImage;
+
 @property(nonatomic, strong) UIVisualEffect *qd_standardBlueEffect;
 
 @property(class, nonatomic, strong, readonly) QDThemeManager *sharedInstance;
@@ -78,6 +81,13 @@
             return theme.themeGridItemTintColor;
         }];
         
+        self.qd_searchBarTextFieldBackgroundImage = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [UISearchBar qmui_generateTextFieldBackgroundImageWithColor:theme.themeBackgroundColorHighlighted];
+        }];
+        self.qd_searchBarBackgroundImage = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [UISearchBar qmui_generateBackgroundImageWithColor:theme.themeBackgroundColor borderColor:nil];
+        }];
+        
         self.qd_standardBlueEffect = [UIVisualEffect qmui_effectWithThemeProvider:^UIVisualEffect * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
             return [UIBlurEffect effectWithStyle:[identifier isEqualToString:QDThemeIdentifierDark] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
         }];
@@ -86,7 +96,7 @@
 }
 
 + (NSObject<QDThemeProtocol> *)currentTheme {
-    return QMUIThemeManager.sharedInstance.currentTheme;
+    return QMUIThemeManagerCenter.defaultThemeManager.currentTheme;
 }
 
 @end
@@ -144,6 +154,18 @@
 
 + (UIColor *)qd_gridItemTintColor {
     return QDThemeManager.sharedInstance.qd_gridItemTintColor;
+}
+
+@end
+
+@implementation UIImage (QDTheme)
+
++ (UIImage *)qd_searchBarTextFieldBackgroundImage {
+    return QDThemeManager.sharedInstance.qd_searchBarTextFieldBackgroundImage;
+}
+
++ (UIImage *)qd_searchBarBackgroundImage {
+    return QDThemeManager.sharedInstance.qd_searchBarBackgroundImage;
 }
 
 @end

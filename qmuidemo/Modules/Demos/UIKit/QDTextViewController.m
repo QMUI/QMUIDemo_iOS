@@ -51,7 +51,7 @@
     [self.view addSubview:self.textView];
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字。\n会自动监听回车键，触发发送逻辑。", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"最长不超过 %@ 个文字，可尝试输入 emoji、粘贴一大段文字。\n会自动监听回车键，触发发送逻辑。", @(self.textView.maximumTextLength)] attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }

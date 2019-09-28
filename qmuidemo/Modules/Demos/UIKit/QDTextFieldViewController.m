@@ -39,7 +39,7 @@
     [self.view addSubview:self.textField];
     
     self.tipsLabel = [[UILabel alloc] init];
-    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"支持：\n1. 自定义 placeholder 颜色；\n2. 修改 clearButton 的图片和布局位置；\n3. 调整输入框与文字之间的间距；\n4. 限制可输入的最大文字长度（可试试输入 emoji、从中文输入法候选词输入等）；\n5. 计算文字长度时区分中英文。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColorGray6, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
+    self.tipsLabel.attributedText = [[NSAttributedString alloc] initWithString:@"支持：\n1. 自定义 placeholder 颜色；\n2. 修改 clearButton 的图片和布局位置；\n3. 调整输入框与文字之间的间距；\n4. 限制可输入的最大文字长度（可试试输入 emoji、从中文输入法候选词输入等）；\n5. 计算文字长度时区分中英文。" attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]}];
     self.tipsLabel.numberOfLines = 0;
     [self.view addSubview:self.tipsLabel];
 }

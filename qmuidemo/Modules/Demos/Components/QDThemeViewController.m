@@ -46,7 +46,7 @@
                      QMUIConfigurationTemplateDark.class];
     [self.classes enumerateObjectsUsingBlock:^(Class  _Nonnull class, NSUInteger idx, BOOL * _Nonnull stop) {
         BOOL hasInstance = NO;
-        for (NSObject<QDThemeProtocol> *theme in QMUIThemeManager.sharedInstance.themes) {
+        for (NSObject<QDThemeProtocol> *theme in QMUIThemeManagerCenter.defaultThemeManager.themes) {
             if ([theme isKindOfClass:class]) {
                 hasInstance = YES;
                 break;
@@ -54,7 +54,7 @@
         }
         if (!hasInstance) {
             NSObject<QDThemeProtocol> *theme = [class new];
-            [QMUIThemeManager.sharedInstance addThemeIdentifier:theme.themeName theme:theme];
+            [QMUIThemeManagerCenter.defaultThemeManager addThemeIdentifier:theme.themeName theme:theme];
         }
     }];
     
@@ -71,10 +71,10 @@
     [self.scrollView addSubview:self.buttonContainers];
     
     [self.classes enumerateObjectsUsingBlock:^(Class  _Nonnull class, NSUInteger idx, BOOL * _Nonnull stop) {
-        for (NSObject<QDThemeProtocol> *theme in QMUIThemeManager.sharedInstance.themes) {
+        for (NSObject<QDThemeProtocol> *theme in QMUIThemeManagerCenter.defaultThemeManager.themes) {
             if ([NSStringFromClass(theme.class) isEqualToString:NSStringFromClass(class)]) {
-                NSString *identifier = [QMUIThemeManager.sharedInstance identifierForTheme:theme];
-                BOOL isCurrentTheme = [QMUIThemeManager.sharedInstance.currentThemeIdentifier isEqual:identifier];
+                NSString *identifier = [QMUIThemeManagerCenter.defaultThemeManager identifierForTheme:theme];
+                BOOL isCurrentTheme = [QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:identifier];
                 QDThemeButton *themeButton = [[QDThemeButton alloc] initWithFillColor:[theme.themeName isEqualToString:QDThemeIdentifierDark] ? UIColorBlack : theme.themeTintColor titleTextColor:UIColorWhite];
                 themeButton.cornerRadius = 4;
                 themeButton.titleLabel.font = UIFontMake(12);
@@ -91,7 +91,7 @@
     
     self.respondsSystemStyleSwitch = [[UISwitch alloc] init];
     if (@available(iOS 13.0, *)) {
-        self.respondsSystemStyleSwitch.on = QMUIThemeManager.sharedInstance.respondsSystemStyleAutomatically;
+        self.respondsSystemStyleSwitch.on = QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically;
         [self.respondsSystemStyleSwitch addTarget:self action:@selector(handleSwitchEvent:) forControlEvents:UIControlEventValueChanged];
     } else {
         self.respondsSystemStyleSwitch.enabled = NO;
@@ -145,12 +145,12 @@
 
 - (void)handleSwitchEvent:(UISwitch *)switchControl {
     if (@available(iOS 13.0, *)) {
-        QMUIThemeManager.sharedInstance.respondsSystemStyleAutomatically = switchControl.on;
+        QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = switchControl.on;
     }
 }
 
 - (void)handleThemeButtonEvent:(QDThemeButton *)themeButton {
-    QMUIThemeManager.sharedInstance.currentThemeIdentifier = themeButton.currentTitle;
+    QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier = themeButton.currentTitle;
 }
 
 - (void)qmui_themeDidChangeByManager:(QMUIThemeManager *)manager identifier:(NSString *)identifier theme:(__kindof NSObject *)theme {
