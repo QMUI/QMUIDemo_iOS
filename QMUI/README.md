@@ -42,9 +42,9 @@ QMUI iOS 是一个致力于提高项目 UI 开发效率的解决方案，其设�
 请下载 QMUI Demo：[https://github.com/QMUI/QMUIDemo_iOS](https://github.com/QMUI/QMUIDemo_iOS)。
 
 ![Launch](https://user-images.githubusercontent.com/1190261/49869307-041fdf00-fe4b-11e8-8f77-8007317e71c6.gif)
-![UIColor](https://user-images.githubusercontent.com/1190261/49869346-1d289000-fe4b-11e8-9e75-00b861f72b2a.gif)
-![Popup](https://user-images.githubusercontent.com/1190261/49869336-169a1880-fe4b-11e8-9fab-b3ff8233d562.gif)
-![MarqueeLabel](https://user-images.githubusercontent.com/1190261/49869323-100ba100-fe4b-11e8-947c-92082fb4ddd8.gif)
+![QMUITheme](https://user-images.githubusercontent.com/1190261/66378391-ecbb6f00-e9e5-11e9-9d47-8456347ba886.gif)
+![QMUIPopup](https://user-images.githubusercontent.com/1190261/49869336-169a1880-fe4b-11e8-9fab-b3ff8233d562.gif)
+![QMUIMarqueeLabel](https://user-images.githubusercontent.com/1190261/49869323-100ba100-fe4b-11e8-947c-92082fb4ddd8.gif)
 
 ## 注意事项
 
@@ -52,6 +52,12 @@ QMUI iOS 是一个致力于提高项目 UI 开发效率的解决方案，其设�
 - 关于 xib / storyboard：现已全面支持。
 - 关于 Swift：可以正常使用，如遇到问题请提 issue。
 - 关于隐私：从 2.8.0 版本开始，QMUIKit 默认会在 Debug 模式下启动 App 时发送当前 App 的 Bundle Identifier 和 Display Name 给 QMUI 作统计用，Release 下不会发送。你也可以通过配置表的 `SendAnalyticsToQMUITeam` 开关将统计关闭。统计的代码在 [QMUIConfiguration.m:91](https://github.com/Tencent/QMUI_iOS/blob/master/QMUIKit/QMUICore/QMUIConfiguration.m#L91-L101)，可直接查看。
+
+## 设计资源
+
+QMUIKit 框架内自带图片资源的组件主要是 QMUIConsole、QMUIEmotion、QMUIImagePicker、QMUITips，另外作为 Sample Code 使用的 QMUI Demo 是另一个独立的项目，它拥有自己另外一套设计。
+
+QMUIKit 和 QMUI Demo 的 Sketch 设计稿均存放在 [https://github.com/QMUI/QMUIDemo_Design](https://github.com/QMUI/QMUIDemo_Design)。
 
 ## 其他
 
