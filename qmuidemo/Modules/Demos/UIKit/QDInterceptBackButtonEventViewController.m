@@ -31,7 +31,7 @@
     [super initSubviews];
     
     _textView = [[QMUITextView alloc] init];
-    self.textView.backgroundColor = nil;
+    self.textView.backgroundColor = UIColor.qd_backgroundColorLighten;
     self.textView.placeholder = @"请输入个人简介...";
     self.textView.font = UIFontMake(15);
     self.textView.layer.borderWidth = PixelOne;

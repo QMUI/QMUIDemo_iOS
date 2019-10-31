@@ -52,6 +52,9 @@
 @property(nonatomic, strong) UILabel *toolbarLabel;
 @property(nonatomic, strong) UIToolbar *toolbar;
 
+@property(nonatomic, strong) UILabel *searchBarLabel;
+@property(nonatomic, strong) UISearchBar *searchBar;
+
 @end
 
 @implementation QDThemeExampleView
@@ -225,6 +228,17 @@
         [self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         self.toolbar.barTintColor = UIColor.qd_tintColor;
         [self addSubview:self.toolbar];
+        
+        self.searchBarLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
+        self.searchBarLabel.text = @"UISearchBar";
+        [self.searchBarLabel sizeToFit];
+        [self addSubview:self.searchBarLabel];
+        
+        self.searchBar = [[UISearchBar alloc] init];
+        self.searchBar.barTintColor = UIColor.qd_tintColor;
+        self.searchBar.tintColor = UIColor.qd_tintColor;
+        [self.searchBar sizeToFit];
+        [self addSubview:self.searchBar];
     }
     return self;
 }
@@ -239,6 +253,7 @@
     height += self.navigationBarLabel.qmui_height + self.itemInnerSpacing + self.barHeight + self.itemMarginBottom;
     height += self.tabBarLabel.qmui_height + self.itemInnerSpacing + self.barHeight + self.itemMarginBottom;
     height += self.toolbarLabel.qmui_height + self.itemInnerSpacing + self.barHeight + self.itemMarginBottom;
+    height += self.searchBarLabel.qmui_height + self.itemInnerSpacing + self.searchBar.qmui_height + self.itemMarginBottom;
     size.height = height;
     return size;
 }
@@ -296,6 +311,10 @@
     self.toolbar.qmui_top = self.toolbarLabel.qmui_bottom + self.itemInnerSpacing;
     self.toolbar.qmui_width = self.qmui_width;
     self.toolbar.qmui_height = self.barHeight;
+    
+    self.searchBarLabel.qmui_top = self.toolbar.qmui_bottom + self.itemMarginBottom;
+    self.searchBar.qmui_top = self.searchBarLabel.qmui_bottom + self.itemInnerSpacing;
+    self.searchBar.qmui_width = self.qmui_width;
 }
 
 @end

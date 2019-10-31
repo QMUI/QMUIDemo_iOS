@@ -55,7 +55,7 @@ static CGFloat const kEmotionViewHeight = 232;
     self.textView.textContainerInset = UIEdgeInsetsMake(16, 12, 16, 12);
     self.textView.layer.cornerRadius = 8;
     self.textView.clipsToBounds = YES;
-    self.textView.backgroundColor = nil;
+    self.textView.backgroundColor = UIColor.qd_backgroundColorLighten; 
     [self.containerView addSubview:self.textView];
     
     _toolbarView = [[UIView alloc] init];

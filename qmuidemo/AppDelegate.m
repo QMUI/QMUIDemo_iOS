@@ -19,7 +19,28 @@
 #import "QMUIConfigurationTemplatePinkRose.h"
 #import "QMUIConfigurationTemplateDark.h"
 
+#ifdef IOS13_SDK_ALLOWED
+//#define UIWindowScene_Enabled
+#endif
+
 @implementation AppDelegate
+
+#ifdef UIWindowScene_Enabled
+
+#pragma mark - <UIWindowSceneDelegate>
+
+- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions API_AVAILABLE(ios(13.0)) {
+    if (@available(iOS 13.0, *)) {
+        if ([scene isKindOfClass:UIWindowScene.class]) {
+            self.window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
+            [self didInitWindow];
+        }
+    }
+}
+
+#endif
+
+#pragma mark - <UIApplicationDelegate>
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -64,17 +85,27 @@
         [QDUIHelper qmuiEmotions];
     });
     
-    // 界面
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self createTabBarController];
-    
-    // 启动动画
-    [self startLaunchingAnimation];
+#ifdef UIWindowScene_Enabled
+    if (@available(iOS 13.0, *)) {
+    } else {
+#endif
+        // 界面
+        self.window = [[UIWindow alloc] init];
+        [self didInitWindow];
+#ifdef UIWindowScene_Enabled
+    }
+#endif
     
     return YES;
 }
 
-- (void)createTabBarController {
+- (void)didInitWindow {
+    self.window.rootViewController = [self generateWindowRootViewController];
+    [self.window makeKeyAndVisible];
+    [self startLaunchingAnimation];
+}
+
+- (UIViewController *)generateWindowRootViewController {
     QDTabBarViewController *tabBarViewController = [[QDTabBarViewController alloc] init];
     
     // QMUIKit
@@ -100,12 +131,11 @@
     
     // window root controller
     tabBarViewController.viewControllers = @[uikitNavController, componentNavController, labNavController];
-    self.window.rootViewController = tabBarViewController;
-    [self.window makeKeyAndVisible];
+    return tabBarViewController;
 }
 
 - (void)startLaunchingAnimation {
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIWindow *window = self.window;
     UIView *launchScreenView = [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil].firstObject;
     launchScreenView.frame = window.bounds;
     [window addSubview:launchScreenView];

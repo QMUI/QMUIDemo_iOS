@@ -114,6 +114,7 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
 - (void)showAppearanceDialogViewController {
     QMUIDialogViewController *dialogViewController = [[QMUIDialogViewController alloc] init];
     dialogViewController.title = @"标题";
+    dialogViewController.titleView.subtitle = @"副标题";
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
     contentView.backgroundColor = UIColor.qd_tintColor;
     UILabel *label = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColorWhite];
@@ -128,12 +129,18 @@ static NSString * const kSectionTitleForTextField = @"QMUIDialogTextFieldViewCon
         [aDialogViewController hide];
     }];
     
-    // 自定义样式
+    // === 自定义样式 ===
     dialogViewController.headerViewBackgroundColor = UIColor.qd_tintColor;
     dialogViewController.headerSeparatorColor = nil;
     dialogViewController.footerSeparatorColor = nil;
+    
+    // titleView
+    dialogViewController.titleView.style = QMUINavigationTitleViewStyleSubTitleVertical;
+    dialogViewController.titleView.verticalTitleFont = UIFontBoldMake(17);
     dialogViewController.titleTintColor = UIColorWhite;
-    dialogViewController.titleView.horizontalTitleFont = UIFontBoldMake(17);
+    dialogViewController.titleLabelTextColor = nil;
+    dialogViewController.subTitleLabelTextColor = nil;
+    
     dialogViewController.buttonHighlightedBackgroundColor = [dialogViewController.headerViewBackgroundColor qmui_colorWithAlphaAddedToWhite:.3];
     NSMutableDictionary *buttonTitleAttributes = dialogViewController.buttonTitleAttributes.mutableCopy;
     buttonTitleAttributes[NSForegroundColorAttributeName] = dialogViewController.headerViewBackgroundColor;

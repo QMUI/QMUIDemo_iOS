@@ -20,7 +20,7 @@
 @property(nonatomic, copy) NSString *themeName;
 @end
 
-@interface QDThemeViewController ()
+@interface QDThemeViewController ()<QMUIKeyboardManagerDelegate>
 
 @property(nonatomic, strong) NSArray<Class> *classes;
 @property(nonatomic, strong) UIScrollView *scrollView;
@@ -30,7 +30,7 @@
 @property(nonatomic, strong) UILabel *respondsSystemStyleLabel;
 @property(nonatomic, strong) CALayer *separatorLayer;
 @property(nonatomic, strong) QDThemeExampleView *exampleView;
-@property(nonatomic, strong) UIImageView *imageView;
+@property(nonatomic, strong) QMUIKeyboardManager *keyboardManager;
 @end
 
 @implementation QDThemeViewController
@@ -59,6 +59,8 @@
     }];
     
     self.themeButtons = [[NSMutableArray alloc] init];
+    
+    self.keyboardManager = [[QMUIKeyboardManager alloc] initWithDelegate:self];
 }
 
 - (void)initSubviews {
@@ -162,6 +164,34 @@
 
 - (BOOL)shouldHideKeyboardWhenTouchInView:(UIView *)view {
     return YES;
+}
+
+#pragma mark - <QMUIKeyboardManagerDelegate>
+
+- (void)keyboardWillChangeFrameWithUserInfo:(QMUIKeyboardUserInfo *)keyboardUserInfo {
+    CGFloat marginToKeyboard = 16;
+    UIView *view = (UIView *)keyboardUserInfo.targetResponder;
+    CGRect rectInView = [view convertRect:view.bounds toView:self.view];
+    CGFloat keyboardHeight = [keyboardUserInfo heightInView:self.view];
+    if (keyboardHeight <= 0) {
+        // hide
+        if (self.scrollView.contentOffset.y + CGRectGetHeight(self.scrollView.bounds) > self.scrollView.contentSize.height) {
+            [UIView animateWithDuration:keyboardUserInfo.animationDuration delay:0 options:keyboardUserInfo.animationOptions animations:^{
+                [self.scrollView qmui_scrollToBottom];
+            } completion:nil];
+        }
+    } else {
+        // show
+        CGFloat delta = CGRectGetHeight(self.view.bounds) - keyboardHeight - marginToKeyboard - CGRectGetMaxY(rectInView);
+        if (delta < 0) {
+            [UIView animateWithDuration:keyboardUserInfo.animationDuration delay:0 options:keyboardUserInfo.animationOptions animations:^{
+                [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, self.scrollView.contentOffset.y - delta)];
+            } completion:nil];
+        }
+    }
+    
+    self.scrollView.contentInset = UIEdgeInsetsSetBottom(self.scrollView.contentInset, keyboardHeight);
+    self.scrollView.scrollIndicatorInsets = self.scrollView.contentInset;
 }
 
 @end

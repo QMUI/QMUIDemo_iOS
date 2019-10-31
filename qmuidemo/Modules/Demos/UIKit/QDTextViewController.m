@@ -38,7 +38,7 @@
     self.textView.typingAttributes = @{NSFontAttributeName: UIFontMake(15),
                                        NSForegroundColorAttributeName: UIColor.qd_titleTextColor,
                                        NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]};
-    self.textView.backgroundColor = nil;
+    self.textView.backgroundColor = UIColor.qd_backgroundColorLighten;
     // 限制可输入的字符长度
     self.textView.maximumTextLength = 100;
     

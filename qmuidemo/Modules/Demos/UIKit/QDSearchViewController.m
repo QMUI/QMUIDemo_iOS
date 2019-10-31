@@ -19,7 +19,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = UIColorWhite;
+        self.backgroundColor = UIColor.qd_backgroundColor;
         
         self.titleLabel = [[QMUILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
         self.titleLabel.text = @"最近搜索";
@@ -116,7 +116,7 @@
         cell.textLabel.text = self.keywords[indexPath.row];
     } else {
         NSString *keyword = self.searchResultsKeywords[indexPath.row];
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: TableViewCellTitleLabelColor}];
         NSRange range = [keyword rangeOfString:self.mySearchController.searchBar.text];
         if (range.location != NSNotFound) {
             [attributedString addAttributes:@{NSForegroundColorAttributeName: UIColor.qd_tintColor} range:range];
@@ -153,7 +153,11 @@
 }
 
 - (void)willPresentSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = UIStatusBarStyleDefault;
+    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+        self.statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        self.statusBarStyle = UIStatusBarStyleDefault;
+    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 

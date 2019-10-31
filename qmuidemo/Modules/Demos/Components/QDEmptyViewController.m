@@ -78,7 +78,11 @@
 #pragma mark - <QMUISearchControllerDelegate>
 
 - (void)willPresentSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = UIStatusBarStyleDefault;
+    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+        self.statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        self.statusBarStyle = UIStatusBarStyleDefault;
+    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
