@@ -63,8 +63,10 @@
     [textView typeText:@"string to be copied"];
     XCTAssertFalse(self.app.menuItems.count);
     [textView pressForDuration:1];
-    XCTAssertTrue(self.app.menuItems.count);
+    sleep(1.5);
+    XCTAssertTrue([[self.app menuItems] count]);
     [self.app qd_tapMenuItem:QDUITestMenuItemSelectAll];
+    sleep(1.5);
     [self.app qd_tapMenuItem:QDUITestMenuItemCopy];
     sleep(1.5);
     NSLog(@"UIPasteboard.generalPasteboard.string = %@", UIPasteboard.generalPasteboard.string);
@@ -83,7 +85,8 @@
     sleep(2);// 等待 QMUITips 消失才能点击 textView
     
     // 粘贴过来的一大段文字也要自动截断
-    [textView doubleTap];
+    [textView tap];
+    sleep(1.5);
     [self.app qd_tapMenuItem:QDUITestMenuItemSelectAll];
     [self.app.keys[@"delete"] tap];
     NSString *pasteString = @"这是一段粘贴过来的长文本，末尾理应会被截断。这是一段粘贴过来的长文本，末尾理应会被截断。这是一段粘贴过来的长文本，末尾理应会被截断。这是一段粘贴过来的长文本，末尾理应会被截断。这是一段粘贴过来的长文本，末尾理应会被截断。";
