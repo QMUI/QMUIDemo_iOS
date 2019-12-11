@@ -41,6 +41,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    // 需要手动调用 navigationAnimator.statusbarStyleBlock 来告诉系统状态栏的变化
     if (self.navigationAnimator) {
         return self.navigationAnimator.statusbarStyleBlock(self.navigationAnimator, self.navigationAnimator.progress);
     }

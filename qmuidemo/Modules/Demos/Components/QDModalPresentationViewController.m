@@ -201,33 +201,10 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     contentView.contentSize = CGSizeMake(CGRectGetWidth(contentView.bounds), CGRectGetMaxY(label.frame) + contentViewPadding.bottom);
     
     QMUIModalPresentationViewController *modalViewController = [[QMUIModalPresentationViewController alloc] init];
+    modalViewController.animationStyle = QMUIModalPresentationAnimationStyleSlide;
     modalViewController.contentView = contentView;
     modalViewController.layoutBlock = ^(CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewDefaultFrame) {
         contentView.qmui_frameApplyTransform = CGRectSetXY(contentView.frame, CGFloatGetCenter(CGRectGetWidth(containerBounds), CGRectGetWidth(contentView.frame)), CGRectGetHeight(containerBounds) - 20 - CGRectGetHeight(contentView.frame));
-    };
-    modalViewController.showingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, CGRect contentViewFrame, void(^completion)(BOOL finished)) {
-        contentView.frame = CGRectSetY(contentView.frame, CGRectGetHeight(containerBounds));
-        dimmingView.alpha = 0;
-        [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
-            dimmingView.alpha = 1;
-            contentView.frame = contentViewFrame;
-        } completion:^(BOOL finished) {
-            // 记住一定要在适当的时机调用completion()
-            if (completion) {
-                completion(finished);
-            }
-        }];
-    };
-    modalViewController.hidingAnimation = ^(UIView *dimmingView, CGRect containerBounds, CGFloat keyboardHeight, void(^completion)(BOOL finished)) {
-        [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
-            dimmingView.alpha = 0.0;
-            contentView.frame = CGRectSetY(contentView.frame, CGRectGetHeight(containerBounds));
-        } completion:^(BOOL finished) {
-            // 记住一定要在适当的时机调用completion()
-            if (completion) {
-                completion(finished);
-            }
-        }];
     };
     [modalViewController showWithAnimated:YES completion:nil];
 }
@@ -342,7 +319,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     
     CGRect modalRect = CGRectMake(40, self.qmui_navigationBarMaxYInViewCoordinator + 40, CGRectGetWidth(self.view.bounds) - 40 * 2, CGRectGetHeight(self.view.bounds) - self.qmui_navigationBarMaxYInViewCoordinator - 40 * 2);
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(modalRect) - 40, 200)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(modalRect) - 40, 0)];
     contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
@@ -350,7 +327,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 3 种，注意可以透过遮罩外的空白地方点击到背后的 cell" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 3 种，注意可以透过遮罩外的空白地方点击到背后的 cell。\n这种方式适用于需要保持浮层显示的情况下切换界面，你可以点击按钮看效果。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];
@@ -358,12 +335,27 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.attributedText = attributedString;
     [contentView addSubview:label];
     
+    QMUIButton *button = [[QMUIButton alloc] init];
+    button.tintColorAdjustsTitleAndImage = ButtonTintColor;
+    button.titleLabel.font = UIFontMake(16);
+    [button setTitle:@"进入下一个界面" forState:UIControlStateNormal];
+    [button setImage:TableViewCellDisclosureIndicatorImage forState:UIControlStateNormal];
+    button.spacingBetweenImageAndTitle = 4;
+    button.imagePosition = QMUIButtonImagePositionRight;
+    [button sizeToFit];
+    button.qmui_tapBlock = ^(__kindof UIControl *sender) {
+        [QMUIHelper.visibleViewController.navigationController pushViewController:QDModalPresentationViewController.new animated:YES];
+    };
+    [contentView addSubview:button];
+    
     UIEdgeInsets contentViewPadding = UIEdgeInsetsMake(20, 20, 20, 20);
     label.frame = CGRectMake(contentViewPadding.left, contentViewPadding.top, CGRectGetWidth(contentView.bounds) - UIEdgeInsetsGetHorizontalValue(contentViewPadding), QMUIViewSelfSizingHeight);
+    button.frame = CGRectSetXY(button.frame, CGRectGetMinX(label.frame), CGRectGetMaxY(label.frame) + 24);
+    contentView.frame = CGRectSetHeight(contentView.frame, CGRectGetMaxY(button.frame) + contentViewPadding.bottom);
     
     self.modalViewControllerForAddSubview = [[QMUIModalPresentationViewController alloc] init];
     self.modalViewControllerForAddSubview.contentView = contentView;
-    self.modalViewControllerForAddSubview.view.frame = modalRect;
+    self.modalViewControllerForAddSubview.view.frame = modalRect;// 为了展示，故意让浮层小于当前界面，以展示局部浮层的能力
     // 以 addSubview 的形式显示，此时需要retain住modalPresentationViewController，防止提前被释放
     [self.modalViewControllerForAddSubview showInView:self.view animated:YES completion:nil];
 }

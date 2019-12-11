@@ -19,7 +19,7 @@
     [super initSubviews];
     self.floatLayoutView = [[QMUIFloatLayoutView alloc] init];
     self.floatLayoutView.padding = UIEdgeInsetsMake(12, 12, 12, 12);
-    self.floatLayoutView.itemMargins = UIEdgeInsetsMake(0, 0, 10, 10);
+    self.floatLayoutView.itemMargins = UIEdgeInsetsMake(10, 10, 10, 10);
     self.floatLayoutView.minimumItemSize = CGSizeMake(69, 29);// 以2个字的按钮作为最小宽度
     self.floatLayoutView.layer.borderWidth = PixelOne;
     self.floatLayoutView.layer.borderColor = UIColorSeparator.CGColor;
@@ -38,7 +38,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 36, 24, 36, 24);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 36, 24 + self.view.qmui_safeAreaInsets.left, 36, 24 + self.view.qmui_safeAreaInsets.right);
     self.floatLayoutView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), QMUIViewSelfSizingHeight);
 }
 

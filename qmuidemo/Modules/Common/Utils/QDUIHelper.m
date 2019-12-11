@@ -160,7 +160,7 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
 
 // 在子线程预加载
 + (void)asyncLoadImages:(NSArray<QMUIEmotion *> *)emotions {
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (QMUIEmotion *e in emotions) {
             e.image = [UIImageMake(e.identifier) qmui_imageWithBlendColor:UIColor.qd_tintColor];
         }
