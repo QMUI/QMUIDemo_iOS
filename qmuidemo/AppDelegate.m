@@ -60,18 +60,21 @@
     // 3. 再针对 iOS 13 开启自动响应系统的 Dark Mode 切换
     // 如果不需要这个功能，则不需要这一段代码
     if (@available(iOS 13.0, *)) {
-        QMUIThemeManagerCenter.defaultThemeManager.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
-            if (trait.userInterfaceStyle == UIUserInterfaceStyleDark) {
-                return QDThemeIdentifierDark;
-            }
-            
-            if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-                return QDThemeIdentifierDefault;
-            }
-            
-            return QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier;
-        };
-        QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = YES;
+        // 做这个 if(currentThemeIdentifier) 的保护只是为了避免 QD 里的配置表没启动时，没人为 currentTheme/currentThemeIdentifier 赋值，导致后续的逻辑会 crash，业务项目里理论上不会有这种情况出现，所以可以省略这个 if 块
+        if (QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier) {
+            QMUIThemeManagerCenter.defaultThemeManager.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
+                if (trait.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    return QDThemeIdentifierDark;
+                }
+                
+                if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
+                    return QDThemeIdentifierDefault;
+                }
+                
+                return QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier;
+            };
+            QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = YES;
+        }
     }
     
     // QMUIConsole 默认只在 DEBUG 下会显示，作为 Demo，改为不管什么环境都允许显示
