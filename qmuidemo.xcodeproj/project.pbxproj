@@ -968,7 +968,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = QD;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "QMUI Team";
 				TargetAttributes = {
 					165F42EF1ADB60180057EF6A = {
@@ -1394,7 +1394,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FP989NU38H;
+				DEVELOPMENT_TEAM = PM6KH29YH2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1417,7 +1417,7 @@
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.qmuidemo.qmui-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmuidemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1437,7 +1437,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FP989NU38H;
+				DEVELOPMENT_TEAM = PM6KH29YH2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1458,7 +1458,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.qmuidemo.qmui-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmuidemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1606,8 +1606,8 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tencent Technology (Shenzhen) Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tencent Technology (Shenzhen) Co., Ltd";
+				CODE_SIGN_IDENTITY = "Tencent Technology (Shenzhen) Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Tencent Technology (Shenzhen) Co., Ltd";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = HKB8WPFBR9;
 				ENABLE_BITCODE = NO;
@@ -1633,10 +1633,10 @@
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tencent.qmui-debug";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.qmui.db;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "ea2ce615-e8b3-4c97-87a1-b8386d67eb8c";
+				PROVISIONING_PROFILE_SPECIFIER = "com.tencent.qmui.db InHouse";
 				SDKROOT = iphoneos;
 				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};

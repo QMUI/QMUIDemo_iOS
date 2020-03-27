@@ -120,7 +120,7 @@
 + (QMUIButton *)generateLightBorderedButton {
     QMUIButton *button = [[QMUIButton alloc] qmui_initWithSize:CGSizeMake(200, 40)];
     button.titleLabel.font = UIFontBoldMake(14);
-    [button setTitleColor:UIColor.qd_tintColor forState:UIControlStateNormal];
+    button.tintColorAdjustsTitleAndImage = UIColor.qd_tintColor;
     button.backgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.9];
     button.highlightedBackgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.75];// 高亮时的背景色
     button.layer.borderColor = [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.5].CGColor;

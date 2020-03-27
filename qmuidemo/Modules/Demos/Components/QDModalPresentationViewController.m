@@ -261,7 +261,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 }
 
 - (void)handleWindowShowing {
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 160)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 208)];
     contentView.backgroundColor = UIColor.qd_backgroundColorLighten;
     contentView.layer.cornerRadius = 6;
     
@@ -269,7 +269,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
     label.numberOfLines = 0;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:24];
     paragraphStyle.paragraphSpacing = 16;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 1 种，注意状态栏被遮罩盖住了" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"QMUIModalPresentationViewController支持 3 种使用方式，当前使用第 1 种。提供 UIWindow 的方式目的是为了盖住状态栏，但 iOS 13 及以后，状态栏已经无法被盖住了，所以只有在 iOS 12 及以下才能看到状态栏盖住的效果。" attributes:@{NSFontAttributeName: UIFontMake(16), NSForegroundColorAttributeName: UIColor.qd_mainTextColor, NSParagraphStyleAttributeName: paragraphStyle}];
     NSDictionary *codeAttributes = CodeAttributes(16);
     [attributedString.string enumerateCodeStringUsingBlock:^(NSString *codeString, NSRange codeRange) {
         [attributedString addAttributes:codeAttributes range:codeRange];

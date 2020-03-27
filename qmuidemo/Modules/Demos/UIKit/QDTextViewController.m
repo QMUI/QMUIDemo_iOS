@@ -36,8 +36,9 @@
     self.textView.returnKeyType = UIReturnKeySend;
     self.textView.enablesReturnKeyAutomatically = YES;
     self.textView.typingAttributes = @{NSFontAttributeName: UIFontMake(15),
-                                       NSForegroundColorAttributeName: UIColor.qd_titleTextColor,
-                                       NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20]};
+                                       NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:20],
+                                       NSForegroundColorAttributeName: self.textView.textColor
+    };
     self.textView.backgroundColor = UIColor.qd_backgroundColorLighten;
     // 限制可输入的字符长度
     self.textView.maximumTextLength = 100;
