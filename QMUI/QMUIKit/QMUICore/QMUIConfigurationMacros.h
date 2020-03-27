@@ -1,6 +1,6 @@
 /*****
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
@@ -84,8 +84,9 @@
 #define FillButtonColorWhite            [QMUICMI fillButtonColorWhite]             // QMUIFillButtonColorWhite的颜色
 
 #pragma mark - TextInput
-#define TextFieldTintColor              [QMUICMI textFieldTintColor]               // 全局UITextField、UITextView的tintColor
-#define TextFieldTextInsets             [QMUICMI textFieldTextInsets]              // QMUITextField的内边距
+#define TextFieldTextColor              [QMUICMI textFieldTextColor]               // QMUITextField、QMUITextView 的文字颜色
+#define TextFieldTintColor              [QMUICMI textFieldTintColor]               // QMUITextField、QMUITextView 的tintColor
+#define TextFieldTextInsets             [QMUICMI textFieldTextInsets]              // QMUITextField 的内边距
 #define KeyboardAppearance              [QMUICMI keyboardAppearance]
 
 #pragma mark - UISwitch
@@ -237,13 +238,14 @@
 #define AutomaticCustomNavigationBarTransitionStyle [QMUICMI automaticCustomNavigationBarTransitionStyle] // 界面 push/pop 时是否要自动根据两个界面的 barTintColor/backgroundImage/shadowImage 的样式差异来决定是否使用自定义的导航栏效果
 #define SupportedOrientationMask                        [QMUICMI supportedOrientationMask]          // 默认支持的横竖屏方向
 #define AutomaticallyRotateDeviceOrientation            [QMUICMI automaticallyRotateDeviceOrientation]  // 是否在界面切换或 viewController.supportedOrientationMask 发生变化时自动旋转屏幕，默认为 NO
-#define StatusbarStyleLightInitially                    [QMUICMI statusbarStyleLightInitially]      // 默认的状态栏内容是否使用白色，默认为NO，也即黑色
+#define StatusbarStyleLightInitially                    [QMUICMI statusbarStyleLightInitially]      // 默认的状态栏内容是否使用白色，默认为 NO，在 iOS 13 下会自动根据是否 Dark Mode 而切换样式，iOS 12 及以前则为黑色
 #define NeedsBackBarButtonItemTitle                     [QMUICMI needsBackBarButtonItemTitle]       // 全局是否需要返回按钮的title，不需要则只显示一个返回image
 #define HidesBottomBarWhenPushedInitially               [QMUICMI hidesBottomBarWhenPushedInitially] // QMUICommonViewController.hidesBottomBarWhenPushed 的初始值，默认为 NO，以保持与系统默认值一致，但通常建议改为 YES，因为一般只有 tabBar 首页那几个界面要求为 NO
 #define PreventConcurrentNavigationControllerTransitions [QMUICMI preventConcurrentNavigationControllerTransitions] // PreventConcurrentNavigationControllerTransitions : 自动保护 QMUINavigationController 在上一次 push/pop 尚未结束的时候就进行下一次 push/pop 的行为，避免产生 crash
 #define NavigationBarHiddenInitially                    [QMUICMI navigationBarHiddenInitially]      // preferredNavigationBarHidden 的初始值，默认为NO
 #define ShouldFixTabBarTransitionBugInIPhoneX           [QMUICMI shouldFixTabBarTransitionBugInIPhoneX] // 是否需要自动修复 iOS 11 下，iPhone X 的设备在 push 界面时，tabBar 会瞬间往上跳的 bug
 #define ShouldFixTabBarButtonBugForAll                  [QMUICMI shouldFixTabBarButtonBugForAll] // 是否要对 iOS 12.1.2 及以后的版本也修复手势返回时 tabBarButton 布局错误的 bug(issue #410)，默认为 NO
+#define ShouldFixTabBarSafeAreaInsetsBugForNotchedScreen [QMUICMI shouldFixTabBarSafeAreaInsetsBugForNotchedScreen] // 是否要对 iOS 11 及以后的版本修复全面屏设备下 pop 界面时 UIScrollView 的 inset 会跳动导致滚动位置受影响的 bug（issue #934），默认为 NO
 #define ShouldPrintQMUIWarnLogToConsole                 [QMUICMI shouldPrintQMUIWarnLogToConsole] // 是否在出现 QMUILogWarn 时自动把这些 log 以 QMUIConsole 的方式显示到设备屏幕上
 #define SendAnalyticsToQMUITeam                         [QMUICMI sendAnalyticsToQMUITeam] // 是否允许在 DEBUG 模式下上报 Bundle Identifier 和 Display Name 给 QMUI 统计用
 #define DynamicPreferredValueForIPad                    [QMUICMI dynamicPreferredValueForIPad] // 当 iPad 处于 Slide Over 或 Split View 分屏模式下，宏 `PreferredValueForXXX` 是否把 iPad 视为某种屏幕宽度近似的 iPhone 来取值。
