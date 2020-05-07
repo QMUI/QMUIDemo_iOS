@@ -134,6 +134,7 @@
     
     // window root controller
     tabBarViewController.viewControllers = @[uikitNavController, componentNavController, labNavController];
+    tabBarViewController.tabBar.translucent = NO;
     return tabBarViewController;
 }
 

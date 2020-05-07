@@ -223,7 +223,7 @@
 }
 
 - (void)openUrlString:(NSString *)urlString {
-    UIApplication *application = [UIApplication sharedApplication];
+    UIApplication *application = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlString];
     if (@available(iOS 10, *)) {
         [application openURL:url options:@{} completionHandler:nil];

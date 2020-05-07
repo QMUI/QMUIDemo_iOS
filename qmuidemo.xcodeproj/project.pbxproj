@@ -1410,14 +1410,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmuidemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.qmuidemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1453,12 +1453,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmuidemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.qmuidemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1626,7 +1626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

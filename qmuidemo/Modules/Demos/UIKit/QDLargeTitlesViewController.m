@@ -69,7 +69,7 @@
     [super viewDidDisappear:animated];
     // 上个界面如果不是 QDLargeTitlesViewController 就还原 prefersLargeTitles，以免影响其他界面
     if (@available(iOS 11.0, *)) {
-        UIViewController *currentViewController = [UIApplication sharedApplication].keyWindow.rootViewController.qmui_visibleViewControllerIfExist;
+        UIViewController *currentViewController = UIApplication.sharedApplication.keyWindow.rootViewController.qmui_visibleViewControllerIfExist;
         if ([currentViewController class] != [QDLargeTitlesViewController class]) {
             currentViewController.navigationController.navigationBar.prefersLargeTitles = NO;
         }
