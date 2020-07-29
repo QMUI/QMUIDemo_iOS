@@ -7,18 +7,17 @@
 //
 
 #import "QDUIKitViewController.h"
+#import "QDCommonListViewController.h"
 #import "QDColorViewController.h"
 #import "QDImageViewController.h"
 #import "QDLabelViewController.h"
 #import "QDTextViewController.h"
 #import "QDTextFieldViewController.h"
-#import "QDTableViewController.h"
 #import "QDButtonViewController.h"
 #import "QDAlertController.h"
 #import "QDSearchViewController.h"
 #import "QDNavigationListViewController.h"
 #import "QDTabBarItemViewController.h"
-#import "QDUIViewQMUIViewController.h"
 #import "QDAboutViewController.h"
 #import "QDObjectViewController.h"
 #import "QDFontViewController.h"
@@ -27,6 +26,15 @@
 #import "QDCAAnimationViewController.h"
 #import "QDImageViewViewController.h"
 #import "CALayer+QMUIViewAnimation.h"
+#import "QDTableViewHeaderFooterViewController.h"
+#import "QDInsetGroupedTableViewController.h"
+#import "QDUIViewBorderViewController.h"
+#import "QDUIViewDebugViewController.h"
+#import "QDUIViewLayoutViewController.h"
+#import "QDSearchBarViewController.h"
+#import "QDTableViewCellInsetsViewController.h"
+#import "QDTableViewCellAccessoryTypeViewController.h"
+#import "QDTableViewCellSeparatorInsetsViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -39,9 +47,9 @@
                        @"QMUISlider", UIImageMake(@"icon_grid_slider"),
                        @"QMUIAlertController", UIImageMake(@"icon_grid_alert"),
                        @"QMUITableView", UIImageMake(@"icon_grid_cell"),
-                       @"QMUISearchController", UIImageMake(@"icon_grid_search"),
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
                        @"QMUINavigationController", UIImageMake(@"icon_grid_navigation"),
+                       @"UISearchBar+QMUI", UIImageMake(@"icon_grid_search"),
                        @"UITabBarItem+QMUI", UIImageMake(@"icon_grid_tabBarItem"),
                        @"UIColor+QMUI", UIImageMake(@"icon_grid_color"),
                        @"UIImage+QMUI", UIImageMake(@"icon_grid_image"),
@@ -58,9 +66,10 @@
     self.title = @"QMUIKit";
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:self action:@selector(handleAboutItemEvent)];
     AddAccessibilityLabel(self.navigationItem.rightBarButtonItem, @"打开关于界面");
-} 
+}
 
 - (void)didSelectCellWithTitle:(NSString *)title {
+    __weak __typeof(self)weakSelf = self;
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"UIColor+QMUI"]) {
         viewController = [[QDColorViewController alloc] init];
@@ -84,13 +93,71 @@
         viewController = [[QDSliderViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUITableView"]) {
-        viewController = [[QDTableViewController alloc] init];
+        viewController = ({
+            QDCommonListViewController *vc = [[QDCommonListViewController alloc] init];
+            vc.dataSource = @[
+                @"(QM)UITableViewCell",
+                @"QMUITableViewHeaderFooterView",
+                @"QMUITableViewStyleInsetGrouped"];
+            vc.didSelectTitleBlock = ^(NSString *title) {
+                UIViewController *viewController = nil;
+                if ([title isEqualToString:@"(QM)UITableViewCell"]) {
+                    viewController = ({
+                        QDCommonListViewController *vc = [[QDCommonListViewController alloc] init];
+                        vc.dataSource = @[
+                            @"通过 insets 系列属性调整间距",
+                            @"通过 block 调整分隔线位置",
+                            @"通过配置表修改 accessoryType 的样式"
+                        ];
+                        __weak __typeof(vc)weakVc = vc;
+                        vc.didSelectTitleBlock = ^(NSString *title) {
+                            [weakVc.tableView qmui_clearsSelection];
+                            UIViewController *viewController = nil;
+                            if ([title isEqualToString:@"通过 insets 系列属性调整间距"]) {
+                                viewController = [[QDTableViewCellInsetsViewController alloc] init];
+                            } else if ([title isEqualToString:@"通过 block 调整分隔线位置"]) {
+                                viewController = [[QDTableViewCellSeparatorInsetsViewController alloc] init];
+                            } else if ([title isEqualToString:@"通过配置表修改 accessoryType 的样式"]) {
+                                viewController = [[QDTableViewCellAccessoryTypeViewController alloc] init];
+                            }
+                            viewController.title = title;
+                            [weakVc.navigationController pushViewController:viewController animated:YES];
+                        };
+                        vc;
+                    });
+                } else if ([title isEqualToString:@"QMUITableViewHeaderFooterView"]) {
+                    viewController = QDTableViewHeaderFooterViewController.new;
+                } else if ([title isEqualToString:@"QMUITableViewStyleInsetGrouped"]) {
+                    viewController = QDInsetGroupedTableViewController.new;
+                }
+                viewController.title = title;
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            };
+            vc;
+        });
     }
     else if ([title isEqualToString:@"QMUIButton"]) {
         viewController = [[QDButtonViewController alloc] init];
     }
-    else if ([title isEqualToString:@"QMUISearchController"]) {
-        viewController = [[QDSearchViewController alloc] init];
+    else if ([title isEqualToString:@"UISearchBar+QMUI"]) {
+        viewController = ({
+            QDCommonListViewController *vc = QDCommonListViewController.new;
+            vc.dataSource = @[
+                @"UISearchBar(QMUI)",
+                @"QMUISearchController",
+            ];
+            vc.didSelectTitleBlock = ^(NSString *title) {
+                UIViewController *viewController = nil;
+                if ([title isEqualToString:@"UISearchBar(QMUI)"]) {
+                    viewController = QDSearchBarViewController.new;
+                } else if ([title isEqualToString:@"QMUISearchController"]) {
+                    viewController = QDSearchViewController.new;
+                }
+                viewController.title = title;
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            };
+            vc;
+        });
     }
     else if ([title isEqualToString:@"QMUIAlertController"]) {
         viewController = [[QDAlertController alloc] init];
@@ -108,7 +175,26 @@
         viewController = [[QDFontViewController alloc] init];
     }
     else if ([title isEqualToString:@"UIView+QMUI"]) {
-        viewController = [[QDUIViewQMUIViewController alloc] init];
+        viewController = ({
+            QDCommonListViewController *vc = [[QDCommonListViewController alloc] init];
+            vc.dataSource = @[
+                @"UIView (QMUI_Border)",
+                @"UIView (QMUI_Debug)",
+                @"UIView (QMUI_Layout)"];
+            vc.didSelectTitleBlock = ^(NSString *title) {
+                UIViewController *viewController = nil;
+                if ([title isEqualToString:@"UIView (QMUI_Border)"]) {
+                    viewController = [[QDUIViewBorderViewController alloc] init];
+                } else if ([title isEqualToString:@"UIView (QMUI_Debug)"]) {
+                    viewController = [[QDUIViewDebugViewController alloc] init];
+                } else if ([title isEqualToString:@"UIView (QMUI_Layout)"]) {
+                    viewController = [[QDUIViewLayoutViewController alloc] init];
+                }
+                viewController.title = title;
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            };
+            vc;
+        });
     }
     else if ([title isEqualToString:@"NSObject+QMUI"]) {
         viewController = [[QDObjectViewController alloc] init];

@@ -10,6 +10,7 @@
 
 @interface QDBadgeViewController ()
 
+@property(nonatomic, strong) UIToolbar *toolbar;
 @property(nonatomic, strong) UITabBar *tabBar;
 @end
 
@@ -22,6 +23,24 @@
 
 - (void)initSubviews {
     [super initSubviews];
+    
+    self.toolbar = [[UIToolbar alloc] init];
+    self.toolbar.tintColor = UIColor.qd_tintColor;
+    self.toolbar.items = @[
+        [UIBarButtonItem qmui_flexibleSpaceItem],
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:nil action:NULL],
+        [UIBarButtonItem qmui_flexibleSpaceItem],
+        [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_tabbar_uikit") target:nil action:NULL],
+        [UIBarButtonItem qmui_flexibleSpaceItem],
+        [UIBarButtonItem qmui_itemWithTitle:@"ToolbarItem" target:nil action:NULL],
+        [UIBarButtonItem qmui_flexibleSpaceItem],
+    ];
+    [self.toolbar sizeToFit];
+    self.toolbar.items[1].qmui_shouldShowUpdatesIndicator = YES;
+    self.toolbar.items[3].qmui_badgeInteger = 8;
+    self.toolbar.items[5].qmui_badgeString = @"99+";
+    [self.view addSubview:self.toolbar];
+    
     self.tabBar = [[UITabBar alloc] init];
     
     UITabBarItem *item1 = [QDUIHelper tabBarItemWithTitle:@"QMUIKit" image:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:UIImageMake(@"icon_tabbar_uikit_selected") tag:0];
@@ -35,29 +54,41 @@
     self.tabBar.selectedItem = item1;
     [self.tabBar sizeToFit];
     [self.view addSubview:self.tabBar];
-    
-    // 统一调整横屏模式下 UITabBarItem 的红点和未读数偏移位置（具体值视业务设计不同而不同）
-    [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
-        item.qmui_badgeCenterOffsetLandscape = CGPointMake(9, -7);
-    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell.textLabel.qmui_shouldShowUpdatesIndicator = YES;
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat tabBarHeight = TabBarHeight;
     self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - tabBarHeight, CGRectGetWidth(self.view.bounds), tabBarHeight);
+    self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.tabBar.frame) - CGRectGetHeight(self.toolbar.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.toolbar.frame));
 }
 
 - (void)initDataSource {
-    self.dataSource = @[@"在 UIBarButtonItem 上显示红点",
-                        @"在 UITabBarItem 上显示红点",
-                        @"在 UITabBarItem 上显示未读数",
-                        @"修改红点/未读数的样式（多点几次试试）",
-                        @"隐藏所有红点、未读数"];
+    self.dataSource = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
+                       @"UIView", [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
+                                   @"在 UIView 上显示红点", @"点击可切换红点的显隐",
+                                   nil],
+                       @"UIBarItem", [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
+                                      @"在 UIBarButtonItem 上显示红点", @"",
+                                      @"在 UITabBarItem 上显示红点", @"",
+                                      @"在 UITabBarItem 上显示未读数", @"",
+                                      @"修改红点/未读数的样式（多点几次试试）", @"",
+                                      @"隐藏所有红点、未读数", @"",
+                                      nil],
+                       nil];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    if ([title isEqualToString:@"在 UIBarButtonItem 上显示红点"]) {
+    if ([title isEqualToString:@"在 UIView 上显示红点"]) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.textLabel.qmui_shouldShowUpdatesIndicator = !cell.textLabel.qmui_shouldShowUpdatesIndicator;
+    } else if ([title isEqualToString:@"在 UIBarButtonItem 上显示红点"]) {
         
         // 有使用配置表的时候，最简单的代码就只是控制显隐即可，没使用配置表的话，还需要设置其他的属性才能使红点样式正确，具体请看 UIBarButton+QMUIBadge.h 注释
         self.navigationItem.rightBarButtonItem.qmui_shouldShowUpdatesIndicator = YES;
@@ -82,6 +113,8 @@
         
     } else if ([title isEqualToString:@"隐藏所有红点、未读数"]) {
         
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.textLabel.qmui_shouldShowUpdatesIndicator = NO;
         self.navigationItem.rightBarButtonItem.qmui_shouldShowUpdatesIndicator = NO;
         [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             item.qmui_shouldShowUpdatesIndicator = NO;

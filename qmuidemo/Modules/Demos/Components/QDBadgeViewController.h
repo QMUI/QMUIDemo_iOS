@@ -6,8 +6,8 @@
 //  Copyright © 2018年 QMUI Team. All rights reserved.
 //
 
-#import "QDCommonListViewController.h"
+#import "QDCommonGroupListViewController.h"
 
-@interface QDBadgeViewController : QDCommonListViewController
+@interface QDBadgeViewController : QDCommonGroupListViewController
 
 @end

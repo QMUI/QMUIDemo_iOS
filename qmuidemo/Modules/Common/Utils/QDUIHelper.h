@@ -47,6 +47,11 @@
 
 @end
 
+@interface QDUIHelper (QMUIPopupContainerView)
+
++ (void)customPopupAppearance;
+@end
+
 
 @interface QDUIHelper (UITabBarItem)
 

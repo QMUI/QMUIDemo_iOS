@@ -109,8 +109,11 @@
     
     // 使用方法 1，以 addSubview: 的形式显示到界面上
     self.popupByAddSubview = [[QMUIPopupContainerView alloc] init];
-    self.popupByAddSubview.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:UIColor.qd_tintColor];
+    self.popupByAddSubview.imageView.image = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+        return [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:theme.themeTintColor];
+    }];
     self.popupByAddSubview.textLabel.text = @"默认自带 imageView、textLabel，可展示简单的内容";
+    self.popupByAddSubview.textLabel.textColor = UIColor.qd_mainTextColor;
     self.popupByAddSubview.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     self.popupByAddSubview.didHideBlock = ^(BOOL hidesByUserTap) {
         [weakSelf.button1 setTitle:@"显示默认浮层" forState:UIControlStateNormal];
@@ -121,8 +124,11 @@
     [self.view addSubview:self.popupByAddSubview];
     
     self.popupHorizontal = [[QMUIPopupContainerView alloc] init];
-    self.popupHorizontal.imageView.image = [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:UIColor.qd_tintColor];
+    self.popupHorizontal.imageView.image = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+        return [[UIImageMake(@"icon_emotion") qmui_imageResizedInLimitedSize:CGSizeMake(24, 24) resizingMode:QMUIImageResizingModeScaleToFill] qmui_imageWithTintColor:theme.themeTintColor];
+    }];
     self.popupHorizontal.textLabel.text = @"可通过 contentMode 调整内容的布局。\n这样在文字比较长的时候就能看到区别。\n不够长再换几次行。\n不够长再换几次行。\n不够长再换几次行。";
+    self.popupHorizontal.textLabel.textColor = UIColor.qd_mainTextColor;
     self.popupHorizontal.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     self.popupHorizontal.hidden = YES;
     [self.view addSubview:self.popupHorizontal];
@@ -131,7 +137,8 @@
     // 使用方法 2，以 UIWindow 的形式显示到界面上，这种无需默认隐藏，也无需 add 到某个 UIView 上
     self.popupByWindow = [[QMUIPopupMenuView alloc] init];
     self.popupByWindow.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
-    self.popupByWindow.maskViewBackgroundColor = UIColorMaskWhite;// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
+    self.popupByWindow.tintColor = UIColor.qd_tintColor;
+    self.popupByWindow.maskViewBackgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.15];// 使用方法 2 并且打开了 automaticallyHidesWhenUserTap 的情况下，可以修改背景遮罩的颜色
     self.popupByWindow.shouldShowItemSeparator = YES;
     self.popupByWindow.itemConfigurationHandler = ^(QMUIPopupMenuView *aMenuView, QMUIPopupMenuButtonItem *aItem, NSInteger section, NSInteger index) {
         // 利用 itemConfigurationHandler 批量设置所有 item 的样式
@@ -163,6 +170,7 @@
     self.popupAtBarButtonItem.automaticallyHidesWhenUserTap = YES;// 点击空白地方消失浮层
     self.popupAtBarButtonItem.maximumWidth = 180;
     self.popupAtBarButtonItem.shouldShowItemSeparator = YES;
+    self.popupAtBarButtonItem.tintColor = UIColor.qd_tintColor;
     self.popupAtBarButtonItem.items = @[[QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_uikit") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"QMUIKit" handler:NULL],
                               [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_component") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Components" handler:NULL],
                               [QMUIPopupMenuButtonItem itemWithImage:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] title:@"Lab" handler:NULL]];

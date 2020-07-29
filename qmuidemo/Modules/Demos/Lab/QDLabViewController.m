@@ -7,10 +7,17 @@
 //
 
 #import "QDLabViewController.h"
-#import "QDAnimationViewController.h"
+#import "QDCommonListViewController.h"
 #import "QDAllSystemFontsViewController.h"
 #import "QDFontPointSizeAndLineHeightViewController.h"
 #import "QDAboutViewController.h"
+#import "QDInteractiveDebugViewController.h"
+#import "QDAllAnimationViewController.h"
+#import "QDCAShapeLoadingViewController.h"
+#import "QDReplicatorLayerViewController.h"
+#import "QDRippleAnimationViewController.h"
+#import "QDNavigationBarSmoothEffectViewController.h"
+#import "QDNavigationBottomAccessoryViewController.h"
 
 @interface QDLabViewController ()
 @end
@@ -22,18 +29,48 @@
     self.dataSource = @[@"All System Fonts",
                         @"Default Line Height",
                         @"Animation",
-                        @"Log Manager"
+                        @"Log Manager",
+                        @"Interactive Debugger",
+                        @"UINavigationBar Smooth Effect",
+                        @"UINavigationBar Bottom Accessory"
                         ];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
+    __weak __typeof(self)weakSelf = self;
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"All System Fonts"]) {
         viewController = [[QDAllSystemFontsViewController alloc] init];
     } else if ([title isEqualToString:@"Default Line Height"]) {
         viewController = [[QDFontPointSizeAndLineHeightViewController alloc] init];
     } else if ([title isEqualToString:@"Animation"]) {
-        viewController = [[QDAnimationViewController alloc] init];
+        viewController = ({
+            QDCommonListViewController *vc = QDCommonListViewController.new;
+            vc.dataSource = @[
+                @"Loading",
+                @"Loading With CAShapeLayer",
+                @"Animation For CAReplicatorLayer",
+                @"水波纹"
+            ];
+            vc.didSelectTitleBlock = ^(NSString *title) {
+                UIViewController *viewController = nil;
+                if ([title isEqualToString:@"Loading"]) {
+                    viewController = [[QDAllAnimationViewController alloc] init];
+                }
+                else if ([title isEqualToString:@"Loading With CAShapeLayer"]) {
+                    viewController = [[QDCAShapeLoadingViewController alloc] init];
+                }
+                else if ([title isEqualToString:@"Animation For CAReplicatorLayer"]) {
+                    viewController = [[QDReplicatorLayerViewController alloc] init];
+                }
+                else if ([title isEqualToString:@"水波纹"]) {
+                    viewController = [[QDRippleAnimationViewController alloc] init];
+                }
+                viewController.title = title;
+                [weakSelf.navigationController pushViewController:viewController animated:YES];
+            };
+            vc;
+        });
     } else if ([title isEqualToString:@"Log Manager"]) {
         viewController = [[QMUILogManagerViewController alloc] init];
         ((QMUILogManagerViewController *)viewController).formatLogNameForSortingBlock = ^NSString *(NSString *logName) {
@@ -43,6 +80,12 @@
             }
             return logName;
         };
+    } else if ([title isEqualToString:@"Interactive Debugger"]) {
+        viewController = [[QDInteractiveDebugViewController alloc] init];
+    } else if ([title isEqualToString:@"UINavigationBar Smooth Effect"]) {
+        viewController = [[QDNavigationBarSmoothEffectViewController alloc] init];
+    } else if ([title isEqualToString:@"UINavigationBar Bottom Accessory"]) {
+        viewController = [[QDNavigationBottomAccessoryViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

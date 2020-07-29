@@ -21,13 +21,14 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
     self.dataSource = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                        kSectionTitleForAlert, [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                                                @"显示一个 alert 弹窗", @"",
-                                               @"支持 alert 背景磨砂", @"建议用 QMUIVisualEffectView",
+                                               @"支持 alert 背景磨砂", @"使用 mainVisualEffectView 指定整个弹窗的磨砂",
                                                @"支持自定义 alert 样式", @"支持以 UIAppearance 方式设置全局统一样式",
+                                               @"支持添加输入框", @"升起弹窗时会自动聚焦第一个输入框，也可自定义布局",
                                                @"支持自定义内容", @"可以将一个 UIView 作为 QMUIAlertController 的 contentView",
                                                nil],
                        kSectionTitleForActionSheet, [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                                                      @"显示一个 actionSheet 菜单", @"",
-                                                     @"支持 actionSheet 背景磨砂", @"建议用 QMUIVisualEffectView",
+                                                     @"支持 actionSheet 背景磨砂", @"可分别为取消按钮和其他按钮指定不同的磨砂",
                                                      @"支持自定义 actionSheet 样式", @"支持以 UIAppearance 方式设置全局统一样式",
                                                      nil],
                        kSectionTitleForSystem, [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
@@ -56,8 +57,8 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleAlert];
         [alertController addAction:action1];
         [alertController addAction:action2];
-        QMUIVisualEffectView *visualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-        visualEffectView.foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .7);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
+        UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        visualEffectView.qmui_foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .7);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
         alertController.mainVisualEffectView = visualEffectView;
         alertController.alertHeaderBackgroundColor = nil;// 当你需要磨砂的时候请自行去掉这几个背景色，不然这些背景色会盖住磨砂
         alertController.alertButtonBackgroundColor = nil;
@@ -98,6 +99,32 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         return;
     }
     
+    if ([title isEqualToString:@"支持添加输入框"]) {
+        QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"请输入个人信息" message:@"两项填写一项即可" preferredStyle:QMUIAlertControllerStyleAlert];
+        [alertController addAction:[QMUIAlertAction actionWithTitle:@"确定" style:QMUIAlertActionStyleDestructive handler:NULL]];
+        [alertController addCancelAction];
+        [alertController addTextFieldWithConfigurationHandler:^(QMUITextField * _Nonnull textField) {
+            textField.placeholder = @"姓";
+        }];
+        [alertController addTextFieldWithConfigurationHandler:^(QMUITextField * _Nonnull textField) {
+            textField.placeholder = @"名";
+        }];
+        
+        // 输入框的布局默认是贴在一起的，默认不需要修改，这里只是展示可以通过这个 block 自行调整。
+        alertController.alertTextFieldMarginBlock = ^UIEdgeInsets(__kindof QMUIAlertController * _Nonnull aAlertController, NSInteger aTextFieldIndex) {
+            UIEdgeInsets margin = UIEdgeInsetsZero;
+            if (aTextFieldIndex == aAlertController.textFields.count - 1) {
+                margin = UIEdgeInsetsSetBottom(margin, 16);
+            } else {
+                margin = UIEdgeInsetsSetBottom(margin, 4);
+            }
+            return margin;
+        };
+        
+        [alertController showWithAnimated:YES];
+        return;
+    }
+    
     if ([title isEqualToString:@"支持自定义内容"]) {
         QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:NULL];
         QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"确定" style:QMUIAlertActionStyleDestructive handler:NULL];
@@ -134,12 +161,12 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
         [alertController addAction:action1];
         [alertController addAction:action2];
-        QMUIVisualEffectView *visualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-        visualEffectView.foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
+        UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        visualEffectView.qmui_foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
         alertController.mainVisualEffectView = visualEffectView;// 这个负责上半部分的磨砂
         
-        visualEffectView = [[QMUIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-        visualEffectView.foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
+        visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        visualEffectView.qmui_foregroundColor = UIColorMakeWithRGBA(255, 255, 255, .6);// 一般用默认值就行，不用主动去改，这里只是为了展示用法
         alertController.cancelButtonVisualEffectView = visualEffectView;// 这个负责取消按钮的磨砂
         alertController.sheetHeaderBackgroundColor = nil;
         alertController.sheetButtonBackgroundColor = nil;

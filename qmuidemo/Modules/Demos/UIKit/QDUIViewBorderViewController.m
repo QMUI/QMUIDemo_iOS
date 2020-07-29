@@ -364,7 +364,7 @@
     }
     if (cornerMask == 0) {
         // 默认值
-        cornerMask = QMUILayerMinXMinYCorner|QMUILayerMaxXMinYCorner|QMUILayerMinXMaxYCorner|QMUILayerMaxXMaxYCorner;
+        cornerMask = QMUILayerAllCorner;
     }
     self.targetView.layer.qmui_maskedCorners = cornerMask;
 }

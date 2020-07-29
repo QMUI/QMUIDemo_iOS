@@ -67,6 +67,9 @@
     } else {
         title = [self.dataSource objectAtIndex:indexPath.row];
     }
+    if (self.didSelectTitleBlock) {
+        self.didSelectTitleBlock(title);
+    }
     [self didSelectCellWithTitle:title];
 }
 

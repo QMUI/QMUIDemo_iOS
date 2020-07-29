@@ -87,11 +87,11 @@
     [button setAttributedTitle:attributedString forState:UIControlStateNormal];
     [button setImage:image forState:UIControlStateNormal];
     button.tag = index;
-    [button addTarget:self action:@selector(handleGirdButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(handleGridButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
 
-- (void)handleGirdButtonEvent:(QDCommonGridButton *)button {
+- (void)handleGridButtonEvent:(QDCommonGridButton *)button {
     NSString *keyName = self.dataSource.allKeys[button.tag];
     [self didSelectCellWithTitle:keyName];
 }

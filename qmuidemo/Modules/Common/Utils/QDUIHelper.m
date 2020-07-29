@@ -93,6 +93,24 @@
 
 @end
 
+@implementation QDUIHelper (QMUIPopupContainerView)
+
++ (void)customPopupAppearance {
+    QMUIPopupContainerView *popup = QMUIPopupContainerView.appearance;
+    popup.backgroundColor = UIColor.qd_backgroundColor;
+    popup.borderColor = UIColor.qd_separatorColor;
+    popup.maskViewBackgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
+        return [identifier isEqual:QDThemeIdentifierDark] ? UIColorMask : UIColorMaskWhite;
+    }];
+    
+    QMUIPopupMenuView *menuView = QMUIPopupMenuView.appearance;
+    menuView.itemSeparatorColor = UIColor.qd_separatorColor;
+    menuView.sectionSeparatorColor = UIColor.qd_separatorColor;
+    menuView.itemTitleColor = UIColor.qd_tintColor;
+}
+
+@end
+
 @implementation QDUIHelper (UITabBarItem)
 
 + (UITabBarItem *)tabBarItemWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage tag:(NSInteger)tag {

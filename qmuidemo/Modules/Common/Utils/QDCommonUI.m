@@ -26,6 +26,7 @@ const CGFloat QDButtonSpacingHeight = 72;
     [QDUIHelper customDialogViewControllerAppearance];
     [QDUIHelper customImagePickerAppearance];
     [QDUIHelper customEmotionViewAppearance];
+    [QDUIHelper customPopupAppearance];
     
     UISearchBar *searchBar = [UISearchBar appearance];
     searchBar.searchTextPositionAdjustment = UIOffsetMake(4, 0);

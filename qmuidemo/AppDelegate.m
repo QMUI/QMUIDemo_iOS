@@ -60,17 +60,22 @@
     // 3. 再针对 iOS 13 开启自动响应系统的 Dark Mode 切换
     // 如果不需要这个功能，则不需要这一段代码
     if (@available(iOS 13.0, *)) {
-        // 做这个 if(currentThemeIdentifier) 的保护只是为了避免 QD 里的配置表没启动时，没人为 currentTheme/currentThemeIdentifier 赋值，导致后续的逻辑会 crash，业务项目里理论上不会有这种情况出现，所以可以省略这个 if 块
-        if (QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier) {
+        if (QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier) {// 做这个 if(currentThemeIdentifier) 的保护只是为了避免 QD 里的配置表没启动时，没人为 currentTheme/currentThemeIdentifier 赋值，导致后续的逻辑会 crash，业务项目里理论上不会有这种情况出现，所以可以省略这个 if，直接写下面的代码就行了
+            
             QMUIThemeManagerCenter.defaultThemeManager.identifierForTrait = ^__kindof NSObject<NSCopying> * _Nonnull(UITraitCollection * _Nonnull trait) {
+                // 1. 如果当前系统切换到 Dark Mode，则返回 App 在 Dark Mode 下的主题
                 if (trait.userInterfaceStyle == UIUserInterfaceStyleDark) {
                     return QDThemeIdentifierDark;
                 }
                 
+                // 2. 如果没有命中1，说明此时系统是 Light，则返回 App 在 Light 下的主题即可，这里不直接返回 Default，而是先做一些复杂判断，是因为 QMUI Demo 非深色模式的主题有好几个，而我们希望不管之前选择的是 Default、Grapefruit 还是 PinkRose，只要从 Dark 切换为非 Dark，都强制改为 Default。
+                
+                // 换句话说，如果业务项目只有 Light/Dark 两套主题，则按下方被注释掉的代码一样直接返回 Light 下的主题即可。
+//                return QDThemeIdentifierDefault;
+                
                 if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
                     return QDThemeIdentifierDefault;
                 }
-                
                 return QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier;
             };
             QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = YES;
@@ -134,7 +139,6 @@
     
     // window root controller
     tabBarViewController.viewControllers = @[uikitNavController, componentNavController, labNavController];
-    tabBarViewController.tabBar.translucent = NO;
     return tabBarViewController;
 }
 
