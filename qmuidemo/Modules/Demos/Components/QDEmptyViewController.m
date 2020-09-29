@@ -8,23 +8,13 @@
 
 #import "QDEmptyViewController.h"
 
-@interface QDEmptyViewController ()
-
-@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
-@end
-
 @implementation QDEmptyViewController
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
         self.shouldShowSearchBar = YES;
-        self.statusBarStyle = [super preferredStatusBarStyle];
     }
     return self;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.statusBarStyle;
 }
 
 #pragma mark - 工具方法
@@ -73,22 +63,6 @@
         [self showEmptyViewWithImage:UIImageMake(@"icon_grid_emptyView") text:nil detailText:@"图片间距可通过imageInsets来调整" buttonTitle:nil buttonAction:NULL];
     }
     [self.tableView reloadData];
-}
-
-#pragma mark - <QMUISearchControllerDelegate>
-
-- (void)willPresentSearchController:(QMUISearchController *)searchController {
-    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        self.statusBarStyle = UIStatusBarStyleDefault;
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)willDismissSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = [super preferredStatusBarStyle];
-    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

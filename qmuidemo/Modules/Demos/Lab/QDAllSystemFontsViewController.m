@@ -12,7 +12,6 @@
 
 @property(nonatomic, strong) NSMutableArray<UIFont *> *allFonts;
 @property(nonatomic, strong) NSMutableArray<UIFont *> *searchResultFonts;
-@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDAllSystemFontsViewController
@@ -34,13 +33,8 @@
                 }
             });
         });
-        self.statusBarStyle = [super preferredStatusBarStyle];
     }
     return self;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.statusBarStyle;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,20 +80,6 @@
         }
     }
     [searchController.tableView reloadData];
-}
-
-- (void)willPresentSearchController:(QMUISearchController *)searchController {
-    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        self.statusBarStyle = UIStatusBarStyleDefault;
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)willDismissSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = [super preferredStatusBarStyle];
-    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

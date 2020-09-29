@@ -43,21 +43,23 @@
     [self.qmui_backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isMemberOfClass:UIVisualEffectView.class]) {// shadowView 也是一个 UIVisualEffect 的子类，所以这里用 isMemberOfClass 而不是 isKindOfClass
             UIVisualEffectView *effectView = (UIVisualEffectView *)obj;
-            if (!effectView.effect) {
+            if (self.qmui_smoothEffect && !effectView.effect) {
                 // push/pop 转场时不能修改 effect 属性，所以简单做个保护，因为一般都在 push/pop 前就已经走到这里了
                 effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
             }
-            effectView.qmui_foregroundColor = self.barTintColor;
+            effectView.qmui_foregroundColor = self.qmui_smoothEffect ? self.barTintColor : nil;
         }
     }];
 }
 
 static char kAssociatedObjectKey_smoothEffect;
 - (void)setQmui_smoothEffect:(BOOL)qmui_smoothEffect {
+    BOOL valueChanged = qmui_smoothEffect != self.qmui_smoothEffect;
+    if (!valueChanged) return;
+    if (qmui_smoothEffect && [self backgroundImageForBarMetrics:UIBarMetricsDefault]) return;// 有 backgroundImage 则必定无法显示磨砂，此时不允许打开 qmui_smoothEffect
+    
     objc_setAssociatedObject(self, &kAssociatedObjectKey_smoothEffect, @(qmui_smoothEffect), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (qmui_smoothEffect && ![self backgroundImageForBarMetrics:UIBarMetricsDefault]) {
-        [self qmuinbe_updateBackgroundSmoothEffect];
-    }
+    [self qmuinbe_updateBackgroundSmoothEffect];
 }
 
 - (BOOL)qmui_smoothEffect {

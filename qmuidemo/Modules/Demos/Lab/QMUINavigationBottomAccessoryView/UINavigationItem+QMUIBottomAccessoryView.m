@@ -20,42 +20,24 @@
 @implementation UINavigationItem (QMUIBottomAccessoryView)
 
 + (void)qmuibav_swizzleMethods {
-    CGFloat (^navigationBarMaxYBlock)(UIViewController *, CGFloat) = ^CGFloat(UIViewController *selfObject, CGFloat originReturnValue) {
-        if (originReturnValue > 0 && selfObject.navigationItem.qmui_bottomAccessoryView) {
-            return originReturnValue + CGRectGetHeight(selfObject.navigationItem.qmui_bottomAccessoryView.frame);
-        }
-        return originReturnValue;
-    };
     
-    void (^updateBottomAccessoryViewBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^void(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
-        if (navigationBar.qmuibav_bottomAccessoryView != navigationItem.qmui_bottomAccessoryView) {
-            [navigationBar setQmuibav_bottomAccessoryView:navigationItem.qmui_bottomAccessoryView animated:animated];
-        }
-    };
-    void (^pushNavigationItemBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
-        updateBottomAccessoryViewBlock(navigationBar, navigationItem, animated);
-    };
-    UINavigationItem *(^popNavigationItemWithTransitionBlock)(UINavigationBar *, NSInteger, id) = ^UINavigationItem *(UINavigationBar *navigationBar, NSInteger transition, UINavigationItem *originReturnValue) {
-        updateBottomAccessoryViewBlock(navigationBar, navigationBar.topItem, transition > 0);
-        return originReturnValue;
-    };
-    void (^setItemsBlock)(UINavigationBar *, NSArray<UINavigationItem *> *, BOOL) = ^(UINavigationBar *navigationBar, NSArray<UINavigationItem *> *items, BOOL animated) {
-        updateBottomAccessoryViewBlock(navigationBar, items.lastObject, animated);
-    };
-    void (^updateTopItemBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
-        if (navigationBar.topItem == navigationItem) {// 在 pop 的时候如果前一个界面在 viewWillAppear: 里修改 navigationItem，则会先触发这个 block，再触发 pop block，导致没有动画，所以做一个保护
-            updateBottomAccessoryViewBlock(navigationBar, navigationItem, animated);
-        }
-    };
-    ExtendImplementationOfNonVoidMethodWithoutArguments([UIViewController class], @selector(qmui_navigationBarMaxYInViewCoordinator), CGFloat, navigationBarMaxYBlock);
+    #pragma mark - qmui_navigationBarMaxYInViewCoordinator
+    OverrideImplementation([UIViewController class], @selector(qmui_navigationBarMaxYInViewCoordinator), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+        return ^CGFloat(UIViewController *selfObject) {
+            // call super
+            CGFloat (*originSelectorIMP)(id, SEL);
+            originSelectorIMP = (CGFloat (*)(id, SEL))originalIMPProvider();
+            CGFloat result = originSelectorIMP(selfObject, originCMD);
+            
+            if (result > 0 && selfObject.navigationItem.qmui_bottomAccessoryView) {
+                return result + CGRectGetHeight(selfObject.navigationItem.qmui_bottomAccessoryView.frame);
+            }
+            return result;
+        };
+    });
     
-    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], @selector(pushNavigationItem:animated:), UINavigationItem *, BOOL, pushNavigationItemBlock);
-    ExtendImplementationOfNonVoidMethodWithSingleArgument([UINavigationBar class], NSSelectorFromString(@"_popNavigationItemWithTransition:"), NSInteger, id, popNavigationItemWithTransitionBlock);
-    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], @selector(setItems:animated:), NSArray<UINavigationItem *> *, BOOL, setItemsBlock);
-    
-    // 在收到 UINavigationItem 要更新当前 item 的消息后会通过这个方法来刷新
-    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], NSSelectorFromString(@"_updateContentIfTopItem:animated:"), UINavigationItem *, BOOL, updateTopItemBlock);
-    
+    #pragma mark - TransitionNavigationBar setOriginalNavigationBar:
+    // 在开启假 bar 转场效果优化时把 bottomAccessoryView 也同步复制到假 bar
     OverrideImplementation(NSClassFromString(@"_QMUITransitionNavigationBar"), NSSelectorFromString(@"setOriginalNavigationBar:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
         return ^(UINavigationBar *selfObject, UINavigationBar *originalNavigationBar) {
             
@@ -68,6 +50,61 @@
             selfObject.qmui_backgroundView.qmui_layoutSubviewsBlock = originalNavigationBar.qmui_backgroundView.qmui_layoutSubviewsBlock;
         };
     });
+    
+    #pragma mark - updateBottomAccessoryViewBlock
+    void (^updateBottomAccessoryViewBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^void(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
+        if (navigationBar.qmuibav_bottomAccessoryView != navigationItem.qmui_bottomAccessoryView) {
+            [navigationBar setQmuibav_bottomAccessoryView:navigationItem.qmui_bottomAccessoryView animated:animated];
+        }
+    };
+    
+    #pragma mark - UINavigationBar pushNavigationItem:animated:
+    // push 界面时更新 navigationItem
+    void (^pushNavigationItemBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
+        updateBottomAccessoryViewBlock(navigationBar, navigationItem, animated);
+    };
+    
+    #pragma mark - UINavigationBar _popNavigationItemWithTransition:
+    // pop 界面时更新 navigationItem，系统没有调用 public API `popNavigationItemAnimated:`，所以只能用私有 API
+    UINavigationItem *(^popNavigationItemWithTransitionBlock)(UINavigationBar *, NSInteger, id) = ^UINavigationItem *(UINavigationBar *navigationBar, NSInteger transition, UINavigationItem *originReturnValue) {
+        updateBottomAccessoryViewBlock(navigationBar, navigationBar.topItem, transition > 0);
+        return originReturnValue;
+    };
+    
+    #pragma mark - UINavigationBar setItems:animated:
+    // 通过 setItems 直接修改 navigationItem 堆栈时更新 navigationItem
+    void (^setItemsBlock)(UINavigationBar *, NSArray<UINavigationItem *> *, BOOL) = ^(UINavigationBar *navigationBar, NSArray<UINavigationItem *> *items, BOOL animated) {
+        updateBottomAccessoryViewBlock(navigationBar, items.lastObject, animated);
+    };
+    
+    #pragma mark - UINavigationBar _updateContentIfTopItem:animated:
+    // 在 viewWillAppear: 等已经显示完 navigationBar 之后的时机再去修改 navigationItem 时，系统会通过这个私有 API 来刷新当前的 navigationItem
+    void (^updateTopItemBlock)(UINavigationBar *, UINavigationItem *, BOOL) = ^(UINavigationBar *navigationBar, UINavigationItem *navigationItem, BOOL animated) {
+        if (navigationBar.topItem == navigationItem) {// 在 pop 的时候如果前一个界面在 viewWillAppear: 里修改 navigationItem，则会先触发这个 block，再触发 pop block，导致没有动画，所以做一个保护
+            updateBottomAccessoryViewBlock(navigationBar, navigationItem, animated);
+        }
+    };
+    
+    #pragma mark - UINavigationBar didMoveToSuperview
+    // 例如 A 不显示 bottomAccessoryView，在 A 里 present UISearchController，此时 navigationBar 会从 View 层级树里被移除，在 searchController 里进入界面 B，B 显示 bottomAccessoryView，此时从 B 回到 searchController，再降下 searchController，navigationBar 会被重新加回 View 层级树，这时候需要主动刷新一下 navigationItem，否则 A 也会看到 bottomAccessoryView。
+    void (^didMoveToSuperviewBlock)(UINavigationBar *) = ^void(UINavigationBar *navigationBar) {
+        updateBottomAccessoryViewBlock(navigationBar, navigationBar.topItem, NO);
+    };
+    
+    #pragma mark - UINavigationController setNavigationBarHidden:animated:
+    // 如果在 navigationBar 隐藏的情况下去修改 navigationItem，是无法触发 updateTopItemBlock 的，所以需要在显示 navigationBar 时主动刷新一次
+    void (^navigationBarHiddenBlock)(UINavigationController *, BOOL, BOOL) = ^void(UINavigationController *navigationController, BOOL hidden, BOOL animated) {
+        if (!hidden) {
+            updateBottomAccessoryViewBlock(navigationController.navigationBar, navigationController.navigationBar.topItem, animated);
+        }
+    };
+    
+    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], @selector(pushNavigationItem:animated:), UINavigationItem *, BOOL, pushNavigationItemBlock);
+    ExtendImplementationOfNonVoidMethodWithSingleArgument([UINavigationBar class], NSSelectorFromString(@"_popNavigationItemWithTransition:"), NSInteger, id, popNavigationItemWithTransitionBlock);
+    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], @selector(setItems:animated:), NSArray<UINavigationItem *> *, BOOL, setItemsBlock);
+    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationBar class], NSSelectorFromString(@"_updateContentIfTopItem:animated:"), UINavigationItem *, BOOL, updateTopItemBlock);
+    ExtendImplementationOfVoidMethodWithoutArguments([UINavigationBar class], @selector(didMoveToSuperview), didMoveToSuperviewBlock);
+    ExtendImplementationOfVoidMethodWithTwoArguments([UINavigationController class], @selector(setNavigationBarHidden:animated:), BOOL, BOOL, navigationBarHiddenBlock);
 }
 
 static char kAssociatedObjectKey_bottomAccessoryView;

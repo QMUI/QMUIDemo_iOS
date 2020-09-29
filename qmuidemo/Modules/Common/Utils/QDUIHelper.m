@@ -10,6 +10,29 @@
 
 @implementation QDUIHelper
 
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ExtendImplementationOfNonVoidMethodWithSingleArgument([UIControl class], @selector(initWithFrame:), CGRect, UIControl *, ^UIControl *(UIControl *selfObject, CGRect firstArgv, UIControl * originReturnValue) {
+            ({
+                NSArray<Class> *controlClasses = @[
+                    NSClassFromString(@"_UIButtonBarButton"),// iOS 11 及以后的 UIBarButtonItem 按钮
+                    NSClassFromString(@"UINavigationButton"),// iOS 10 的 UIBarButtonItem 按钮
+                    QMUIButton.class,
+                    QMUINavigationButton.class
+                ];
+                for (Class className in controlClasses) {
+                    if ([selfObject isKindOfClass:className]) {
+                        originReturnValue.qmui_preventsRepeatedTouchUpInsideEvent = YES;
+                        break;
+                    }
+                }
+            });
+            return originReturnValue;
+        });
+    });
+}
+
 + (void)forceInterfaceOrientationPortrait {
     [QMUIHelper rotateToDeviceOrientation:UIDeviceOrientationPortrait];
 }

@@ -11,7 +11,6 @@
 @interface QDSearchBarViewController ()<QMUISearchControllerDelegate>
 
 @property(nonatomic, assign) BOOL animated;
-@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDSearchBarViewController
@@ -20,11 +19,6 @@
     [super didInitializeWithStyle:style];
     self.shouldShowSearchBar = YES;
     self.animated = YES;
-    self.statusBarStyle = [super preferredStatusBarStyle];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.statusBarStyle;
 }
 
 - (void)initSearchController {
@@ -43,6 +37,42 @@
     [super initTableView];
     __weak __typeof(self)weakSelf = self;
     NSMutableArray *sections = @[
+        @[
+            ({
+                QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
+                data.identifier = 6;
+                data.text = @"调整默认状态输入框布局";
+                data.didSelectBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData) {
+                    [tableView qmui_clearsSelection];
+                    weakSelf.searchBar.qmui_textFieldMarginsBlock = ^UIEdgeInsets(__kindof UISearchBar * _Nonnull searchBar, BOOL active) {
+                        if (active) {
+                            return UIEdgeInsetsZero;
+                        } else {
+                            return UIEdgeInsetsMake(0, 32, 0, 32);
+                        }
+                    };
+                };
+                data;
+            }),
+            ({
+                QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
+                data.identifier = 7;
+                data.text = @"调整搜索状态取消按钮布局";
+                data.didSelectBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData) {
+                    [tableView qmui_clearsSelection];
+                    weakSelf.searchBar.qmui_cancelButtonMarginsBlock = ^UIEdgeInsets(__kindof UISearchBar * _Nonnull searchBar, BOOL active) {
+                        if (active) {
+                            return UIEdgeInsetsMake(0, -16, 0, 0);
+                        }
+                        return UIEdgeInsetsZero;
+                    };
+                    if (!weakSelf.searchController.active) {
+                        weakSelf.searchController.active = YES;
+                    }
+                };
+                data;
+            })
+        ],
         @[
             ({
                 QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
@@ -134,26 +164,18 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (@available(iOS 11.0, *)) {
-        if (section == 0) return @"Placeholder";
+        if (section == 0) {
+            return @"Placeholder";
+        }
+        section -= 1;
     }
-    return @"AccessoryView";
-    
-}
-
-#pragma mark - <QMUISearchControllerDelegate>
-
-- (void)willPresentSearchController:(QMUISearchController *)searchController {
-    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        self.statusBarStyle = UIStatusBarStyleDefault;
+    if (section == 0) {
+        return @"Layout";
     }
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)willDismissSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = [super preferredStatusBarStyle];
-    [self setNeedsStatusBarAppearanceUpdate];
+    if (section == 1) {
+        return @"AccessoryView";
+    }
+    return nil;
 }
 
 @end

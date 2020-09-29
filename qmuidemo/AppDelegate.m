@@ -19,9 +19,7 @@
 #import "QMUIConfigurationTemplatePinkRose.h"
 #import "QMUIConfigurationTemplateDark.h"
 
-#ifdef IOS13_SDK_ALLOWED
 //#define UIWindowScene_Enabled
-#endif
 
 @implementation AppDelegate
 

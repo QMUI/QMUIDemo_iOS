@@ -145,6 +145,7 @@
 		D00809C924C5E5AA00C50AA1 /* UINavigationBar+QMUISmoothEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = D00809C624C5E5A900C50AA1 /* UINavigationBar+QMUISmoothEffect.m */; };
 		D021DE46205E889100FFA408 /* QDCellSizeKeyCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D021DE45205E889100FFA408 /* QDCellSizeKeyCacheViewController.m */; };
 		D0283ECC20C2F2290090DD45 /* QDBadgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0283ECB20C2F2290090DD45 /* QDBadgeViewController.m */; };
+		D02A61D824FFCC5000E670D0 /* QDControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A61D724FFCC5000E670D0 /* QDControlViewController.m */; };
 		D02F87F81EDBE8C300EE2CA8 /* QDFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */; };
 		D03102B924AB1DE30095C232 /* QDTableViewCellSeparatorInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03102B824AB1DE30095C232 /* QDTableViewCellSeparatorInsetsViewController.m */; };
 		D03278342475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D03278332475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m */; };
@@ -453,6 +454,8 @@
 		D021DE45205E889100FFA408 /* QDCellSizeKeyCacheViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDCellSizeKeyCacheViewController.m; sourceTree = "<group>"; };
 		D0283ECA20C2F2290090DD45 /* QDBadgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBadgeViewController.h; sourceTree = "<group>"; };
 		D0283ECB20C2F2290090DD45 /* QDBadgeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBadgeViewController.m; sourceTree = "<group>"; };
+		D02A61D624FFCC5000E670D0 /* QDControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDControlViewController.h; sourceTree = "<group>"; };
+		D02A61D724FFCC5000E670D0 /* QDControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDControlViewController.m; sourceTree = "<group>"; };
 		D02F87F61EDBE8C200EE2CA8 /* QDFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFontViewController.h; sourceTree = "<group>"; };
 		D02F87F71EDBE8C300EE2CA8 /* QDFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFontViewController.m; sourceTree = "<group>"; };
 		D03102B724AB1DE30095C232 /* QDTableViewCellSeparatorInsetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewCellSeparatorInsetsViewController.h; sourceTree = "<group>"; };
@@ -901,6 +904,8 @@
 				CD3CDD511F39F077008529DA /* QDUIViewDebugViewController.m */,
 				CD3CDD531F3AAD42008529DA /* QDUIViewLayoutViewController.h */,
 				CD3CDD541F3AAD42008529DA /* QDUIViewLayoutViewController.m */,
+				D02A61D624FFCC5000E670D0 /* QDControlViewController.h */,
+				D02A61D724FFCC5000E670D0 /* QDControlViewController.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1218,6 +1223,7 @@
 				CDB8CA061DCC815A00769DF0 /* QDFoldCollectionViewLayout.m in Sources */,
 				CDB8C9DE1DCC815A00769DF0 /* QDEmotionsViewController.m in Sources */,
 				CDB8CA051DCC815A00769DF0 /* QDFillButtonViewController.m in Sources */,
+				D02A61D824FFCC5000E670D0 /* QDControlViewController.m in Sources */,
 				165F42F61ADB60180057EF6A /* main.m in Sources */,
 				CDB8C9D81DCC815A00769DF0 /* QDCommonUI.m in Sources */,
 				08ACAA7122D66747008530C5 /* QDLargeTitlesViewController.m in Sources */,
@@ -1458,7 +1464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.0;
+				MARKETING_VERSION = 4.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1501,7 +1507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.0;
+				MARKETING_VERSION = 4.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1674,7 +1680,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.0;
+				MARKETING_VERSION = 4.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

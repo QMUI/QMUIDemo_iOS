@@ -15,8 +15,6 @@
 @property(nonatomic, strong) NSMutableArray<NSMutableArray<NSString *> *> *selectorNames;
 @property(nonatomic, strong) NSMutableArray<NSString *> *indexesString;
 @property(nonatomic, strong) NSMutableArray<NSAttributedString *> *searchResults;
-
-@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDObjectMethodsListViewController
@@ -80,13 +78,6 @@
     return self;
 }
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    if (self = [super initWithStyle:style]) {
-        self.statusBarStyle = [super preferredStatusBarStyle];
-    }
-    return self;
-}
-
 - (void)initTableView {
     [super initTableView];
     self.tableView.rowHeight = 50;
@@ -103,10 +94,6 @@
 
 - (BOOL)isIvarSection:(NSInteger)section {
     return self.ivarNames.count > 0 && ((self.properties.count > 0 && section == 1) || (self.properties.count <=0 && section == 0));
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.statusBarStyle;
 }
 
 #pragma mark - <QMUITableViewDataSource, QMUITableViewDelegate>
@@ -228,20 +215,6 @@
     [self.selectorNames qmui_enumerateNestedArrayWithBlock:searchBlock];
     
     [searchController.tableView reloadData];
-}
-
-- (void)willPresentSearchController:(QMUISearchController *)searchController {
-    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        self.statusBarStyle = UIStatusBarStyleDefault;
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)willDismissSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = [super preferredStatusBarStyle];
-    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

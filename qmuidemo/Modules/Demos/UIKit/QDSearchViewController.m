@@ -63,7 +63,6 @@
 @property(nonatomic, strong) NSArray<NSString *> *keywords;
 @property(nonatomic, strong) NSMutableArray<NSString *> *searchResultsKeywords;
 @property(nonatomic, strong) QMUISearchController *mySearchController;
-@property(nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
 @implementation QDSearchViewController
@@ -76,8 +75,6 @@
         
         self.keywords = @[@"Helps", @"Maintain", @"Liver", @"Health", @"Function", @"Supports", @"Healthy", @"Fat", @"Metabolism", @"Nuturally"];
         self.searchResultsKeywords = [[NSMutableArray alloc] init];
-        
-        self.statusBarStyle = [super preferredStatusBarStyle];
     }
     return self;
 }
@@ -90,10 +87,6 @@
     self.mySearchController.launchView = [[QDRecentSearchView alloc] init];// launchView 会自动布局，无需处理 frame
     self.mySearchController.searchBar.qmui_usedAsTableHeaderView = YES;// 以 tableHeaderView 的方式使用 searchBar 的话，将其置为 YES，以辅助兼容一些系统 bug
     self.tableView.tableHeaderView = self.mySearchController.searchBar;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.statusBarStyle;
 }
 
 #pragma mark - <QMUITableViewDataSource,QMUITableViewDelegate>
@@ -150,20 +143,6 @@
     } else {
         [searchController hideEmptyView];
     }
-}
-
-- (void)willPresentSearchController:(QMUISearchController *)searchController {
-    if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
-        self.statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        self.statusBarStyle = UIStatusBarStyleDefault;
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)willDismissSearchController:(QMUISearchController *)searchController {
-    self.statusBarStyle = [super preferredStatusBarStyle];
-    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end
