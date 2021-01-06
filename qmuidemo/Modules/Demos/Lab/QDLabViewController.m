@@ -18,6 +18,7 @@
 #import "QDRippleAnimationViewController.h"
 #import "QDNavigationBarSmoothEffectViewController.h"
 #import "QDNavigationBottomAccessoryViewController.h"
+#import "QDBackBarButtonViewController.h"
 
 @interface QDLabViewController ()
 @end
@@ -32,7 +33,8 @@
                         @"Log Manager",
                         @"Interactive Debugger",
                         @"UINavigationBar Smooth Effect",
-                        @"UINavigationBar Bottom Accessory"
+                        @"UINavigationBar Bottom Accessory",
+                        @"Custom BackBarButtonItem",
                         ];
 }
 
@@ -86,6 +88,8 @@
         viewController = [[QDNavigationBarSmoothEffectViewController alloc] init];
     } else if ([title isEqualToString:@"UINavigationBar Bottom Accessory"]) {
         viewController = [[QDNavigationBottomAccessoryViewController alloc] init];
+    } else if ([title isEqualToString:@"Custom BackBarButtonItem"]) {
+        viewController = [[QDBackBarButtonViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

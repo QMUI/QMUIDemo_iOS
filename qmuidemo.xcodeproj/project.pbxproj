@@ -151,12 +151,14 @@
 		D03278342475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D03278332475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m */; };
 		D032783924754F9400DF8FF3 /* QMUIInteractiveDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = D032783524754F9300DF8FF3 /* QMUIInteractiveDebugger.m */; };
 		D032783A24754F9400DF8FF3 /* QMUIInteractiveDebugPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D032783624754F9300DF8FF3 /* QMUIInteractiveDebugPanelViewController.m */; };
+		D043E67A25783BA300D1E507 /* QMUIBackBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D043E67825783BA300D1E507 /* QMUIBackBarButton.m */; };
 		D05086B424CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05086B324CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m */; };
 		D05086B724CF567A00963BCE /* QDNavigationBottomAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05086B624CF567A00963BCE /* QDNavigationBottomAccessoryViewController.m */; };
 		D052631521EE080E00D4F57A /* QDConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D052631421EE080E00D4F57A /* QDConsoleViewController.m */; };
 		D062F65B22BCD4C700737AD2 /* QDThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D062F65922BCD4C700737AD2 /* QDThemeViewController.m */; };
 		D07610291EE292930048301B /* QDMarqueeLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07610281EE292930048301B /* QDMarqueeLabelViewController.m */; };
 		D0911AC2249B11AE00112D88 /* QDInteractiveDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0911AC1249B11AE00112D88 /* QDInteractiveDebugViewController.m */; };
+		D0AF7891257E6D2F006436A7 /* QDBackBarButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AF7890257E6D2F006436A7 /* QDBackBarButtonViewController.m */; };
 		D0B1856822C5016F002578CD /* QMUIConfigurationTemplateDark.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B1856522C5016F002578CD /* QMUIConfigurationTemplateDark.m */; };
 		D0BEFAA52484FEEC0006D1B9 /* QDInsetGroupedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BEFAA42484FEEB0006D1B9 /* QDInsetGroupedTableViewController.m */; };
 		FE5803331E949E1100159380 /* QDKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE5803311E949E1100159380 /* QDKeyboardViewController.m */; };
@@ -466,6 +468,8 @@
 		D032783624754F9300DF8FF3 /* QMUIInteractiveDebugPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIInteractiveDebugPanelViewController.m; sourceTree = "<group>"; };
 		D032783724754F9300DF8FF3 /* QMUIInteractiveDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIInteractiveDebugger.h; sourceTree = "<group>"; };
 		D032783824754F9300DF8FF3 /* QMUIInteractiveDebugPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIInteractiveDebugPanelViewController.h; sourceTree = "<group>"; };
+		D043E67725783BA300D1E507 /* QMUIBackBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIBackBarButton.h; sourceTree = "<group>"; };
+		D043E67825783BA300D1E507 /* QMUIBackBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIBackBarButton.m; sourceTree = "<group>"; };
 		D05086B224CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBarSmoothEffectViewController.h; sourceTree = "<group>"; };
 		D05086B324CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarSmoothEffectViewController.m; sourceTree = "<group>"; };
 		D05086B524CF567A00963BCE /* QDNavigationBottomAccessoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBottomAccessoryViewController.h; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 		D07610281EE292930048301B /* QDMarqueeLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMarqueeLabelViewController.m; sourceTree = "<group>"; };
 		D0911AC0249B11AE00112D88 /* QDInteractiveDebugViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDInteractiveDebugViewController.h; sourceTree = "<group>"; };
 		D0911AC1249B11AE00112D88 /* QDInteractiveDebugViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDInteractiveDebugViewController.m; sourceTree = "<group>"; };
+		D0AF788F257E6D2F006436A7 /* QDBackBarButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBackBarButtonViewController.h; sourceTree = "<group>"; };
+		D0AF7890257E6D2F006436A7 /* QDBackBarButtonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBackBarButtonViewController.m; sourceTree = "<group>"; };
 		D0B1856522C5016F002578CD /* QMUIConfigurationTemplateDark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplateDark.m; sourceTree = "<group>"; };
 		D0B1856722C5016F002578CD /* QMUIConfigurationTemplateDark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplateDark.h; sourceTree = "<group>"; };
 		D0BEFAA32484FEEB0006D1B9 /* QDInsetGroupedTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDInsetGroupedTableViewController.h; sourceTree = "<group>"; };
@@ -797,9 +803,12 @@
 				D05086B324CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m */,
 				D05086B524CF567A00963BCE /* QDNavigationBottomAccessoryViewController.h */,
 				D05086B624CF567A00963BCE /* QDNavigationBottomAccessoryViewController.m */,
+				D043E67625783BA300D1E507 /* QMUIBackBarButton */,
 				D03278312475365E00DF8FF3 /* QMUIInteractiveDebugger */,
 				D00809C524C5E5A900C50AA1 /* QMUINavigationBarSmoothEffect */,
 				D00809BE24C5C48C00C50AA1 /* QMUINavigationBottomAccessoryView */,
+				D0AF788F257E6D2F006436A7 /* QDBackBarButtonViewController.h */,
+				D0AF7890257E6D2F006436A7 /* QDBackBarButtonViewController.m */,
 			);
 			path = Lab;
 			sourceTree = "<group>";
@@ -967,6 +976,15 @@
 				D03278332475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m */,
 			);
 			path = QMUIInteractiveDebugger;
+			sourceTree = "<group>";
+		};
+		D043E67625783BA300D1E507 /* QMUIBackBarButton */ = {
+			isa = PBXGroup;
+			children = (
+				D043E67725783BA300D1E507 /* QMUIBackBarButton.h */,
+				D043E67825783BA300D1E507 /* QMUIBackBarButton.m */,
+			);
+			path = QMUIBackBarButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1149,6 +1167,7 @@
 			files = (
 				CDB8C9D91DCC815A00769DF0 /* QDUIHelper.m in Sources */,
 				CDB8C9D31DCC815A00769DF0 /* QDCommonListViewController.m in Sources */,
+				D0AF7891257E6D2F006436A7 /* QDBackBarButtonViewController.m in Sources */,
 				CDB8C9E41DCC815A00769DF0 /* QDMultipleImagePickerPreviewViewController.m in Sources */,
 				CDB8C9D21DCC815A00769DF0 /* QDCommonGroupListViewController.m in Sources */,
 				CDB8CA031DCC815A00769DF0 /* QDColorViewController.m in Sources */,
@@ -1247,6 +1266,7 @@
 				CDB8C9E61DCC815A00769DF0 /* QDPieProgressViewController.m in Sources */,
 				CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */,
 				CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */,
+				D043E67A25783BA300D1E507 /* QMUIBackBarButton.m in Sources */,
 				D03278342475367200DF8FF3 /* QMUIInteractiveDebugPanelItem.m in Sources */,
 				CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */,
 				CDB8CA081DCC815A00769DF0 /* QDImageViewController.m in Sources */,
@@ -1457,21 +1477,21 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.2.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.qmuidemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1500,19 +1520,19 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.2.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.qmuidemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1673,14 +1693,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/QMUI/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = qmuidemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.2.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

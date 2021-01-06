@@ -163,7 +163,14 @@ static CGFloat const kEmotionViewHeight = 232;
 }
 
 - (void)handleCancelButtonEvent:(id)sender {
-    [self.textView resignFirstResponder];
+    if (self.textView.isFirstResponder) {
+        [self.textView resignFirstResponder];
+    } else {
+        [UIView animateWithDuration:.25 delay:0 options:QMUIViewAnimationOptionsCurveOut animations:^{
+            self.containerView.layer.transform = CATransform3DIdentity;
+        } completion:nil];
+        [self hide];
+    }
 }
 
 #pragma mark - <QMUIKeyboardManagerDelegate>

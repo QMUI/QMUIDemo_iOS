@@ -14,9 +14,4 @@
 
 @implementation QDNavigationController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationBar.qmui_backgroundView.tag = 1024;
-}
-
 @end

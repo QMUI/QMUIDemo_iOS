@@ -93,6 +93,13 @@
     [textView typeText:pasteString];
     XCTAssertTrue(((NSString *)textView.value).length < pasteString.length);
     
+    /*
+     TODO: molice
+     1. 用户手动输入文字、程序 setText:，max length 都要能正常工作
+     2. 即将输入的文字被完全拦截、部分截断，都应该触发 textViewDidChange: 这个 delegate
+     3. 输入的文字被拦截一部分后刚好换行了，此时应该触发 textView:newHeightAfterTextChanged: https://github.com/Tencent/QMUI_iOS/issues/1120
+     */
+    
     sleep(1);
     
     // 点击空白降下键盘

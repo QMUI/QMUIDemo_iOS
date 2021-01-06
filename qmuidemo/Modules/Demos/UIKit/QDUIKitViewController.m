@@ -26,7 +26,6 @@
 #import "QDOrientationViewController.h"
 #import "QDCAAnimationViewController.h"
 #import "QDImageViewViewController.h"
-#import "CALayer+QMUIViewAnimation.h"
 #import "QDTableViewHeaderFooterViewController.h"
 #import "QDInsetGroupedTableViewController.h"
 #import "QDUIViewBorderViewController.h"

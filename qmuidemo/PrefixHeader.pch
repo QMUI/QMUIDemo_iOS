@@ -25,5 +25,8 @@
 #import "QDCommonUI.h"
 #import "QDUIHelper.h"
 #import "QDThemeManager.h"
+#import "QDNavigationController.h"
+#import "QDCommonViewController.h"
+#import "QDCommonTableViewController.h"
 
 #endif

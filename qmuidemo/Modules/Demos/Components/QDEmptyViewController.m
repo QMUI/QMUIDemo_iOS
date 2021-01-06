@@ -8,6 +8,11 @@
 
 #import "QDEmptyViewController.h"
 
+@interface QDEmptyViewController ()
+
+@property(nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@end
+
 @implementation QDEmptyViewController
 
 - (instancetype)initWithStyle:(UITableViewStyle)style {
@@ -19,7 +24,21 @@
 
 #pragma mark - 工具方法
 
-- (void)reload:(id)sender {
+- (void)showEmptyView {
+    [super showEmptyView];
+    // 如果对 emptyView 有自定义的需求，可以重写 showEmptyView 方法，在这里获取 self.emptyView 进行配置
+    if (!self.tapGesture) {
+        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        [self.emptyView addGestureRecognizer:self.tapGesture];
+    }
+    self.tapGesture.enabled = YES;
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tap {
+    [self reload];
+}
+
+- (void)reload {
     [self hideEmptyView];
     [self.tableView reloadData];
 }
@@ -58,7 +77,8 @@
     } else if (row == 1) {
         [self showEmptyViewWithText:@"联系人为空" detailText:@"请到设置-隐私查看你的联系人权限设置" buttonTitle:nil buttonAction:NULL];
     } else if (row == 2) {
-        [self showEmptyViewWithText:@"请求失败" detailText:@"请检查网络连接" buttonTitle:@"重试" buttonAction:@selector(reload:)];
+        [self showEmptyViewWithText:@"请求失败" detailText:@"请检查网络连接" buttonTitle:@"重试" buttonAction:@selector(reload)];
+        self.tapGesture.enabled = NO;
     } else if (row == 3) {
         [self showEmptyViewWithImage:UIImageMake(@"icon_grid_emptyView") text:nil detailText:@"图片间距可通过imageInsets来调整" buttonTitle:nil buttonAction:NULL];
     }
