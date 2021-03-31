@@ -1,5 +1,5 @@
 //
-//  QDTabBarItemViewController.h
+//  QDTabBarDemoViewController.h
 //  qmuidemo
 //
 //  Created by QMUI Team on 2016/10/9.
@@ -8,6 +8,6 @@
 
 #import "QDCommonListViewController.h"
 
-@interface QDTabBarItemViewController : QDCommonListViewController
+@interface QDTabBarDemoViewController : QDCommonListViewController
 
 @end

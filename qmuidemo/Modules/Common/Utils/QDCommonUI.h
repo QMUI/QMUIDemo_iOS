@@ -35,7 +35,7 @@
 #define UIColorTheme3 UIColorMake(255, 207, 71) // Sunflower
 #define UIColorTheme4 UIColorMake(159, 214, 97) // Grass
 #define UIColorTheme5 UIColorMake(63, 208, 173) // Mint
-#define UIColorTheme6 UIColorMake(49, 189, 243) // Aqua
+#define UIColorTheme6 UIColorMake(6, 92, 208) // Klein
 #define UIColorTheme7 UIColorMake(90, 154, 239) // Blue Jeans
 #define UIColorTheme8 UIColorMake(172, 143, 239) // Lavender
 #define UIColorTheme9 UIColorMake(238, 133, 193) // Pink Rose

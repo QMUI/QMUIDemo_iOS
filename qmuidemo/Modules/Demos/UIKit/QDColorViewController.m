@@ -29,7 +29,7 @@
 #pragma mark - TableView Delegate & DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -63,6 +63,8 @@
         case 6:
             cell = [[QDColorCellThatAdjustAlphaAndBlend alloc] init];
             break;
+        case 7:
+            cell = [[QDColorCellThatGetDistance alloc] init];
         default:
             break;
     }
@@ -71,8 +73,6 @@
     cell.contentViewInsets = UIEdgeInsetsMake(0, 20, 0, 20);
     return cell;
 }
-
-
 
 @end
 
@@ -101,15 +101,24 @@
 }
 
 // 生成一个圆形的view
-- (UIView *)generateCircleWithColor:(UIColor *)color {
+- (__kindof UIView *)generateCircleWithColor:(UIColor *)color prefersButton:(BOOL)prefersButton {
     CGFloat diameter = 44;
     
-    UIView *circle = [[UIView alloc] init];
+    UIView *circle = nil;
+    if (prefersButton) {
+        circle = [[QMUIButton alloc] init];
+    } else {
+        circle = [[UIView alloc] init];
+    }
     circle.backgroundColor = color;
     circle.frame = CGRectMake(0, 0, diameter, diameter);
     circle.layer.cornerRadius = diameter / 2;
     
     return circle;
+}
+
+- (UIView *)generateCircleWithColor:(UIColor *)color {
+    return [self generateCircleWithColor:color prefersButton:NO];
 }
 
 // 生成一个向右的箭头imageView
@@ -410,6 +419,85 @@
     _arrow.frame = CGRectSetXY(_arrow.frame, CGRectGetMaxX(_circle2.frame) + spaceBetweenIconAndCircle, CGRectGetMinYVerticallyCenter(_circle2.frame, _arrow.frame));
     _circle3.frame = CGRectSetXY(_circle3.frame, CGRectGetMaxX(_arrow.frame) + spaceBetweenIconAndCircle, CGRectGetMinY(_circle2.frame));
 }
+@end
+
+@interface QDColorCellThatGetDistance ()<UIColorPickerViewControllerDelegate>
+@end
+
+@implementation QDColorCellThatGetDistance {
+    QMUIButton *_circle1;
+    QMUIButton *_circle2;
+    UIView *_arrow;
+    QMUILabel *_label;
+}
+
+- (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    [super didInitializeWithStyle:style];
+    
+    self.titleLabel.text = @"计算两色的相似程度";
+    
+    UIColor *rawColor1 = UIColorMakeWithHex(@"#ff9800");
+    UIColor *rawColor2 = [rawColor1 qmui_inverseColor];
+    CGFloat distance = [rawColor1 qmui_distanceBetweenColor:rawColor2];// 关键方法
+    
+    _circle1 = [self generateCircleWithColor:rawColor1 prefersButton:YES];
+    [_circle1 addTarget:self action:@selector(handleColorPicker:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_circle1];
+    
+    _circle2 = [self generateCircleWithColor:rawColor2 prefersButton:YES];
+    [_circle2 addTarget:self action:@selector(handleColorPicker:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_circle2];
+    
+    _arrow = [self generateArrowIcon];
+    [self.contentView addSubview:_arrow];
+    
+    _label = [[QMUILabel alloc] init];
+    _label.text = [NSString stringWithFormat:@"%.2f(0表示相等，值越大差距越大)", distance];
+    _label.textColor = UIColor.qd_descriptionTextColor;
+    _label.font = UIFontMake(12);
+    [self.contentView addSubview:_label];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _circle1.frame = CGRectSetXY(_circle1.frame, self.contentViewInsets.left, CGRectGetMaxY(self.titleLabel.frame) + self.titleLabelMarginBottom);
+    _circle2.frame = CGRectSetXY(_circle2.frame, CGRectGetMidX(_circle1.frame), CGRectGetMinY(_circle1.frame));
+    _arrow.frame = CGRectSetXY(_arrow.frame, CGRectGetMaxX(_circle2.frame) + spaceBetweenIconAndCircle, CGRectGetMinYVerticallyCenter(_circle2.frame, _arrow.frame));
+    [_label sizeToFit];
+    _label.frame = CGRectSetXY(_label.frame, CGRectGetMaxX(_arrow.frame) + spaceBetweenIconAndCircle, CGRectGetMinYVerticallyCenter(_circle1.frame, _label.frame));
+}
+
+- (void)handleColorPicker:(QMUIButton *)button {
+    if (@available(iOS 14.0, *)) {
+        button.selected = YES;
+        if (button == _circle1) {
+            _circle2.selected = NO;
+        } else {
+            _circle1.selected = NO;
+        }
+        UIColorPickerViewController *vc = [[UIColorPickerViewController alloc] init];
+        vc.delegate = self;
+        [button.qmui_viewController presentViewController:vc animated:YES completion:nil];
+    }
+}
+
+#pragma mark - <UIColorPickerViewControllerDelegate>
+
+BeginIgnoreAvailabilityWarning
+- (void)colorPickerViewControllerDidSelectColor:(UIColorPickerViewController *)viewController {
+    UIView *view = nil;
+    if (_circle1.selected) {
+        view = _circle1;
+    } else {
+        view = _circle2;
+    }
+    view.backgroundColor = viewController.selectedColor;
+    CGFloat distance = [_circle1.backgroundColor qmui_distanceBetweenColor:_circle2.backgroundColor];// 关键方法
+    _label.text = [NSString stringWithFormat:@"%.2f(0表示相等，值越大差距越大)", distance];
+    [self setNeedsLayout];
+}
+EndIgnoreAvailabilityWarning
+
 @end
 
 @implementation QDColorCellThatAdjustAlphaAndBlend {

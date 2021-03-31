@@ -20,11 +20,13 @@
 - (void)initSubviews {
     [super initSubviews];
     self.printLogButton = [QDUIHelper generateLightBorderedButton];
+    self.printLogButton.qmui_preventsRepeatedTouchUpInsideEvent = NO;
     [self.printLogButton setTitle:@"打印一条日志" forState:UIControlStateNormal];
     [self.printLogButton addTarget:self action:@selector(handlePrintLogButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.printLogButton];
     
     self.printMultipleLogButton = [QDUIHelper generateLightBorderedButton];
+    self.printMultipleLogButton.qmui_preventsRepeatedTouchUpInsideEvent = NO;
     [self.printMultipleLogButton setTitle:@"打印多种 Level/Name" forState:UIControlStateNormal];
     [self.printMultipleLogButton addTarget:self action:@selector(handlePrintMulitipleEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.printMultipleLogButton];
@@ -68,7 +70,7 @@
     [QMUIConsole logWithLevel:@"Info" name:@"QMUIBadge" logString:@"QMUIBadge's info log"];
     [QMUIConsole logWithLevel:@"Warn" name:@"QMUITableView" logString:[[NSAttributedString alloc] initWithString:@"QMUITableView's warn log" attributes:({
         NSMutableDictionary<NSAttributedStringKey, id> *attributes = [QMUIConsole appearance].textAttributes.mutableCopy;
-        attributes[NSForegroundColorAttributeName] = UIColor.qd_tintColor;
+        attributes[NSForegroundColorAttributeName] = [QDCommonUI randomThemeColor];
         attributes;
     })]];
     [QMUIConsole logWithLevel:@"Error" name:@"QMUIButton" logString:button];

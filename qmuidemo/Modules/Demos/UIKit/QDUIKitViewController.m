@@ -18,7 +18,7 @@
 #import "QDAlertController.h"
 #import "QDSearchViewController.h"
 #import "QDNavigationListViewController.h"
-#import "QDTabBarItemViewController.h"
+#import "QDTabBarDemoViewController.h"
 #import "QDAboutViewController.h"
 #import "QDObjectViewController.h"
 #import "QDFontViewController.h"
@@ -51,7 +51,7 @@
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
                        @"QMUINavigationController", UIImageMake(@"icon_grid_navigation"),
                        @"UISearchBar+QMUI", UIImageMake(@"icon_grid_search"),
-                       @"UITabBarItem+QMUI", UIImageMake(@"icon_grid_tabBarItem"),
+                       @"UITabBar+QMUI", UIImageMake(@"icon_grid_tabBar"),
                        @"UIColor+QMUI", UIImageMake(@"icon_grid_color"),
                        @"UIImage+QMUI", UIImageMake(@"icon_grid_image"),
                        @"UIImageView+QMUI", UIImageMake(@"icon_grid_imageView"),
@@ -171,8 +171,8 @@
     else if ([title isEqualToString:@"QMUINavigationController"]) {
         viewController = [[QDNavigationListViewController alloc] init];
     }
-    else if ([title isEqualToString:@"UITabBarItem+QMUI"]) {
-        viewController = [[QDTabBarItemViewController alloc] init];
+    else if ([title isEqualToString:@"UITabBar+QMUI"]) {
+        viewController = [[QDTabBarDemoViewController alloc] init];
     }
     else if ([title isEqualToString:@"UIFont+QMUI"]) {
         viewController = [[QDFontViewController alloc] init];

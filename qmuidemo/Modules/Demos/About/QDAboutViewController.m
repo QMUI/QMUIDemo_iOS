@@ -7,11 +7,9 @@
 //
 
 #import "QDAboutViewController.h"
-#import "QDAAViewController.h"
 
 @interface QDAboutViewController ()
 
-@property(nonatomic, strong) UIImage *themeAboutLogoImage;
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIImageView *logoImageView;
 @property(nonatomic, strong) QMUIButton *versionButton;
@@ -19,40 +17,9 @@
 @property(nonatomic, strong) QMUIButton *documentButton;
 @property(nonatomic, strong) QMUIButton *gitHubButton;
 @property(nonatomic, strong) UILabel *copyrightLabel;
-@property(nonatomic, assign) NSInteger tapCount;
 @end
 
 @implementation QDAboutViewController
-
-- (void)didInitialize {
-    [super didInitialize];
-    
-    NSString *imagePath = [[NSUserDefaults standardUserDefaults] objectForKey:[self userDefaultsKeyForAboutLogoImage]];
-    if (imagePath) {
-        UIImage *aboutLogoImage = [UIImage imageWithContentsOfFile:imagePath];
-        if (aboutLogoImage) {
-            self.themeAboutLogoImage = aboutLogoImage;
-            return;
-        }
-    }
-    
-    // 如果是第一次进来，则在 viewDidAppear 之后再让 logo 图渐变显示出来
-    __weak __typeof(self)weakSelf = self;
-    self.qmui_didAppearAndLoadDataBlock = ^{
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf transitLogoImageIfNeeded];
-    };
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *aboutLogoImage = UIImageMake(@"about_logo_monochrome");
-        UIImage *blendedAboutLogoImage = [aboutLogoImage qmui_imageWithBlendColor:UIColor.qd_tintColor];
-        [self saveImageAsFile:blendedAboutLogoImage];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.themeAboutLogoImage = blendedAboutLogoImage;
-            self.qmui_dataLoaded = YES;
-        });
-    });
-}
 
 - (void)initSubviews {
     [super initSubviews];
@@ -60,12 +27,10 @@
     self.scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:self.scrollView];
     
-    self.logoImageView = [[UIImageView alloc] initWithImage:self.themeAboutLogoImage ?: UIImageMake(@"about_logo_monochrome")];
+    self.logoImageView = [[UIImageView alloc] initWithImage:[UIImageMake(@"launch_logo") imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    self.logoImageView.tintColor = UIColorGray9;
     self.logoImageView.userInteractionEnabled = YES;
     [self.scrollView addSubview:self.logoImageView];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    tap.numberOfTapsRequired = 3;
-    [self.logoImageView addGestureRecognizer:tap];
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     self.versionButton = [[QMUIButton alloc] init];
@@ -94,7 +59,7 @@
     
     self.copyrightLabel = [[UILabel alloc] init];
     self.copyrightLabel.numberOfLines = 0;
-    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2020 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2021 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
@@ -103,19 +68,11 @@
     self.title = @"关于";
 }
 
-- (void)transitLogoImageIfNeeded {
-    if (self.themeAboutLogoImage && self.logoImageView && self.logoImageView.image != self.themeAboutLogoImage) {
-        UIImageView *templateImageView = [[UIImageView alloc] initWithFrame:self.logoImageView.bounds];
-        templateImageView.image = self.themeAboutLogoImage;
-        templateImageView.alpha = 0;
-        [self.logoImageView addSubview:templateImageView];
-        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            templateImageView.alpha = 1;
-        } completion:^(BOOL finished) {
-            self.logoImageView.image = self.themeAboutLogoImage;
-            [templateImageView removeFromSuperview];
-        }];
-    }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.logoImageView.tintColor = UIColor.qd_tintColor;
+    } completion:nil];
 }
 
 - (QMUIButton *)generateCellButtonWithTitle:(NSString *)title {
@@ -190,22 +147,6 @@
     }
 }
 
-- (NSString *)userDefaultsKeyForAboutLogoImage {
-    return [NSString stringWithFormat:@"about_logo_%@@%.0fx.png", QDThemeManager.currentTheme.themeName, ScreenScale];
-}
-
-- (void)saveImageAsFile:(UIImage *)image {
-    NSData *imageData = UIImagePNGRepresentation(image);
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths.firstObject;
-    NSString *imageName = [self userDefaultsKeyForAboutLogoImage];
-    NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
-    
-    if ([imageData writeToFile:imagePath atomically:NO]) {
-        [[NSUserDefaults standardUserDefaults] setObject:imagePath forKey:imageName];
-    }
-}
-
 - (void)handleVersionButtonEvent:(QMUIButton *)button {
     [self openUrlString:@"https://github.com/Tencent/QMUI_iOS/releases"];
 }
@@ -226,11 +167,6 @@
     UIApplication *application = UIApplication.sharedApplication;
     NSURL *url = [NSURL URLWithString:urlString];
     [application openURL:url options:@{} completionHandler:nil];
-}
-
-- (void)handleTapGesture:(UITapGestureRecognizer *)gesture {
-    QDAAViewController *viewController = [[QDAAViewController alloc] init];
-    [viewController show];
 }
 
 @end

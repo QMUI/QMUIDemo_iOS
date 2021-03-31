@@ -170,6 +170,7 @@
     [UIView animateWithDuration:.15 delay:0.9 options:QMUIViewAnimationOptionsCurveOut animations:^{
         [launchScreenView layoutIfNeeded];
         logoImageView.alpha = 0.0;
+        logoImageView.transform = CGAffineTransformMakeScale(3, 3);
         copyrightLabel.alpha = 0;
     } completion:nil];
     [UIView animateWithDuration:1.2 delay:0.9 options:UIViewAnimationOptionCurveEaseOut animations:^{

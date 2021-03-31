@@ -35,6 +35,7 @@
     if (!cell) {
         if ([identifier isEqualToString:@"subtitle"]) {
             cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+            cell.detailTextLabel.numberOfLines = 0;
         } else {
             cell = [[QMUITableViewCell alloc] initForTableView:tableView withStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         }
@@ -55,7 +56,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.dataSourceWithDetailText && ((NSString *)[self.dataSourceWithDetailText objectForKey:self.dataSourceWithDetailText.allKeys[indexPath.row]]).length) {
-        return 64;
+        return UITableViewAutomaticDimension;
     }
     return TableViewCellNormalHeight;
 }

@@ -80,6 +80,12 @@
     self.emotionInputManager.emotionView.alpha = 0;
 }
 
+- (void)setupNavigationItems {
+    [super setupNavigationItems];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithTitle:@"切换布局" target:self action:@selector(handleChangeAlignmentEvent:)];
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.textField.qmui_keyboardManager.delegateEnabled = NO;
@@ -108,12 +114,12 @@
     self.descriptionLabel.frame = CGRectFlatMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, QMUIViewSelfSizingHeight);
     
     CGFloat toolbarHeight = 56;
-    CGFloat emotionViewHeight = 232;
+    CGFloat emotionViewHeight = 232 + self.view.qmui_safeAreaInsets.bottom;
     if (self.keyboardVisible) {
         self.toolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.keyboardHeight - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
         self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetMaxY(self.toolbar.frame), CGRectGetWidth(self.view.bounds), emotionViewHeight);
     } else {
-        self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.view.qmui_safeAreaInsets.bottom - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
+        self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - emotionViewHeight, CGRectGetWidth(self.view.bounds), emotionViewHeight);
         self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.emotionInputManager.emotionView.frame) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
     }
     
@@ -127,6 +133,14 @@
         return NO;
     }
     return YES;
+}
+
+- (void)handleChangeAlignmentEvent:(id)sender {
+    BOOL verticalAlignment = !self.emotionInputManager.emotionView.verticalAlignment;
+    self.emotionInputManager.emotionView.deleteButton.contentEdgeInsets = verticalAlignment ? UIEdgeInsetsMake(0, 20, 0, 20) : UIEdgeInsetsZero;
+    self.emotionInputManager.emotionView.deleteButtonBackgroundColor = verticalAlignment ? UIColorBlue : nil;
+    self.emotionInputManager.emotionView.deleteButtonImage = verticalAlignment ? [[QMUIHelper imageWithName:@"QMUI_emotion_delete"] qmui_imageWithTintColor:UIColor.whiteColor] : [QMUIHelper imageWithName:@"QMUI_emotion_delete"];
+    self.emotionInputManager.emotionView.verticalAlignment = verticalAlignment;
 }
 
 #pragma mark - <QMUITextFieldDelegate>

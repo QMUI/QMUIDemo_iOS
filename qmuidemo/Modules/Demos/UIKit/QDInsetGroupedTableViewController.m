@@ -57,6 +57,17 @@
                 weakSelf.tableView.qmui_insetGroupedCornerRadius = TableViewInsetGroupedCornerRadius;
             }
         }],
+        [QMUIPopupMenuButtonItem itemWithImage:nil title:@"进入编辑" handler:^(QMUIPopupMenuButtonItem * _Nonnull aItem) {
+            if ([aItem.title isEqualToString:@"进入编辑"]) {
+                aItem.title = @"退出编辑";
+                weakSelf.tableView.editing = YES;
+            } else {
+                aItem.title = @"进入编辑";
+                weakSelf.tableView.editing = NO;
+            }
+            [weakSelf.tableView reloadData];
+            
+        }],
     ];
     menu.automaticallyHidesWhenUserTap = YES;
     menu.maskViewBackgroundColor = nil;
@@ -94,6 +105,14 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     return [NSString stringWithFormat:@"Section Footer %@", @(section)];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+
 }
 
 @end

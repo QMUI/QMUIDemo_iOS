@@ -1,19 +1,20 @@
 //
-//  QDTabBarItemViewController.m
+//  QDTabBarDemoViewController.m
 //  qmuidemo
 //
 //  Created by QMUI Team on 2016/10/9.
 //  Copyright © 2016年 QMUI Team. All rights reserved.
 //
 
-#import "QDTabBarItemViewController.h"
+#import "QDTabBarDemoViewController.h"
 
-@interface QDTabBarItemViewController ()
+@interface QDTabBarDemoViewController ()
 
 @property(nonatomic, strong) UITabBar *tabBar;
+@property(nonatomic, strong) UIView *blurTestView;
 @end
 
-@implementation QDTabBarItemViewController
+@implementation QDTabBarDemoViewController
 
 - (void)initSubviews {
     [super initSubviews];
@@ -45,11 +46,18 @@
     [super viewDidLayoutSubviews];
     CGFloat tabBarHeight = TabBarHeight;
     self.tabBar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - tabBarHeight, CGRectGetWidth(self.view.bounds), tabBarHeight);
+    if (self.blurTestView) {
+        CGRect rect = [self.tableView convertRect:self.tabBar.frame fromView:self.view];
+        self.blurTestView.frame = CGRectMake(100, CGRectGetMinY(rect) - 25, CGRectGetWidth(self.tableView.bounds) - 100 * 2, 25 * 2);
+    }
 }
 
 - (void)initDataSource {
-    self.dataSource = @[@"双击 UITabBarItem 可触发双击事件",
-                        @"可获取 UITabBarItem 上的 imageView"];
+    self.dataSourceWithDetailText = [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
+                                     @"双击 UITabBarItem 可触发双击事件", @"",
+                                     @"可获取 UITabBarItem 上的 imageView", @"例如这里拿到 imageView 后会做动画",
+                                     @"可精准指定 UITabBar 的磨砂和前景色", @"兼容所有 iOS 版本。而系统仅在 iOS 13 及以后才提供 backgroundEffect 的修改方式，且系统的 UIVisualEffectView 在展示一些 UIBlurEffectStyle 时会强制加一个前景色，导致业务再叠加的前景色效果不可控，因此 QMUI 提供接口可以屏蔽系统的前景色，只显示业务的，从而达到精准控制设计效果的作用。",
+                                     nil];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
@@ -63,6 +71,35 @@
             } completion:^(BOOL finished) {
                 imageViewInTabBarItem.transform = CGAffineTransformIdentity;
             }];
+        }
+    } else if ([title isEqualToString:@"可精准指定 UITabBar 的磨砂和前景色"]) {
+        NSArray<NSNumber *> *effectStyles = @[
+            @(UIBlurEffectStyleExtraLight),
+            @(UIBlurEffectStyleLight),
+            @(UIBlurEffectStyleDark),
+            @(UIBlurEffectStyleProminent),
+        ];
+        if (@available(iOS 13.0, *)) {
+            effectStyles = [effectStyles arrayByAddingObjectsFromArray:@[
+                @(UIBlurEffectStyleSystemUltraThinMaterialLight),
+                @(UIBlurEffectStyleSystemMaterialLight),
+                @(UIBlurEffectStyleSystemChromeMaterialLight),
+                @(UIBlurEffectStyleSystemUltraThinMaterialDark),
+                @(UIBlurEffectStyleSystemMaterialDark),
+                @(UIBlurEffectStyleSystemChromeMaterialDark),
+            ]];
+        }
+
+        UIBlurEffectStyle style = effectStyles[arc4random() % effectStyles.count].integerValue;
+        self.tabBar.qmui_effect = [UIBlurEffect effectWithStyle:style];
+        self.tabBar.qmui_effectForegroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.3];
+        
+        // 为了展示磨砂效果，tabBar 背后垫一个 view 来查看透过磨砂的样子
+        if (!self.blurTestView) {
+            self.blurTestView = UIView.new;
+            self.blurTestView.backgroundColor = UIColor.qd_tintColor;
+            [self.tableView addSubview:self.blurTestView];
+            [self.view setNeedsLayout];
         }
     }
     

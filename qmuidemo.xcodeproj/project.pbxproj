@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -39,7 +39,6 @@
 		CD1229B21DF67922003B9649 /* QDImagePreviewViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229B11DF67922003B9649 /* QDImagePreviewViewController2.m */; };
 		CD18BD8221870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18BD8121870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m */; };
 		CD18BD8521871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18BD8421871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m */; };
-		CD18CF2320F76A3D00EED53C /* QDAAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD18CF2220F76A3D00EED53C /* QDAAViewController.m */; };
 		CD1A8AA11EC4012400B81693 /* QMUIConfigurationTemplateGrass.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */; };
 		CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1A8AA31EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m */; };
 		CD2FEE5C2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */; };
@@ -121,7 +120,7 @@
 		CDB8CA0E1DCC815A00769DF0 /* QDNavigationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BB1DCC815A00769DF0 /* QDNavigationListViewController.m */; };
 		CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BD1DCC815A00769DF0 /* QDNormalButtonViewController.m */; };
 		CDB8CA101DCC815A00769DF0 /* QDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */; };
-		CDB8CA121DCC815A00769DF0 /* QDTabBarItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */; };
+		CDB8CA121DCC815A00769DF0 /* QDTabBarDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C31DCC815A00769DF0 /* QDTabBarDemoViewController.m */; };
 		CDB8CA141DCC815A00769DF0 /* QDTextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C71DCC815A00769DF0 /* QDTextFieldViewController.m */; };
 		CDB8CA151DCC815A00769DF0 /* QDTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C91DCC815A00769DF0 /* QDTextViewController.m */; };
 		CDB8CA161DCC815A00769DF0 /* QDToolBarButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */; };
@@ -255,8 +254,6 @@
 		CD18BD8121870EFD00E2A4E6 /* QDNavigationBarScrollingAnimatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarScrollingAnimatorViewController.m; sourceTree = "<group>"; };
 		CD18BD8321871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNavigationBarScrollingSnapAnimatorViewController.h; sourceTree = "<group>"; };
 		CD18BD8421871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNavigationBarScrollingSnapAnimatorViewController.m; sourceTree = "<group>"; };
-		CD18CF2120F76A3D00EED53C /* QDAAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAAViewController.h; sourceTree = "<group>"; };
-		CD18CF2220F76A3D00EED53C /* QDAAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAAViewController.m; sourceTree = "<group>"; };
 		CD1A8A9F1EC4012400B81693 /* QMUIConfigurationTemplateGrass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplateGrass.h; sourceTree = "<group>"; };
 		CD1A8AA01EC4012400B81693 /* QMUIConfigurationTemplateGrass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplateGrass.m; sourceTree = "<group>"; };
 		CD1A8AA21EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplatePinkRose.h; sourceTree = "<group>"; };
@@ -419,8 +416,8 @@
 		CDB8C9BD1DCC815A00769DF0 /* QDNormalButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNormalButtonViewController.m; sourceTree = "<group>"; };
 		CDB8C9BE1DCC815A00769DF0 /* QDSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSearchViewController.h; sourceTree = "<group>"; };
 		CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSearchViewController.m; sourceTree = "<group>"; };
-		CDB8C9C21DCC815A00769DF0 /* QDTabBarItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTabBarItemViewController.h; sourceTree = "<group>"; };
-		CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTabBarItemViewController.m; sourceTree = "<group>"; };
+		CDB8C9C21DCC815A00769DF0 /* QDTabBarDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTabBarDemoViewController.h; sourceTree = "<group>"; };
+		CDB8C9C31DCC815A00769DF0 /* QDTabBarDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTabBarDemoViewController.m; sourceTree = "<group>"; };
 		CDB8C9C61DCC815A00769DF0 /* QDTextFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTextFieldViewController.h; sourceTree = "<group>"; };
 		CDB8C9C71DCC815A00769DF0 /* QDTextFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTextFieldViewController.m; sourceTree = "<group>"; };
 		CDB8C9C81DCC815A00769DF0 /* QDTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTextViewController.h; sourceTree = "<group>"; };
@@ -889,8 +886,8 @@
 				CDB8C9BF1DCC815A00769DF0 /* QDSearchViewController.m */,
 				CD5387741EE0096C00654A73 /* QDSliderViewController.h */,
 				CD5387751EE0096C00654A73 /* QDSliderViewController.m */,
-				CDB8C9C21DCC815A00769DF0 /* QDTabBarItemViewController.h */,
-				CDB8C9C31DCC815A00769DF0 /* QDTabBarItemViewController.m */,
+				CDB8C9C21DCC815A00769DF0 /* QDTabBarDemoViewController.h */,
+				CDB8C9C31DCC815A00769DF0 /* QDTabBarDemoViewController.m */,
 				CD6CC62B1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.h */,
 				CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */,
 				CDB8C9B01DCC815A00769DF0 /* QDTableViewCellInsetsViewController.h */,
@@ -924,8 +921,6 @@
 			children = (
 				CDD4D1EC1DCE09FE00417427 /* QDAboutViewController.h */,
 				CDD4D1ED1DCE09FE00417427 /* QDAboutViewController.m */,
-				CD18CF2120F76A3D00EED53C /* QDAAViewController.h */,
-				CD18CF2220F76A3D00EED53C /* QDAAViewController.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1054,7 +1049,7 @@
 				};
 			};
 			buildConfigurationList = 165F42EB1ADB60180057EF6A /* Build configuration list for PBXProject "qmuidemo" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1212,7 +1207,6 @@
 				CDB8C9EC1DCC815A00769DF0 /* QDSaveVideoToSpecifiedAlbumViewController.m in Sources */,
 				CDB8C9FC1DCC815A00769DF0 /* QDAlertController.m in Sources */,
 				CDB8CA0E1DCC815A00769DF0 /* QDNavigationListViewController.m in Sources */,
-				CD18CF2320F76A3D00EED53C /* QDAAViewController.m in Sources */,
 				CDB8C9DB1DCC815A00769DF0 /* QDAssetsManagerViewController.m in Sources */,
 				CDB8C9ED1DCC815A00769DF0 /* QDSingleImagePickerPreviewViewController.m in Sources */,
 				D0283ECC20C2F2290090DD45 /* QDBadgeViewController.m in Sources */,
@@ -1272,7 +1266,7 @@
 				CDB8CA081DCC815A00769DF0 /* QDImageViewController.m in Sources */,
 				1679E32E1DFFC0AD0072B8A1 /* QDCustomToastAnimator.m in Sources */,
 				CDB8CA021DCC815A00769DF0 /* QDCollectionViewDemoCell.m in Sources */,
-				CDB8CA121DCC815A00769DF0 /* QDTabBarItemViewController.m in Sources */,
+				CDB8CA121DCC815A00769DF0 /* QDTabBarDemoViewController.m in Sources */,
 				CD4421CF1E84C74C001B8C2A /* QDObjectViewController.m in Sources */,
 				D052631521EE080E00D4F57A /* QDConsoleViewController.m in Sources */,
 				D0BEFAA52484FEEC0006D1B9 /* QDInsetGroupedTableViewController.m in Sources */,
@@ -1484,14 +1478,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.2.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1527,12 +1521,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.2.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qd;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1700,7 +1694,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.2.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

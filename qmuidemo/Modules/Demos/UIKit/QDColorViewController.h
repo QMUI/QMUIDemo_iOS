@@ -50,6 +50,10 @@
 @interface QDColorCellThatBlendColors : QDColorTableViewCell
 @end
 
+// 计算两个颜色之间的差距
+@interface QDColorCellThatGetDistance : QDColorTableViewCell
+@end
+
 @interface QDColorCellThatAdjustAlphaAndBlend : QDColorTableViewCell
 
 @end

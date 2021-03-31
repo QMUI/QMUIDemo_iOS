@@ -54,6 +54,9 @@ const CGFloat QDButtonSpacingHeight = 72;
     
     UISearchBar *searchBar = [UISearchBar appearance];
     searchBar.searchTextPositionAdjustment = UIOffsetMake(4, 0);
+    if (@available(iOS 11.0, *)) {
+        searchBar.qmui_centerPlaceholder = YES;
+    }
     
     QMUILabel *label = [QMUILabel appearance];
     label.highlightedBackgroundColor = TableViewCellSelectedBackgroundColor;

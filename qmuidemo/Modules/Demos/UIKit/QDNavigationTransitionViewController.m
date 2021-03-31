@@ -39,13 +39,13 @@
 // 注意，这一切都需要在 QMUINavigationController 里才有效。
 #pragma mark - <QMUINavigationControllerDelegate>
 
-- (void)navigationController:(QMUINavigationController *)navigationController poppingByInteractiveGestureRecognizer:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer viewControllerWillDisappear:(UIViewController *)viewControllerWillDisappear viewControllerWillAppear:(UIViewController *)viewControllerWillAppear {
+- (void)navigationController:(QMUINavigationController *)navigationController poppingByInteractiveGestureRecognizer:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer isCancelled:(BOOL)isCancelled viewControllerWillDisappear:(UIViewController *)viewControllerWillDisappear viewControllerWillAppear:(UIViewController *)viewControllerWillAppear {
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (viewControllerWillDisappear == self) {
-            [QMUITips showSucceed:@"松手了，界面发生切换"];
-        } else if (viewControllerWillAppear == self) {
+        if (isCancelled) {
             [QMUITips showInfo:@"松手了，没有触发界面切换"];
+        } else {
+            [QMUITips showSucceed:@"松手了，界面发生切换"];
         }
         [self resetStateLabel];
         return;

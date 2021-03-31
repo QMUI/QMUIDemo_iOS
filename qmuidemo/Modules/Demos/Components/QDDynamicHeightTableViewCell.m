@@ -50,8 +50,9 @@ const CGFloat kContentMarginBotom = 10;
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    CGSize resultSize = CGSizeMake(size.width, 0);
-    CGFloat contentLabelWidth = size.width - UIEdgeInsetsGetHorizontalValue(kInsets);
+    CGFloat contentWidth = CGRectGetWidth(self.contentView.bounds);
+    CGSize resultSize = CGSizeMake(contentWidth, 0);
+    CGFloat contentLabelWidth = contentWidth - UIEdgeInsetsGetHorizontalValue(kInsets);
     
     CGFloat resultHeight = UIEdgeInsetsGetHorizontalValue(kInsets) + CGRectGetHeight(self.avatarImageView.bounds) + kAvatarMarginBottom;
     
