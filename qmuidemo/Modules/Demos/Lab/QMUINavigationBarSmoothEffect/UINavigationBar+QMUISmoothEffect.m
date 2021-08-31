@@ -14,6 +14,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
+        void (^updateBarBackgroundBlock)(UIView *) = ^void(UIView *selfObject) {
+            if ([selfObject.superview isKindOfClass:UINavigationBar.class]) {
+                UINavigationBar *navigationBar = (UINavigationBar *)selfObject.superview;
+                if (navigationBar.qmui_smoothEffect) {
+                    [navigationBar qmuinbe_updateBackgroundSmoothEffect];
+                }
+            }
+        };
         OverrideImplementation(NSClassFromString(@"_UIBarBackground"), @selector(didAddSubview:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UIView *selfObject, UIView *subview) {
                 
@@ -22,12 +30,19 @@
                 originSelectorIMP = (void (*)(id, SEL, UIView *))originalIMPProvider();
                 originSelectorIMP(selfObject, originCMD, subview);
                 
-                if ([selfObject.superview isKindOfClass:UINavigationBar.class]) {
-                    UINavigationBar *navigationBar = (UINavigationBar *)selfObject.superview;
-                    if (navigationBar.qmui_smoothEffect) {
-                        [navigationBar qmuinbe_updateBackgroundSmoothEffect];
-                    }
-                }
+                updateBarBackgroundBlock(selfObject);
+            };
+        });
+        
+        OverrideImplementation(NSClassFromString(@"_UIBarBackground"), @selector(didMoveToSuperview), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UIView *selfObject) {
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL);
+                originSelectorIMP = (void (*)(id, SEL))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD);
+                
+                updateBarBackgroundBlock(selfObject);
             };
         });
         
@@ -35,6 +50,32 @@
             if (navigationBar.qmui_smoothEffect) {
                 [navigationBar qmuinbe_updateBackgroundSmoothEffect];
             }
+        });
+        
+        SEL selector = NSSelectorFromString(@"replaceStyleForNavigationBar:withNavigationBar:");
+        NSAssert([UIViewController respondsToSelector:selector], @"请检查 UINavigationController+NavigationBarTransition 里的 replaceStyleForNavigationBar:withNavigationBar: 是不是没了");
+        OverrideImplementation(object_getClass([UIViewController class]), selector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UIViewController *selfObject, UINavigationBar *firstArgv, UINavigationBar *secondArgv) {
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, UINavigationBar *, UINavigationBar *);
+                originSelectorIMP = (void (*)(id, SEL, UINavigationBar *, UINavigationBar *))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, firstArgv, secondArgv);
+                
+                firstArgv.qmui_smoothEffect = secondArgv.qmui_smoothEffect;
+            };
+        });
+        
+        OverrideImplementation(NSClassFromString(@"_QMUITransitionNavigationBar"), NSSelectorFromString(@"setOriginalNavigationBar:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UINavigationBar *selfObject, UINavigationBar *firstArgv) {
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, UINavigationBar *);
+                originSelectorIMP = (void (*)(id, SEL, UINavigationBar *))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, firstArgv);
+                
+                selfObject.qmui_smoothEffect = firstArgv.qmui_smoothEffect;
+            };
         });
     });
 }

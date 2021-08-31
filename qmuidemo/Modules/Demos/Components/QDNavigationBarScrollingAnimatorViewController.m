@@ -52,20 +52,20 @@
 
 #pragma mark - <QMUINavigationControllerAppearanceDelegate>
 
-- (UIImage *)navigationBarBackgroundImage {
+- (UIImage *)qmui_navigationBarBackgroundImage {
     return self.navigationAnimator.backgroundImageBlock(self.navigationAnimator, self.navigationAnimator.progress);
 }
 
-- (UIImage *)navigationBarShadowImage {
+- (UIImage *)qmui_navigationBarShadowImage {
     return self.navigationAnimator.shadowImageBlock(self.navigationAnimator, self.navigationAnimator.progress);
 }
 
-- (UIColor *)navigationBarTintColor {
+- (UIColor *)qmui_navigationBarTintColor {
     return self.navigationAnimator.tintColorBlock(self.navigationAnimator, self.navigationAnimator.progress);
 }
 
-- (UIColor *)titleViewTintColor {
-    return [self navigationBarTintColor];
+- (UIColor *)qmui_titleViewTintColor {
+    return [self qmui_navigationBarTintColor];
 }
 
 #pragma mark - <QMUICustomNavigationBarTransitionDelegate>

@@ -22,6 +22,13 @@
 @property(nonatomic, strong) UIColor *qd_separatorColor;
 @property(nonatomic, strong) UIColor *qd_gridItemTintColor;
 
+@property(nonatomic, strong) UIImage *qd_navigationBarBackgroundImage;
+@property(nonatomic, strong) UIImage *qd_navigationBarBackIndicatorImage;
+@property(nonatomic, strong) UIImage *qd_navigationBarCloseImage;
+@property(nonatomic, strong) UIImage *qd_navigationBarDisclosureIndicatorImage;
+@property(nonatomic, strong) UIImage *qd_tableViewCellDisclosureIndicatorImage;
+@property(nonatomic, strong) UIImage *qd_tableViewCellCheckmarkImage;
+@property(nonatomic, strong) UIImage *qd_tableViewCellDetailButtonImage;
 @property(nonatomic, strong) UIImage *qd_searchBarTextFieldBackgroundImage;
 @property(nonatomic, strong) UIImage *qd_searchBarBackgroundImage;
 
@@ -81,6 +88,17 @@
             return theme.themeGridItemTintColor;
         }];
         
+        self.qd_navigationBarBackgroundImage = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [UIImage qmui_imageWithColor:theme.themeTintColor];
+        }];
+        self.qd_navigationBarBackIndicatorImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavBack size:CGSizeMake(12, 20) tintColor:UIColor.whiteColor];
+        self.qd_navigationBarCloseImage = [UIImage qmui_imageWithShape:QMUIImageShapeNavClose size:CGSizeMake(16, 16) tintColor:UIColor.whiteColor];
+        self.qd_navigationBarDisclosureIndicatorImage = [[UIImage qmui_imageWithShape:QMUIImageShapeTriangle size:CGSizeMake(8, 5) tintColor:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.qd_tableViewCellDisclosureIndicatorImage = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
+            return [identifier isEqualToString:QDThemeIdentifierDark] ? [UIImage qmui_imageWithShape:QMUIImageShapeDisclosureIndicator size:CGSizeMake(6, 10) lineWidth:1 tintColor:UIColorMake(98, 100, 104)] : [UIImage qmui_imageWithShape:QMUIImageShapeDisclosureIndicator size:CGSizeMake(6, 10) lineWidth:1 tintColor:UIColorGray7];
+        }];
+        self.qd_tableViewCellCheckmarkImage = [UIImage qmui_imageWithShape:QMUIImageShapeCheckmark size:CGSizeMake(15, 12) tintColor:self.qd_tintColor];
+        self.qd_tableViewCellDetailButtonImage = [UIImage qmui_imageWithShape:QMUIImageShapeDetailButtonImage size:CGSizeMake(20, 20) tintColor:self.qd_tintColor];
         self.qd_searchBarTextFieldBackgroundImage = [UIImage qmui_imageWithThemeProvider:^UIImage * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject<QDThemeProtocol> * _Nullable theme) {
             return [UISearchBar qmui_generateTextFieldBackgroundImageWithColor:theme.themeBackgroundColorHighlighted];
         }];
@@ -159,6 +177,34 @@
 @end
 
 @implementation UIImage (QDTheme)
+
++ (UIImage *)qd_navigationBarBackgroundImage {
+    return QDThemeManager.sharedInstance.qd_navigationBarBackgroundImage;
+}
+
++ (UIImage *)qd_navigationBarBackIndicatorImage {
+    return QDThemeManager.sharedInstance.qd_navigationBarBackIndicatorImage;
+}
+
++ (UIImage *)qd_navigationBarCloseImage {
+    return QDThemeManager.sharedInstance.qd_navigationBarCloseImage;
+}
+
++ (UIImage *)qd_navigationBarDisclosureIndicatorImage {
+    return QDThemeManager.sharedInstance.qd_navigationBarDisclosureIndicatorImage;
+}
+
++ (UIImage *)qd_tableViewCellDisclosureIndicatorImage {
+    return QDThemeManager.sharedInstance.qd_tableViewCellDisclosureIndicatorImage;
+}
+
++ (UIImage *)qd_tableViewCellCheckmarkImage {
+    return QDThemeManager.sharedInstance.qd_tableViewCellCheckmarkImage;
+}
+
++ (UIImage *)qd_tableViewCellDetailButtonImage {
+    return QDThemeManager.sharedInstance.qd_tableViewCellDetailButtonImage;
+}
 
 + (UIImage *)qd_searchBarTextFieldBackgroundImage {
     return QDThemeManager.sharedInstance.qd_searchBarTextFieldBackgroundImage;

@@ -149,7 +149,7 @@ const CGSize SizeForStaticSizeView = {140, 60};
 
 #pragma mark - <QMUINavigationControllerDelegate>
 
-- (UIImage *)navigationBarBackgroundImage {
+- (UIImage *)qmui_navigationBarBackgroundImage {
     // debug warning
     return [UIImage qmui_imageWithColor:UIColorMake(232, 46, 46)];
 }

@@ -91,7 +91,6 @@
     QMUIModalPresentationViewController *modal = [[QMUIModalPresentationViewController alloc] init];
     modal.contentViewController = self;
     modal.maximumContentViewWidth = 320;
-    modal.dimmingView.backgroundColor = nil;
     [viewController presentViewController:modal animated:YES completion:nil];
 }
 

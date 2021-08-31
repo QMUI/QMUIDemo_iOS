@@ -86,7 +86,7 @@
 - (QMUITextField *)textField {
     if (!_textField) {
         _textField = [[QMUITextField alloc] qmui_initWithSize:CGSizeMake(160, 38)];
-        _textField.keyboardType = UIKeyboardTypeNumberPad;
+        _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.returnKeyType = UIReturnKeyDone;
         _textField.font = [UIFont fontWithName:@"Menlo" size:14];
         _textField.textColor = UIColor.blackColor;
@@ -114,7 +114,7 @@
         return YES;
     }
     
-    return !![string qmui_stringMatchedByPattern:@"[-\\d\\.]"];
+    return !![string qmui_stringMatchedByPattern:@"[-\\d\\.]"];// 模拟器里，通过电脑键盘输入“点”，输出的可能是中文的句号
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

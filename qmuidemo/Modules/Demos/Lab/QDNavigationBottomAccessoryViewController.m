@@ -12,7 +12,7 @@
 @interface QDBottomAccessoryView : UIView
 
 @property(nonatomic, strong) UILabel *textLabel;
-@property(nonatomic, strong) QMUILinkButton *linkButton;
+@property(nonatomic, strong) QMUIButton *linkButton;
 @end
 
 @implementation QDNavigationBottomAccessoryViewController
@@ -23,16 +23,16 @@
     self.navigationItem.qmui_bottomAccessoryView = accessoryView;
 }
 
-- (UIImage *)navigationBarBackgroundImage {
+- (UIImage *)qmui_navigationBarBackgroundImage {
     return nil;
 }
 
-- (UIColor *)navigationBarTintColor {
+- (UIColor *)qmui_navigationBarTintColor {
     return UIColor.qd_titleTextColor;
 }
 
-- (UIColor *)titleViewTintColor {
-    return self.navigationBarTintColor;
+- (UIColor *)qmui_titleViewTintColor {
+    return self.qmui_navigationBarTintColor;
 }
 
 - (NSString *)customNavigationBarTransitionKey {
@@ -57,9 +57,12 @@
         [self.textLabel sizeToFit];
         [self addSubview:self.textLabel];
         
-        self.linkButton = [[QMUILinkButton alloc] init];
+        self.linkButton = [[QMUIButton alloc] init];
         self.linkButton.titleLabel.font = UIFontMake(12);
         [self.linkButton setTitle:@"查看详情" forState:UIControlStateNormal];
+        self.linkButton.qmui_borderPosition = QMUIViewBorderPositionBottom;
+        self.linkButton.qmui_borderWidth = 1;
+        self.linkButton.qmui_borderColor = self.linkButton.tintColor;
         self.linkButton.qmui_outsideEdge = UIEdgeInsetsMake(-12, -12, -12, -12);
         [self.linkButton sizeToFit];
         [self addSubview:self.linkButton];

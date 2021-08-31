@@ -40,6 +40,11 @@
             // 通过 valueSetter 将用户在 actionView 里操作的值赋值给目标 view
             self.tipsLabel.textColor = [UIColor qmui_colorWithRGBAString:actionView.text];
         }]];
+        [vc addDebugItem:[QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"文字透明度" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = [NSString stringWithFormat:@"%.2f", self.tipsLabel.alpha];
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
+            self.tipsLabel.alpha = actionView.text.floatValue;
+        }]];
         [vc addDebugItem:[QMUIInteractiveDebugPanelItem boolItemWithTitle:@"文字加粗" valueGetter:^(UISwitch * _Nonnull actionView) {
             actionView.on = [self.tipsLabel.font.fontName containsString:@"bold"];
         } valueSetter:^(UISwitch * _Nonnull actionView) {

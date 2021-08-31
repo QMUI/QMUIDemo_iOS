@@ -32,6 +32,13 @@
 
 @interface UIImage (QDTheme)
 
+@property(class, nonatomic, strong, readonly) UIImage *qd_navigationBarBackgroundImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_navigationBarBackIndicatorImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_navigationBarCloseImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_navigationBarDisclosureIndicatorImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_tableViewCellDisclosureIndicatorImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_tableViewCellCheckmarkImage;
+@property(class, nonatomic, strong, readonly) UIImage *qd_tableViewCellDetailButtonImage;
 @property(class, nonatomic, strong, readonly) UIImage *qd_searchBarTextFieldBackgroundImage;
 @property(class, nonatomic, strong, readonly) UIImage *qd_searchBarBackgroundImage;
 @end

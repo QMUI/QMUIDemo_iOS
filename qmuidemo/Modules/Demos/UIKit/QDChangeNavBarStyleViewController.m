@@ -59,7 +59,7 @@
 
 #pragma mark - QMUINavigationControllerDelegate
 
-- (UIImage *)navigationBarBackgroundImage {
+- (UIImage *)qmui_navigationBarBackgroundImage {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
         return NavBarBackgroundImage;
     } else if (self.barStyle == QDNavigationBarStyleLight) {
@@ -71,7 +71,7 @@
     }
 }
 
-- (UIImage *)navigationBarShadowImage {
+- (UIImage *)qmui_navigationBarShadowImage {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
         return NavBarShadowImage;
     } else if (self.barStyle == QDNavigationBarStyleLight) {
@@ -83,7 +83,7 @@
     }
 }
 
-- (UIColor *)navigationBarTintColor {
+- (UIColor *)qmui_navigationBarTintColor {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
         return NavBarTintColor;
     } else if (self.barStyle == QDNavigationBarStyleLight) {
@@ -95,7 +95,7 @@
     }
 }
 
-- (UIColor *)titleViewTintColor {
+- (UIColor *)qmui_titleViewTintColor {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
         return NavBarTitleColor;
     } else if (self.barStyle == QDNavigationBarStyleLight) {

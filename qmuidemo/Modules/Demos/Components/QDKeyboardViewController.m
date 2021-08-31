@@ -179,7 +179,7 @@ static CGFloat const kEmotionViewHeight = 232;
     __weak __typeof(self)weakSelf = self;
     [QMUIKeyboardManager handleKeyboardNotificationWithUserInfo:keyboardUserInfo showBlock:^(QMUIKeyboardUserInfo *keyboardUserInfo) {
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
-            CGFloat distanceFromBottom = [QMUIKeyboardManager distanceFromMinYToBottomInView:weakSelf.view keyboardRect:keyboardUserInfo.endFrame];
+            CGFloat distanceFromBottom = keyboardUserInfo.isFloatingKeyboard ? 0 : [QMUIKeyboardManager distanceFromMinYToBottomInView:weakSelf.view keyboardRect:keyboardUserInfo.endFrame];
             weakSelf.containerView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom - CGRectGetHeight(self.containerView.bounds), 0);
         } completion:NULL];
     } hideBlock:^(QMUIKeyboardUserInfo *keyboardUserInfo) {
@@ -429,7 +429,7 @@ static CGFloat const kEmotionViewHeight = 232;
     if (keyboardUserInfo) {
         // 相对于键盘
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
-            CGFloat distanceFromBottom = [QMUIKeyboardManager distanceFromMinYToBottomInView:self.view keyboardRect:keyboardUserInfo.endFrame];
+            CGFloat distanceFromBottom = keyboardUserInfo.isFloatingKeyboard ? 0 : [QMUIKeyboardManager distanceFromMinYToBottomInView:self.view keyboardRect:keyboardUserInfo.endFrame];
             self.toolbarView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom - kToolbarHeight, 0);
             self.emotionInputManager.emotionView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom, 0);
         } completion:NULL];

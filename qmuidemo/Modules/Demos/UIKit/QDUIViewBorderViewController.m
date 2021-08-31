@@ -32,6 +32,9 @@
 @property(nonatomic, strong) QMUILabel *widthTitleLabel;
 @property(nonatomic, strong) QMUITextField *widthTextField;
 
+@property(nonatomic, strong) QMUILabel *insetsTitleLabel;
+@property(nonatomic, strong) QMUITextField *insetsTextField;
+
 @property(nonatomic, strong) QMUILabel *cornerRadiusTitleLabel;
 @property(nonatomic, strong) QMUITextField *cornerRadiusTextField;
 
@@ -81,6 +84,10 @@
     self.widthTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(qmui_borderWidth))];
     self.widthTextField = [self generateNumericTextField];
     
+    self.insetsTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(qmui_borderInsets))];
+    self.insetsTextField = [self generateNumericTextField];
+    self.insetsTextField.qmui_width = 100;
+    
     self.cornerRadiusTitleLabel = [self generateTitleLabelWithText:NSStringFromSelector(@selector(cornerRadius))];
     self.cornerRadiusTextField = [self generateNumericTextField];
     
@@ -100,8 +107,11 @@
     // 默认值的设置
     self.locationSegmentedControl.selectedSegmentIndex = 0;
     self.positionTopButton.selected = YES;
-    self.widthTextField.text = [NSString stringWithFormat:@"%.1f", 3.0];
-    self.cornerRadiusTextField.text = @"0";
+    self.widthTextField.text = [NSString stringWithFormat:@"%.1f", 10.0];
+    self.insetsTextField.text = @"10 0 0 0";
+    self.positionLeftButton.selected = YES;
+    self.positionTopButton.selected = YES;
+    self.cornerRadiusTextField.text = @"30";
     self.colorSegmentedControl.selectedSegmentIndex = 0;
     self.dashPatternWidthTextField.text = @"0";
     self.dashPatternSpacingTextField.text = @"0";
@@ -244,6 +254,12 @@
     self.widthTextField.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.widthTextField.frame));
     maxY += defaultLineHeight;
     
+    self.insetsTitleLabel.qmui_left = marginLeft;
+    self.insetsTitleLabel.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.insetsTitleLabel.frame));
+    self.insetsTextField.qmui_right = CGRectGetWidth(self.scrollView.bounds) - marginRight;
+    self.insetsTextField.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.insetsTextField.frame));
+    maxY += defaultLineHeight;
+    
     self.colorTitleLabel.qmui_left = marginLeft;
     self.colorTitleLabel.qmui_top = maxY + CGFloatGetCenter(defaultLineHeight, CGRectGetHeight(self.colorTitleLabel.frame));
     self.colorSegmentedControl.center = CGPointMake(CGRectGetWidth(self.scrollView.bounds) - marginRight - CGRectGetWidth(self.colorSegmentedControl.frame) / 2.0, self.colorTitleLabel.center.y);
@@ -316,6 +332,18 @@
 - (void)handleTextFieldChangedEvent:(QMUITextField *)textField {
     if (textField == self.widthTextField) {
         self.targetView.qmui_borderWidth = [textField.text doubleValue];
+    } else if (textField == self.insetsTextField) {
+        NSArray<NSNumber *> *insetsNumber = [[textField.text.qmui_trim componentsSeparatedByString:@" "] qmui_mapWithBlock:^id _Nonnull(NSString * _Nonnull item) {
+            return [NSNumber numberWithDouble:item.doubleValue];
+        }];
+        if (insetsNumber.count != 4) return;
+        UIEdgeInsets insets = UIEdgeInsetsMake(
+                                               insetsNumber[0].qmui_CGFloatValue,
+                                               insetsNumber[1].qmui_CGFloatValue,
+                                               insetsNumber[2].qmui_CGFloatValue,
+                                               insetsNumber[3].qmui_CGFloatValue
+                                               );
+        self.targetView.qmui_borderInsets = insets;
     } else if (textField == self.dashPhaseTextField) {
         self.targetView.qmui_dashPhase = [textField.text doubleValue];
     } else if (textField == self.cornerRadiusTextField) {
@@ -370,10 +398,10 @@
 }
 
 - (void)fireAllEvents {
-    [@[self.locationSegmentedControl, self.widthTextField, self.colorSegmentedControl, self.dashPatternWidthTextField, self.dashPatternSpacingTextField, self.dashPhaseTextField] enumerateObjectsUsingBlock:^(UIControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [@[self.locationSegmentedControl, self.widthTextField, self.insetsTextField, self.colorSegmentedControl, self.dashPatternWidthTextField, self.dashPatternSpacingTextField, self.dashPhaseTextField] enumerateObjectsUsingBlock:^(UIControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj sendActionsForControlEvents:UIControlEventValueChanged];
     }];
-    [@[self.widthTextField, self.dashPatternWidthTextField, self.dashPatternSpacingTextField, self.dashPhaseTextField] enumerateObjectsUsingBlock:^(UIControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [@[self.widthTextField, self.insetsTextField, self.dashPatternWidthTextField, self.dashPatternSpacingTextField, self.dashPhaseTextField] enumerateObjectsUsingBlock:^(UIControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj sendActionsForControlEvents:UIControlEventEditingChanged];
     }];
     [self updateBorderPosition];

@@ -33,6 +33,8 @@
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
 		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
 		4CD323992109B362007033C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4CD323972109B362007033C9 /* Localizable.strings */; };
+		8F732792262757E20051952C /* LookinServer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; };
+		8F732793262757E20051952C /* LookinServer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD0C342221E5E25200B781AD /* QDDynamicHeightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0C342121E5E25200B781AD /* QDDynamicHeightTableViewCell.m */; };
 		CD0C342521E5E2D800B781AD /* QDCellHeightCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0C342421E5E2D800B781AD /* QDCellHeightCacheViewController.m */; };
 		CD1229AF1DF678FB003B9649 /* QDImagePreviewViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1229AE1DF678FB003B9649 /* QDImagePreviewViewController1.m */; };
@@ -115,7 +117,6 @@
 		CDB8CA091DCC815A00769DF0 /* QDTableViewCellInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9B11DCC815A00769DF0 /* QDTableViewCellInsetsViewController.m */; };
 		CDB8CA0A1DCC815A00769DF0 /* QDInterceptBackButtonEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9B31DCC815A00769DF0 /* QDInterceptBackButtonEventViewController.m */; };
 		CDB8CA0B1DCC815A00769DF0 /* QDLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9B51DCC815A00769DF0 /* QDLabelViewController.m */; };
-		CDB8CA0C1DCC815A00769DF0 /* QDLinkButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9B71DCC815A00769DF0 /* QDLinkButtonViewController.m */; };
 		CDB8CA0D1DCC815A00769DF0 /* QDNavigationButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9B91DCC815A00769DF0 /* QDNavigationButtonViewController.m */; };
 		CDB8CA0E1DCC815A00769DF0 /* QDNavigationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BB1DCC815A00769DF0 /* QDNavigationListViewController.m */; };
 		CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9BD1DCC815A00769DF0 /* QDNormalButtonViewController.m */; };
@@ -138,6 +139,10 @@
 		CDE85CB51F95E21500E622E8 /* QMUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; };
 		CDE85CB61F95E21500E622E8 /* QMUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */; };
+		CDFD573D26DE132800603D1E /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD573C26DE132800603D1E /* KeyboardViewController.m */; };
+		CDFD574126DE132800603D1E /* QMUIKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CDFD573926DE132700603D1E /* QMUIKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CDFD575426DE1BA100603D1E /* UIImage+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD574E26DE1BA100603D1E /* UIImage+QMUI.m */; };
+		CDFD575526DE1BA100603D1E /* NSMethodSignature+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD575326DE1BA100603D1E /* NSMethodSignature+QMUI.m */; };
 		D004542F24B4A1C400F723E0 /* QDSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D004542E24B4A1C400F723E0 /* QDSearchBarViewController.m */; };
 		D004543224B6014B00F723E0 /* QDStyleSelectableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D004543124B6014B00F723E0 /* QDStyleSelectableTableViewController.m */; };
 		D00809C224C5C4AC00C50AA1 /* UINavigationItem+QMUIBottomAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D00809C124C5C4AC00C50AA1 /* UINavigationItem+QMUIBottomAccessoryView.m */; };
@@ -200,6 +205,13 @@
 			remoteGlobalIDString = 165F42EF1ADB60180057EF6A;
 			remoteInfo = qmuidemo;
 		};
+		CDFD573F26DE132800603D1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 165F42E81ADB60180057EF6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDFD573826DE132700603D1E;
+			remoteInfo = QMUIKeyboard;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -209,9 +221,21 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8F732793262757E20051952C /* LookinServer.xcframework in Embed Frameworks */,
 				CDE85CB61F95E21500E622E8 /* QMUIKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDFD574226DE132800603D1E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CDFD574126DE132800603D1E /* QMUIKeyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -242,6 +266,7 @@
 		4CD323982109B362007033C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4CD3239A2109B364007033C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4CD3239B2109B366007033C9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8F732791262757E20051952C /* LookinServer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = LookinServer.xcframework; path = qmuidemo/Frameworks/LookinServer.xcframework; sourceTree = "<group>"; };
 		CD0C342021E5E25200B781AD /* QDDynamicHeightTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDynamicHeightTableViewCell.h; sourceTree = "<group>"; };
 		CD0C342121E5E25200B781AD /* QDDynamicHeightTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDynamicHeightTableViewCell.m; sourceTree = "<group>"; };
 		CD0C342321E5E2D800B781AD /* QDCellHeightCacheViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDCellHeightCacheViewController.h; sourceTree = "<group>"; };
@@ -406,8 +431,6 @@
 		CDB8C9B31DCC815A00769DF0 /* QDInterceptBackButtonEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDInterceptBackButtonEventViewController.m; sourceTree = "<group>"; };
 		CDB8C9B41DCC815A00769DF0 /* QDLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDLabelViewController.h; sourceTree = "<group>"; };
 		CDB8C9B51DCC815A00769DF0 /* QDLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDLabelViewController.m; sourceTree = "<group>"; };
-		CDB8C9B61DCC815A00769DF0 /* QDLinkButtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDLinkButtonViewController.h; sourceTree = "<group>"; };
-		CDB8C9B71DCC815A00769DF0 /* QDLinkButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDLinkButtonViewController.m; sourceTree = "<group>"; };
 		CDB8C9B81DCC815A00769DF0 /* QDNavigationButtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNavigationButtonViewController.h; sourceTree = "<group>"; };
 		CDB8C9B91DCC815A00769DF0 /* QDNavigationButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNavigationButtonViewController.m; sourceTree = "<group>"; };
 		CDB8C9BA1DCC815A00769DF0 /* QDNavigationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNavigationListViewController.h; sourceTree = "<group>"; };
@@ -441,6 +464,16 @@
 		CDE50ADE1DAA7059000D5414 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		CDF79AAD1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDButtonEdgeInsetsViewController.h; sourceTree = "<group>"; };
 		CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDButtonEdgeInsetsViewController.m; sourceTree = "<group>"; };
+		CDFD573926DE132700603D1E /* QMUIKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QMUIKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDFD573B26DE132800603D1E /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		CDFD573C26DE132800603D1E /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		CDFD573E26DE132800603D1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDFD574E26DE1BA100603D1E /* UIImage+QMUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QMUI.m"; sourceTree = "<group>"; };
+		CDFD574F26DE1BA100603D1E /* NSMethodSignature+QMUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMethodSignature+QMUI.h"; sourceTree = "<group>"; };
+		CDFD575026DE1BA100603D1E /* Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtime.h; sourceTree = "<group>"; };
+		CDFD575126DE1BA100603D1E /* UIImage+QMUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QMUI.h"; sourceTree = "<group>"; };
+		CDFD575226DE1BA100603D1E /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		CDFD575326DE1BA100603D1E /* NSMethodSignature+QMUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMethodSignature+QMUI.m"; sourceTree = "<group>"; };
 		D004542D24B4A1C400F723E0 /* QDSearchBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDSearchBarViewController.h; sourceTree = "<group>"; };
 		D004542E24B4A1C400F723E0 /* QDSearchBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDSearchBarViewController.m; sourceTree = "<group>"; };
 		D004543024B6014B00F723E0 /* QDStyleSelectableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDStyleSelectableTableViewController.h; sourceTree = "<group>"; };
@@ -501,6 +534,7 @@
 				CD7593631EF7A388004B5819 /* Photos.framework in Frameworks */,
 				CD7593621EF7A380004B5819 /* libxml2.tbd in Frameworks */,
 				CDE50ADD1DAA6EEA000D5414 /* CFNetwork.framework in Frameworks */,
+				8F732792262757E20051952C /* LookinServer.xcframework in Frameworks */,
 				CDE50ADB1DAA6EE5000D5414 /* SystemConfiguration.framework in Frameworks */,
 				CDE50AD91DAA6ED9000D5414 /* Security.framework in Frameworks */,
 				CDE50AD31DAA6E6F000D5414 /* libz.tbd in Frameworks */,
@@ -508,6 +542,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CD4EA592228D87B000A55066 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDFD573626DE132700603D1E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -522,6 +563,7 @@
 			children = (
 				165F42F21ADB60180057EF6A /* qmuidemo */,
 				CD4EA596228D87B000A55066 /* QMUIDemoUITests */,
+				CDFD573A26DE132700603D1E /* QMUIKeyboard */,
 				165F42F11ADB60180057EF6A /* Products */,
 				CDE50AD11DAA6E6F000D5414 /* Frameworks */,
 			);
@@ -532,6 +574,7 @@
 			children = (
 				165F42F01ADB60180057EF6A /* qmuidemo.app */,
 				CD4EA595228D87B000A55066 /* QMUIDemoUITests.xctest */,
+				CDFD573926DE132700603D1E /* QMUIKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -862,8 +905,6 @@
 				CDB8C9B51DCC815A00769DF0 /* QDLabelViewController.m */,
 				08ACAA6F22D66747008530C5 /* QDLargeTitlesViewController.h */,
 				08ACAA7022D66747008530C5 /* QDLargeTitlesViewController.m */,
-				CDB8C9B61DCC815A00769DF0 /* QDLinkButtonViewController.h */,
-				CDB8C9B71DCC815A00769DF0 /* QDLinkButtonViewController.m */,
 				CD2FEE5A2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.h */,
 				CD2FEE5B2260F6AC00298BF5 /* QDNavigationBarMaxYViewController.m */,
 				CDB8C9B81DCC815A00769DF0 /* QDNavigationButtonViewController.h */,
@@ -928,6 +969,7 @@
 		CDE50AD11DAA6E6F000D5414 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F732791262757E20051952C /* LookinServer.xcframework */,
 				CD4EA5A9228EDBFF00A55066 /* XCTest.framework */,
 				CD7593641EF7A391004B5819 /* MediaPlayer.framework */,
 				CD7593611EF7A362004B5819 /* Photos.framework */,
@@ -940,6 +982,30 @@
 				CDE50AD21DAA6E6F000D5414 /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDFD573A26DE132700603D1E /* QMUIKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				CDFD574D26DE1BA100603D1E /* Common */,
+				CDFD573B26DE132800603D1E /* KeyboardViewController.h */,
+				CDFD573C26DE132800603D1E /* KeyboardViewController.m */,
+				CDFD573E26DE132800603D1E /* Info.plist */,
+			);
+			path = QMUIKeyboard;
+			sourceTree = "<group>";
+		};
+		CDFD574D26DE1BA100603D1E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CDFD574E26DE1BA100603D1E /* UIImage+QMUI.m */,
+				CDFD574F26DE1BA100603D1E /* NSMethodSignature+QMUI.h */,
+				CDFD575026DE1BA100603D1E /* Runtime.h */,
+				CDFD575126DE1BA100603D1E /* UIImage+QMUI.h */,
+				CDFD575226DE1BA100603D1E /* Common.h */,
+				CDFD575326DE1BA100603D1E /* NSMethodSignature+QMUI.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		D00809BE24C5C48C00C50AA1 /* QMUINavigationBottomAccessoryView */ = {
@@ -993,12 +1059,13 @@
 				165F42ED1ADB60180057EF6A /* Frameworks */,
 				165F42EE1ADB60180057EF6A /* Resources */,
 				CDE85CB91F95E21500E622E8 /* Embed Frameworks */,
-				AA941D6222D60CFD00FF00EB /* Integrate Lookin */,
+				CDFD574226DE132800603D1E /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				CDE85CB81F95E21500E622E8 /* PBXTargetDependency */,
+				CDFD574026DE132800603D1E /* PBXTargetDependency */,
 			);
 			name = qmuidemo;
 			productName = qmuidemo;
@@ -1023,6 +1090,23 @@
 			productReference = CD4EA595228D87B000A55066 /* QMUIDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		CDFD573826DE132700603D1E /* QMUIKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDFD574726DE132800603D1E /* Build configuration list for PBXNativeTarget "QMUIKeyboard" */;
+			buildPhases = (
+				CDFD573526DE132700603D1E /* Sources */,
+				CDFD573626DE132700603D1E /* Frameworks */,
+				CDFD573726DE132700603D1E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QMUIKeyboard;
+			productName = QMUIKeyboard;
+			productReference = CDFD573926DE132700603D1E /* QMUIKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1030,6 +1114,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = QD;
+				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "QMUI Team";
 				TargetAttributes = {
@@ -1045,6 +1130,9 @@
 					CDE85CF01F9701D600E622E8 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+					};
+					CDFD573826DE132700603D1E = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -1071,6 +1159,7 @@
 				165F42EF1ADB60180057EF6A /* qmuidemo */,
 				CDE85CF01F9701D600E622E8 /* qmuidemo-rdm */,
 				CD4EA594228D87B000A55066 /* QMUIDemoUITests */,
+				CDFD573826DE132700603D1E /* QMUIKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -1118,27 +1207,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		AA941D6222D60CFD00FF00EB /* Integrate Lookin */ = {
-			isa = PBXShellScriptBuildPhase;
+		CDFD573726DE132700603D1E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Integrate Lookin";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "FRAMEWORK_FILENAME=\"LookinServer.framework\"\nFRAMEWORK_WORKPATH=\"${CODESIGNING_FOLDER_PATH}/Frameworks\"\n\n# Notify that LookinServer.framework is at the root directory of your Xcode project. If you want to move LookinServer.framework to a subdirectory named \"FavoriteFrameworks\", replace the line below with 'FRAMEWORK_PATH=\"${SRCROOT}/FavoriteFrameworks/${FRAMEWORK_FILENAME}\"'\n# 告知当前 LookinServer.framework 的文件位置位于项目根目录。请确保您确实已经把文件复制到了项目根目录（即和 .xcodeproj 文件处于同一个文件夹内）。如果您希望把 LookinServer.framework 放置到别的地方，比如项目根目录下一个叫 “FavoriteFrameworks” 的文件夹内，则请把下面这句改成 FRAMEWORK_PATH=\"${SRCROOT}/FavoriteFrameworks/${FRAMEWORK_FILENAME}\"，同时在 Build Settings 的 Framework Search Paths 里增加 “$(SRCROOT)/FavoriteFrameworks” \nFRAMEWORK_PATH=\"${SRCROOT}/qmuidemo/Frameworks/${FRAMEWORK_FILENAME}\"\n\n# If configuration is not \"Debug\", do not integrate LookinServer.framework\n# 如果当前不是 Debug 模式则不植入 LookinServer.framework\n[ \"${CONFIGURATION}\" == \"Release\" ] && exit 0\n\n# If you want to use Lookin both in \"Debug\" and another configuration(e.g. \"DailyTest\"), comment the line above and uncomment the line below. Be careful not to integrate LookinServer in \"Release\" configuration.\n# 如果你想同时在 Debug 模式和一个你自定义的叫 \"DailyTest\" 的模式下使用 Lookin，则请注释掉上面那句，同时解开下面这句的注释。再次提醒不要在 Release 模式下植入 LookinServer。\n# [ \"${CONFIGURATION}\" != \"Debug\" && \"${CONFIGURATION}\" != \"DailyTest\"] && exit 0\n\nmkdir -p \"${FRAMEWORK_WORKPATH}\"\n\nif [ -e \"${FRAMEWORK_PATH}\" ]; then\ncp -Rf \"$FRAMEWORK_PATH\" \"${FRAMEWORK_WORKPATH}/${FRAMEWORK_FILENAME}\"\nif [ -n \"${EXPANDED_CODE_SIGN_IDENTITY}\" ]; then\ncodesign -fs \"${EXPANDED_CODE_SIGN_IDENTITY}\" \"${FRAMEWORK_WORKPATH}/${FRAMEWORK_FILENAME}\"\nfi\necho \"LookinServer was integrated successfully.\"\nelse\necho \"Failed to integrate LookinServer. Because the framework could not be found at ${FRAMEWORK_PATH}.\"\nfi\n";
 		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
 		CDE85CF71F9701E300E622E8 /* RDM */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1256,7 +1334,6 @@
 				CD3CDD551F3AAD42008529DA /* QDUIViewLayoutViewController.m in Sources */,
 				CD3CDD4F1F39E977008529DA /* QDUIViewBorderViewController.m in Sources */,
 				D062F65B22BCD4C700737AD2 /* QDThemeViewController.m in Sources */,
-				CDB8CA0C1DCC815A00769DF0 /* QDLinkButtonViewController.m in Sources */,
 				CDB8C9E61DCC815A00769DF0 /* QDPieProgressViewController.m in Sources */,
 				CD9207261DD49CD100AE32C0 /* QDFloatLayoutViewController.m in Sources */,
 				CDB8CA0F1DCC815A00769DF0 /* QDNormalButtonViewController.m in Sources */,
@@ -1290,6 +1367,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDFD573526DE132700603D1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDFD575526DE1BA100603D1E /* NSMethodSignature+QMUI.m in Sources */,
+				CDFD573D26DE132800603D1E /* KeyboardViewController.m in Sources */,
+				CDFD575426DE1BA100603D1E /* UIImage+QMUI.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1307,6 +1394,11 @@
 			isa = PBXTargetDependency;
 			target = 165F42EF1ADB60180057EF6A /* qmuidemo */;
 			targetProxy = CDE85CF51F9701E000E622E8 /* PBXContainerItemProxy */;
+		};
+		CDFD574026DE132800603D1E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDFD573826DE132700603D1E /* QMUIKeyboard */;
+			targetProxy = CDFD573F26DE132800603D1E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1478,7 +1570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.3;
+				MARKETING_VERSION = 4.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1521,7 +1613,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.3;
+				MARKETING_VERSION = 4.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1590,126 +1682,6 @@
 			};
 			name = Release;
 		};
-		CD4EA59E228D87B000A55066 /* RDM */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = QMUIDemoUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.qmui.QMUIDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = qmuidemo;
-			};
-			name = RDM;
-		};
-		CDE85C9E1F95D70F00E622E8 /* RDM */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = RDM;
-		};
-		CDE85C9F1F95D70F00E622E8 /* RDM */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BUNDLE_DISPLAY_NAME = "QMUI (RDM)";
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "Tencent Technology (Shenzhen) Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Tencent Technology (Shenzhen) Co., Ltd";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = HKB8WPFBR9;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/qmuidemo/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ./qmuidemo/PrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = qmuidemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 4.2.3;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-weak_framework",
-					LookinServer,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.qmui.db;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "com.tencent.qmui.db InHouse";
-				SDKROOT = iphoneos;
-				WARNING_CFLAGS = "-Wno-nullability-completeness";
-			};
-			name = RDM;
-		};
 		CDE85CF21F9701D600E622E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1726,13 +1698,69 @@
 			};
 			name = Release;
 		};
-		CDE85CF41F9701D600E622E8 /* RDM */ = {
+		CDFD574326DE132800603D1E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = PM6KH29YH2;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QMUIKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = RDM;
+			name = Debug;
+		};
+		CDFD574426DE132800603D1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PM6KH29YH2;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = QMUIKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1742,40 +1770,45 @@
 			buildConfigurations = (
 				165F43111ADB60180057EF6A /* Debug */,
 				165F43121ADB60180057EF6A /* Release */,
-				CDE85C9E1F95D70F00E622E8 /* RDM */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = RDM;
+			defaultConfigurationName = Debug;
 		};
 		165F43131ADB60180057EF6A /* Build configuration list for PBXNativeTarget "qmuidemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				165F43141ADB60180057EF6A /* Debug */,
 				165F43151ADB60180057EF6A /* Release */,
-				CDE85C9F1F95D70F00E622E8 /* RDM */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = RDM;
+			defaultConfigurationName = Debug;
 		};
 		CD4EA5A2228D87B000A55066 /* Build configuration list for PBXNativeTarget "QMUIDemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD4EA59C228D87B000A55066 /* Debug */,
 				CD4EA59D228D87B000A55066 /* Release */,
-				CD4EA59E228D87B000A55066 /* RDM */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = RDM;
+			defaultConfigurationName = Debug;
 		};
 		CDE85CF11F9701D600E622E8 /* Build configuration list for PBXAggregateTarget "qmuidemo-rdm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CDE85CF21F9701D600E622E8 /* Debug */,
 				CDE85CF31F9701D600E622E8 /* Release */,
-				CDE85CF41F9701D600E622E8 /* RDM */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = RDM;
+			defaultConfigurationName = Debug;
+		};
+		CDFD574726DE132800603D1E /* Build configuration list for PBXNativeTarget "QMUIKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDFD574326DE132800603D1E /* Debug */,
+				CDFD574426DE132800603D1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

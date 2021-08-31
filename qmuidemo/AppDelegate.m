@@ -190,11 +190,13 @@
     
     [QDThemeManager.currentTheme applyConfigurationTemplate];
     
-    // 主题发生变化，在这里更新全局 UI 控件的 appearance
-    [QDCommonUI renderGlobalAppearances];
-    
-    // 更新表情 icon 的颜色
-    [QDUIHelper updateEmotionImages];
+    if (QMUIHelper.canUpdateAppearance) {
+        // 主题发生变化，在这里更新全局 UI 控件的 appearance
+        [QDCommonUI renderGlobalAppearances];
+        
+        // 更新表情 icon 的颜色
+        [QDUIHelper updateEmotionImages];
+    }
 }
 
 @end

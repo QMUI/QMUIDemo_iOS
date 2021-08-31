@@ -162,12 +162,20 @@
     QMUIButton *button = [[QMUIButton alloc] qmui_initWithSize:CGSizeMake(200, 40)];
     button.titleLabel.font = UIFontBoldMake(14);
     button.tintColorAdjustsTitleAndImage = UIColor.qd_tintColor;
-    button.backgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.9];
-    button.highlightedBackgroundColor = [UIColor.qd_tintColor qmui_transitionToColor:UIColorWhite progress:.75];// 高亮时的背景色
-    button.layer.borderColor = [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.5].CGColor;
+    button.backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject * _Nullable theme) {
+        return [UIColor.qd_tintColor qmui_transitionToColor:UIColor.qd_backgroundColor progress:.9];
+    }];
+    button.highlightedBackgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject * _Nullable theme) {
+        return [UIColor.qd_tintColor qmui_transitionToColor:UIColor.qd_backgroundColor progress:.75];
+    }];// 高亮时的背景色
+    button.layer.borderColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject * _Nullable theme) {
+        return [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.5];
+    }].CGColor;
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 4;
-    button.highlightedBorderColor = [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.9];// 高亮时的边框颜色
+    button.highlightedBorderColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject * _Nullable theme) {
+        return [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.9];
+    }];// 高亮时的边框颜色
     return button;
 }
 
