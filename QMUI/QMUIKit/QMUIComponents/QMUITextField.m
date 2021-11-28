@@ -160,6 +160,27 @@
     return result;
 }
 
+#pragma mark - <UIResponderStandardEditActions>
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    BOOL superReturnValue = [super canPerformAction:action withSender:sender];
+    if (action == @selector(paste:) && self.canPerformPasteActionBlock) {
+        return self.canPerformPasteActionBlock(sender, superReturnValue);
+    }
+    return superReturnValue;
+}
+
+- (void)paste:(id)sender {
+    BOOL shouldCallSuper = YES;
+    if (self.pasteBlock) {
+        shouldCallSuper = self.pasteBlock(sender);
+    }
+    if (shouldCallSuper) {
+        [super paste:sender];
+    }
+}
+
+
 @end
 
 @implementation _QMUITextFieldDelegator
@@ -224,7 +245,7 @@
     
     // 系统的三指撤销在文本框达到最大字符长度限制时可能引发 crash
     // https://github.com/Tencent/QMUI_iOS/issues/1168
-    if (textField.maximumTextLength < NSUIntegerMax && textField.undoManager.undoing) {
+    if (textField.maximumTextLength < NSUIntegerMax && (textField.undoManager.undoing || textField.undoManager.redoing)) {
         return;
     }
     
