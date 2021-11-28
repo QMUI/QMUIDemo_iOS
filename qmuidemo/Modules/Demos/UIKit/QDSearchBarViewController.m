@@ -36,7 +36,33 @@
 - (void)initTableView {
     [super initTableView];
     __weak __typeof(self)weakSelf = self;
-    NSMutableArray *sections = @[
+    self.tableView.qmui_staticCellDataSource = [[QMUIStaticTableViewCellDataSource alloc] initWithCellDataSections:@[
+        @[
+            ({
+            QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
+            data.identifier = 4;
+            data.text = @"placeholder 居中";
+            data.accessoryType = QMUIStaticTableViewCellAccessoryTypeSwitch;
+            data.accessoryValueObject = @(weakSelf.searchBar.qmui_centerPlaceholder);
+            data.accessorySwitchBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData, UISwitch * _Nonnull switcher) {
+                weakSelf.searchBar.qmui_centerPlaceholder = switcher.on;
+            };
+            data.cellForRowBlock = ^(UITableView * _Nonnull tableView, __kindof QMUITableViewCell * _Nonnull cell, QMUIStaticTableViewCellData * _Nonnull cellData) {
+                ((UISwitch *)cell.accessoryView).on = weakSelf.searchBar.qmui_centerPlaceholder;
+            };
+            data;
+        }),
+            ({
+            QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
+            data.identifier = 5;
+            data.text = @"更换 placeholder 文字";
+            data.didSelectBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData) {
+                weakSelf.searchBar.placeholder = @"很长很长很长的 placeholder";
+                [tableView qmui_clearsSelection];
+            };
+            data;
+        })
+        ],
         @[
             ({
                 QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
@@ -128,54 +154,15 @@
                 };
                 data;
             }),
-        ]].mutableCopy;
-    
-    if (@available(iOS 11.0, *)) {
-        [sections insertObject:@[
-            ({
-            QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
-            data.identifier = 4;
-            data.text = @"placeholder 居中";
-            data.accessoryType = QMUIStaticTableViewCellAccessoryTypeSwitch;
-            data.accessoryValueObject = @(weakSelf.searchBar.qmui_centerPlaceholder);
-            data.accessorySwitchBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData, UISwitch * _Nonnull switcher) {
-                weakSelf.searchBar.qmui_centerPlaceholder = switcher.on;
-            };
-            data.cellForRowBlock = ^(UITableView * _Nonnull tableView, __kindof QMUITableViewCell * _Nonnull cell, QMUIStaticTableViewCellData * _Nonnull cellData) {
-                ((UISwitch *)cell.accessoryView).on = weakSelf.searchBar.qmui_centerPlaceholder;
-            };
-            data;
-        }),
-            ({
-            QMUIStaticTableViewCellData *data = [[QMUIStaticTableViewCellData alloc] init];
-            data.identifier = 5;
-            data.text = @"更换 placeholder 文字";
-            data.didSelectBlock = ^(UITableView * _Nonnull tableView, QMUIStaticTableViewCellData * _Nonnull cellData) {
-                weakSelf.searchBar.placeholder = @"很长很长很长的 placeholder";
-                [tableView qmui_clearsSelection];
-            };
-            data;
-        })
-        ] atIndex:0];
-    }
-    
-    self.tableView.qmui_staticCellDataSource = [[QMUIStaticTableViewCellDataSource alloc] initWithCellDataSections:sections];
+        ]]];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (@available(iOS 11.0, *)) {
-        if (section == 0) {
-            return @"Placeholder";
-        }
-        section -= 1;
-    }
-    if (section == 0) {
-        return @"Layout";
-    }
-    if (section == 1) {
-        return @"AccessoryView";
-    }
-    return nil;
+    return @[
+        @"Placeholder",
+        @"Layout",
+        @"AccessoryView",
+    ][section];
 }
 
 @end

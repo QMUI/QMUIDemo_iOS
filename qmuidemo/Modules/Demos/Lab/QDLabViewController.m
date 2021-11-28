@@ -19,6 +19,8 @@
 #import "QDNavigationBarSmoothEffectViewController.h"
 #import "QDNavigationBottomAccessoryViewController.h"
 #import "QDBackBarButtonViewController.h"
+#import "QDDropdownNotificationViewController.h"
+#import "QDAnimationCurvesViewController.h"
 
 @interface QDLabViewController ()
 @end
@@ -35,6 +37,7 @@
                         @"UINavigationBar Smooth Effect",
                         @"UINavigationBar Bottom Accessory",
                         @"Custom BackBarButtonItem",
+                        @"Dropdown Notification",
                         ];
 }
 
@@ -49,6 +52,7 @@
         viewController = ({
             QDCommonListViewController *vc = QDCommonListViewController.new;
             vc.dataSource = @[
+                @"Animation Curves",
                 @"Loading",
                 @"Loading With CAShapeLayer",
                 @"Animation For CAReplicatorLayer",
@@ -67,6 +71,9 @@
                 }
                 else if ([title isEqualToString:@"水波纹"]) {
                     viewController = [[QDRippleAnimationViewController alloc] init];
+                }
+                else if ([title isEqualToString:@"Animation Curves"]) {
+                    viewController = [[QDAnimationCurvesViewController alloc] init];
                 }
                 viewController.title = title;
                 [weakSelf.navigationController pushViewController:viewController animated:YES];
@@ -90,6 +97,8 @@
         viewController = [[QDNavigationBottomAccessoryViewController alloc] init];
     } else if ([title isEqualToString:@"Custom BackBarButtonItem"]) {
         viewController = [[QDBackBarButtonViewController alloc] init];
+    } else if ([title isEqualToString:@"Dropdown Notification"]) {
+        viewController = [[QDDropdownNotificationViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

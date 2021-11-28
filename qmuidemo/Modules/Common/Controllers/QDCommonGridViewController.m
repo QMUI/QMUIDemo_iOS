@@ -36,7 +36,7 @@
     [super viewDidLayoutSubviews];
     self.scrollView.frame = self.view.bounds;
     
-    CGFloat gridViewWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.scrollView.qmui_safeAreaInsets);
+    CGFloat gridViewWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.scrollView.safeAreaInsets);
     
     if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor55Inch].width) {
         self.gridView.columnCount = 3;
@@ -72,7 +72,7 @@
         }
     }
     
-    self.gridView.frame = CGRectMake(self.scrollView.qmui_safeAreaInsets.left, 0, gridViewWidth, QMUIViewSelfSizingHeight);
+    self.gridView.frame = CGRectMake(self.scrollView.safeAreaInsets.left, 0, gridViewWidth, QMUIViewSelfSizingHeight);
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.gridView.frame), CGRectGetMaxY(self.gridView.frame));
 }
 

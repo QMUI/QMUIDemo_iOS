@@ -81,7 +81,7 @@
     [super viewDidLayoutSubviews];
     CGFloat bottomToolBarPaddingHorizontal = 12.0f;
     CGFloat bottomToolBarContentHeight = 44;
-    CGFloat bottomToolBarHeight = bottomToolBarContentHeight + self.view.qmui_safeAreaInsets.bottom;
+    CGFloat bottomToolBarHeight = bottomToolBarContentHeight + self.view.safeAreaInsets.bottom;
     self.bottomToolBarView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - bottomToolBarHeight, CGRectGetWidth(self.view.bounds), bottomToolBarHeight);
     self.sendButton.frame = CGRectSetXY(self.sendButton.frame, CGRectGetWidth(self.bottomToolBarView.frame) - bottomToolBarPaddingHorizontal - CGRectGetWidth(self.sendButton.frame), CGFloatGetCenter(bottomToolBarContentHeight, CGRectGetHeight(self.sendButton.frame)));
     _imageCountLabel.frame = CGRectMake(CGRectGetMinX(self.sendButton.frame) - 5 - ImageCountLabelSize.width, CGRectGetMinY(self.sendButton.frame) + CGFloatGetCenter(CGRectGetHeight(self.sendButton.frame), ImageCountLabelSize.height), ImageCountLabelSize.width, ImageCountLabelSize.height);
@@ -155,7 +155,7 @@
 
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView renderZoomImageView:(QMUIZoomImageView *)zoomImageView atIndex:(NSUInteger)index {
     [super imagePreviewView:imagePreviewView renderZoomImageView:zoomImageView atIndex:index];
-    zoomImageView.videoToolbarMargins = UIEdgeInsetsSetBottom([QMUIZoomImageView appearance].videoToolbarMargins, [QMUIZoomImageView appearance].videoToolbarMargins.bottom + CGRectGetHeight(self.bottomToolBarView.frame) - imagePreviewView.qmui_safeAreaInsets.bottom);// videToolbarMargins 是利用 UIAppearance 赋值的，也即意味着要在 addSubview 之后才会被赋值，而在 renderZoomImageView 里，zoomImageView 可能尚未被添加到 view 层级里，所以无法通过 zoomImageView.videoToolbarMargins 获取到原来的值，因此只能通过 [QMUIZoomImageView appearance] 的方式获取
+    zoomImageView.videoToolbarMargins = UIEdgeInsetsSetBottom([QMUIZoomImageView appearance].videoToolbarMargins, [QMUIZoomImageView appearance].videoToolbarMargins.bottom + CGRectGetHeight(self.bottomToolBarView.frame) - imagePreviewView.safeAreaInsets.bottom);// videToolbarMargins 是利用 UIAppearance 赋值的，也即意味着要在 addSubview 之后才会被赋值，而在 renderZoomImageView 里，zoomImageView 可能尚未被添加到 view 层级里，所以无法通过 zoomImageView.videoToolbarMargins 获取到原来的值，因此只能通过 [QMUIZoomImageView appearance] 的方式获取
 }
 
 - (void)imagePreviewView:(QMUIImagePreviewView *)imagePreviewView willScrollHalfToIndex:(NSUInteger)index {

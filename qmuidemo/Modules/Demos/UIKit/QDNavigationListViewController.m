@@ -65,7 +65,6 @@
     }
     else if ([title isEqualToString:@"优化导航栏在转场时的样式"]) {
         viewController = [[QDChangeNavBarStyleViewController alloc] init];
-        ((QDChangeNavBarStyleViewController *)viewController).customNavBarTransition = YES;
     }
     else if ([title isEqualToString:@"获取导航栏的正确布局位置"]) {
         viewController = [[QDNavigationBarMaxYViewController alloc] init];

@@ -124,7 +124,7 @@
     
     self.scrollView.frame = self.view.bounds;
     
-    CGFloat horizontalInset = 25 + self.scrollView.qmui_safeAreaInsets.left;
+    CGFloat horizontalInset = 25 + self.scrollView.safeAreaInsets.left;
     CGFloat sectionHeight = 145;
     CGFloat progressView1MarginRight = 30;
     

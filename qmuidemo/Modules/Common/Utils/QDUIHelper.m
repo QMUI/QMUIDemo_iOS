@@ -17,7 +17,6 @@
             ({
                 NSArray<Class> *controlClasses = @[
                     NSClassFromString(@"_UIButtonBarButton"),// iOS 11 及以后的 UIBarButtonItem 按钮
-                    NSClassFromString(@"UINavigationButton"),// iOS 10 的 UIBarButtonItem 按钮
                     QMUIButton.class,
                     QMUINavigationButton.class
                 ];
@@ -176,6 +175,15 @@
     button.highlightedBorderColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, __kindof NSObject * _Nullable theme) {
         return [button.backgroundColor qmui_transitionToColor:UIColor.qd_tintColor progress:.9];
     }];// 高亮时的边框颜色
+    return button;
+}
+
++ (QMUIButton *)generateGhostButtonWithColor:(UIColor *)color {
+    QMUIButton *button = [[QMUIButton alloc] init];
+    [button setTitleColor:color forState:UIControlStateNormal];
+    button.layer.borderColor = color.CGColor;
+    button.layer.borderWidth = 1;
+    button.cornerRadius = QMUIButtonCornerRadiusAdjustsBounds;
     return button;
 }
 

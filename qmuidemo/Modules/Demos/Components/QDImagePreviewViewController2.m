@@ -58,7 +58,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIEdgeInsets margins = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.qmui_safeAreaInsets.left, 24, 24 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets margins = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.safeAreaInsets.left, 24, 24 + self.view.safeAreaInsets.right);
     CGFloat contentWidth = self.view.qmui_width - UIEdgeInsetsGetHorizontalValue(margins);
     NSInteger column = IS_IPAD || IS_LANDSCAPE ? self.images.count : 3;
     CGFloat imageWidth = contentWidth / column - (column - 1) * UIEdgeInsetsGetHorizontalValue(self.floatLayoutView.itemMargins);

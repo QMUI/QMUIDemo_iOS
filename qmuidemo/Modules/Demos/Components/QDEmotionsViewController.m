@@ -109,12 +109,12 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(20, 20 + self.view.qmui_safeAreaInsets.left, 20, 20 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets padding = UIEdgeInsetsMake(20, 20 + self.view.safeAreaInsets.left, 20, 20 + self.view.safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     self.descriptionLabel.frame = CGRectFlatMake(padding.left, self.qmui_navigationBarMaxYInViewCoordinator + padding.top, contentWidth, QMUIViewSelfSizingHeight);
     
     CGFloat toolbarHeight = 56;
-    CGFloat emotionViewHeight = 232 + self.view.qmui_safeAreaInsets.bottom;
+    CGFloat emotionViewHeight = 232 + self.view.safeAreaInsets.bottom;
     if (self.keyboardVisible) {
         self.toolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - self.keyboardHeight - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
         self.emotionInputManager.emotionView.frame = CGRectMake(0, CGRectGetMaxY(self.toolbar.frame), CGRectGetWidth(self.view.bounds), emotionViewHeight);
@@ -123,7 +123,7 @@
         self.toolbar.frame = CGRectMake(0, CGRectGetMinY(self.emotionInputManager.emotionView.frame) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
     }
     
-    UIEdgeInsets toolbarPadding = UIEdgeInsetsConcat(UIEdgeInsetsMake(2, 8, 2, 8), self.toolbar.qmui_safeAreaInsets);
+    UIEdgeInsets toolbarPadding = UIEdgeInsetsConcat(UIEdgeInsetsMake(2, 8, 2, 8), self.toolbar.safeAreaInsets);
     self.textField.frame = CGRectMake(toolbarPadding.left, toolbarPadding.top, CGRectGetWidth(self.toolbar.bounds) - UIEdgeInsetsGetHorizontalValue(toolbarPadding), CGRectGetHeight(self.toolbar.bounds) - UIEdgeInsetsGetVerticalValue(toolbarPadding));
 }
 

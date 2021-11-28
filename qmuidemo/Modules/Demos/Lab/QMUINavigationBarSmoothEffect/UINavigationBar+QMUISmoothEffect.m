@@ -52,21 +52,10 @@
             }
         });
         
-        SEL selector = NSSelectorFromString(@"replaceStyleForNavigationBar:withNavigationBar:");
-        NSAssert([UIViewController respondsToSelector:selector], @"请检查 UINavigationController+NavigationBarTransition 里的 replaceStyleForNavigationBar:withNavigationBar: 是不是没了");
-        OverrideImplementation(object_getClass([UIViewController class]), selector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(UIViewController *selfObject, UINavigationBar *firstArgv, UINavigationBar *secondArgv) {
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL, UINavigationBar *, UINavigationBar *);
-                originSelectorIMP = (void (*)(id, SEL, UINavigationBar *, UINavigationBar *))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, firstArgv, secondArgv);
-                
-                firstArgv.qmui_smoothEffect = secondArgv.qmui_smoothEffect;
-            };
-        });
-        
-        OverrideImplementation(NSClassFromString(@"_QMUITransitionNavigationBar"), NSSelectorFromString(@"setOriginalNavigationBar:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+        Class transitionNavigationBarClass = NSClassFromString(@"_QMUITransitionNavigationBar");
+        SEL setterSelector = NSSelectorFromString(@"setOriginalNavigationBar:");
+        NSAssert([transitionNavigationBarClass instancesRespondToSelector:setterSelector], @"-[%@ %@] 不存在，请检查是否重命名了", NSStringFromClass(transitionNavigationBarClass), NSStringFromSelector(setterSelector));
+        OverrideImplementation(transitionNavigationBarClass, setterSelector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UINavigationBar *selfObject, UINavigationBar *firstArgv) {
                 
                 // call super

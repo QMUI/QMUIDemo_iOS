@@ -47,6 +47,11 @@
 
 // 下面这堆代码都不用看，主要看上面的 handle 方法
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.debugView renderWithTableView:self.tableView];// 进入界面过程中触发的那一次 scrollViewDidScroll: 还不是最终的状态，所以在 didAppear 时主动刷新一遍
+}
+
 #pragma mark - <UIScrollViewDelegate>
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -173,7 +178,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsConcat(UIEdgeInsetsMake(24, 24, 24, 24), self.qmui_safeAreaInsets);
+    UIEdgeInsets padding = UIEdgeInsetsConcat(UIEdgeInsetsMake(24, 24, 24, 24), self.safeAreaInsets);
     NSArray<UILabel *> *leftLabels = @[self.visibleHeadersLabel, self.pinnedHeaderLabel, self.headerPinnedLabel];
     NSArray<UILabel *> *rightLabels = @[self.visibleHeadersValue, self.pinnedHeaderValue, self.headerPinnedValue];
     

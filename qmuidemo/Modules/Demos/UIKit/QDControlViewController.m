@@ -25,11 +25,7 @@
     [super initSubviews];
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.scrollView];
-    if (@available(iOS 11, *)) {
-        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     
     self.button1 = [QDUIHelper generateLightBorderedButton];
     [self.button1 setImage:UIImageMake(@"icon_emotion") forState:UIControlStateNormal];
@@ -74,11 +70,11 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(24, 16 + self.view.qmui_safeAreaInsets.left, 16 + self.view.qmui_safeAreaInsets.bottom, 16 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets padding = UIEdgeInsetsMake(24, 16 + self.view.safeAreaInsets.left, 16 + self.view.safeAreaInsets.bottom, 16 + self.view.safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     CGFloat buttonWidth = 80;
-    CGFloat buttonMinX = flat((CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(self.view.qmui_safeAreaInsets) - buttonWidth * 2) / 3.0);
+    CGFloat buttonMinX = flat((CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(self.view.safeAreaInsets) - buttonWidth * 2) / 3.0);
     self.button1.frame = CGRectMake(buttonMinX, padding.top, 80, CGRectGetHeight(self.button1.frame));
     self.button2.frame = CGRectMake(CGRectGetWidth(self.view.bounds) - buttonMinX - buttonWidth, CGRectGetMinY(self.button1.frame), buttonWidth, CGRectGetHeight(self.button2.frame));
     self.tipsLabel1.frame = CGRectMake(padding.left, CGRectGetMaxY(self.button1.frame) + 16, contentWidth, QMUIViewSelfSizingHeight);

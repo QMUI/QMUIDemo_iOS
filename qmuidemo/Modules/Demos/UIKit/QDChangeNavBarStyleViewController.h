@@ -16,8 +16,6 @@ typedef NS_ENUM(NSInteger, QDNavigationBarStyle) {
 
 @interface QDChangeNavBarStyleViewController : QDCommonListViewController
 
-@property(nonatomic, assign) QDNavigationBarStyle previousBarStyle;
-@property(nonatomic, assign) BOOL customNavBarTransition;
 - (instancetype)initWithBarStyle:(QDNavigationBarStyle)barStyle;
 
 @end

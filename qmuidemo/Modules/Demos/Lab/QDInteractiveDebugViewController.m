@@ -33,11 +33,17 @@
     if (motion == UIEventSubtypeMotionShake) {
         QMUIInteractiveDebugPanelViewController *vc = [[QMUIInteractiveDebugPanelViewController alloc] init];
         vc.title = @"Debugger";
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem colorItemWithTitle:@"文字颜色" valueGetter:^(QMUITextField * _Nonnull actionView) {
+        [vc addDebugItem:[QMUIInteractiveDebugPanelItem textItemWithTitle:@"文字内容" valueGetter:^(QMUITextField * _Nonnull actionView) {
             // 通过 valueGetter 为 actionView 赋当前值
-            actionView.text = self.tipsLabel.textColor.qmui_RGBAString;
+            actionView.text = self.tipsLabel.text;
         } valueSetter:^(QMUITextField * _Nonnull actionView) {
             // 通过 valueSetter 将用户在 actionView 里操作的值赋值给目标 view
+            self.tipsLabel.text = actionView.text;
+            [self.view setNeedsLayout];
+        }]];
+        [vc addDebugItem:[QMUIInteractiveDebugPanelItem colorItemWithTitle:@"文字颜色" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = self.tipsLabel.textColor.qmui_RGBAString;
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
             self.tipsLabel.textColor = [UIColor qmui_colorWithRGBAString:actionView.text];
         }]];
         [vc addDebugItem:[QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"文字透明度" valueGetter:^(QMUITextField * _Nonnull actionView) {
@@ -49,6 +55,15 @@
             actionView.on = [self.tipsLabel.font.fontName containsString:@"bold"];
         } valueSetter:^(UISwitch * _Nonnull actionView) {
             self.tipsLabel.font = actionView.on ? UIFontBoldMake(18) : UIFontMake(18);
+        }]];
+        [vc addDebugItem:[QMUIInteractiveDebugPanelItem enumItemWithTitle:@"文字对齐" items:@[
+            @"Left",
+            @"Center",
+            @"Right"
+        ] valueGetter:^(UISegmentedControl * _Nonnull actionView) {
+            actionView.selectedSegmentIndex = self.tipsLabel.textAlignment;
+        } valueSetter:^(UISegmentedControl * _Nonnull actionView) {
+            self.tipsLabel.textAlignment = actionView.selectedSegmentIndex;
         }]];
         [vc presentInViewController:self];
     }

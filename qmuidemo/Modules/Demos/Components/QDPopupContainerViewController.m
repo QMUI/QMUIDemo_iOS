@@ -23,6 +23,16 @@
         self.emotionInputManager.emotionView.emotions = [QDUIHelper qmuiEmotions];
         self.emotionInputManager.emotionView.sendButton.hidden = YES;
         [self.contentView addSubview:self.emotionInputManager.emotionView];
+        self.emotionInputManager.emotionView.backgroundColor = nil;
+        self.maskViewBackgroundColor = nil;
+        self.backgroundColor = nil;
+        self.borderWidth = 0;
+        self.arrowImage = UIImageMake(@"popover_container_arrow");
+        self.backgroundView = ({
+            UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+            effectView.qmui_foregroundColor = [UIColor.blackColor colorWithAlphaComponent:.2];
+            effectView;
+        });
     }
     return self;
 }

@@ -32,9 +32,7 @@
 - (void)setupNavigationItems {
     [super setupNavigationItems];
     self.title = @"LargeTitle";
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-    }
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
@@ -47,32 +45,28 @@
         }
         [self.tableView qmui_clearsSelection];
     } else {
-        if (@available(iOS 11.0, *)) {
-            QDLargeTitlesViewController *largeTitlesViewController = [[QDLargeTitlesViewController alloc] init];
-            
-            UINavigationItemLargeTitleDisplayMode displayMode;
-            if ([title isEqualToString:@"push 一个不显示大标题的 vc"]) {
-                displayMode = UINavigationItemLargeTitleDisplayModeNever;
-            } else if ([title isEqualToString:@"push 一个显示大标题的 vc"]) {
-                displayMode = UINavigationItemLargeTitleDisplayModeAlways;
-            } else {
-                displayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-            }
-            
-            largeTitlesViewController.navigationItem.largeTitleDisplayMode = displayMode;
-            [self.navigationController pushViewController:largeTitlesViewController animated:YES];
+        QDLargeTitlesViewController *largeTitlesViewController = [[QDLargeTitlesViewController alloc] init];
+        
+        UINavigationItemLargeTitleDisplayMode displayMode;
+        if ([title isEqualToString:@"push 一个不显示大标题的 vc"]) {
+            displayMode = UINavigationItemLargeTitleDisplayModeNever;
+        } else if ([title isEqualToString:@"push 一个显示大标题的 vc"]) {
+            displayMode = UINavigationItemLargeTitleDisplayModeAlways;
+        } else {
+            displayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
         }
+        
+        largeTitlesViewController.navigationItem.largeTitleDisplayMode = displayMode;
+        [self.navigationController pushViewController:largeTitlesViewController animated:YES];
     }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     // 上个界面如果不是 QDLargeTitlesViewController 就还原 prefersLargeTitles，以免影响其他界面
-    if (@available(iOS 11.0, *)) {
-        UIViewController *currentViewController = UIApplication.sharedApplication.keyWindow.rootViewController.qmui_visibleViewControllerIfExist;
-        if ([currentViewController class] != [QDLargeTitlesViewController class]) {
-            currentViewController.navigationController.navigationBar.prefersLargeTitles = NO;
-        }
+    UIViewController *currentViewController = UIApplication.sharedApplication.keyWindow.rootViewController.qmui_visibleViewControllerIfExist;
+    if ([currentViewController class] != [QDLargeTitlesViewController class]) {
+        currentViewController.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 }
 

@@ -14,7 +14,7 @@
 #import "QMUIConfigurationTemplateDark.h"
 #import "QDThemeExampleView.h"
 
-@interface QDThemeButton : QMUIFillButton
+@interface QDThemeButton : QMUIButton
 
 @property(nonatomic, strong) UIColor *themeColor;
 @property(nonatomic, copy) NSString *themeName;
@@ -77,10 +77,9 @@
             if ([NSStringFromClass(theme.class) isEqualToString:NSStringFromClass(class)]) {
                 NSString *identifier = [QMUIThemeManagerCenter.defaultThemeManager identifierForTheme:theme];
                 BOOL isCurrentTheme = [QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:identifier];
-                QDThemeButton *themeButton = [[QDThemeButton alloc] initWithFillColor:[theme.themeName isEqualToString:QDThemeIdentifierDark] ? UIColorBlack : theme.themeTintColor titleTextColor:UIColorWhite];
-                themeButton.cornerRadius = 4;
-                themeButton.titleLabel.font = UIFontMake(12);
-                [themeButton setTitle:theme.themeName forState:UIControlStateNormal];
+                QDThemeButton *themeButton = [[QDThemeButton alloc] init];
+                themeButton.themeColor = [theme.themeName isEqualToString:QDThemeIdentifierDark] ? UIColorBlack : theme.themeTintColor;
+                themeButton.themeName = theme.themeName;
                 themeButton.qmui_automaticallyAdjustTouchHighlightedInScrollView = YES;
                 themeButton.selected = isCurrentTheme;
                 [themeButton addTarget:self action:@selector(handleThemeButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -118,7 +117,7 @@
     
     self.scrollView.frame = self.view.bounds;
     
-    UIEdgeInsets paddings = UIEdgeInsetsMake(24, 24 + self.scrollView.qmui_safeAreaInsets.left, 24 + self.scrollView.qmui_safeAreaInsets.bottom, 24 + self.scrollView.qmui_safeAreaInsets.right);
+    UIEdgeInsets paddings = UIEdgeInsetsMake(24, 24 + self.scrollView.safeAreaInsets.left, 24 + self.scrollView.safeAreaInsets.bottom, 24 + self.scrollView.safeAreaInsets.right);
     self.buttonContainers.itemMargins = UIEdgeInsetsMake(0, 0, 8, 8);
     // 窄屏幕一行两个，宽屏幕单行展示完整
     CGFloat buttonWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(paddings);
@@ -198,24 +197,32 @@
 
 @implementation QDThemeButton
 
-- (void)setSelected:(BOOL)selected {
-    [super setSelected:selected];
-    if (selected) {
-        self.backgroundColor = self.fillColor;
-        self.layer.borderWidth = 0;
-        [self setTitleColor:UIColorWhite forState:UIControlStateNormal];
-        self.titleLabel.font = UIFontBoldMake(self.titleLabel.font.pointSize);
-    } else {
-        self.backgroundColor = nil;
-        self.layer.borderColor = self.fillColor.CGColor;
-        self.layer.borderWidth = 1;
-        [self setTitleColor:self.fillColor forState:UIControlStateNormal];
-        self.titleLabel.font = UIFontMake(self.titleLabel.font.pointSize);
-    }
-    
-    if ([self.currentTitle isEqualToString:QDThemeIdentifierDark] && selected) {
+- (void)updateStyle {
+    self.backgroundColor = self.selected ? self.themeColor : nil;
+    if ([self.themeName isEqualToString:QDThemeIdentifierDark] && self.selected) {
         self.backgroundColor = [UIColorWhite colorWithAlphaComponent:.7];
     }
+    self.layer.borderWidth = self.selected ? 0 : 1;
+    self.layer.borderColor = self.themeColor.CGColor;
+    [self setTitleColor:self.themeColor forState:UIControlStateNormal];
+    [self setTitleColor:UIColorWhite forState:UIControlStateSelected];
+    self.titleLabel.font = self.selected ? UIFontBoldMake(12) : UIFontMake(12);
+    self.cornerRadius = 4;
+}
+
+- (void)setThemeColor:(UIColor *)themeColor {
+    _themeColor = themeColor;
+    [self updateStyle];
+}
+
+- (void)setThemeName:(NSString *)themeName {
+    _themeName = themeName;
+    [self setTitle:themeName forState:UIControlStateNormal];
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    [self updateStyle];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {

@@ -13,9 +13,12 @@
 @property(nonatomic, strong, readwrite) UILabel *titleLabel;
 @end
 
-@interface QMUIInteractiveDebugPanelNumbericItem : QMUIInteractiveDebugPanelItem <QMUITextFieldDelegate>
+@interface QMUIInteractiveDebugPanelTextItem : QMUIInteractiveDebugPanelItem <QMUITextFieldDelegate>
 
 @property(nonatomic, strong) QMUITextField *textField;
+@end
+
+@interface QMUIInteractiveDebugPanelNumbericItem : QMUIInteractiveDebugPanelTextItem
 @end
 
 @interface QMUIInteractiveDebugPanelColorItem : QMUIInteractiveDebugPanelNumbericItem
@@ -24,6 +27,13 @@
 @interface QMUIInteractiveDebugPanelBoolItem : QMUIInteractiveDebugPanelItem
 
 @property(nonatomic, strong) UISwitch *switcher;
+@end
+
+@interface QMUIInteractiveDebugPanelEnumItem : QMUIInteractiveDebugPanelItem
+
+@property(nonatomic, strong) UISegmentedControl *segmentedControl;
+
+- (instancetype)initWithItems:(NSArray<NSString *> *)items;
 @end
 
 @implementation QMUIInteractiveDebugPanelItem
@@ -47,6 +57,15 @@
     QMUIInteractiveDebugPanelItem *item = QMUIInteractiveDebugPanelItem.new;
     item.title = title;
     item.actionView = actionView;
+    item.valueGetter = valueGetter;
+    item.valueSetter = valueSetter;
+    return item;
+}
+
++ (instancetype)textItemWithTitle:(NSString *)title valueGetter:(void (^)(QMUITextField * _Nonnull))valueGetter valueSetter:(void (^)(QMUITextField * _Nonnull))valueSetter {
+    QMUIInteractiveDebugPanelTextItem *item = QMUIInteractiveDebugPanelTextItem.new;
+    item.title = title;
+    item.actionView = item.textField;
     item.valueGetter = valueGetter;
     item.valueSetter = valueSetter;
     return item;
@@ -79,14 +98,22 @@
     return item;
 }
 
++ (instancetype)enumItemWithTitle:(NSString *)title items:(NSArray<NSString *> *)items valueGetter:(void (^)(UISegmentedControl * _Nonnull))valueGetter valueSetter:(void (^)(UISegmentedControl * _Nonnull))valueSetter {
+    QMUIInteractiveDebugPanelEnumItem *item = [[QMUIInteractiveDebugPanelEnumItem alloc] initWithItems:items];
+    item.title = title;
+    item.actionView = item.segmentedControl;
+    item.valueGetter = valueGetter;
+    item.valueSetter = valueSetter;
+    return item;
+}
+
 @end
 
-@implementation QMUIInteractiveDebugPanelNumbericItem
+@implementation QMUIInteractiveDebugPanelTextItem
 
 - (QMUITextField *)textField {
     if (!_textField) {
         _textField = [[QMUITextField alloc] qmui_initWithSize:CGSizeMake(160, 38)];
-        _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.returnKeyType = UIReturnKeyDone;
         _textField.font = [UIFont fontWithName:@"Menlo" size:14];
         _textField.textColor = UIColor.blackColor;
@@ -108,6 +135,23 @@
 
 #pragma mark - <QMUITextFieldDelegate>
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField endEditing:YES];
+    return YES;
+}
+
+@end
+
+@implementation QMUIInteractiveDebugPanelNumbericItem
+
+- (QMUITextField *)textField {
+    QMUITextField *textField = [super textField];
+    textField.keyboardType = UIKeyboardTypeDecimalPad;
+    return textField;
+}
+
+#pragma mark - <QMUITextFieldDelegate>
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     // 删除文字
     if (range.length > 0 && string.length <= 0) {
@@ -115,11 +159,6 @@
     }
     
     return !![string qmui_stringMatchedByPattern:@"[-\\d\\.]"];// 模拟器里，通过电脑键盘输入“点”，输出的可能是中文的句号
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField endEditing:YES];
-    return YES;
 }
 
 @end
@@ -159,6 +198,24 @@
 
 - (void)handleSwitchEvent:(UISwitch *)switcher {
     if (self.valueSetter) self.valueSetter(switcher);
+}
+
+@end
+
+@implementation QMUIInteractiveDebugPanelEnumItem
+
+- (instancetype)initWithItems:(NSArray<NSString *> *)items {
+    if (self = [super init]) {
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+        _segmentedControl.frame = CGRectSetWidth(_segmentedControl.frame, 240);// 统一按照最长的来就行啦
+        _segmentedControl.transform = CGAffineTransformMakeScale(.8, .8);
+        [_segmentedControl addTarget:self action:@selector(handleSegmentedControlEvent:) forControlEvents:UIControlEventValueChanged];
+    }
+    return self;
+}
+
+- (void)handleSegmentedControlEvent:(UISegmentedControl *)segmentedControl {
+    if (self.valueSetter) self.valueSetter(segmentedControl);
 }
 
 @end

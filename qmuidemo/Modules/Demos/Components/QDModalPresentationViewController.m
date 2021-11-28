@@ -425,7 +425,7 @@ static NSString * const kSectionTitleForStyling = @"内容及动画";
 
 - (CGSize)preferredContentSizeInModalPresentationViewController:(QMUIModalPresentationViewController *)controller keyboardHeight:(CGFloat)keyboardHeight limitSize:(CGSize)limitSize {
     // 高度无穷大表示不显示高度，则默认情况下会保证你的浮层高度不超过QMUIModalPresentationViewController的高度减去contentViewMargins
-    return CGSizeMake(CGRectGetWidth(controller.view.bounds) - UIEdgeInsetsGetHorizontalValue(controller.view.qmui_safeAreaInsets) - UIEdgeInsetsGetHorizontalValue(controller.contentViewMargins), CGRectGetHeight(controller.view.bounds) - UIEdgeInsetsGetVerticalValue(controller.view.qmui_safeAreaInsets) - UIEdgeInsetsGetVerticalValue(controller.contentViewMargins));
+    return CGSizeMake(CGRectGetWidth(controller.view.bounds) - UIEdgeInsetsGetHorizontalValue(controller.view.safeAreaInsets) - UIEdgeInsetsGetHorizontalValue(controller.contentViewMargins), CGRectGetHeight(controller.view.bounds) - UIEdgeInsetsGetVerticalValue(controller.view.safeAreaInsets) - UIEdgeInsetsGetVerticalValue(controller.contentViewMargins));
 }
 
 @end

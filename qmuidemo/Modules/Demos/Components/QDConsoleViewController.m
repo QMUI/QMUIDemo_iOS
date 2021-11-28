@@ -44,7 +44,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets paddings = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 24, 24 + self.view.qmui_safeAreaInsets.left, 24 + self.view.qmui_safeAreaInsets.bottom, 24 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets paddings = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 24, 24 + self.view.safeAreaInsets.left, 24 + self.view.safeAreaInsets.bottom, 24 + self.view.safeAreaInsets.right);
     CGFloat buttonSpacing = 16;
     self.printLogButton.frame = CGRectMake(paddings.left, paddings.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(paddings), CGRectGetHeight(self.printLogButton.frame));
     self.printMultipleLogButton.frame = CGRectSetY(self.printLogButton.frame, CGRectGetMaxY(self.printLogButton.frame) + buttonSpacing);

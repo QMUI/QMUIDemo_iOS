@@ -19,8 +19,6 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        
         self.images = @[UIImageMake(@"image0"),
                         UIImageMake(@"image1"),
                         UIImageMake(@"image2"),

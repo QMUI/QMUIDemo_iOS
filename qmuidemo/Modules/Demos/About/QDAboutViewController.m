@@ -95,7 +95,7 @@
     CGFloat buttonHeight = TableViewCellNormalHeight;
     
     UIEdgeInsets padding = UIEdgeInsetsMake(24, 24, 24, 24);
-    if (self.view.qmui_safeAreaInsets.bottom > 0) {
+    if (self.view.safeAreaInsets.bottom > 0) {
         padding.bottom = padding.bottom - 20;
     }
     
@@ -116,12 +116,12 @@
         self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.documentButton.frame));
         
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(contentWidthInRight, CGFLOAT_MAX)].height;
-        self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.qmui_contentInset) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
+        self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.adjustedContentInset) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
         
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.qmui_contentInset));
+        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.adjustedContentInset));
     } else {
         
-        CGFloat containerHeight = CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.qmui_contentInset) - UIEdgeInsetsGetVerticalValue(padding);
+        CGFloat containerHeight = CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.adjustedContentInset) - UIEdgeInsetsGetVerticalValue(padding);
         CGFloat buttonMarginTop = 36;
         CGFloat mainContentHeight = CGRectGetHeight(self.logoImageView.frame) + versionLabelMarginTop + CGRectGetHeight(self.versionButton.frame) + buttonMarginTop + buttonHeight * 2;
         CGFloat mainContentMinY = padding.top + (containerHeight - mainContentHeight) / 6;
@@ -141,7 +141,7 @@
         
         CGFloat copyrightLabelWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(copyrightLabelWidth, CGFLOAT_MAX)].height;
-        self.copyrightLabel.frame = CGRectFlatMake(padding.left, CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.qmui_contentInset) - padding.bottom - copyrightLabelHeight, copyrightLabelWidth, copyrightLabelHeight);
+        self.copyrightLabel.frame = CGRectFlatMake(padding.left, CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.adjustedContentInset) - padding.bottom - copyrightLabelHeight, copyrightLabelWidth, copyrightLabelHeight);
         
         self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds), CGRectGetMaxY(self.copyrightLabel.frame) + padding.bottom);
     }

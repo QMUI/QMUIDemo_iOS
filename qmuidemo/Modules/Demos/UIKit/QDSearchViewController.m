@@ -36,7 +36,7 @@
         
         NSArray<NSString *> *suggestions = @[@"Helps", @"Maintain", @"Liver", @"Health", @"Function", @"Supports", @"Healthy", @"Fat"];
         for (NSInteger i = 0; i < suggestions.count; i++) {
-            QMUIGhostButton *button = [[QMUIGhostButton alloc] initWithGhostType:QMUIGhostButtonColorGray];
+            QMUIButton *button = [QDUIHelper generateGhostButtonWithColor:UIColor.qd_tintColor];
             [button setTitle:suggestions[i] forState:UIControlStateNormal];
             button.titleLabel.font = UIFontMake(14);
             button.contentEdgeInsets = UIEdgeInsetsMake(6, 20, 6, 20);
@@ -48,7 +48,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsConcat(UIEdgeInsetsMake(26, 26, 26, 26), self.qmui_safeAreaInsets);
+    UIEdgeInsets padding = UIEdgeInsetsConcat(UIEdgeInsetsMake(26, 26, 26, 26), self.safeAreaInsets);
     CGFloat titleLabelMarginTop = 20;
     self.titleLabel.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.bounds) - UIEdgeInsetsGetHorizontalValue(padding), CGRectGetHeight(self.titleLabel.frame));
     

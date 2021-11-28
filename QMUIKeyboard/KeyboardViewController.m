@@ -77,9 +77,7 @@ static NSInteger count = 0;
 
 - (void)viewWillLayoutSubviews
 {
-    if (@available(iOS 11.0, *)) {
-        self.nextKeyboardButton.hidden = !self.needsInputModeSwitchKey;
-    }
+    self.nextKeyboardButton.hidden = !self.needsInputModeSwitchKey;
     [super viewWillLayoutSubviews];
     
     [self.countLabel sizeToFit];

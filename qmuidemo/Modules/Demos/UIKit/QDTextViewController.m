@@ -20,7 +20,6 @@
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
         self.textViewMinimumHeight = 96;
     }
     return self;
@@ -29,6 +28,7 @@
 - (void)initSubviews {
     [super initSubviews];
     self.textView = [[QMUITextView alloc] init];
+    self.textView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     self.textView.delegate = self;
     self.textView.placeholder = @"支持 placeholder、支持自适应高度、支持限制文本输入长度";
     self.textView.placeholderColor = UIColorPlaceholder; // 自定义 placeholder 的颜色
@@ -59,7 +59,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16 + self.view.qmui_safeAreaInsets.left, 16 + self.view.qmui_safeAreaInsets.bottom, 16 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16 + self.view.safeAreaInsets.left, 16 + self.view.safeAreaInsets.bottom, 16 + self.view.safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     
     CGSize textViewSize = [self.textView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];

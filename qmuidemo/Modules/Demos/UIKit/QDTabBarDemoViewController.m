@@ -73,6 +73,10 @@
             }];
         }
     } else if ([title isEqualToString:@"可精准指定 UITabBar 的磨砂和前景色"]) {
+        
+        // backgroundImage 优先级比 backgroundEffect 高，所以这里主动把 backgroundImage 清理掉
+        self.tabBar.backgroundImage = nil;
+        
         NSArray<NSNumber *> *effectStyles = @[
             @(UIBlurEffectStyleExtraLight),
             @(UIBlurEffectStyleLight),

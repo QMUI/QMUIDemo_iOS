@@ -19,14 +19,6 @@
 
 #pragma mark - Lift Circle
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    return self;
-}
-
 - (void)initSubviews {
     [super initSubviews];
     
@@ -39,6 +31,7 @@
     self.textView.layer.cornerRadius = 4;
     self.textView.textContainerInset = UIEdgeInsetsMake(8, 6, 8, 6);
     self.textView.delegate = self;
+    self.textView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self.view addSubview:self.textView];
     
     _textCountLabel = [[UILabel alloc] init];

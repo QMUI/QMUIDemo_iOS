@@ -64,7 +64,7 @@
 
 + (QMUIButton *)generateDarkFilledButton;
 + (QMUIButton *)generateLightBorderedButton;
-
++ (QMUIButton *)generateGhostButtonWithColor:(UIColor *)color;
 @end
 
 

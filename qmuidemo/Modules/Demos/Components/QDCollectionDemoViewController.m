@@ -82,9 +82,9 @@
 - (UIEdgeInsets)sectionInset {
     if (self.collectionViewLayout.debug) {
         CGSize itemSize = CGSizeMake(100, 100);
-        CGFloat horizontalInset = (CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset) - itemSize.width) / 2;
-        CGFloat verticalInset = (CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionView.qmui_contentInset) - itemSize.height) / 2;
-        return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, CGRectGetWidth(self.collectionView.bounds) - horizontalInset - itemSize.width - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset));
+        CGFloat horizontalInset = (CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionView.adjustedContentInset) - itemSize.width) / 2;
+        CGFloat verticalInset = (CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionView.adjustedContentInset) - itemSize.height) / 2;
+        return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, CGRectGetWidth(self.collectionView.bounds) - horizontalInset - itemSize.width - UIEdgeInsetsGetHorizontalValue(self.collectionView.adjustedContentInset));
     } else {
         return UIEdgeInsetsMake(36, 36, 36, 36);
     }
@@ -118,7 +118,7 @@
         return CGSizeMake(100, 100);
     }
     
-    CGSize size = CGSizeMake(CGRectGetWidth(collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetHorizontalValue(self.collectionView.qmui_contentInset), CGRectGetHeight(collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetVerticalValue(self.collectionView.qmui_contentInset));
+    CGSize size = CGSizeMake(CGRectGetWidth(collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetHorizontalValue(self.collectionView.adjustedContentInset), CGRectGetHeight(collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionViewLayout.sectionInset) - UIEdgeInsetsGetVerticalValue(self.collectionView.adjustedContentInset));
     return size;
 }
 

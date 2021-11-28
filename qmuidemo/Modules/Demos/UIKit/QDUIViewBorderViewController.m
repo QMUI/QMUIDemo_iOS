@@ -214,8 +214,8 @@
     [super viewDidLayoutSubviews];
     
     if (!IS_IPAD && IS_LANDSCAPE) {
-        self.targetView.qmui_left = self.view.qmui_safeAreaInsets.left + 32;
-        self.targetView.qmui_top = CGFloatGetCenter(CGRectGetHeight(self.view.bounds) - UIEdgeInsetsGetVerticalValue(self.view.qmui_safeAreaInsets), CGRectGetHeight(self.targetView.frame));
+        self.targetView.qmui_left = self.view.safeAreaInsets.left + 32;
+        self.targetView.qmui_top = CGFloatGetCenter(CGRectGetHeight(self.view.bounds) - UIEdgeInsetsGetVerticalValue(self.view.safeAreaInsets), CGRectGetHeight(self.targetView.frame));
         CGFloat scrollViewMinX = CGRectGetMaxX(self.targetView.frame) + 32;
         self.scrollView.frame = CGRectMake(scrollViewMinX, 0, self.view.qmui_width - scrollViewMinX, CGRectGetHeight(self.view.bounds));
         self.scrollView.qmui_borderPosition = QMUIViewBorderPositionLeft;
@@ -227,8 +227,8 @@
         self.scrollView.qmui_borderPosition = QMUIViewBorderPositionTop;
     }
     
-    CGFloat marginLeft = 16 + self.scrollView.qmui_safeAreaInsets.left;
-    CGFloat marginRight = 16 + self.scrollView.qmui_safeAreaInsets.right;
+    CGFloat marginLeft = 16 + self.scrollView.safeAreaInsets.left;
+    CGFloat marginRight = 16 + self.scrollView.safeAreaInsets.right;
     __block CGFloat maxY = 0;
     CGFloat defaultLineHeight = 44;
     
@@ -449,9 +449,9 @@
     CGFloat avoidFingerY = -100;
     CGFloat magnifyingViewMinX = CGRectGetMinX(self.magnifyingView.frame);
     CGFloat magnifyingViewMinY = CGRectGetMinY(self.magnifyingView.frame);
-    if (magnifyingViewMinY + avoidFingerY < self.magnifyingView.superview.qmui_safeAreaInsets.top) {
-        magnifyingViewMinY = self.magnifyingView.superview.qmui_safeAreaInsets.top;
-        if (magnifyingViewMinX + avoidFingerX < self.magnifyingView.superview.qmui_safeAreaInsets.left) {
+    if (magnifyingViewMinY + avoidFingerY < self.magnifyingView.superview.safeAreaInsets.top) {
+        magnifyingViewMinY = self.magnifyingView.superview.safeAreaInsets.top;
+        if (magnifyingViewMinX + avoidFingerX < self.magnifyingView.superview.safeAreaInsets.left) {
             magnifyingViewMinX -= avoidFingerX;
         } else {
             magnifyingViewMinX += avoidFingerX;
@@ -470,7 +470,7 @@
     textFieldRect = CGRectSetHeight(textFieldRect, CGRectGetHeight(textFieldRect) + 12);// 12 是距离底部键盘的间距
     CGFloat keyboardHeight = [keyboardUserInfo heightInView:self.view];
     self.scrollView.contentInset = UIEdgeInsetsSetBottom(self.scrollView.contentInset, keyboardHeight);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsSetBottom(self.scrollView.contentInset, self.scrollView.contentInset.bottom - (keyboardHeight > 0 ? self.scrollView.qmui_safeAreaInsets.bottom : 0));
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsSetBottom(self.scrollView.contentInset, self.scrollView.contentInset.bottom - (keyboardHeight > 0 ? self.scrollView.safeAreaInsets.bottom : 0));
     if (CGRectGetMaxY(textFieldRect) < CGRectGetHeight(self.view.bounds) - keyboardHeight) {
         return;
     }

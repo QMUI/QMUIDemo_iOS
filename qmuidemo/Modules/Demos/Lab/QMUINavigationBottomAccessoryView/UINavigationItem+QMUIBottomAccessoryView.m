@@ -37,17 +37,20 @@
     });
     
     #pragma mark - TransitionNavigationBar setOriginalNavigationBar:
+    
     // 在开启假 bar 转场效果优化时把 bottomAccessoryView 也同步复制到假 bar
-    OverrideImplementation(NSClassFromString(@"_QMUITransitionNavigationBar"), NSSelectorFromString(@"setOriginalNavigationBar:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-        return ^(UINavigationBar *selfObject, UINavigationBar *originalNavigationBar) {
+    SEL setterSelector = NSSelectorFromString(@"setQmuinb_copyStylesToBar:");
+    NSAssert([UINavigationBar instancesRespondToSelector:setterSelector], @"请检查 UINavigationBar+Transtion 里是否没提供 setQmuinb_copyStylesToBar: 方法？");
+    OverrideImplementation(UINavigationBar.class, setterSelector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+        return ^(UINavigationBar *selfObject, UINavigationBar *copyStylesToBar) {
             
             // call super
             void (*originSelectorIMP)(id, SEL, UINavigationBar *);
             originSelectorIMP = (void (*)(id, SEL, UINavigationBar *))originalIMPProvider();
-            originSelectorIMP(selfObject, originCMD, originalNavigationBar);
+            originSelectorIMP(selfObject, originCMD, copyStylesToBar);
             
-            selfObject.qmuibav_backgroundEffectViewExtendBottomBlock = originalNavigationBar.qmuibav_backgroundEffectViewExtendBottomBlock;
-            selfObject.qmui_backgroundView.qmui_layoutSubviewsBlock = originalNavigationBar.qmui_backgroundView.qmui_layoutSubviewsBlock;
+            copyStylesToBar.qmuibav_backgroundEffectViewExtendBottomBlock = selfObject.qmuibav_backgroundEffectViewExtendBottomBlock;
+            copyStylesToBar.qmui_backgroundView.qmui_layoutSubviewsBlock = selfObject.qmui_backgroundView.qmui_layoutSubviewsBlock;
         };
     });
     
@@ -233,8 +236,13 @@ static char kAssociatedObjectKey_accessoryView;
 static char kAssociatedObjectKey_backgroundEffectViewExtendBottomBlock;
 - (void)setQmuibav_backgroundEffectViewExtendBottomBlock:(CGFloat (^)(void))qmuibav_backgroundEffectViewExtendBottomBlock {
     objc_setAssociatedObject(self, &kAssociatedObjectKey_backgroundEffectViewExtendBottomBlock, qmuibav_backgroundEffectViewExtendBottomBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    if (self.transitionNavigationBar) {
-        self.transitionNavigationBar.qmuibav_backgroundEffectViewExtendBottomBlock = qmuibav_backgroundEffectViewExtendBottomBlock;
+    SEL selector = NSSelectorFromString(@"qmuinb_copyStylesToBar");
+    NSAssert([self respondsToSelector:selector], @"请检查 UINavigationBar+Transtion 里是否没提供 qmuinb_copyStylesToBar 方法？");
+    BeginIgnorePerformSelectorLeaksWarning
+    UINavigationBar *copyStylesToBar = (UINavigationBar *)[self performSelector:selector];
+    EndIgnorePerformSelectorLeaksWarning
+    if (copyStylesToBar) {
+        copyStylesToBar.qmuibav_backgroundEffectViewExtendBottomBlock = qmuibav_backgroundEffectViewExtendBottomBlock;
     }
 }
 

@@ -27,8 +27,7 @@
     
     NSArray<NSString *> *suggestions = @[@"东野圭吾", @"三体", @"爱", @"红楼梦", @"理智与情感", @"读书热榜", @"免费榜"];
     for (NSInteger i = 0; i < suggestions.count; i++) {
-        QMUIGhostButton *button = [[QMUIGhostButton alloc] init];
-        button.ghostColor = UIColor.qd_tintColor;
+        QMUIButton *button = [QDUIHelper generateGhostButtonWithColor:UIColor.qd_tintColor];
         [button setTitle:suggestions[i] forState:UIControlStateNormal];
         button.titleLabel.font = UIFontMake(14);
         button.contentEdgeInsets = UIEdgeInsetsMake(6, 20, 6, 20);
@@ -38,7 +37,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 36, 24 + self.view.qmui_safeAreaInsets.left, 36, 24 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 36, 24 + self.view.safeAreaInsets.left, 36, 24 + self.view.safeAreaInsets.right);
     self.floatLayoutView.frame = CGRectMake(padding.left, padding.top, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), QMUIViewSelfSizingHeight);
 }
 

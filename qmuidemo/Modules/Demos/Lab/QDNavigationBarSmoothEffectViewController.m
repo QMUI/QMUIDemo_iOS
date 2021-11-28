@@ -80,7 +80,7 @@
     self.scrollView.contentSize = self.scrollView.bounds.size;
     self.tagView.qmui_left = self.tagView.qmui_leftWhenCenterInSuperview;
     self.tagView.qmui_top = -self.qmui_navigationBarMaxYInViewCoordinator;
-    self.tipsLabel.frame = CGRectMake(24 + self.scrollView.qmui_safeAreaInsets.left, self.tagView.qmui_bottom + 24, self.scrollView.qmui_width - UIEdgeInsetsGetHorizontalValue(self.scrollView.qmui_safeAreaInsets) - 24 * 2, QMUIViewSelfSizingHeight);
+    self.tipsLabel.frame = CGRectMake(24 + self.scrollView.safeAreaInsets.left, self.tagView.qmui_bottom + 24, self.scrollView.qmui_width - UIEdgeInsetsGetHorizontalValue(self.scrollView.safeAreaInsets) - 24 * 2, QMUIViewSelfSizingHeight);
 }
 
 @end

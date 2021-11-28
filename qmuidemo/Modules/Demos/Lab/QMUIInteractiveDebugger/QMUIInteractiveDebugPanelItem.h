@@ -23,9 +23,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) CGFloat height;
 
 + (instancetype)itemWithTitle:(NSString *)title actionView:(__kindof UIView *)actionView valueGetter:(nullable void (^)(__kindof UIView *actionView))valueGetter valueSetter:(nullable void (^)(__kindof UIView *actionView))valueSetter;
+
+/// 文字 item，提供一个输入框输入文字
++ (instancetype)textItemWithTitle:(NSString *)title valueGetter:(nullable void (^)(QMUITextField *actionView))valueGetter valueSetter:(nullable void (^)(QMUITextField *actionView))valueSetter;
+
+/// 数字 item，提供一个输入框仅允许输入数字、小数点
 + (instancetype)numbericItemWithTitle:(NSString *)title valueGetter:(nullable void (^)(QMUITextField *actionView))valueGetter valueSetter:(nullable void (^)(QMUITextField *actionView))valueSetter;
+
+/// 颜色 item，提供一个输入框输入 RGBA 格式的字符串
 + (instancetype)colorItemWithTitle:(NSString *)title valueGetter:(nullable void (^)(QMUITextField *actionView))valueGetter valueSetter:(nullable void (^)(QMUITextField *actionView))valueSetter;
+
+/// BOOL 值 item，提供一个 UISwitch 开启/关闭
 + (instancetype)boolItemWithTitle:(NSString *)title valueGetter:(nullable void (^)(UISwitch *actionView))valueGetter valueSetter:(nullable void (^)(UISwitch *actionView))valueSetter;
+
++ (instancetype)enumItemWithTitle:(NSString *)title items:(NSArray<NSString *> *)items valueGetter:(nullable void (^)(UISegmentedControl *actionView))valueGetter valueSetter:(nullable void (^)(UISegmentedControl *actionView))valueSetter;
 @end
 
 NS_ASSUME_NONNULL_END

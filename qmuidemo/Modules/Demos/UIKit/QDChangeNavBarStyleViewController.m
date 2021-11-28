@@ -11,7 +11,6 @@
 @interface QDChangeNavBarStyleViewController ()
 
 @property(nonatomic, assign) QDNavigationBarStyle barStyle;
-@property(nonatomic, strong) QDChangeNavBarStyleViewController *viewController;
 
 @end
 
@@ -26,27 +25,24 @@
 
 - (void)initDataSource {
     [super initDataSource];
-    self.dataSource = @[@"默认navBar样式",
-                        @"暗色navBar样式",
-                        @"浅色navBar样式"];
+    self.dataSource = @[@"默认",
+                        @"深色",
+                        @"浅色（磨砂）"];
 }
 
 - (void)didSelectCellWithTitle:(NSString *)title {
-    if ([title isEqualToString:@"默认navBar样式"]) {
-        self.viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleOrigin];
+    UIViewController *viewController = nil;
+    if ([title isEqualToString:@"默认"]) {
+        viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleOrigin];
     }
-    else if ([title isEqualToString:@"暗色navBar样式"]) {
-        self.viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleDark];
+    else if ([title isEqualToString:@"深色"]) {
+        viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleDark];
     }
-    else if ([title isEqualToString:@"浅色navBar样式"]) {
-        self.viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleLight];
+    else if ([title isEqualToString:@"浅色（磨砂）"]) {
+        viewController = [[QDChangeNavBarStyleViewController alloc] initWithBarStyle:QDNavigationBarStyleLight];
     }
-    if (self.customNavBarTransition) {
-        self.viewController.previousBarStyle = self.barStyle;
-        self.viewController.customNavBarTransition = YES;
-    }
-    self.viewController.title = title;
-    [self.navigationController pushViewController:self.viewController animated:YES];
+    viewController.title = title;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -72,39 +68,26 @@
 }
 
 - (UIImage *)qmui_navigationBarShadowImage {
-    if (self.barStyle == QDNavigationBarStyleOrigin) {
-        return NavBarShadowImage;
-    } else if (self.barStyle == QDNavigationBarStyleLight) {
+    if (self.barStyle == QDNavigationBarStyleLight) {
         return nil; // nil则用系统默认颜色
-    } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return [UIImage qmui_imageWithColor:UIColorMake(99, 99, 99) size:CGSizeMake(10, PixelOne) cornerRadius:0];
-    } else {
-        return NavBarShadowImage;
     }
+    return NavBarShadowImage;
 }
 
 - (UIColor *)qmui_navigationBarTintColor {
     if (self.barStyle == QDNavigationBarStyleOrigin) {
         return NavBarTintColor;
     } else if (self.barStyle == QDNavigationBarStyleLight) {
-        return UIColorBlue;
+        return UIColorBlack;
     } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return NavBarTintColor;
+        return UIColorWhite;
     } else {
         return NavBarTintColor;
     }
 }
 
 - (UIColor *)qmui_titleViewTintColor {
-    if (self.barStyle == QDNavigationBarStyleOrigin) {
-        return NavBarTitleColor;
-    } else if (self.barStyle == QDNavigationBarStyleLight) {
-        return UIColorBlack;
-    } else if (self.barStyle == QDNavigationBarStyleDark) {
-        return UIColorWhite;
-    } else {
-        return NavBarTitleColor;
-    }
+    return [self qmui_navigationBarTintColor];
 }
 
 #pragma mark - <QMUICustomNavigationBarTransitionDelegate>

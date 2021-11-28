@@ -16,12 +16,6 @@
 
 @implementation QDTextFieldViewController
 
-- (void)didInitialize {
-    [super didInitialize];
-    // https://github.com/Tencent/QMUI_iOS/issues/114
-    self.automaticallyAdjustsScrollViewInsets = NO;
-}
-
 - (void)initSubviews {
     [super initSubviews];
     
@@ -45,7 +39,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16 + self.view.qmui_safeAreaInsets.left, 16 + self.view.qmui_safeAreaInsets.bottom, 16 + self.view.qmui_safeAreaInsets.right);
+    UIEdgeInsets padding = UIEdgeInsetsMake(self.qmui_navigationBarMaxYInViewCoordinator + 16, 16 + self.view.safeAreaInsets.left, 16 + self.view.safeAreaInsets.bottom, 16 + self.view.safeAreaInsets.right);
     CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
     self.textField.frame = CGRectMake(padding.left, padding.top, contentWidth, 40);
     

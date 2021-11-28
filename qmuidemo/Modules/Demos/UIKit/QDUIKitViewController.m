@@ -36,6 +36,7 @@
 #import "QDTableViewCellAccessoryTypeViewController.h"
 #import "QDTableViewCellSeparatorInsetsViewController.h"
 #import "QDControlViewController.h"
+#import "QDBlurEffectViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -60,6 +61,7 @@
                        @"UIView+QMUI", UIImageMake(@"icon_grid_view"),
                        @"NSObject+QMUI", UIImageMake(@"icon_grid_nsobject"),
                        @"CAAnimation+QMUI", UIImageMake(@"icon_grid_caanimation"),
+                       @"UIBlurEffect+QMUI", UIImageMake(@"icon_grid_blur"),
                        nil];
 }
 
@@ -208,6 +210,9 @@
     }
     else if ([title isEqualToString:@"CAAnimation+QMUI"]) {
         viewController = [[QDCAAnimationViewController alloc] init];
+    }
+    else if ([title isEqualToString:@"UIBlurEffect+QMUI"]) {
+        viewController = [[QDBlurEffectViewController alloc] init];
     }
     viewController.title = title;
     [self.navigationController pushViewController:viewController animated:YES];

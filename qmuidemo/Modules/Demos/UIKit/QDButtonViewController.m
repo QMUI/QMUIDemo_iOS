@@ -8,8 +8,6 @@
 
 #import "QDButtonViewController.h"
 #import "QDNormalButtonViewController.h"
-#import "QDGhostButtonViewController.h"
-#import "QDFillButtonViewController.h"
 #import "QDNavigationButtonViewController.h"
 #import "QDToolBarButtonViewController.h"
 #import "QDButtonEdgeInsetsViewController.h"
@@ -19,8 +17,6 @@
 
 - (void)initDataSource {
     self.dataSource = @[@"QMUIButton",
-                        @"QMUIGhostButton",
-                        @"QMUIFillButton",
                         @"QMUINavigationButton",
                         @"QMUIToolbarButton"];
 }
@@ -29,10 +25,6 @@
     UIViewController *viewController = nil;
     if ([title isEqualToString:@"QMUIButton"]) {
         viewController = [[QDNormalButtonViewController alloc] init];
-    } else if ([title isEqualToString:@"QMUIGhostButton"]) {
-        viewController = [[QDGhostButtonViewController alloc] init];
-    } else if ([title isEqualToString:@"QMUIFillButton"]) {
-        viewController = [[QDFillButtonViewController alloc] init];
     } else if ([title isEqualToString:@"QMUINavigationButton"]) {
         viewController = [[QDNavigationButtonViewController alloc] init];
     } else if ([title isEqualToString:@"QMUIToolbarButton"]) {
