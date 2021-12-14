@@ -7,67 +7,84 @@
 //
 
 #import "QDSliderViewController.h"
+#import "QMUIInteractiveDebugger.h"
 
 @interface QDSliderViewController ()
 
-@property(nonatomic, strong) QMUISlider *slider;
-@property(nonatomic, strong) UISlider *systemSlider;
-@property(nonatomic, strong) UILabel *label1;
-@property(nonatomic, strong) UILabel *label2;
+@property(nonatomic, strong) UISlider *slider;
+@property(nonatomic, strong) QMUIInteractiveDebugPanelViewController *debugViewController;
 @end
 
 @implementation QDSliderViewController
 
 - (void)initSubviews {
     [super initSubviews];
-    self.slider = [[QMUISlider alloc] init];
+    self.slider = [[UISlider alloc] init];
     self.slider.value = .3;
     self.slider.minimumTrackTintColor = UIColor.qd_tintColor;
     self.slider.maximumTrackTintColor = UIColor.qd_separatorColor;
-    self.slider.trackHeight = 1;// 支持修改背后导轨的高度
-    self.slider.thumbColor = self.slider.minimumTrackTintColor;
-    self.slider.thumbSize = CGSizeMake(14, 14);// 支持修改拖拽圆点的大小
-    
-    // 支持修改圆点的阴影样式
-    self.slider.thumbShadowColor = [self.slider.minimumTrackTintColor colorWithAlphaComponent:.3];
-    self.slider.thumbShadowOffset = CGSizeMake(0, 2);
-    self.slider.thumbShadowRadius = 3;
-    
+    self.slider.qmui_trackHeight = 1;
+    self.slider.qmui_thumbSize = CGSizeMake(14, 14);
+    self.slider.qmui_thumbColor = self.slider.minimumTrackTintColor;
+    self.slider.qmui_thumbShadowColor = self.slider.minimumTrackTintColor;
+    self.slider.qmui_thumbShadowRadius = 5;
     [self.view addSubview:self.slider];
     
-    self.systemSlider = [[UISlider alloc] init];
-    self.systemSlider.minimumTrackTintColor = self.slider.minimumTrackTintColor;
-    self.systemSlider.maximumTrackTintColor = self.slider.maximumTrackTintColor;
-    self.systemSlider.thumbTintColor = self.slider.minimumTrackTintColor;
-    self.systemSlider.value = self.slider.value;
-    [self.view addSubview:self.systemSlider];
-    
-    self.label1 = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:TableViewSectionHeaderTextColor];
-    self.label1.text = @"QMUISlider";
-    [self.label1 sizeToFit];
-    [self.view addSubview:self.label1];
-    
-    self.label2 = [[UILabel alloc] init];
-    [self.label2 qmui_setTheSameAppearanceAsLabel:self.label1];
-    self.label2.text = @"UISlider";
-    [self.label2 sizeToFit];
-    [self.view addSubview:self.label2];
+    [self generateDebugViewController];
+}
+
+- (void)generateDebugViewController {
+    __weak __typeof(self)weakSelf = self;
+    self.debugViewController = [QDUIHelper generateDebugViewControllerWithTitle:@"输入新的值" items:@[
+        [QMUIInteractiveDebugPanelItem boolItemWithTitle:@"steps" valueGetter:^(UISwitch * _Nonnull actionView) {
+            actionView.on = weakSelf.slider.qmui_numberOfSteps >= 2;
+        } valueSetter:^(UISwitch * _Nonnull actionView) {
+            if (actionView.on) {
+                weakSelf.slider.qmui_numberOfSteps = 5;
+                weakSelf.slider.qmui_step = 3;
+                weakSelf.slider.qmui_stepControlConfiguration = ^(UISlider *slider, QMUISliderStepControl * _Nonnull stepControl, NSUInteger index) {
+                    stepControl.titleLabel.text = [NSString stringWithFormat:@"第%@档", @(index)];
+                };
+            } else {
+                weakSelf.slider.qmui_numberOfSteps = 0;
+            }
+        }],
+        [QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"trackHeight" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = [NSString stringWithFormat:@"%.2f", weakSelf.slider.qmui_trackHeight];
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
+            weakSelf.slider.qmui_trackHeight = actionView.text.doubleValue;
+        }],
+        [QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"thumbSize" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = [NSString stringWithFormat:@"%.2f", weakSelf.slider.qmui_thumbSize.height];
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
+            weakSelf.slider.qmui_thumbSize = CGSizeMake(actionView.text.doubleValue, actionView.text.doubleValue);
+        }],
+        [QMUIInteractiveDebugPanelItem colorItemWithTitle:@"thumbShadowColor" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = weakSelf.slider.qmui_thumbShadowColor.qmui_RGBAString;
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
+            weakSelf.slider.qmui_thumbShadowColor = [UIColor qmui_colorWithRGBAString:actionView.text];
+        }],
+        [QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"outsideEdge" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = [NSString stringWithFormat:@"%.2f", weakSelf.slider.qmui_outsideEdge.left];
+        } valueSetter:^(QMUITextField * _Nonnull actionView) {
+            CGFloat outside = actionView.text.doubleValue;
+            weakSelf.slider.qmui_outsideEdge = UIEdgeInsetsMake(outside, outside, outside, outside);
+        }],
+    ]];
+    [self.view addSubview:self.debugViewController.view];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
     UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24 + self.view.safeAreaInsets.left, 24 + self.view.safeAreaInsets.bottom, 24 + self.view.safeAreaInsets.right);
-    
-    self.label1.frame = CGRectSetXY(self.label1.frame, padding.left, padding.top);
-    
+    CGFloat contentWidth = MIN(CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), 426);
+    CGFloat minX = CGFloatGetCenter(CGRectGetWidth(self.view.bounds), contentWidth);
     [self.slider sizeToFit];
-    self.slider.frame = CGRectMake(padding.left, CGRectGetMaxY(self.label1.frame) + 16, CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding), CGRectGetHeight(self.slider.frame));
+    self.slider.frame = CGRectMake(minX, padding.top + 16, contentWidth, CGRectGetHeight(self.slider.frame));
     
-    self.label2.frame = CGRectSetXY(self.label2.frame, padding.left, CGRectGetMaxY(self.slider.frame) + 64);
-    
-    [self.systemSlider sizeToFit];
-    self.systemSlider.frame = CGRectSetY(self.slider.frame, CGRectGetMaxY(self.label2.frame) + 16);
+    CGSize size = [self.debugViewController contentSizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
+    self.debugViewController.view.frame = CGRectMake(minX, CGRectGetMaxY(self.slider.frame) + 36, contentWidth, size.height);
 }
 
 @end

@@ -12,7 +12,7 @@
 
 @property(nonatomic, strong) UILabel *fontPointSizeLabel;
 @property(nonatomic, strong) UILabel *lineHeightLabel;
-@property(nonatomic, strong) QMUISlider *fontPointSizeSlider;
+@property(nonatomic, strong) UISlider *fontPointSizeSlider;
 
 @property(nonatomic, strong) UILabel *exampleLabel;
 @property(nonatomic, strong) UILabel *exampleLabel2;
@@ -40,13 +40,13 @@
     [self.lineHeightLabel qmui_calculateHeightAfterSetAppearance];
     [self.view addSubview:self.lineHeightLabel];
     
-    self.fontPointSizeSlider = [[QMUISlider alloc] init];
+    self.fontPointSizeSlider = [[UISlider alloc] init];
     self.fontPointSizeSlider.tintColor = UIColor.qd_tintColor;
-    self.fontPointSizeSlider.thumbSize = CGSizeMake(16, 16);
-    self.fontPointSizeSlider.thumbColor = self.fontPointSizeSlider.tintColor;
-    self.fontPointSizeSlider.thumbShadowColor = [self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3];
-    self.fontPointSizeSlider.thumbShadowOffset = CGSizeMake(0, 2);
-    self.fontPointSizeSlider.thumbShadowRadius = 3;
+    self.fontPointSizeSlider.qmui_thumbSize = CGSizeMake(16, 16);
+    self.fontPointSizeSlider.qmui_thumbColor = self.fontPointSizeSlider.tintColor;
+    self.fontPointSizeSlider.qmui_thumbShadowColor = [self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3];
+    self.fontPointSizeSlider.qmui_thumbShadowOffset = CGSizeMake(0, 2);
+    self.fontPointSizeSlider.qmui_thumbShadowRadius = 3;
     self.fontPointSizeSlider.minimumValue = 8;
     self.fontPointSizeSlider.maximumValue = 50;
     self.fontPointSizeSlider.value = self.oldFontPointSize;

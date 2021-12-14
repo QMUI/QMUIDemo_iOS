@@ -11,62 +11,56 @@
 
 @interface QDInteractiveDebugViewController ()
 
-@property(nonatomic, strong) UILabel *tipsLabel;
+@property(nonatomic, strong) UIButton *presentButton;
+@property(nonatomic, strong) QMUIInteractiveDebugPanelViewController *asViewController;
 @end
 
 @implementation QDInteractiveDebugViewController
 
 - (void)initSubviews {
     [super initSubviews];
-    self.tipsLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(18) textColor:UIColor.qd_tintColor];
-    self.tipsLabel.textAlignment = NSTextAlignmentCenter;
-    self.tipsLabel.text = @"摇一摇出 Debug 面板";
-    [self.view addSubview:self.tipsLabel];
+    self.presentButton = [QDUIHelper generateLightBorderedButton];
+    [self.presentButton setTitle:@"点击打开 Debug 面板" forState:UIControlStateNormal];
+    [self.presentButton addTarget:self action:@selector(handlePresentButtonEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.presentButton];
+    
+    self.asViewController = [self generateDebugController];
+    [self.view addSubview:self.asViewController.view];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tipsLabel.frame = CGRectMake(32, self.qmui_navigationBarMaxYInViewCoordinator + 32, self.view.qmui_width - 32 * 2, QMUIViewSelfSizingHeight);
+    UIEdgeInsets padding = UIEdgeInsetsMake(32 + self.qmui_navigationBarMaxYInViewCoordinator, 32, 32, 32);
+    self.presentButton.frame = CGRectSetXY(self.presentButton.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.view.bounds, self.presentButton.frame), padding.top);
+    CGSize size = [self.asViewController contentSizeThatFits:CGSizeMake(320, CGFLOAT_MAX)];
+    self.asViewController.view.frame = CGRectMake(CGFloatGetCenter(CGRectGetWidth(self.view.bounds), 320), CGRectGetMaxY(self.presentButton.frame) + 32, 320, size.height);
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        QMUIInteractiveDebugPanelViewController *vc = [[QMUIInteractiveDebugPanelViewController alloc] init];
-        vc.title = @"Debugger";
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem textItemWithTitle:@"文字内容" valueGetter:^(QMUITextField * _Nonnull actionView) {
-            // 通过 valueGetter 为 actionView 赋当前值
-            actionView.text = self.tipsLabel.text;
+- (void)handlePresentButtonEvent {
+    QMUIInteractiveDebugPanelViewController *vc = [self generateDebugController];
+    [vc presentInViewController:self];
+}
+
+- (QMUIInteractiveDebugPanelViewController *)generateDebugController {
+    __weak __typeof(self)weakSelf = self;
+    QMUIInteractiveDebugPanelViewController *vc = [QDUIHelper generateDebugViewControllerWithTitle:@"修改按钮信息" items:@[
+        [QMUIInteractiveDebugPanelItem textItemWithTitle:@"文字" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = weakSelf.presentButton.currentTitle;
         } valueSetter:^(QMUITextField * _Nonnull actionView) {
-            // 通过 valueSetter 将用户在 actionView 里操作的值赋值给目标 view
-            self.tipsLabel.text = actionView.text;
-            [self.view setNeedsLayout];
-        }]];
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem colorItemWithTitle:@"文字颜色" valueGetter:^(QMUITextField * _Nonnull actionView) {
-            actionView.text = self.tipsLabel.textColor.qmui_RGBAString;
+            [weakSelf.presentButton setTitle:actionView.text forState:UIControlStateNormal];
+        }],
+        [QMUIInteractiveDebugPanelItem colorItemWithTitle:@"背景色" valueGetter:^(QMUITextField * _Nonnull actionView) {
+            actionView.text = weakSelf.presentButton.backgroundColor.qmui_RGBAString;
         } valueSetter:^(QMUITextField * _Nonnull actionView) {
-            self.tipsLabel.textColor = [UIColor qmui_colorWithRGBAString:actionView.text];
-        }]];
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"文字透明度" valueGetter:^(QMUITextField * _Nonnull actionView) {
-            actionView.text = [NSString stringWithFormat:@"%.2f", self.tipsLabel.alpha];
-        } valueSetter:^(QMUITextField * _Nonnull actionView) {
-            self.tipsLabel.alpha = actionView.text.floatValue;
-        }]];
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem boolItemWithTitle:@"文字加粗" valueGetter:^(UISwitch * _Nonnull actionView) {
-            actionView.on = [self.tipsLabel.font.fontName containsString:@"bold"];
+            weakSelf.presentButton.backgroundColor = [UIColor qmui_colorWithRGBAString:actionView.text];
+        }],
+        [QMUIInteractiveDebugPanelItem boolItemWithTitle:@"可用" valueGetter:^(UISwitch * _Nonnull actionView) {
+            actionView.on = weakSelf.presentButton.enabled;
         } valueSetter:^(UISwitch * _Nonnull actionView) {
-            self.tipsLabel.font = actionView.on ? UIFontBoldMake(18) : UIFontMake(18);
-        }]];
-        [vc addDebugItem:[QMUIInteractiveDebugPanelItem enumItemWithTitle:@"文字对齐" items:@[
-            @"Left",
-            @"Center",
-            @"Right"
-        ] valueGetter:^(UISegmentedControl * _Nonnull actionView) {
-            actionView.selectedSegmentIndex = self.tipsLabel.textAlignment;
-        } valueSetter:^(UISegmentedControl * _Nonnull actionView) {
-            self.tipsLabel.textAlignment = actionView.selectedSegmentIndex;
-        }]];
-        [vc presentInViewController:self];
-    }
+            weakSelf.presentButton.enabled = actionView.on;
+        }],
+    ]];
+    return vc;
 }
 
 @end

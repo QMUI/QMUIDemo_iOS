@@ -14,7 +14,7 @@
 
 @property(nonatomic, strong) UIView *section1;
 @property(nonatomic, strong) QMUIPieProgressView *progressView1;
-@property(nonatomic, strong) QMUISlider *slider;
+@property(nonatomic, strong) UISlider *slider;
 @property(nonatomic, strong) UILabel *titleLabel1;
 
 @property(nonatomic, strong) UIView *section2;
@@ -54,13 +54,13 @@
     self.titleLabel1.textAlignment = NSTextAlignmentCenter;
     [self.section1 addSubview:self.titleLabel1];
     
-    self.slider = [[QMUISlider alloc] init];
+    self.slider = [[UISlider alloc] init];
     self.slider.tintColor = self.progressView1.tintColor;
-    self.slider.thumbSize = CGSizeMake(16, 16);
-    self.slider.thumbColor = self.slider.tintColor;
-    self.slider.thumbShadowColor = [self.slider.tintColor colorWithAlphaComponent:.3];
-    self.slider.thumbShadowOffset = CGSizeMake(0, 2);
-    self.slider.thumbShadowRadius = 3;
+    self.slider.qmui_thumbSize = CGSizeMake(16, 16);
+    self.slider.qmui_thumbColor = self.slider.tintColor;
+    self.slider.qmui_thumbShadowColor = [self.slider.tintColor colorWithAlphaComponent:.3];
+    self.slider.qmui_thumbShadowOffset = CGSizeMake(0, 2);
+    self.slider.qmui_thumbShadowRadius = 3;
     [self.slider sizeToFit];
     [self.slider addTarget:self action:@selector(handleSliderTouchUpInside:) forControlEvents:UIControlEventValueChanged];
     [self.section1 addSubview:self.slider];

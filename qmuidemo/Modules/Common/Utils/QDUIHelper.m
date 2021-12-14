@@ -7,6 +7,7 @@
 //
 
 #import "QDUIHelper.h"
+#import "QMUIInteractiveDebugger.h"
 
 @implementation QDUIHelper
 
@@ -298,6 +299,32 @@ static NSArray<QMUIEmotion *> *QMUIEmotionArray;
         CGGradientRelease(gradient);
     }];
     return [resultImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1) resizingMode:UIImageResizingModeStretch];
+}
+
+@end
+
+@implementation QDUIHelper (Debug)
+
++ (QMUIInteractiveDebugPanelViewController *)generateDebugViewControllerWithTitle:(NSString *)title items:(NSArray<QMUIInteractiveDebugPanelItem *> *)items {
+    QMUIInteractiveDebugPanelViewController *vc = [[QMUIInteractiveDebugPanelViewController alloc] init];
+    vc.title = title;
+    [items enumerateObjectsUsingBlock:^(QMUIInteractiveDebugPanelItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [vc addDebugItem:obj];
+    }];
+    vc.styleConfiguration = ^(QMUIInteractiveDebugPanelViewController * _Nonnull viewController) {
+        viewController.view.backgroundColor = UIColor.qd_backgroundColorLighten;
+        viewController.view.layer.borderColor = UIColor.qd_separatorColor.CGColor;
+        viewController.titleLabel.textColor = UIColor.qd_titleTextColor;
+        [viewController.debugItems enumerateObjectsUsingBlock:^(QMUIInteractiveDebugPanelItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.titleLabel.textColor = UIColor.qd_titleTextColor;
+            obj.actionView.tintColor = UIColor.qd_tintColor;
+            if ([obj.actionView isKindOfClass:UITextField.class]) {
+                ((UITextField *)obj.actionView).textColor = UIColor.qd_titleTextColor;
+                ((UITextField *)obj.actionView).qmui_borderColor = UIColor.qd_separatorColor;
+            }
+        }];
+    };
+    return vc;
 }
 
 @end

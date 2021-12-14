@@ -46,7 +46,7 @@
                        @"QMUILabel", UIImageMake(@"icon_grid_label"),
                        @"QMUITextView", UIImageMake(@"icon_grid_textView"),
                        @"QMUITextField", UIImageMake(@"icon_grid_textField"),
-                       @"QMUISlider", UIImageMake(@"icon_grid_slider"),
+                       @"UISlider+QMUI", UIImageMake(@"icon_grid_slider"),
                        @"QMUIAlertController", UIImageMake(@"icon_grid_alert"),
                        @"QMUITableView", UIImageMake(@"icon_grid_cell"),
                        @"ViewController Orientation", UIImageMake(@"icon_grid_orientation"),
@@ -92,7 +92,7 @@
     else if ([title isEqualToString:@"QMUITextField"]) {
         viewController = [[QDTextFieldViewController alloc] init];
     }
-    else if ([title isEqualToString:@"QMUISlider"]) {
+    else if ([title isEqualToString:@"UISlider+QMUI"]) {
         viewController = [[QDSliderViewController alloc] init];
     }
     else if ([title isEqualToString:@"QMUITableView"]) {

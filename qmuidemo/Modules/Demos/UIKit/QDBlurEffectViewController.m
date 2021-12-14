@@ -15,7 +15,7 @@
 @property(nonatomic, strong) UILabel *contentLabel;
 
 @property(nonatomic, strong) UILabel *label1;
-@property(nonatomic, strong) QMUISlider *slider1;
+@property(nonatomic, strong) UISlider *slider1;
 
 @property(nonatomic, strong) UILabel *label2;
 @property(nonatomic, strong) QMUIButton *button2;
@@ -84,7 +84,7 @@
     [self.animator stopAnimation:YES];
 }
 
-- (void)handleBlurRadiusChanged:(QMUISlider *)slider {
+- (void)handleBlurRadiusChanged:(UISlider *)slider {
     CGFloat radius = slider.value;
     self.effectView.effect = [UIBlurEffect qmui_effectWithBlurRadius:radius];
     self.label1.text = [NSString stringWithFormat:@"1. 支持精确指定模糊半径(当前%.2f)", radius];
@@ -117,13 +117,13 @@
     return label;
 }
 
-- (QMUISlider *)generateSlider {
-    QMUISlider *slider = [[QMUISlider alloc] init];
+- (UISlider *)generateSlider {
+    UISlider *slider = [[UISlider alloc] init];
     slider.minimumTrackTintColor = UIColor.qd_tintColor;
     slider.maximumTrackTintColor = UIColor.qd_separatorColor;
-    slider.trackHeight = 1;// 支持修改背后导轨的高度
-    slider.thumbColor = slider.minimumTrackTintColor;
-    slider.thumbSize = CGSizeMake(14, 14);
+    slider.qmui_trackHeight = 1;// 支持修改背后导轨的高度
+    slider.qmui_thumbColor = slider.minimumTrackTintColor;
+    slider.qmui_thumbSize = CGSizeMake(14, 14);
     return slider;
 }
 

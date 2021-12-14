@@ -21,8 +21,8 @@
     
     _textField = [[QMUITextField alloc] init];
     self.textField.delegate = self;
-    self.textField.maximumTextLength = 10;
-    self.textField.placeholder = @"请输入文字";
+    self.textField.maximumTextLength = 11;
+    self.textField.placeholder = @"请输入手机号码";
     self.textField.font = UIFontMake(16);
     self.textField.layer.cornerRadius = 2;
     self.textField.layer.borderColor = UIColorSeparator.CGColor;
@@ -52,8 +52,16 @@
 
 #pragma mark - <QMUITextFieldDelegate>
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string originalValue:(BOOL)originalValue {
+    if (![string qmui_stringMatchedByPattern:@"^\\d+$"]) {
+        [QMUITips showWithText:@"仅允许输入数字" inView:self.view hideAfterDelay:1.0];
+        return NO;
+    }
+    return originalValue;
+}
+
 - (void)textField:(QMUITextField *)textField didPreventTextChangeInRange:(NSRange)range replacementString:(NSString *)replacementString {
-    [QMUITips showWithText:[NSString stringWithFormat:@"文字不能超过 %@ 个字符", @(textField.maximumTextLength)] inView:self.view hideAfterDelay:2.0];
+    [QMUITips showWithText:[NSString stringWithFormat:@"最多仅允许输入%@位", @(textField.maximumTextLength)] inView:self.view hideAfterDelay:1.5];
 }
 
 @end

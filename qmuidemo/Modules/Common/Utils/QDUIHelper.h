@@ -96,6 +96,14 @@
 + (UIImage *)navigationBarBackgroundImageWithThemeColor:(UIColor *)color;
 @end
 
+@class QMUIInteractiveDebugPanelViewController;
+@class QMUIInteractiveDebugPanelItem;
+
+@interface QDUIHelper (Debug)
+
++ (QMUIInteractiveDebugPanelViewController *)generateDebugViewControllerWithTitle:(NSString *)title items:(NSArray<QMUIInteractiveDebugPanelItem *> *)items;
+@end
+
 
 @interface NSString (Code)
 

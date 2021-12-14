@@ -21,8 +21,14 @@
     QMUICMI.navBarStyle = UIBarStyleBlack;
     
     QMUICMI.tabBarBackgroundImage = nil;
+    QMUICMI.tabBarShadowImageColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+        return theme.themeSeparatorColor;
+    }];// 这是一个 QMUIThemeColor，在应用配置表时，QMUIThemeImage 里还没 hook qmui_imageWithColor 方法，所以无法生成一个 QMUIThemeImage 对象，所以不会自动变化，所以需要手动在 Dark 配置表里再设置一次
     QMUICMI.tabBarStyle = UIBarStyleBlack;
     
+    QMUICMI.toolBarShadowImageColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, __kindof NSObject<NSCopying> * _Nullable identifier, NSObject<QDThemeProtocol> *theme) {
+        return theme.themeSeparatorColor;
+    }];// 这是一个 QMUIThemeColor，在应用配置表时，QMUIThemeImage 里还没 hook qmui_imageWithColor 方法，所以无法生成一个 QMUIThemeImage 对象，所以不会自动变化，所以需要手动在 Dark 配置表里再设置一次
     QMUICMI.toolBarStyle = UIBarStyleBlack;
 }
 

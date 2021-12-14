@@ -14,6 +14,7 @@
 @property(nonatomic, strong) QMUIMarqueeLabel *shortTextLabel;
 @property(nonatomic, strong) QMUIMarqueeLabel *noFadeAndQuickLabel;
 @property(nonatomic, strong) QMUIMarqueeLabel *textStartLabel;
+@property(nonatomic, strong) UILabel *systemLabel;
 @property(nonatomic, strong) CALayer *separatorLayer;
 @property(nonatomic, strong) UICollectionView *collectionView;
 @property(nonatomic, strong) QMUICollectionViewPagingLayout *collectionViewLayout;
@@ -22,6 +23,7 @@
 @interface QDMarqueeCollectionViewCell : UICollectionViewCell
 
 @property(nonatomic, strong) QMUIMarqueeLabel *label;
+@property(nonatomic, strong) UILabel *label2;
 @end
 
 @implementation QDMarqueeLabelViewController
@@ -43,6 +45,11 @@
     self.textStartLabel.textStartAfterFade = YES;// 文字停靠在遮罩的右边
     self.textStartLabel.speed = 1.5;
     [self.view addSubview:self.textStartLabel];
+    
+    self.systemLabel = [[UILabel alloc] qmui_initWithFont:self.textStartLabel.font textColor:self.textStartLabel.textColor];
+    self.systemLabel.text = @"普通 UILabel 也可以开启 marquee 效果，性能比 QMUIMarqueeLabel 更好，但功能没那么丰富。";
+    [self.systemLabel qmui_startNativeMarquee];
+    [self.view addSubview:self.systemLabel];
     
     self.separatorLayer = [CALayer qmui_separatorLayer];
     [self.view.layer addSublayer:self.separatorLayer];
@@ -70,20 +77,22 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat minY = self.qmui_navigationBarMaxYInViewCoordinator;
+    __block CGFloat minY = self.qmui_navigationBarMaxYInViewCoordinator;
     self.separatorLayer.frame = CGRectFlatMake(0, minY + (CGRectGetHeight(self.view.bounds) - minY) / 2, CGRectGetWidth(self.view.bounds), PixelOne);
     
     UIEdgeInsets paddings = UIEdgeInsetsMake(minY + 32, 24, 24, 24);
     CGFloat labelWidth = fmin(CGRectGetWidth(self.view.bounds), [QMUIHelper screenSizeFor47Inch].width) - UIEdgeInsetsGetHorizontalValue(paddings);
     CGFloat labelMinX = CGFloatGetCenter(CGRectGetWidth(self.view.bounds), labelWidth);
     CGFloat labelSpacing = (CGRectGetMinY(self.separatorLayer.frame) - paddings.top - paddings.bottom - CGRectGetHeight(self.view.subviews.firstObject.frame) * self.view.subviews.count) / (self.view.subviews.count - 1);
-    labelSpacing = fmax(fmin(labelSpacing, 32), 10);
+    labelSpacing = MAX(fmin(labelSpacing, 32), 10);
     minY = paddings.top;
-    for (NSInteger i = 0; i < self.view.subviews.count; i++) {
-        QMUIMarqueeLabel *label = (QMUIMarqueeLabel *)self.view.subviews[i];
-        label.frame = CGRectMake(labelMinX, minY, labelWidth, CGRectGetHeight(label.frame));
+    NSArray<UILabel *> *labels = [self.view.subviews qmui_filterWithBlock:^BOOL(__kindof UIView * _Nonnull item) {
+        return [item isKindOfClass:UILabel.class];
+    }];
+    [labels enumerateObjectsUsingBlock:^(UILabel * _Nonnull label, NSUInteger idx, BOOL * _Nonnull stop) {
+        label.frame = CGRectMake(labelMinX, minY, labelWidth, QMUIViewSelfSizingHeight);
         minY = CGRectGetMaxY(label.frame) + labelSpacing;
-    }
+    }];
     
     self.collectionView.frame = CGRectMake(0, CGRectGetMaxY(self.separatorLayer.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetMaxY(self.separatorLayer.frame));
     self.collectionViewLayout.itemSize = CGSizeMake(CGRectGetWidth(self.collectionView.bounds) - UIEdgeInsetsGetHorizontalValue(self.collectionViewLayout.sectionInset), CGRectGetHeight(self.collectionView.bounds) - UIEdgeInsetsGetVerticalValue(self.collectionViewLayout.sectionInset));
@@ -103,17 +112,20 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     QDMarqueeCollectionViewCell *cell = (QDMarqueeCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.label.text = @"在可复用的 UIView 里使用 QMUIMarqueeLabel 时，需要手动触发动画、停止动画，否则可能在滚动过程中动画会不正确地被开启/关闭";
+    cell.label2.text = @"普通 UILabel 也可以开启 marquee 效果，性能比 QMUIMarqueeLabel 更好，但功能没那么丰富。";
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(QDMarqueeCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     // 在 willDisplayCell 里开启动画（不能在 cellForItem 里开启，是因为 cellForItem 的时候，cell 尚未被 add 到 collectionView 上，cell.window 为 nil）
-    [((QDMarqueeCollectionViewCell *)cell).label requestToStartAnimation];
+    [cell.label requestToStartAnimation];
+    [cell.label2 qmui_startNativeMarquee];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(QDMarqueeCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     // 在 didEndDisplayingCell 里停止动画，避免资源消耗
-    [((QDMarqueeCollectionViewCell *)cell).label requestToStopAnimation];
+    [cell.label requestToStopAnimation];
+    [cell.label2 qmui_stopNativeMarquee];
 }
 
 @end
@@ -128,13 +140,18 @@
         self.label = [[QMUIMarqueeLabel alloc] qmui_initWithFont:UIFontMake(16) textColor:UIColorWhite];
         [self.label qmui_calculateHeightAfterSetAppearance];
         [self.contentView addSubview:self.label];
+        
+        self.label2 = [[UILabel alloc] qmui_initWithFont:self.label.font textColor:self.label.textColor];
+        [self.label2 qmui_startNativeMarquee];
+        [self.contentView addSubview:self.label2];
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.label.frame = CGRectMake(24, CGFloatGetCenter(CGRectGetHeight(self.contentView.bounds), CGRectGetHeight(self.label.frame)), CGRectGetWidth(self.contentView.bounds) - 24 * 2, CGRectGetHeight(self.label.frame));
+    self.label.frame = CGRectMake(24, CGFloatGetCenter(CGRectGetHeight(self.contentView.bounds), CGRectGetHeight(self.label.frame)) - 10, CGRectGetWidth(self.contentView.bounds) - 24 * 2, QMUIViewSelfSizingHeight);
+    self.label2.frame = CGRectSetY(self.label.frame, CGRectGetMaxY(self.label.frame) + 10);
 }
 
 @end

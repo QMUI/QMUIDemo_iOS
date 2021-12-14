@@ -38,6 +38,7 @@
                                      @"+ qmui_imageWithColor:", @"生成一张纯色的矩形图片，默认大小为(4, 4)",
                                      @"+ qmui_imageWithColor:size:cornerRadius:", @"生成一张纯色的矩形图片，可指定图片的大小和圆角",
                                      @"+ qmui_imageWithColor:size:cornerRadiusArray:", @"同上，但四个角的圆角值允许不相等",
+                                     @"+ qmui_imageWithGradientColors:type:locations:size:cornerRadiusArray:", @"生成渐变图片",
                                      @"+ qmui_imageWithStrokeColor:size:path:addClip:", @"将一条路径绘制到指定大小的画图里，并返回生成的图片",
                                      @"+ qmui_imageWithStrokeColor:size:lineWidth:cornerRadius:", @"生成一张指定大小的矩形图片，背景透明，带描边和圆角",
                                      @"+ qmui_imageWithStrokeColor:size:lineWidth:borderPosition:", @"生成一张指定大小的矩形图片，允许在各个方向选择添加边框",
@@ -140,6 +141,8 @@
         contentSizeHeight = [self generateExampleViewForImageWithAttributedString];
     } else if ([title isEqualToString:@"+ qmui_imageWithView:"] || [title isEqualToString:@"+ qmui_imageWithView:afterScreenUpdates:"]) {
         contentSizeHeight = [self generateExampleViewForImageWithView];
+    } else if ([title isEqualToString:@"+ qmui_imageWithGradientColors:type:locations:size:cornerRadiusArray:"]) {
+        contentSizeHeight = [self generateExampleViewForImageWithGradientColors];
     }
     self.scrollView.contentSize = CGSizeMake(contentViewLimitWidth, contentSizeHeight);
     
@@ -805,6 +808,26 @@
     minY = CGRectGetMaxY(originImageLabel.frame) + 6;
     
     UIImage *originImage = [UIImage qmui_imageWithColor:[QDCommonUI randomThemeColor] size:CGSizeMake(contentWidth / 2, 40) cornerRadiusArray:@[@0, @0, @10, @10]];
+    UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
+    originImageView.frame = CGRectSetY(originImageView.frame, minY);
+    [self.scrollView addSubview:originImageView];
+    minY = CGRectGetMaxY(originImageView.frame) + 16;
+    
+    return minY;
+}
+
+- (CGFloat)generateExampleViewForImageWithGradientColors {
+    CGFloat contentWidth = [self contentViewLimitWidth];
+    CGFloat minY = [self contentViewLayoutStartingMinY];
+
+    UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
+    originImageLabel.text = @"生成一张渐变图片，支持多种渐变方向";
+    [originImageLabel sizeToFit];
+    originImageLabel.frame = CGRectSetY(originImageLabel.frame, minY);
+    [self.scrollView addSubview:originImageLabel];
+    minY = CGRectGetMaxY(originImageLabel.frame) + 6;
+    
+    UIImage *originImage = [UIImage qmui_imageWithGradientColors:@[[QDCommonUI randomThemeColor], [QDCommonUI randomThemeColor]] type:QMUIImageGradientTypeHorizontal locations:nil size:CGSizeMake(100, 40) cornerRadiusArray:nil];
     UIImageView *originImageView = [[UIImageView alloc] initWithImage:originImage];
     originImageView.frame = CGRectSetY(originImageView.frame, minY);
     [self.scrollView addSubview:originImageView];

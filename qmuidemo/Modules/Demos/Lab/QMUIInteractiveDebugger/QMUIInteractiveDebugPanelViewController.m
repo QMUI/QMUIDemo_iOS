@@ -61,6 +61,10 @@
     for (QMUIInteractiveDebugPanelItem *item in self.items) {
         [self addDebugItemViewAfterViewLoaded:item];
     }
+    
+    if (self.styleConfiguration) {
+        self.styleConfiguration(self);
+    }
 }
 
 - (void)addDebugItem:(QMUIInteractiveDebugPanelItem *)item {
@@ -74,6 +78,10 @@
         [self.view addSubview:item.actionView];
         if (item.valueGetter) item.valueGetter(item.actionView);
     }
+}
+
+- (NSArray<QMUIInteractiveDebugPanelItem *> *)debugItems {
+    return self.items.copy;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -95,6 +103,10 @@
     modal.contentViewController = self;
     modal.maximumContentViewWidth = 320;
     [viewController presentViewController:modal animated:YES completion:nil];
+}
+
+- (CGSize)contentSizeThatFits:(CGSize)size {
+    return [self preferredContentSizeInModalPresentationViewController:self.qmui_modalPresentationViewController keyboardHeight:0 limitSize:size];
 }
 
 #pragma mark - <QMUIModalPresentationContentViewControllerProtocol>
