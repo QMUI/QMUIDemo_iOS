@@ -73,9 +73,13 @@
     [self.qmui_backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isMemberOfClass:UIVisualEffectView.class]) {// shadowView 也是一个 UIVisualEffect 的子类，所以这里用 isMemberOfClass 而不是 isKindOfClass
             UIVisualEffectView *effectView = (UIVisualEffectView *)obj;
-            if (self.qmui_smoothEffect && !effectView.effect) {
-                // push/pop 转场时不能修改 effect 属性，所以简单做个保护，因为一般都在 push/pop 前就已经走到这里了
-                effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+            if (self.qmui_smoothEffect) {
+                if (!effectView.effect && !effectView.layer.animationKeys.count) {
+                    // push/pop 转场时不能修改 effect 属性，所以简单做个保护，因为一般都在 push/pop 前就已经走到这里了
+                    effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+                } else if (!effectView.effect && effectView.layer.animationKeys.count) {
+                    QMUIAssert(NO, @"UINavigationBar (QMUISmoothEffect)", @"%@ 尝试在动画过程中设置 UIVisualEffectView.effect，当前界面为 %@", self, [QMUIHelper visibleViewController]);
+                }
             }
             effectView.qmui_foregroundColor = self.qmui_smoothEffect ? self.barTintColor : nil;
         }

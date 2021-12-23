@@ -59,7 +59,7 @@
     
     self.copyrightLabel = [[UILabel alloc] init];
     self.copyrightLabel.numberOfLines = 0;
-    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2021 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
+    self.copyrightLabel.attributedText = [[NSAttributedString alloc] initWithString:@"© 2022 QMUI Team All Rights Reserved." attributes:@{NSFontAttributeName: UIFontMake(12), NSForegroundColorAttributeName: UIColor.qd_descriptionTextColor, NSParagraphStyleAttributeName: [NSMutableParagraphStyle qmui_paragraphStyleWithLineHeight:16 lineBreakMode:NSLineBreakByWordWrapping textAlignment:NSTextAlignmentCenter]}];
     [self.scrollView addSubview:self.copyrightLabel];
 }
 
