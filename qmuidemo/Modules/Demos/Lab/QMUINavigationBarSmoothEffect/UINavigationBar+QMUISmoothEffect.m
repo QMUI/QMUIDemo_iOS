@@ -14,90 +14,99 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        void (^updateBarBackgroundBlock)(UIView *) = ^void(UIView *selfObject) {
-            if ([selfObject.superview isKindOfClass:UINavigationBar.class]) {
-                UINavigationBar *navigationBar = (UINavigationBar *)selfObject.superview;
-                if (navigationBar.qmui_smoothEffect) {
-                    [navigationBar qmuinbe_updateBackgroundSmoothEffect];
+        OverrideImplementation([UINavigationBar class], @selector(setQmui_effectForegroundColor:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UINavigationBar *selfObject, UIColor *firstArgv) {
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, UIColor *);
+                originSelectorIMP = (void (*)(id, SEL, UIColor *))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, firstArgv);
+                
+                if (firstArgv) {
+                    selfObject.qmui_smoothEffectAlpha = -1;
                 }
-            }
-        };
-        OverrideImplementation(NSClassFromString(@"_UIBarBackground"), @selector(didAddSubview:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(UIView *selfObject, UIView *subview) {
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL, UIView *);
-                originSelectorIMP = (void (*)(id, SEL, UIView *))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, subview);
-                
-                updateBarBackgroundBlock(selfObject);
             };
         });
         
-        OverrideImplementation(NSClassFromString(@"_UIBarBackground"), @selector(didMoveToSuperview), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(UIView *selfObject) {
-                
-                // call super
-                void (*originSelectorIMP)(id, SEL);
-                originSelectorIMP = (void (*)(id, SEL))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD);
-                
-                updateBarBackgroundBlock(selfObject);
-            };
-        });
-        
-        ExtendImplementationOfVoidMethodWithSingleArgument([UINavigationBar class], @selector(setBarTintColor:), UIColor *, ^(UINavigationBar *navigationBar, UIColor *barTintColor) {
-            if (navigationBar.qmui_smoothEffect) {
-                [navigationBar qmuinbe_updateBackgroundSmoothEffect];
-            }
-        });
-        
-        Class transitionNavigationBarClass = NSClassFromString(@"_QMUITransitionNavigationBar");
-        SEL setterSelector = NSSelectorFromString(@"setOriginalNavigationBar:");
-        NSAssert([transitionNavigationBarClass instancesRespondToSelector:setterSelector], @"-[%@ %@] 不存在，请检查是否重命名了", NSStringFromClass(transitionNavigationBarClass), NSStringFromSelector(setterSelector));
-        OverrideImplementation(transitionNavigationBarClass, setterSelector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
-            return ^(UINavigationBar *selfObject, UINavigationBar *firstArgv) {
+        // 同步假 bar 的效果
+        SEL setterSelector = NSSelectorFromString(@"setQmuinb_copyStylesToBar:");
+        NSAssert([UINavigationBar instancesRespondToSelector:setterSelector], @"请检查 UINavigationBar+Transtion 里是否没提供 setQmuinb_copyStylesToBar: 方法？");
+        OverrideImplementation(UINavigationBar.class, setterSelector, ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UINavigationBar *selfObject, UINavigationBar *copyStylesToBar) {
                 
                 // call super
                 void (*originSelectorIMP)(id, SEL, UINavigationBar *);
                 originSelectorIMP = (void (*)(id, SEL, UINavigationBar *))originalIMPProvider();
-                originSelectorIMP(selfObject, originCMD, firstArgv);
+                originSelectorIMP(selfObject, originCMD, copyStylesToBar);
                 
-                selfObject.qmui_smoothEffect = firstArgv.qmui_smoothEffect;
+                copyStylesToBar.qmui_smoothEffect = selfObject.qmui_smoothEffect;
+                copyStylesToBar.qmui_smoothEffectAlpha = selfObject.qmui_smoothEffectAlpha;
             };
         });
     });
-}
-
-- (void)qmuinbe_updateBackgroundSmoothEffect {
-    [self.qmui_backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isMemberOfClass:UIVisualEffectView.class]) {// shadowView 也是一个 UIVisualEffect 的子类，所以这里用 isMemberOfClass 而不是 isKindOfClass
-            UIVisualEffectView *effectView = (UIVisualEffectView *)obj;
-            if (self.qmui_smoothEffect) {
-                if (!effectView.effect && !effectView.layer.animationKeys.count) {
-                    // push/pop 转场时不能修改 effect 属性，所以简单做个保护，因为一般都在 push/pop 前就已经走到这里了
-                    effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-                } else if (!effectView.effect && effectView.layer.animationKeys.count) {
-                    QMUIAssert(NO, @"UINavigationBar (QMUISmoothEffect)", @"%@ 尝试在动画过程中设置 UIVisualEffectView.effect，当前界面为 %@", self, [QMUIHelper visibleViewController]);
-                }
-            }
-            effectView.qmui_foregroundColor = self.qmui_smoothEffect ? self.barTintColor : nil;
-        }
-    }];
 }
 
 static char kAssociatedObjectKey_smoothEffect;
 - (void)setQmui_smoothEffect:(BOOL)qmui_smoothEffect {
     BOOL valueChanged = qmui_smoothEffect != self.qmui_smoothEffect;
     if (!valueChanged) return;
-    if (qmui_smoothEffect && [self backgroundImageForBarMetrics:UIBarMetricsDefault]) return;// 有 backgroundImage 则必定无法显示磨砂，此时不允许打开 qmui_smoothEffect
+    if (qmui_smoothEffect) {
+        
+        UIImage *backgroundImage = [self backgroundImageForBarMetrics:UIBarMetricsDefault];
+        if (backgroundImage && !CGRectIsEmpty(self.frame)) {// 假 bar 转场时有一瞬间会走到这里，但那个时候 frame 还是0，所以屏蔽这个情况
+            QMUILogWarn(@"QMUISmoothEffect", @"试图开启 qmui_smoothEffect 但由于当前 UINavigationBar 存在 backgroundImage 所以无法显示磨砂，%@, backgroundImage = %@", self, backgroundImage);
+            return;
+        }
+        
+        UIColor *barTintColor = self.barTintColor;
+        if (barTintColor && barTintColor.qmui_alpha > 0 && !CGRectIsEmpty(self.frame)) {// 假 bar 转场时有一瞬间会走到这里，但那个时候 frame 还是0，所以屏蔽这个情况
+            // 只是提示，不用 return，因为影响比较小
+            QMUILogWarn(@"QMUISmoothEffect", @"开启 qmui_smoothEffect 的 UINavigationBar 同时存在 barTintColor，可能会导致在 iOS 15 上的磨砂效果比 iOS 14 及以前的版本要弱，因为前景色多了一层 barTintColor。bar = %@, barTintColor = %@", self, barTintColor);
+        }
+    }
     
     objc_setAssociatedObject(self, &kAssociatedObjectKey_smoothEffect, @(qmui_smoothEffect), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self qmuinbe_updateBackgroundSmoothEffect];
+    
+    if (qmui_smoothEffect) {
+        self.qmui_effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        [self qmuinbe_setEffectForegroundColorAutomatically];
+    } else {
+        self.qmui_effect = nil;
+    }
 }
 
 - (BOOL)qmui_smoothEffect {
     return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_smoothEffect)) boolValue];
+}
+
+static char kAssociatedObjectKey_smoothEffectAlpha;
+- (void)setQmui_smoothEffectAlpha:(CGFloat)smoothEffectAlpha {
+    objc_setAssociatedObject(self, &kAssociatedObjectKey_smoothEffectAlpha, @(smoothEffectAlpha), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self qmuinbe_setEffectForegroundColorAutomatically];
+}
+
+- (CGFloat)qmui_smoothEffectAlpha {
+    NSNumber *value = ((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_smoothEffectAlpha));
+    if (!value) {
+        // 默认值
+        return 0.7;
+    }
+    return [value qmui_CGFloatValue];
+}
+
+- (void)qmuinbe_setEffectForegroundColorAutomatically {
+    // 自动设置完一次就不会再更新了，因为在上面 hook 逻辑里会把 alpha 置为-1，就不会再走进来这个条件
+    if (self.qmui_smoothEffectAlpha >= 0) {
+        UINavigationController *nav = (UINavigationController *)self.qmui_viewController;
+        if ([nav isKindOfClass:UINavigationController.class]) {
+            UIViewController *vc = nav.topViewController;
+            if (vc.isViewLoaded) {
+                UIColor *color = vc.view.backgroundColor;
+                color = [color colorWithAlphaComponent:self.qmui_smoothEffectAlpha];
+                self.qmui_effectForegroundColor = color;
+            }
+        }
+    }
 }
 
 @end

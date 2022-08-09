@@ -19,15 +19,20 @@
 
 - (void)initSubviews {
     [super initSubviews];
+    __weak __typeof(self)weakSelf = self;
+    
     self.slider = [[UISlider alloc] init];
     self.slider.value = .3;
     self.slider.minimumTrackTintColor = UIColor.qd_tintColor;
     self.slider.maximumTrackTintColor = UIColor.qd_separatorColor;
-    self.slider.qmui_trackHeight = 1;
-    self.slider.qmui_thumbSize = CGSizeMake(14, 14);
-    self.slider.qmui_thumbColor = self.slider.minimumTrackTintColor;
-    self.slider.qmui_thumbShadowColor = self.slider.minimumTrackTintColor;
-    self.slider.qmui_thumbShadowRadius = 5;
+    self.slider.qmui_trackHeight = 1;                                       // 圆点背后那条槽的高度
+    self.slider.qmui_thumbSize = CGSizeMake(14, 14);                        // 圆点的大小
+    self.slider.qmui_thumbColor = self.slider.minimumTrackTintColor;        // 圆点的填充颜色
+    self.slider.qmui_thumbShadowColor = self.slider.minimumTrackTintColor;  // 圆点的投影颜色
+    self.slider.qmui_thumbShadowRadius = 5;                                 // 圆点的投影扩散值
+    self.slider.qmui_stepDidChangeBlock = ^(__kindof UISlider * _Nonnull slider, NSUInteger precedingStep) {
+        ((QMUITextField *)weakSelf.debugViewController.debugItems[1].actionView).text = [NSString stringWithFormat:@"%@", @(slider.qmui_step)];
+    }; // 监听 step 的变化（用系统的 UIControlEventValueChanged 也可以，具体请看 UISlider+QMUI.h 的注释）。
     [self.view addSubview:self.slider];
     
     [self generateDebugViewController];
@@ -39,14 +44,36 @@
         [QMUIInteractiveDebugPanelItem boolItemWithTitle:@"steps" valueGetter:^(UISwitch * _Nonnull actionView) {
             actionView.on = weakSelf.slider.qmui_numberOfSteps >= 2;
         } valueSetter:^(UISwitch * _Nonnull actionView) {
+            BOOL hasAddedStepItem = NO;
+            for (QMUIInteractiveDebugPanelItem *item in weakSelf.debugViewController.debugItems) {
+                if ([item.title isEqualToString:@"step"]) {
+                    hasAddedStepItem = YES;
+                    break;
+                }
+            }
+            
             if (actionView.on) {
                 weakSelf.slider.qmui_numberOfSteps = 5;
-                weakSelf.slider.qmui_step = 3;
                 weakSelf.slider.qmui_stepControlConfiguration = ^(UISlider *slider, QMUISliderStepControl * _Nonnull stepControl, NSUInteger index) {
                     stepControl.titleLabel.text = [NSString stringWithFormat:@"第%@档", @(index)];
                 };
+                
+                if (!hasAddedStepItem) {
+                    [weakSelf.debugViewController insertDebugItem:[QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"step" valueGetter:^(QMUITextField * _Nonnull actionView) {
+                        actionView.text = [NSString stringWithFormat:@"%@", @(weakSelf.slider.qmui_step)];
+                    } valueSetter:^(QMUITextField * _Nonnull actionView) {
+                        weakSelf.slider.qmui_step = actionView.text.integerValue;
+                    }] atIndex:1];
+                    [weakSelf.view setNeedsLayout];
+                }
+                
+                weakSelf.slider.qmui_step = 3;
             } else {
                 weakSelf.slider.qmui_numberOfSteps = 0;
+                if (hasAddedStepItem) {
+                    [weakSelf.debugViewController removeDebugItemAtIndex:1];
+                    [weakSelf.view setNeedsLayout];
+                }
             }
         }],
         [QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"trackHeight" valueGetter:^(QMUITextField * _Nonnull actionView) {

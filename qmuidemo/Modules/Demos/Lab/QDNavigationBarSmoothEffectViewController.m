@@ -50,12 +50,12 @@
 }
 
 - (UIImage *)qmui_navigationBarBackgroundImage {
-    return nil;// QMUI Demo 默认有背景图，这里为了磨砂，去掉背景图，业务如果本来就没背景图则不需要处理
+    return nil;// 3.1 QMUI Demo 默认有背景图，这里为了磨砂，去掉背景图，业务如果本来就没背景图则不需要处理
 }
 
 - (UIColor *)qmui_navigationBarBarTintColor {
-    // 3. 将 barTintColor 设置为与界面背景色同色，注意需要加上半透明值，否则无法透出背后的磨砂效果。
-    return [self.view.backgroundColor colorWithAlphaComponent:.8];
+    // 3.2 去掉 barTintColor，避免盖多一层磨砂前景色影响磨砂效果
+    return nil;
 }
 
 - (UIColor *)qmui_navigationBarTintColor {

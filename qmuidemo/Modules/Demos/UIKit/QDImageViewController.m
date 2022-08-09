@@ -817,7 +817,6 @@
 }
 
 - (CGFloat)generateExampleViewForImageWithGradientColors {
-    CGFloat contentWidth = [self contentViewLimitWidth];
     CGFloat minY = [self contentViewLayoutStartingMinY];
 
     UILabel *originImageLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];

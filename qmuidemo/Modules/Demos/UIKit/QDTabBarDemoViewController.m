@@ -12,6 +12,7 @@
 
 @property(nonatomic, strong) UITabBar *tabBar;
 @property(nonatomic, strong) UIView *blurTestView;
+@property(nonatomic, strong) UIView *blurTestView2;
 @end
 
 @implementation QDTabBarDemoViewController
@@ -50,6 +51,9 @@
         CGRect rect = [self.tableView convertRect:self.tabBar.frame fromView:self.view];
         self.blurTestView.frame = CGRectMake(100, CGRectGetMinY(rect) - 25, CGRectGetWidth(self.tableView.bounds) - 100 * 2, 25 * 2);
     }
+    if (self.blurTestView2) {
+        self.blurTestView2.frame = CGRectMake(100, - 25, CGRectGetWidth(self.tableView.bounds) - 100 * 2, 25 * 2);
+    }
 }
 
 - (void)initDataSource {
@@ -76,6 +80,7 @@
         
         // backgroundImage 优先级比 backgroundEffect 高，所以这里主动把 backgroundImage 清理掉
         self.tabBar.backgroundImage = nil;
+        self.tabBar.barTintColor = nil;
         
         NSArray<NSNumber *> *effectStyles = @[
             @(UIBlurEffectStyleExtraLight),
@@ -95,7 +100,8 @@
         }
 
         UIBlurEffectStyle style = effectStyles[arc4random() % effectStyles.count].integerValue;
-        self.tabBar.qmui_effect = [UIBlurEffect effectWithStyle:style];
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:style];
+        self.tabBar.qmui_effect = effect;
         self.tabBar.qmui_effectForegroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.3];
         
         // 为了展示磨砂效果，tabBar 背后垫一个 view 来查看透过磨砂的样子
@@ -103,6 +109,22 @@
             self.blurTestView = UIView.new;
             self.blurTestView.backgroundColor = UIColor.qd_tintColor;
             [self.tableView addSubview:self.blurTestView];
+            [self.view setNeedsLayout];
+        }
+        
+        UINavigationBar *navigationBar = self.navigationController.navigationBar;
+        [navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        navigationBar.barTintColor = nil;
+        [navigationBar setNeedsLayout];
+        [navigationBar layoutIfNeeded];
+        navigationBar.qmui_effect = effect;
+        navigationBar.qmui_effectForegroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.3];
+        
+        // 为了展示磨砂效果，tabBar 背后垫一个 view 来查看透过磨砂的样子
+        if (!self.blurTestView2) {
+            self.blurTestView2 = UIView.new;
+            self.blurTestView2.backgroundColor = UIColor.qd_tintColor;
+            [self.tableView addSubview:self.blurTestView2];
             [self.view setNeedsLayout];
         }
     }

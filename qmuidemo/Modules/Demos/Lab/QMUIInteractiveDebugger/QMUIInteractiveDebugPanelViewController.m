@@ -72,11 +72,30 @@
     [self addDebugItemViewAfterViewLoaded:item];
 }
 
+- (void)removeDebugItem:(QMUIInteractiveDebugPanelItem *)item {
+    [self.items removeObject:item];
+    [item.titleLabel removeFromSuperview];
+    [item.actionView removeFromSuperview];
+    if (self.isViewLoaded) {
+        [self.view setNeedsLayout];
+    }
+}
+
+- (void)insertDebugItem:(QMUIInteractiveDebugPanelItem *)item atIndex:(NSUInteger)index {
+    [self.items insertObject:item atIndex:index];
+    [self addDebugItemViewAfterViewLoaded:item];
+}
+
+- (void)removeDebugItemAtIndex:(NSUInteger)index {
+    [self removeDebugItem:self.items[index]];
+}
+
 - (void)addDebugItemViewAfterViewLoaded:(QMUIInteractiveDebugPanelItem *)item {
     if (self.isViewLoaded) {
         [self.view addSubview:item.titleLabel];
         [self.view addSubview:item.actionView];
         if (item.valueGetter) item.valueGetter(item.actionView);
+        [self.view setNeedsLayout];
     }
 }
 

@@ -35,8 +35,8 @@
 
 - (void)handleTableViewStyleChanged:(UISegmentedControl *)segmentedControl {
     self.tableView = [[QMUITableView alloc] initWithFrame:self.view.bounds style:segmentedControl.selectedSegmentIndex];
-    self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self.view sendSubviewToBack:self.tableView];
 }
 

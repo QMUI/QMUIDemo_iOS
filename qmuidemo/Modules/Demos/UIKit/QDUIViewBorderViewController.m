@@ -394,7 +394,9 @@
         // 默认值
         cornerMask = QMUILayerAllCorner;
     }
+    BeginIgnoreDeprecatedWarning
     self.targetView.layer.qmui_maskedCorners = cornerMask;
+    EndIgnoreDeprecatedWarning
 }
 
 - (void)fireAllEvents {

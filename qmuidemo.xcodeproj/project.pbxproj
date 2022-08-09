@@ -58,6 +58,7 @@
 		CDA1CC951EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA1CC941EC1BF5200AB8A0F /* QMUIConfigurationTemplateGrapefruit.m */; };
 		CDA1CC991EC1C34300AB8A0F /* QDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA1CC981EC1C34300AB8A0F /* QDThemeManager.m */; };
 		CDA74F9C206BC1D000AE3830 /* QDMultipleDelegatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA74F9B206BC1D000AE3830 /* QDMultipleDelegatesViewController.m */; };
+		CDA9537C2814460300D0FF0E /* LookinConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA9537A2814460300D0FF0E /* LookinConfig.m */; };
 		CDB8C9D01DCC815A00769DF0 /* QMUIConfigurationTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9381DCC815A00769DF0 /* QMUIConfigurationTemplate.m */; };
 		CDB8C9D11DCC815A00769DF0 /* QDCommonGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C93B1DCC815A00769DF0 /* QDCommonGridViewController.m */; };
 		CDB8C9D21DCC815A00769DF0 /* QDCommonGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C93D1DCC815A00769DF0 /* QDCommonGroupListViewController.m */; };
@@ -323,6 +324,8 @@
 		CDA1CC9A1EC1C47800AB8A0F /* QDThemeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDThemeProtocol.h; sourceTree = "<group>"; };
 		CDA74F9A206BC1D000AE3830 /* QDMultipleDelegatesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDMultipleDelegatesViewController.h; sourceTree = "<group>"; };
 		CDA74F9B206BC1D000AE3830 /* QDMultipleDelegatesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDMultipleDelegatesViewController.m; sourceTree = "<group>"; };
+		CDA953792814460300D0FF0E /* LookinConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookinConfig.h; sourceTree = "<group>"; };
+		CDA9537A2814460300D0FF0E /* LookinConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookinConfig.m; sourceTree = "<group>"; };
 		CDB8C9371DCC815A00769DF0 /* QMUIConfigurationTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMUIConfigurationTemplate.h; sourceTree = "<group>"; };
 		CDB8C9381DCC815A00769DF0 /* QMUIConfigurationTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMUIConfigurationTemplate.m; sourceTree = "<group>"; };
 		CDB8C93A1DCC815A00769DF0 /* QDCommonGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommonGridViewController.h; sourceTree = "<group>"; };
@@ -658,11 +661,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CDA953782814460300D0FF0E /* LookinConfig */ = {
+			isa = PBXGroup;
+			children = (
+				CDA953792814460300D0FF0E /* LookinConfig.h */,
+				CDA9537A2814460300D0FF0E /* LookinConfig.m */,
+			);
+			path = LookinConfig;
+			sourceTree = "<group>";
+		};
 		CDB8C9351DCC815A00769DF0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				CDB8C9361DCC815A00769DF0 /* Configuration */,
 				CDB8C9391DCC815A00769DF0 /* Controllers */,
+				CDA953782814460300D0FF0E /* LookinConfig */,
 				CDB8C9481DCC815A00769DF0 /* Utils */,
 			);
 			path = Common;
@@ -1247,6 +1260,7 @@
 				CDB8C9F71DCC815A00769DF0 /* QDReplicatorLayerViewController.m in Sources */,
 				CDB8C9DA1DCC815A00769DF0 /* UIImageEffects.m in Sources */,
 				CD9D6EC6211064060004E222 /* QDCAAnimationViewController.m in Sources */,
+				CDA9537C2814460300D0FF0E /* LookinConfig.m in Sources */,
 				D05086B424CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m in Sources */,
 				CD4EA4B72275D5C200A55066 /* QDImageViewViewController.m in Sources */,
 				CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */,
@@ -1525,6 +1539,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = PM6KH29YH2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1541,14 +1556,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.2;
+				MARKETING_VERSION = 4.5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.q;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1568,6 +1583,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = PM6KH29YH2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1584,12 +1600,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.2;
+				MARKETING_VERSION = 4.5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.q;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1678,9 +1694,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 4.4.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.q.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1711,8 +1728,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 4.4.2;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.q.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -24,6 +24,17 @@
     }
 }
 
+- (void)setupNavigationItems {
+    [super setupNavigationItems];
+    if (self.qmui_isPresented) {
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem qmui_closeItemWithTarget:self action:@selector(handleCloseItem)];
+    }
+}
+
+- (void)handleCloseItem {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (BOOL)shouldCustomizeNavigationBarTransitionIfHideable {
     return YES;
 }
