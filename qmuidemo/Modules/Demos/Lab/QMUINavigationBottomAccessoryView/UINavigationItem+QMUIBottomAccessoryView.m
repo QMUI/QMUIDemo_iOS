@@ -150,12 +150,7 @@ static char kAssociatedObjectKey_accessoryView;
                 return;
             }
             
-            UIVisualEffectView *effectView = nil;
-            if (@available(iOS 13.0, *)) {
-                effectView = [selfObject qmui_valueForKey:@"_effectView1"];
-            } else {
-                effectView = [selfObject qmui_valueForKey:@"_backgroundEffectView"];
-            }
+            UIVisualEffectView *effectView = [selfObject qmui_valueForKey:@"_effectView1"];
             if (navigationBar.qmuibav_backgroundEffectViewExtendBottomBlock) {
                 if (effectView) {
                     effectView.frame = CGRectSetHeight(effectView.frame, CGRectGetHeight(selfObject.bounds) + navigationBar.qmuibav_backgroundEffectViewExtendBottomBlock());

@@ -101,7 +101,7 @@
             vc.dataSource = @[
                 @"(QM)UITableViewCell",
                 @"QMUITableViewHeaderFooterView",
-                @"QMUITableViewStyleInsetGrouped"];
+                @"UITableViewStyleInsetGrouped"];
             __weak __typeof(vc)weakVc1 = vc;
             vc.didSelectTitleBlock = ^(NSString *title) {
                 UIViewController *viewController = nil;
@@ -131,7 +131,7 @@
                     });
                 } else if ([title isEqualToString:@"QMUITableViewHeaderFooterView"]) {
                     viewController = QDTableViewHeaderFooterViewController.new;
-                } else if ([title isEqualToString:@"QMUITableViewStyleInsetGrouped"]) {
+                } else if ([title isEqualToString:@"UITableViewStyleInsetGrouped"]) {
                     viewController = QDInsetGroupedTableViewController.new;
                 }
                 viewController.title = title;

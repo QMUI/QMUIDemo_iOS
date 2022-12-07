@@ -36,7 +36,7 @@ const CGFloat QDButtonSpacingHeight = 72;
                     if ([QMUIThemeManagerCenter.defaultThemeManager.currentThemeIdentifier isEqual:QDThemeIdentifierDark]) {
                         return UIStatusBarStyleLightContent;
                     }
-                    return QMUIStatusBarStyleDarkContent;
+                    return UIStatusBarStyleDarkContent;
                 };
                 return result;
             };

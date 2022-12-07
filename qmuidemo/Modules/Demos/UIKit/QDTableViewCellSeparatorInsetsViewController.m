@@ -31,7 +31,7 @@
         cell.qmui_separatorInsetsBlock = ^UIEdgeInsets(__kindof UITableView * _Nonnull aTableView, __kindof UITableViewCell * _Nonnull aCell) {
             QMUITableViewCellPosition position = aCell.qmui_cellPosition;
             CGFloat defaultRight = 20;
-            switch (aTableView.qmui_style) {
+            switch (aTableView.style) {
                 case UITableViewStylePlain: {
                     CGRect frame = [aCell convertRect:aCell.textLabel.bounds fromView:aCell.textLabel];
                     CGFloat left = CGRectGetMinX(frame);
@@ -58,7 +58,7 @@
             }
         };
         cell.qmui_topSeparatorInsetsBlock = ^UIEdgeInsets(__kindof UITableView * _Nonnull aTableView, __kindof UITableViewCell * _Nonnull aCell) {
-            if (aTableView.qmui_style == UITableViewStyleGrouped && aCell.qmui_cellPosition & QMUITableViewCellPositionFirstInSection) {
+            if (aTableView.style == UITableViewStyleGrouped && aCell.qmui_cellPosition & QMUITableViewCellPositionFirstInSection) {
                 return UIEdgeInsetsZero;
             }
             return QMUITableViewCellSeparatorInsetsNone;

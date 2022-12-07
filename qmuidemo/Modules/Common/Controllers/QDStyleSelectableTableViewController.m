@@ -21,15 +21,11 @@
         [self.segmentedTitleView addTarget:self action:@selector(handleTableViewStyleChanged:) forControlEvents:UIControlEventValueChanged];
         
         UIColor *tintColor = self.navigationController.navigationBar.tintColor;
-        if (@available(iOS 13.0, *)) {
-            self.segmentedTitleView.selectedSegmentTintColor = tintColor;
-        } else {
-            self.segmentedTitleView.tintColor = tintColor;
-        }
+        self.segmentedTitleView.selectedSegmentTintColor = tintColor;
         [self.segmentedTitleView setTitleTextAttributes:@{NSForegroundColorAttributeName: tintColor} forState:UIControlStateNormal];
         [self.segmentedTitleView setTitleTextAttributes:@{NSForegroundColorAttributeName: UIColor.qd_tintColor} forState:UIControlStateSelected];
     }
-    self.segmentedTitleView.selectedSegmentIndex = self.tableView.qmui_style;
+    self.segmentedTitleView.selectedSegmentIndex = self.tableView.style;
     self.navigationItem.titleView = self.segmentedTitleView;
 }
 

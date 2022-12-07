@@ -87,17 +87,13 @@
             @(UIBlurEffectStyleLight),
             @(UIBlurEffectStyleDark),
             @(UIBlurEffectStyleProminent),
+            @(UIBlurEffectStyleSystemUltraThinMaterialLight),
+            @(UIBlurEffectStyleSystemMaterialLight),
+            @(UIBlurEffectStyleSystemChromeMaterialLight),
+            @(UIBlurEffectStyleSystemUltraThinMaterialDark),
+            @(UIBlurEffectStyleSystemMaterialDark),
+            @(UIBlurEffectStyleSystemChromeMaterialDark),
         ];
-        if (@available(iOS 13.0, *)) {
-            effectStyles = [effectStyles arrayByAddingObjectsFromArray:@[
-                @(UIBlurEffectStyleSystemUltraThinMaterialLight),
-                @(UIBlurEffectStyleSystemMaterialLight),
-                @(UIBlurEffectStyleSystemChromeMaterialLight),
-                @(UIBlurEffectStyleSystemUltraThinMaterialDark),
-                @(UIBlurEffectStyleSystemMaterialDark),
-                @(UIBlurEffectStyleSystemChromeMaterialDark),
-            ]];
-        }
 
         UIBlurEffectStyle style = effectStyles[arc4random() % effectStyles.count].integerValue;
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:style];

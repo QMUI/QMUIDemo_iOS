@@ -16,13 +16,11 @@
 
 - (BOOL)qd_hasKeyboardFocus {
     // https://stackoverflow.com/a/35915719/4250833
-    if (@available(iOS 13.0, *)) {
-        if ([self isKindOfClass:[UIView class]] && QMUICMIActivated && !IgnoreKVCAccessProhibited) {
-            BeginIgnoreUIKVCAccessProhibited
-            id value = [self valueForKey:@"hasKeyboardFocus"];
-            EndIgnoreUIKVCAccessProhibited
-            return value;
-        }
+    if ([self isKindOfClass:[UIView class]] && QMUICMIActivated && !IgnoreKVCAccessProhibited) {
+        BeginIgnoreUIKVCAccessProhibited
+        id value = [self valueForKey:@"hasKeyboardFocus"];
+        EndIgnoreUIKVCAccessProhibited
+        return value;
     }
     return [self valueForKey:@"hasKeyboardFocus"];
 }

@@ -71,7 +71,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return [QDThemeManager.currentTheme.themeName isEqualToString:QDThemeIdentifierDark] ? UIStatusBarStyleLightContent : QMUIStatusBarStyleDarkContent;
+    return [QDThemeManager.currentTheme.themeName isEqualToString:QDThemeIdentifierDark] ? UIStatusBarStyleLightContent : UIStatusBarStyleDarkContent;
 }
 
 - (void)viewDidLayoutSubviews {

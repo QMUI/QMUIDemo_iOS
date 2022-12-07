@@ -91,12 +91,8 @@
     }];
     
     self.respondsSystemStyleSwitch = [[UISwitch alloc] init];
-    if (@available(iOS 13.0, *)) {
-        self.respondsSystemStyleSwitch.on = QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically;
-        [self.respondsSystemStyleSwitch addTarget:self action:@selector(handleSwitchEvent:) forControlEvents:UIControlEventValueChanged];
-    } else {
-        self.respondsSystemStyleSwitch.enabled = NO;
-    }
+    self.respondsSystemStyleSwitch.on = QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically;
+    [self.respondsSystemStyleSwitch addTarget:self action:@selector(handleSwitchEvent:) forControlEvents:UIControlEventValueChanged];
     [self.scrollView addSubview:self.respondsSystemStyleSwitch];
     
     self.respondsSystemStyleLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(14) textColor:UIColor.qd_mainTextColor];
@@ -145,9 +141,7 @@
 }
 
 - (void)handleSwitchEvent:(UISwitch *)switchControl {
-    if (@available(iOS 13.0, *)) {
-        QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = switchControl.on;
-    }
+    QMUIThemeManagerCenter.defaultThemeManager.respondsSystemStyleAutomatically = switchControl.on;
 }
 
 - (void)handleThemeButtonEvent:(QDThemeButton *)themeButton {

@@ -18,7 +18,7 @@
 
 - (instancetype)init {
     // 只要传进去 style 即可使用，其他东西与普通列表用法一致
-    return [self initWithStyle:QMUITableViewStyleInsetGrouped];
+    return [self initWithStyle:UITableViewStyleInsetGrouped];
 }
 
 - (void)didInitializeWithStyle:(UITableViewStyle)style {
