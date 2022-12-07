@@ -148,7 +148,6 @@
 
 @interface QDBackBarButton ()
 
-@property(nonatomic, strong) UIImageView *backIconImageView;
 @property(nonatomic, strong) UILabel *countLabel;
 @property(nonatomic, assign) UIEdgeInsets countLabelPadding;
 @property(nonatomic, assign) CGFloat spacingBetweenImageAndTitle;
@@ -158,18 +157,11 @@
 
 - (instancetype)init {
     if (self = [self initWithType:QMUINavigationButtonTypeBack]) {
-        self.backIconImageView = UIImageView.new;
-        self.backIconImageView.image = [NavBarBackIndicatorImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        [self.backIconImageView sizeToFit];
-        self.backIconImageView.tintColor = NavBarTintColor;
-        [self addSubview:self.backIconImageView];
         
         self.countLabel = UILabel.new;
         self.countLabel.font = UIFontBoldMake(14);
         self.countLabel.textAlignment = NSTextAlignmentCenter;
         self.countLabel.clipsToBounds = YES;
-        self.countLabel.textColor = self.backIconImageView.tintColor;
-        self.countLabel.backgroundColor = [self.backIconImageView.tintColor colorWithAlphaComponent:.25];
         [self addSubview:self.countLabel];
         
         self.countLabelPadding = UIEdgeInsetsMake(4, 6, 4, 6);
@@ -178,6 +170,13 @@
         [self addTarget:self action:@selector(handlePopEvent) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
+}
+
+- (void)tintColorDidChange {
+    [super tintColorDidChange];
+    UIColor *tintColor = self.tintColor;
+    self.countLabel.textColor = tintColor;
+    self.countLabel.backgroundColor = [tintColor colorWithAlphaComponent:.25];
 }
 
 - (void)setCountString:(NSString *)countString {
@@ -190,18 +189,18 @@
     countLabelSize.width = countLabelSize.width + UIEdgeInsetsGetHorizontalValue(self.countLabelPadding);
     countLabelSize.height = countLabelSize.height + UIEdgeInsetsGetVerticalValue(self.countLabelPadding);
     countLabelSize.width = MAX(countLabelSize.width, countLabelSize.height);
-    CGFloat resultWidth = CGRectGetWidth(self.backIconImageView.frame) + self.spacingBetweenImageAndTitle + countLabelSize.width;
-    CGFloat resultHeight = MAX(CGRectGetHeight(self.backIconImageView.frame), countLabelSize.height);
+    CGFloat resultWidth = CGRectGetWidth(self.imageView.frame) + self.spacingBetweenImageAndTitle + countLabelSize.width;
+    CGFloat resultHeight = MAX(CGRectGetHeight(self.imageView.frame), countLabelSize.height);
     
     return CGSizeMake(resultWidth, resultHeight);
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.backIconImageView.qmui_left = 0;
-    self.backIconImageView.qmui_top = CGFloatGetCenter(self.qmui_height, self.backIconImageView.qmui_height);
-    CGSize countLabelSize = CGSizeMake(CGRectGetWidth(self.bounds) - self.backIconImageView.qmui_right - self.spacingBetweenImageAndTitle, [self.countLabel sizeThatFits:CGSizeMax].height + UIEdgeInsetsGetVerticalValue(self.countLabelPadding));
-    self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.backIconImageView.frame) + self.spacingBetweenImageAndTitle, CGFloatGetCenter(self.qmui_height, countLabelSize.height), countLabelSize.width, countLabelSize.height);
+    self.imageView.qmui_left = 0;
+    self.imageView.qmui_top = CGFloatGetCenter(self.qmui_height, self.imageView.qmui_height);
+    CGSize countLabelSize = CGSizeMake(CGRectGetWidth(self.bounds) - self.imageView.qmui_right - self.spacingBetweenImageAndTitle, [self.countLabel sizeThatFits:CGSizeMax].height + UIEdgeInsetsGetVerticalValue(self.countLabelPadding));
+    self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + self.spacingBetweenImageAndTitle, CGFloatGetCenter(self.qmui_height, countLabelSize.height), countLabelSize.width, countLabelSize.height);
     self.countLabel.layer.cornerRadius = countLabelSize.height / 2;
 }
 

@@ -41,4 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nullable, nonatomic, strong) __kindof UIView *qmui_backBarButton;
 @end
 
+
+@protocol QMUIBackBarButtonViewControllerSupport <NSObject>
+
+@optional
+/**
+ 默认情况下当界面 A 设置了 qmui_backBarButton，A push 到的所有子界面都会显示自定义的返回按钮，但如果子界面实现了 QMUIBackBarButtonViewControllerSupport 并在 shouldShowBackBarButton: 里返回 NO，则可以控制自己的返回按钮不要显示 qmui_backBarButton。
+ 默认不实现则视为要显示按钮。
+ */
+- (BOOL)shouldShowBackBarButton:(__kindof UIView *)button;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -104,7 +104,7 @@ const NSTimeInterval QMUIDropdownNotificationDurationInfinite = -1;
     }];
     
     self.modalPresentationViewController.window.windowLevel = 20000;
-    self.modalPresentationViewController.window.qmui_hitTestBlock = ^__kindof UIView * _Nonnull(CGPoint point, UIEvent * _Nonnull event, __kindof UIView * _Nonnull originalView) {
+    self.modalPresentationViewController.window.qmui_hitTestBlock = ^__kindof UIView * _Nullable(CGPoint point, UIEvent * _Nullable event, __kindof UIView * _Nullable originalView) {
         if ([originalView isDescendantOfView:weakSelf.view]) return originalView;
         return nil;
     };

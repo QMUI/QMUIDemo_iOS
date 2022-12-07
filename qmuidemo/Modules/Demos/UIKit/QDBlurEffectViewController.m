@@ -41,10 +41,7 @@
     self.contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontBoldMake(32) textColor:UIColorWhite];
     self.contentLabel.textAlignment = NSTextAlignmentCenter;
     self.contentLabel.text = @"UIBlurEffect+QMUI";
-    self.contentLabel.layer.shadowColor = UIColorBlack.CGColor;
-    self.contentLabel.layer.shadowOpacity = 1;
-    self.contentLabel.layer.shadowRadius = 6;
-    self.contentLabel.layer.shadowOffset = CGSizeMake(1, 1);
+    self.contentLabel.layer.qmui_shadow = [NSShadow qmui_shadowWithColor:UIColorBlack shadowOffset:CGSizeMake(1, 1) shadowRadius:6];
     [self.contentLabel sizeToFit];
     [self.effectView.contentView addSubview:self.contentLabel];
     

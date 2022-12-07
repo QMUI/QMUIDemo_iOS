@@ -44,9 +44,7 @@
     self.fontPointSizeSlider.tintColor = UIColor.qd_tintColor;
     self.fontPointSizeSlider.qmui_thumbSize = CGSizeMake(16, 16);
     self.fontPointSizeSlider.qmui_thumbColor = self.fontPointSizeSlider.tintColor;
-    self.fontPointSizeSlider.qmui_thumbShadowColor = [self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3];
-    self.fontPointSizeSlider.qmui_thumbShadowOffset = CGSizeMake(0, 2);
-    self.fontPointSizeSlider.qmui_thumbShadowRadius = 3;
+    self.fontPointSizeSlider.qmui_thumbShadow = [NSShadow qmui_shadowWithColor:[self.fontPointSizeSlider.tintColor colorWithAlphaComponent:.3] shadowOffset:CGSizeMake(0, 2) shadowRadius:3];
     self.fontPointSizeSlider.minimumValue = 8;
     self.fontPointSizeSlider.maximumValue = 50;
     self.fontPointSizeSlider.value = self.oldFontPointSize;

@@ -58,9 +58,7 @@
     self.slider.tintColor = self.progressView1.tintColor;
     self.slider.qmui_thumbSize = CGSizeMake(16, 16);
     self.slider.qmui_thumbColor = self.slider.tintColor;
-    self.slider.qmui_thumbShadowColor = [self.slider.tintColor colorWithAlphaComponent:.3];
-    self.slider.qmui_thumbShadowOffset = CGSizeMake(0, 2);
-    self.slider.qmui_thumbShadowRadius = 3;
+    self.slider.qmui_thumbShadow = [NSShadow qmui_shadowWithColor:[self.slider.tintColor colorWithAlphaComponent:.3] shadowOffset:CGSizeMake(0, 2) shadowRadius:3];
     [self.slider sizeToFit];
     [self.slider addTarget:self action:@selector(handleSliderTouchUpInside:) forControlEvents:UIControlEventValueChanged];
     [self.section1 addSubview:self.slider];

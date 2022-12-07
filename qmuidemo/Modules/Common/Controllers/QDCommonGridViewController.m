@@ -38,12 +38,12 @@
     
     CGFloat gridViewWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(self.scrollView.safeAreaInsets);
     
-    if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor55Inch].width) {
+    if (CGRectGetWidth(self.view.bounds) <= [QMUIHelper screenSizeFor67InchAndiPhone14Later].width) {
         self.gridView.columnCount = 3;
         CGFloat itemWidth = flat(gridViewWidth / self.gridView.columnCount);
         self.gridView.rowHeight = itemWidth;
     } else {
-        CGFloat minimumItemWidth = flat([QMUIHelper screenSizeFor55Inch].width / 3.0);
+        CGFloat minimumItemWidth = flat([QMUIHelper screenSizeFor67InchAndiPhone14Later].width / 3.0);
         CGFloat maximumItemWidth = flat(gridViewWidth / 5.0);
         CGFloat freeSpacingWhenDisplayingMinimumCount = gridViewWidth / maximumItemWidth - floor(gridViewWidth / maximumItemWidth);
         CGFloat freeSpacingWhenDisplayingMaximumCount = gridViewWidth / minimumItemWidth - floor(gridViewWidth / minimumItemWidth);

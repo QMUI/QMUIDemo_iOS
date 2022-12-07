@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,8 +18,8 @@
 		1679E3311DFFC4610072B8A1 /* QDCustomToastContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1679E3301DFFC4610072B8A1 /* QDCustomToastContentView.m */; };
 		16F42C121B1C60A70038B28F /* image0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16F42C111B1C60A70038B28F /* image0@2x.png */; };
 		4CD323992109B362007033C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4CD323972109B362007033C9 /* Localizable.strings */; };
-		8F732792262757E20051952C /* LookinServer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; };
-		8F732793262757E20051952C /* LookinServer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F732792262757E20051952C /* LookinServer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; platformFilter = ios; };
+		8F732793262757E20051952C /* LookinServer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F732791262757E20051952C /* LookinServer.xcframework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD05B5E22743E1240001C5E0 /* QDAnimationCurvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD05B5E12743E1240001C5E0 /* QDAnimationCurvesViewController.m */; };
 		CD05C20C2750D70F0001C5E0 /* QDBlurEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD05C20B2750D70F0001C5E0 /* QDBlurEffectViewController.m */; };
 		CD0ADF6927293961002A1A54 /* QMUIDropdownNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0ADF6827293961002A1A54 /* QMUIDropdownNotification.m */; };
@@ -128,7 +128,7 @@
 		CDE85CB61F95E21500E622E8 /* QMUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD75935B1EF7A2EC004B5819 /* QMUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDF79AAF1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF79AAE1F16531100EE8DE9 /* QDButtonEdgeInsetsViewController.m */; };
 		CDFD573D26DE132800603D1E /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD573C26DE132800603D1E /* KeyboardViewController.m */; };
-		CDFD574126DE132800603D1E /* QMUIKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CDFD573926DE132700603D1E /* QMUIKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CDFD574126DE132800603D1E /* QMUIKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CDFD573926DE132700603D1E /* QMUIKeyboard.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CDFD575426DE1BA100603D1E /* UIImage+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD574E26DE1BA100603D1E /* UIImage+QMUI.m */; };
 		CDFD575526DE1BA100603D1E /* NSMethodSignature+QMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFD575326DE1BA100603D1E /* NSMethodSignature+QMUI.m */; };
 		D004542F24B4A1C400F723E0 /* QDSearchBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D004542E24B4A1C400F723E0 /* QDSearchBarViewController.m */; };
@@ -461,6 +461,7 @@
 		CDFD575126DE1BA100603D1E /* UIImage+QMUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QMUI.h"; sourceTree = "<group>"; };
 		CDFD575226DE1BA100603D1E /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		CDFD575326DE1BA100603D1E /* NSMethodSignature+QMUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMethodSignature+QMUI.m"; sourceTree = "<group>"; };
+		CDFE9573293FA58A007AE1AA /* qmuidemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = qmuidemo.entitlements; sourceTree = "<group>"; };
 		D004542D24B4A1C400F723E0 /* QDSearchBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDSearchBarViewController.h; sourceTree = "<group>"; };
 		D004542E24B4A1C400F723E0 /* QDSearchBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDSearchBarViewController.m; sourceTree = "<group>"; };
 		D004543024B6014B00F723E0 /* QDStyleSelectableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDStyleSelectableTableViewController.h; sourceTree = "<group>"; };
@@ -569,6 +570,7 @@
 		165F42F21ADB60180057EF6A /* qmuidemo */ = {
 			isa = PBXGroup;
 			children = (
+				CDFE9573293FA58A007AE1AA /* qmuidemo.entitlements */,
 				165F42F71ADB60180057EF6A /* AppDelegate.h */,
 				165F42F81ADB60180057EF6A /* AppDelegate.m */,
 				165F43001ADB60180057EF6A /* Images.xcassets */,
@@ -1142,7 +1144,7 @@
 				};
 			};
 			buildConfigurationList = 165F42EB1ADB60180057EF6A /* Build configuration list for PBXProject "qmuidemo" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1382,6 +1384,7 @@
 		};
 		CDFD574026DE132800603D1E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = CDFD573826DE132700603D1E /* QMUIKeyboard */;
 			targetProxy = CDFD573F26DE132800603D1E /* PBXContainerItemProxy */;
 		};
@@ -1535,7 +1538,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = qmuidemo/qmuidemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1556,18 +1559,23 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-weak_framework",
 					LookinServer,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
+				"OTHER_LDFLAGS[sdk=macosx*]" = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = Debug;
@@ -1580,6 +1588,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = qmuidemo/qmuidemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1600,16 +1609,20 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.6.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wno-nullability-completeness";
 			};
 			name = Release;
@@ -1694,12 +1707,13 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.4.2;
+				MARKETING_VERSION = 4.6.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1728,11 +1742,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.4.2;
+				MARKETING_VERSION = 4.6.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.molice.qmui.keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

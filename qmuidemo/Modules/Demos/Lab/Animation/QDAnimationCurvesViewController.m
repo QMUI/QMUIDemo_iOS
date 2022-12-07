@@ -35,19 +35,19 @@
             @"System Pop": [self.class bezierPathWithX:[self.class systemXs] y:[self.class systemYs]],
         },
         @{
-            @"fastLinearToSlowEaseIn": [self.class bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.18 :1.0 :0.04 :1.0]],
+            @"fastLinearToSlowEaseIn": [UIBezierPath qmui_bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.18 :1.0 :0.04 :1.0]],
         },
         @{
-            @"fastLinearToSlowEaseIn2": [self.class bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.2 :1.0 :0.04 :0.92]],
+            @"fastLinearToSlowEaseIn2": [UIBezierPath qmui_bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.2 :1.0 :0.04 :0.92]],
         },
         @{
-            @"EaseIn": [self.class bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]],
+            @"EaseIn": [UIBezierPath qmui_bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]],
         },
         @{
-            @"EaseOut": [self.class bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]],
+            @"EaseOut": [UIBezierPath qmui_bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]],
         },
         @{
-            @"EaseInOut": [self.class bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]],
+            @"EaseInOut": [UIBezierPath qmui_bezierPathWithMediaTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]],
         },
     ];
     
@@ -259,16 +259,6 @@
             [path addLineToPoint:point];
         }
     }];
-    return path;
-}
-
-+ (UIBezierPath *)bezierPathWithMediaTimingFunction:(CAMediaTimingFunction *)function {
-    float point1[2], point2[2];
-    [function getControlPointAtIndex:1 values:(float *)&point1];
-    [function getControlPointAtIndex:2 values:(float *)&point2];
-    UIBezierPath *path = [[UIBezierPath alloc] init];
-    [path moveToPoint:CGPointZero];
-    [path addCurveToPoint:CGPointMake(1, 1) controlPoint1:CGPointMake(point1[0], point1[1]) controlPoint2:CGPointMake(point2[0], point2[1])];
     return path;
 }
 

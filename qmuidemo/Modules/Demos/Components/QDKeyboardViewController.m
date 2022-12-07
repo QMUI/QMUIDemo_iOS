@@ -47,6 +47,7 @@ static CGFloat const kEmotionViewHeight = 232;
     _containerView = [[UIView alloc] init];
     self.containerView.backgroundColor = UIColorForBackground;
     self.containerView.layer.cornerRadius = 8;
+    self.containerView.layer.maskedCorners = kCALayerMinXMinYCorner|kCALayerMaxXMinYCorner;
     [self.view addSubview:self.containerView];
     
     _textView = [[QMUITextView alloc] init];
@@ -117,11 +118,11 @@ static CGFloat const kEmotionViewHeight = 232;
     [super removeFromParentViewController];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)showInParentViewController:(UIViewController *)controller {
-    
-    if (IS_LANDSCAPE) {
-        [QDUIHelper forceInterfaceOrientationPortrait];
-    }
     
     // 这一句访问了self.view，触发viewDidLoad:
     self.view.frame = controller.view.bounds;
@@ -154,11 +155,15 @@ static CGFloat const kEmotionViewHeight = 232;
     [UIView animateWithDuration:.25 delay:0.0 options:QMUIViewAnimationOptionsCurveOut animations:^{
         self.maskControl.alpha = 0.0;
     } completion:^(BOOL finished) {
+        UIViewController *parentViewController = self.parentViewController;
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
         // 这一句触发viewDidDisappear:
         [self endAppearanceTransition];
         [self.view removeFromSuperview];
+        
+        // 如有必要，旋转屏幕
+        [parentViewController qmui_setNeedsUpdateOfSupportedInterfaceOrientations];
     }];
 }
 
@@ -180,12 +185,12 @@ static CGFloat const kEmotionViewHeight = 232;
     [QMUIKeyboardManager handleKeyboardNotificationWithUserInfo:keyboardUserInfo showBlock:^(QMUIKeyboardUserInfo *keyboardUserInfo) {
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
             CGFloat distanceFromBottom = keyboardUserInfo.isFloatingKeyboard ? 0 : [QMUIKeyboardManager distanceFromMinYToBottomInView:weakSelf.view keyboardRect:keyboardUserInfo.endFrame];
-            weakSelf.containerView.layer.transform = CATransform3DMakeTranslation(0, - distanceFromBottom - CGRectGetHeight(self.containerView.bounds), 0);
+            weakSelf.containerView.transform = CGAffineTransformMakeTranslation(0, - distanceFromBottom - CGRectGetHeight(weakSelf.containerView.bounds));
         } completion:NULL];
     } hideBlock:^(QMUIKeyboardUserInfo *keyboardUserInfo) {
         [weakSelf hide];
         [QMUIKeyboardManager animateWithAnimated:YES keyboardUserInfo:keyboardUserInfo animations:^{
-            weakSelf.containerView.layer.transform = CATransform3DIdentity;
+            weakSelf.containerView.transform = CGAffineTransformIdentity;
         } completion:NULL];
     }];
 }

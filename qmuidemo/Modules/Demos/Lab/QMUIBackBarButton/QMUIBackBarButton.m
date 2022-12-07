@@ -190,7 +190,21 @@ static char kAssociatedObjectKey_backBarButton;
         NSMutableArray<UIBarButtonItem *> *leftItems = [nextItem qmuibbb_leftBarButtonItemsWithoutCustom];
         BOOL shouldShowBackButton = (leftItems.count <= 0 && !nextItem.qmuibbb_hidesBackButton) || (leftItems.count > 0 && nextItem.leftItemsSupplementBackButton && !nextItem.qmuibbb_hidesBackButton);
         if (shouldShowBackButton) {
-            [leftItems insertObject:backBarButtonItem atIndex:0];
+            UIViewController *nextViewController = nextItem.qmui_viewController;
+            if (!nextViewController) {
+                UINavigationController *nav = item.qmui_navigationController;
+                if (nav.qmui_isPopping) {
+                    nextViewController = [nav.transitionCoordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+                } else {
+                    nextViewController = nav.topViewController;
+                }
+            }
+            if ([nextViewController respondsToSelector:@selector(shouldShowBackBarButton:)]) {
+                shouldShowBackButton = [((id<QMUIBackBarButtonViewControllerSupport>)nextViewController) shouldShowBackBarButton:backBarButtonItem.customView];
+            }
+            if (shouldShowBackButton) {
+                [leftItems insertObject:backBarButtonItem atIndex:0];
+            }
         }
         [nextItem qmuibbb_setLeftBarButtonItemsAndUpdateSystemBackButton:leftItems];
     }

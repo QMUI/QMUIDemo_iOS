@@ -101,10 +101,7 @@
     if (self = [super initWithFrame:frame]) {
         
         self.backgroundColor = UIColorWhite;
-        self.layer.shadowColor = UIColorBlack.CGColor;
-        self.layer.shadowOpacity = .1;
-        self.layer.shadowRadius = 15;
-        self.layer.shadowOffset = CGSizeMake(0, 1);
+        self.layer.qmui_shadow = [NSShadow qmui_shadowWithColor:[UIColorBlack colorWithAlphaComponent:.1] shadowOffset:CGSizeMake(0, 1) shadowRadius:15];
         self.layer.cornerRadius = 6;
         
         self.textLabel = [[UILabel alloc] init];

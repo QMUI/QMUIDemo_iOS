@@ -28,6 +28,7 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
                                                nil],
                        kSectionTitleForActionSheet, [[QMUIOrderedDictionary alloc] initWithKeysAndObjects:
                                                      @"显示一个 actionSheet 菜单", @"",
+                                                     @"支持按钮分列", @"可左右显示两列",
                                                      @"支持 actionSheet 背景磨砂", @"可分别为取消按钮和其他按钮指定不同的磨砂",
                                                      @"支持自定义 actionSheet 样式", @"支持以 UIAppearance 方式设置全局统一样式",
                                                      nil],
@@ -146,6 +147,22 @@ static NSString * const kSectionTitleForSystem = @"系统原生 UIAlertControlle
         }];
         action3.enabled = NO;
         QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
+        [alertController addAction:action1];
+        [alertController addAction:action2];
+        [alertController addAction:action3];
+        [alertController showWithAnimated:YES];
+        return;
+    }
+    
+    if ([title isEqualToString:@"支持按钮分列"]) {
+        QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
+        }];
+        QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
+        }];
+        QMUIAlertAction *action3 = [QMUIAlertAction actionWithTitle:@"确定" style:QMUIAlertActionStyleDefault handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
+        }];
+        QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
+        alertController.sheetButtonColumnCount = 2;
         [alertController addAction:action1];
         [alertController addAction:action2];
         [alertController addAction:action3];

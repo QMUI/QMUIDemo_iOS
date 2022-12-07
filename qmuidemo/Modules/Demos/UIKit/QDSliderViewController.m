@@ -28,8 +28,7 @@
     self.slider.qmui_trackHeight = 1;                                       // 圆点背后那条槽的高度
     self.slider.qmui_thumbSize = CGSizeMake(14, 14);                        // 圆点的大小
     self.slider.qmui_thumbColor = self.slider.minimumTrackTintColor;        // 圆点的填充颜色
-    self.slider.qmui_thumbShadowColor = self.slider.minimumTrackTintColor;  // 圆点的投影颜色
-    self.slider.qmui_thumbShadowRadius = 5;                                 // 圆点的投影扩散值
+    self.slider.qmui_thumbShadow = [NSShadow qmui_shadowWithColor:self.slider.minimumTrackTintColor shadowOffset:CGSizeZero shadowRadius:5]; // 圆点的阴影
     self.slider.qmui_stepDidChangeBlock = ^(__kindof UISlider * _Nonnull slider, NSUInteger precedingStep) {
         ((QMUITextField *)weakSelf.debugViewController.debugItems[1].actionView).text = [NSString stringWithFormat:@"%@", @(slider.qmui_step)];
     }; // 监听 step 的变化（用系统的 UIControlEventValueChanged 也可以，具体请看 UISlider+QMUI.h 的注释）。
@@ -87,9 +86,11 @@
             weakSelf.slider.qmui_thumbSize = CGSizeMake(actionView.text.doubleValue, actionView.text.doubleValue);
         }],
         [QMUIInteractiveDebugPanelItem colorItemWithTitle:@"thumbShadowColor" valueGetter:^(QMUITextField * _Nonnull actionView) {
-            actionView.text = weakSelf.slider.qmui_thumbShadowColor.qmui_RGBAString;
+            actionView.text = ((UIColor *)weakSelf.slider.qmui_thumbShadow.shadowColor).qmui_RGBAString;
         } valueSetter:^(QMUITextField * _Nonnull actionView) {
-            weakSelf.slider.qmui_thumbShadowColor = [UIColor qmui_colorWithRGBAString:actionView.text];
+            NSShadow *shadow = weakSelf.slider.qmui_thumbShadow;
+            shadow.shadowColor = [UIColor qmui_colorWithRGBAString:actionView.text];
+            weakSelf.slider.qmui_thumbShadow = shadow;
         }],
         [QMUIInteractiveDebugPanelItem numbericItemWithTitle:@"outsideEdge" valueGetter:^(QMUITextField * _Nonnull actionView) {
             actionView.text = [NSString stringWithFormat:@"%.2f", weakSelf.slider.qmui_outsideEdge.left];

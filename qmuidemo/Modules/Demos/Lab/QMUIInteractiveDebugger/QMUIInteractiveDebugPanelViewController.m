@@ -43,7 +43,7 @@
     self.view.layer.borderWidth = PixelOne;
     self.view.layer.borderColor = [UIColorBlack colorWithAlphaComponent:.3].CGColor;
     __weak __typeof(self)weakSelf = self;
-    self.view.qmui_hitTestBlock = ^__kindof UIView * _Nonnull(CGPoint point, UIEvent * _Nonnull event, __kindof UIView * _Nonnull originalView) {
+    self.view.qmui_hitTestBlock = ^__kindof UIView * _Nullable(CGPoint point, UIEvent * _Nullable event, __kindof UIView * _Nullable originalView) {
         if (originalView == weakSelf.view) {
             // 键盘升起时点击面板的空白区域，会触发两次 hitTest，如果第一次就立马 endEditing，那么第二次进来时由于面板已经用 transform 唯一走了，所以 point 会认为在面板外面，于是 originalView 就是 nil，就会响应到 modalPresentationViewController 的 dimmingView 点击，然后导致面板消失，所以这里在 next runloop 再执行键盘降下的操作
             dispatch_async(dispatch_get_main_queue(), ^{

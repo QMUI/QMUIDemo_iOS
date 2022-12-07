@@ -39,6 +39,15 @@
 @property(nonatomic, strong) UILabel *progressLabel;
 @property(nonatomic, strong) UIProgressView *progressView;
 
+@property(nonatomic, strong) UILabel *layerLabel;
+@property(nonatomic, strong) CALayer *exampleLayer;
+
+@property(nonatomic, strong) UILabel *shapeLayerLabel;
+@property(nonatomic, strong) CAShapeLayer *shapeLayer;
+
+@property(nonatomic, strong) UILabel *gradientLayerLabel;
+@property(nonatomic, strong) CAGradientLayer *gradientLayer;
+
 @property(nonatomic, strong) UILabel *visualEffectLabel;
 @property(nonatomic, strong) UIVisualEffectView *visualEffectView;
 @property(nonatomic, strong) UIImageView *visualEffectBackendImageView;
@@ -79,12 +88,8 @@
         self.view = [[UIView alloc] qmui_initWithSize:CGSizeMake(100, 40)];
         self.view.qmui_borderWidth = 3;
         self.view.qmui_borderPosition = QMUIViewBorderPositionTop|QMUIViewBorderPositionLeft|QMUIViewBorderPositionBottom|QMUIViewBorderPositionRight;
-        self.view.qmui_borderColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
-            return [theme.themeTintColor colorWithAlphaComponent:.5];
-        }];
-        self.view.backgroundColor = [UIColor qmui_colorWithThemeProvider:^UIColor * _Nonnull(__kindof QMUIThemeManager * _Nonnull manager, NSString * _Nullable identifier, NSObject<QDThemeProtocol> * _Nullable theme) {
-            return [theme.themeTintColor colorWithAlphaComponent:.5];
-        }];
+        self.view.qmui_borderColor = [UIColor.qd_tintColor colorWithAlphaComponent:.5];
+        self.view.backgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.5];
         [self addSubview:self.view];
         
         self.textFieldLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
@@ -93,7 +98,7 @@
         [self addSubview:self.textFieldLabel];
         
         self.textField = [[UITextField alloc] qmui_initWithSize:self.view.frame.size];
-        self.textField.backgroundColor = self.view.backgroundColor;
+        self.textField.backgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.5];
         self.textField.tintColor = UIColor.qd_tintColor;
         self.textField.defaultTextAttributes = @{NSFontAttributeName: UIFontMake(14),
                                                  NSForegroundColorAttributeName: UIColor.qd_tintColor};
@@ -126,7 +131,8 @@
         [self addSubview:self.textViewLabel];
         
         self.textView = [[UITextView alloc] qmui_initWithSize:self.textField.frame.size];
-        self.textView.backgroundColor = self.view.backgroundColor;
+        self.textView.backgroundColor = [UIColor.qd_tintColor colorWithAlphaComponent:.5];
+        self.textView.tintColor = UIColor.qd_tintColor;
         self.textView.typingAttributes = @{NSFontAttributeName: UIFontMake(14),
                                            NSForegroundColorAttributeName: UIColor.qd_tintColor};
         self.textView.text = @"example text";
@@ -184,6 +190,38 @@
         self.progressView.trackTintColor = UIColor.qd_separatorColor;
         self.progressView.progress = .3;
         [self addSubview:self.progressView];
+        
+        self.layerLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
+        self.layerLabel.text = @"CALayer";
+        [self.layerLabel sizeToFit];
+        [self addSubview:self.layerLabel];
+        
+        self.exampleLayer = CALayer.layer;
+        self.exampleLayer.cornerRadius = 6;
+        self.exampleLayer.backgroundColor = UIColor.qd_tintColor.CGColor;
+        [self.layer addSublayer:self.exampleLayer];
+        
+        self.shapeLayerLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
+        self.shapeLayerLabel.text = @"CAShapeLayer";
+        [self.shapeLayerLabel sizeToFit];
+        [self addSubview:self.shapeLayerLabel];
+        
+        self.shapeLayer = CAShapeLayer.layer;
+        self.shapeLayer.strokeColor = UIColor.qd_tintColor.CGColor;
+        self.shapeLayer.lineWidth = 2;
+        self.shapeLayer.fillColor = [UIColor.qd_tintColor colorWithAlphaComponent:.3].CGColor;
+        [self.layer addSublayer:self.shapeLayer];
+        
+        self.gradientLayerLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
+        self.gradientLayerLabel.text = @"CAGradientLayer";
+        [self.gradientLayerLabel sizeToFit];
+        [self addSubview:self.gradientLayerLabel];
+        
+        self.gradientLayer = CAGradientLayer.layer;
+        self.gradientLayer.colors = @[(id)UIColor.qd_tintColor.CGColor, (id)[UIColor.qd_tintColor colorWithAlphaComponent:.3].CGColor];
+        self.gradientLayer.startPoint = CGPointMake(0, 1);
+        self.gradientLayer.endPoint = CGPointMake(0, 0);
+        [self.layer addSublayer:self.gradientLayer];
         
         self.visualEffectLabel = [[UILabel alloc] qmui_initWithFont:codeFont textColor:textColor];
         self.visualEffectLabel.text = @"UIVisualEffectView";
@@ -291,7 +329,21 @@
     self.progressLabel.qmui_top = self.switchControlOn.qmui_bottom + self.itemMarginBottom;
     self.progressView.qmui_top = self.progressLabel.qmui_bottom + self.itemInnerSpacing;
     
-    self.visualEffectLabel.qmui_top = self.progressView.qmui_bottom + self.itemMarginBottom;
+    CGFloat layerWidth = (CGRectGetWidth(self.bounds) - 16 * 2) / 3;
+    
+    self.layerLabel.qmui_top = self.progressView.qmui_bottom + self.itemMarginBottom;
+    self.exampleLayer.frame = CGRectMake(self.layerLabel.qmui_left, self.layerLabel.qmui_bottom + self.itemInnerSpacing, layerWidth, layerWidth - 20);
+    
+    self.shapeLayerLabel.qmui_top = self.layerLabel.qmui_top;
+    self.shapeLayerLabel.qmui_left = CGRectGetMaxX(self.exampleLayer.frame) + 16;
+    self.shapeLayer.frame = CGRectSetX(self.exampleLayer.frame, self.shapeLayerLabel.qmui_left);
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:self.shapeLayer.bounds].CGPath;
+    
+    self.gradientLayerLabel.qmui_top = self.layerLabel.qmui_top;
+    self.gradientLayerLabel.qmui_left = CGRectGetMaxX(self.shapeLayer.frame) + 16;
+    self.gradientLayer.frame = CGRectSetX(self.exampleLayer.frame, self.gradientLayerLabel.qmui_left);
+    
+    self.visualEffectLabel.qmui_top = CGRectGetMaxY(self.exampleLayer.frame) + self.itemMarginBottom;
     self.visualEffectView.qmui_top = self.visualEffectLabel.qmui_bottom + self.itemInnerSpacing;
     self.visualEffectView.qmui_width = self.qmui_width;
     self.visualEffectView.qmui_height = self.barHeight;
