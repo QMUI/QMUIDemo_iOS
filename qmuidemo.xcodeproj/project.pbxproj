@@ -114,6 +114,7 @@
 		CDB8CA151DCC815A00769DF0 /* QDTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9C91DCC815A00769DF0 /* QDTextViewController.m */; };
 		CDB8CA161DCC815A00769DF0 /* QDToolBarButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */; };
 		CDB8CA171DCC815A00769DF0 /* QDUIKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB8C9CD1DCC815A00769DF0 /* QDUIKitViewController.m */; };
+		CDC73B452942344F00F1D584 /* QDTableViewCellReorderStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC73B442942344F00F1D584 /* QDTableViewCellReorderStyleViewController.m */; };
 		CDD0D81F1E0A88B600A38B96 /* image2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81A1E0A88B600A38B96 /* image2@2x.png */; };
 		CDD0D8201E0A88B600A38B96 /* image3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81B1E0A88B600A38B96 /* image3@2x.png */; };
 		CDD0D8211E0A88B600A38B96 /* image4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD0D81C1E0A88B600A38B96 /* image4@2x.png */; };
@@ -436,6 +437,8 @@
 		CDB8C9CB1DCC815A00769DF0 /* QDToolBarButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDToolBarButtonViewController.m; sourceTree = "<group>"; };
 		CDB8C9CC1DCC815A00769DF0 /* QDUIKitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDUIKitViewController.h; sourceTree = "<group>"; };
 		CDB8C9CD1DCC815A00769DF0 /* QDUIKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDUIKitViewController.m; sourceTree = "<group>"; };
+		CDC73B432942344F00F1D584 /* QDTableViewCellReorderStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableViewCellReorderStyleViewController.h; sourceTree = "<group>"; };
+		CDC73B442942344F00F1D584 /* QDTableViewCellReorderStyleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableViewCellReorderStyleViewController.m; sourceTree = "<group>"; };
 		CDD0D81A1E0A88B600A38B96 /* image2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image2@2x.png"; sourceTree = "<group>"; };
 		CDD0D81B1E0A88B600A38B96 /* image3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image3@2x.png"; sourceTree = "<group>"; };
 		CDD0D81C1E0A88B600A38B96 /* image4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image4@2x.png"; sourceTree = "<group>"; };
@@ -946,6 +949,8 @@
 				CD6CC62C1EF7A6EA00602EDD /* QDTableViewCellAccessoryTypeViewController.m */,
 				CDB8C9B01DCC815A00769DF0 /* QDTableViewCellInsetsViewController.h */,
 				CDB8C9B11DCC815A00769DF0 /* QDTableViewCellInsetsViewController.m */,
+				CDC73B432942344F00F1D584 /* QDTableViewCellReorderStyleViewController.h */,
+				CDC73B442942344F00F1D584 /* QDTableViewCellReorderStyleViewController.m */,
 				D03102B724AB1DE30095C232 /* QDTableViewCellSeparatorInsetsViewController.h */,
 				D03102B824AB1DE30095C232 /* QDTableViewCellSeparatorInsetsViewController.m */,
 				CDA05DA61FB1913400606756 /* QDTableViewHeaderFooterViewController.h */,
@@ -1265,6 +1270,7 @@
 				CDA9537C2814460300D0FF0E /* LookinConfig.m in Sources */,
 				D05086B424CF383B00963BCE /* QDNavigationBarSmoothEffectViewController.m in Sources */,
 				CD4EA4B72275D5C200A55066 /* QDImageViewViewController.m in Sources */,
+				CDC73B452942344F00F1D584 /* QDTableViewCellReorderStyleViewController.m in Sources */,
 				CD1A8AA41EC4045500B81693 /* QMUIConfigurationTemplatePinkRose.m in Sources */,
 				D004543224B6014B00F723E0 /* QDStyleSelectableTableViewController.m in Sources */,
 				CD18BD8521871DCE00E2A4E6 /* QDNavigationBarScrollingSnapAnimatorViewController.m in Sources */,
@@ -1559,7 +1565,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6.1;
+				MARKETING_VERSION = 4.6.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1609,7 +1615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6.1;
+				MARKETING_VERSION = 4.6.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1707,7 +1713,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.6.1;
+				MARKETING_VERSION = 4.6.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.keyboard;
@@ -1742,7 +1748,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.6.1;
+				MARKETING_VERSION = 4.6.2;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.molice.test.keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";

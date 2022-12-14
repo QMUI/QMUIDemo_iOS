@@ -37,6 +37,7 @@
 #import "QDTableViewCellSeparatorInsetsViewController.h"
 #import "QDControlViewController.h"
 #import "QDBlurEffectViewController.h"
+#import "QDTableViewCellReorderStyleViewController.h"
 
 @implementation QDUIKitViewController
 
@@ -111,6 +112,7 @@
                         vc.dataSource = @[
                             @"通过 insets 系列属性调整间距",
                             @"通过 block 调整分隔线位置",
+                            @"通过 block 调整排序时的样式",
                             @"通过配置表修改 accessoryType 的样式"
                         ];
                         __weak __typeof(vc)weakVc2 = vc;
@@ -121,6 +123,8 @@
                                 viewController = [[QDTableViewCellInsetsViewController alloc] init];
                             } else if ([title isEqualToString:@"通过 block 调整分隔线位置"]) {
                                 viewController = [[QDTableViewCellSeparatorInsetsViewController alloc] init];
+                            } else if ([title isEqualToString:@"通过 block 调整排序时的样式"]) {
+                                viewController = [[QDTableViewCellReorderStyleViewController alloc] init];
                             } else if ([title isEqualToString:@"通过配置表修改 accessoryType 的样式"]) {
                                 viewController = [[QDTableViewCellAccessoryTypeViewController alloc] init];
                             }
