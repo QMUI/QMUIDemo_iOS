@@ -142,7 +142,7 @@
         QMUICMI.toolBarRemoveBackgroundEffectAutomatically = YES;                // ToolBarRemoveBackgroundEffectAutomatically : iOS 15 及以后，QMUI 里的 UIToolbar 使用的是 UIToolbarAppearance 来设置样式，新方式默认是 backgroundImage 和 backgroundEffect 共存的，而 iOS 14 及以前的旧方式，一旦设置了 backgroundImage 则 backgroundEffect 自动会被移除，因此提供该开关允许业务将行为回退到 iOS 14 及以前的效果。默认为 NO。
     }
     QMUICMI.toolBarBarTintColor = nil;                                          // ToolBarBarTintColor : NavBarContainerClasses 里的 UIToolbar 的 tintColor
-    QMUICMI.toolBarShadowImageColor = UIColorSeparator;                         // ToolBarShadowImageColor : NavBarContainerClasses 里的 UIToolbar 的 shadowImage 的颜色，会自动创建一张 1px 高的图片
+    QMUICMI.toolBarShadowImageColor = nil;                                      // ToolBarShadowImageColor : NavBarContainerClasses 里的 UIToolbar 的 shadowImage 的颜色，会自动创建一张 1px 高的图片
     QMUICMI.toolBarStyle = UIBarStyleDefault;                                   // ToolBarStyle : NavBarContainerClasses 里的 UIToolbar 的 barStyle
     QMUICMI.toolBarButtonFont = UIFontMake(17);                                 // ToolBarButtonFont : QMUIToolbarButton 的字体
     
@@ -290,7 +290,6 @@
     QMUICMI.navigationBarHiddenInitially = NO;                                  // NavigationBarHiddenInitially : QMUINavigationControllerDelegate preferredNavigationBarHidden 的初始值，默认为NO
     QMUICMI.shouldFixTabBarSafeAreaInsetsBug = YES;                             // ShouldFixTabBarSafeAreaInsetsBug : 是否要对 iOS 11 及以后的版本修复当存在 UITabBar 时，UIScrollView 的 inset.bottom 可能错误的 bug（issue #218 #934），默认为 YES
     QMUICMI.shouldFixSearchBarMaskViewLayoutBug = YES;                          // ShouldFixSearchBarMaskViewLayoutBug : 是否自动修复 UISearchController.searchBar 被当作 tableHeaderView 使用时可能出现的布局 bug(issue #950)
-    QMUICMI.sendAnalyticsToQMUITeam = YES;                                      // SendAnalyticsToQMUITeam : 是否允许在 DEBUG 模式下上报 Bundle Identifier 和 Display Name 给 QMUI 统计用
     QMUICMI.dynamicPreferredValueForIPad = NO;                                  // DynamicPreferredValueForIPad : 当 iPad 处于 Slide Over 或 Split View 分屏模式下，宏 `PreferredValueForXXX` 是否把 iPad 视为某种屏幕宽度近似的 iPhone 来取值。
     QMUICMI.ignoreKVCAccessProhibited = NO;                                     // IgnoreKVCAccessProhibited : 是否全局忽略 iOS 13 对 KVC 访问 UIKit 私有属性的限制
     QMUICMI.adjustScrollIndicatorInsetsByContentInsetAdjustment = YES;          // AdjustScrollIndicatorInsetsByContentInsetAdjustment : 当将 UIScrollView.contentInsetAdjustmentBehavior 设为 UIScrollViewContentInsetAdjustmentNever 时，是否自动将 UIScrollView.automaticallyAdjustsScrollIndicatorInsets 设为 NO，以保证原本在 iOS 12 下的代码不用修改就能在 iOS 13 下正常控制滚动条的位置。

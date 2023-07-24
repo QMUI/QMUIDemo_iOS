@@ -95,6 +95,7 @@
         [self.view addSubview:item.titleLabel];
         [self.view addSubview:item.actionView];
         if (item.valueGetter) item.valueGetter(item.actionView);
+        if (item.didAddBlock) item.didAddBlock(item, self.view);
         [self.view setNeedsLayout];
     }
 }

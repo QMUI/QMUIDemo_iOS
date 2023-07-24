@@ -36,6 +36,11 @@
 - (instancetype)initWithItems:(NSArray<NSString *> *)items;
 @end
 
+@interface QMUIInteractiveDebugPanelSliderItem : QMUIInteractiveDebugPanelItem
+
+@property(nonatomic, strong) UISlider *slider;
+@end
+
 @implementation QMUIInteractiveDebugPanelItem
 
 - (instancetype)init {
@@ -102,6 +107,17 @@
     QMUIInteractiveDebugPanelEnumItem *item = [[QMUIInteractiveDebugPanelEnumItem alloc] initWithItems:items];
     item.title = title;
     item.actionView = item.segmentedControl;
+    item.valueGetter = valueGetter;
+    item.valueSetter = valueSetter;
+    return item;
+}
+
++ (instancetype)sliderItemWithTitle:(NSString *)title minValue:(float)minValue maxValue:(float)maxValue valueGetter:(void (^)(UISlider * _Nonnull))valueGetter valueSetter:(void (^)(UISlider * _Nonnull))valueSetter {
+    QMUIInteractiveDebugPanelSliderItem *item = QMUIInteractiveDebugPanelSliderItem.new;
+    item.title = title;
+    item.actionView = item.slider;
+    item.slider.minimumValue = minValue;
+    item.slider.maximumValue = maxValue;
     item.valueGetter = valueGetter;
     item.valueSetter = valueSetter;
     return item;
@@ -216,6 +232,33 @@
 
 - (void)handleSegmentedControlEvent:(UISegmentedControl *)segmentedControl {
     if (self.valueSetter) self.valueSetter(segmentedControl);
+}
+
+@end
+
+@implementation QMUIInteractiveDebugPanelSliderItem
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _slider = [[UISlider alloc] qmui_initWithSize:CGSizeMake(160, 38)];
+        _slider.qmui_trackHeight = 1;
+        _slider.qmui_thumbSize = CGSizeMake(12, 12);
+        [_slider addTarget:self action:@selector(handleSliderEvent:) forControlEvents:UIControlEventValueChanged];
+        self.didAddBlock = ^(QMUIInteractiveDebugPanelSliderItem * _Nonnull item, UIView * _Nonnull containerView) {
+            [item updateTitle];
+        };
+    }
+    return self;
+}
+
+- (void)handleSliderEvent:(UISlider *)slider {
+    [self updateTitle];
+    if (self.valueSetter) self.valueSetter(slider);
+}
+
+- (void)updateTitle {
+    self.titleLabel.text = [NSString stringWithFormat:@"%@(%.2f)", self.title, self.slider.value];
+    [self.titleLabel sizeToFit];
 }
 
 @end

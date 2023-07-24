@@ -29,6 +29,7 @@
     self.textField.layer.borderWidth = PixelOne;
     self.textField.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     self.textField.clearButtonMode = UITextFieldViewModeAlways;
+    self.textField.qmui_respondsToDeleteActionAtLeading = YES;
     [self.view addSubview:self.textField];
     
     self.tipsLabel = [[UILabel alloc] init];
@@ -53,7 +54,8 @@
 #pragma mark - <QMUITextFieldDelegate>
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string originalValue:(BOOL)originalValue {
-    if (![string qmui_stringMatchedByPattern:@"^\\d+$"]) {
+    BOOL isDeleting = !string.length;
+    if (!isDeleting && ![string qmui_stringMatchedByPattern:@"^\\d+$"]) {
         [QMUITips showWithText:@"仅允许输入数字" inView:self.view hideAfterDelay:1.0];
         return NO;
     }

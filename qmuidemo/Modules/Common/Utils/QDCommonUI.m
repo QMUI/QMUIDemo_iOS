@@ -61,6 +61,11 @@ const CGFloat QDButtonSpacingHeight = 72;
     
     QMUINavigationTitleView *titleView = QMUINavigationTitleView.appearance;
     titleView.verticalTitleFont = NavBarTitleFont;
+    
+    UISlider *slider = UISlider.appearance;
+    slider.minimumTrackTintColor = UIColor.qd_tintColor;
+    slider.maximumTrackTintColor = UIColor.qd_separatorColor;
+    slider.qmui_thumbColor = UIColor.qd_tintColor;
 }
 
 @end

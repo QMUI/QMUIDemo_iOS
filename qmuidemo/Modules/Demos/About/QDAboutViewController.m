@@ -13,8 +13,6 @@
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) UIImageView *logoImageView;
 @property(nonatomic, strong) QMUIButton *versionButton;
-@property(nonatomic, strong) QMUIButton *websiteButton;
-@property(nonatomic, strong) QMUIButton *documentButton;
 @property(nonatomic, strong) QMUIButton *gitHubButton;
 @property(nonatomic, strong) UILabel *copyrightLabel;
 @end
@@ -41,16 +39,6 @@
     self.versionButton.qmui_outsideEdge = UIEdgeInsetsMake(-12, -12, -12, -12);
     [self.versionButton addTarget:self action:@selector(handleVersionButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.versionButton];
-    
-    self.websiteButton = [self generateCellButtonWithTitle:@"访问官网"];
-    self.websiteButton.qmui_borderPosition = QMUIViewBorderPositionTop;
-    [self.websiteButton addTarget:self action:@selector(handleWebsiteButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scrollView addSubview:self.websiteButton];
-    
-    self.documentButton = [self generateCellButtonWithTitle:@"功能列表"];
-    self.documentButton.qmui_borderPosition = QMUIViewBorderPositionTop;
-    [self.documentButton addTarget:self action:@selector(handleDocumentButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scrollView addSubview:self.documentButton];
     
     self.gitHubButton = [self generateCellButtonWithTitle:@"GitHub"];
     self.gitHubButton.qmui_borderPosition = QMUIViewBorderPositionTop | QMUIViewBorderPositionBottom;
@@ -111,9 +99,7 @@
         self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenter(self.logoImageView.frame, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
         CGFloat contentWidthInRight = rightWidth - UIEdgeInsetsGetHorizontalValue(padding);
-        self.websiteButton.frame = CGRectMake(leftWidth + padding.left, CGRectGetMinY(self.logoImageView.frame) + 10, contentWidthInRight, buttonHeight);
-        self.documentButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
-        self.gitHubButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.documentButton.frame));
+        self.gitHubButton.frame = CGRectMake(leftWidth + padding.left, CGRectGetMinY(self.logoImageView.frame) + 10, contentWidthInRight, buttonHeight);
         
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(contentWidthInRight, CGFLOAT_MAX)].height;
         self.copyrightLabel.frame = CGRectFlatMake(leftWidth + padding.left, CGRectGetHeight(self.scrollView.bounds) - UIEdgeInsetsGetVerticalValue(self.scrollView.adjustedContentInset) - padding.bottom - copyrightLabelHeight, contentWidthInRight, copyrightLabelHeight);
@@ -135,9 +121,7 @@
         
         self.versionButton.frame = CGRectSetXY(self.versionButton.frame, CGRectGetMinXHorizontallyCenterInParentRect(self.scrollView.bounds, self.versionButton.frame), CGRectGetMaxY(self.logoImageView.frame) + versionLabelMarginTop);
         
-        self.websiteButton.frame = CGRectMake(0, CGRectGetMaxY(self.versionButton.frame) + buttonMarginTop, CGRectGetWidth(self.scrollView.bounds), buttonHeight);
-        self.documentButton.frame = CGRectSetY(self.websiteButton.frame, CGRectGetMaxY(self.websiteButton.frame));
-        self.gitHubButton.frame = CGRectSetY(self.documentButton.frame, CGRectGetMaxY(self.documentButton.frame));
+        self.gitHubButton.frame = CGRectMake(0, CGRectGetMaxY(self.versionButton.frame) + buttonMarginTop, CGRectGetWidth(self.scrollView.bounds), buttonHeight);
         
         CGFloat copyrightLabelWidth = CGRectGetWidth(self.scrollView.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
         CGFloat copyrightLabelHeight = [self.copyrightLabel sizeThatFits:CGSizeMake(copyrightLabelWidth, CGFLOAT_MAX)].height;
@@ -149,14 +133,6 @@
 
 - (void)handleVersionButtonEvent:(QMUIButton *)button {
     [self openUrlString:@"https://github.com/Tencent/QMUI_iOS/releases"];
-}
-
-- (void)handleWebsiteButtonEvent:(QMUIButton *)button {
-    [self openUrlString:@"https://qmuiteam.com/ios"];
-}
-
-- (void)handleDocumentButtonEvent:(QMUIButton *)button {
-    [self openUrlString:@"https://qmuiteam.com/ios/page/document.html"];
 }
 
 - (void)handleGitHubButtonEvent:(QMUIButton *)button {

@@ -29,6 +29,9 @@
     self.slider.qmui_thumbSize = CGSizeMake(14, 14);                        // 圆点的大小
     self.slider.qmui_thumbColor = self.slider.minimumTrackTintColor;        // 圆点的填充颜色
     self.slider.qmui_thumbShadow = [NSShadow qmui_shadowWithColor:self.slider.minimumTrackTintColor shadowOffset:CGSizeZero shadowRadius:5]; // 圆点的阴影
+    self.slider.qmui_stepControlConfiguration = ^(__kindof UISlider * _Nonnull slider, QMUISliderStepControl * _Nonnull stepControl, NSUInteger index) {
+        stepControl.indicator.backgroundColor = slider.qmui_thumbColor;
+    };
     self.slider.qmui_stepDidChangeBlock = ^(__kindof UISlider * _Nonnull slider, NSUInteger precedingStep) {
         ((QMUITextField *)weakSelf.debugViewController.debugItems[1].actionView).text = [NSString stringWithFormat:@"%@", @(slider.qmui_step)];
     }; // 监听 step 的变化（用系统的 UIControlEventValueChanged 也可以，具体请看 UISlider+QMUI.h 的注释）。

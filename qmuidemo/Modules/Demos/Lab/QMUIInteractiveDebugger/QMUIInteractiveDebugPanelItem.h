@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) void (^valueGetter)(__kindof UIView *actionView);
 @property(nonatomic, copy, nullable) void (^valueSetter)(__kindof UIView *actionView);
 @property(nonatomic, assign) CGFloat height;
+@property(nonatomic, copy, nullable) void (^didAddBlock)(__kindof QMUIInteractiveDebugPanelItem *item, UIView *containerView);
 
 + (instancetype)itemWithTitle:(NSString *)title actionView:(__kindof UIView *)actionView valueGetter:(nullable void (^)(__kindof UIView *actionView))valueGetter valueSetter:(nullable void (^)(__kindof UIView *actionView))valueSetter;
 
@@ -36,7 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// BOOL 值 item，提供一个 UISwitch 开启/关闭
 + (instancetype)boolItemWithTitle:(NSString *)title valueGetter:(nullable void (^)(UISwitch *actionView))valueGetter valueSetter:(nullable void (^)(UISwitch *actionView))valueSetter;
 
+/// enum 值，提供一个 UISegmentedControl 用于在几个候选值里选
 + (instancetype)enumItemWithTitle:(NSString *)title items:(NSArray<NSString *> *)items valueGetter:(nullable void (^)(UISegmentedControl *actionView))valueGetter valueSetter:(nullable void (^)(UISegmentedControl *actionView))valueSetter;
+
+/// 可连续拖动的数值
++ (instancetype)sliderItemWithTitle:(NSString *)title minValue:(float)minValue maxValue:(float)maxValue valueGetter:(nullable void (^)(UISlider *actionView))valueGetter valueSetter:(nullable void (^)(UISlider *actionView))valueSetter;
 @end
 
 NS_ASSUME_NONNULL_END

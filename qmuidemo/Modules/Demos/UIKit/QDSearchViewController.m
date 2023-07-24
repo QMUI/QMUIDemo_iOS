@@ -95,7 +95,7 @@
     if (tableView == self.tableView) {
         return self.keywords.count;
     }
-    return self.searchResultsKeywords.count;
+    return self.searchResultsKeywords.count * 20;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,7 +108,7 @@
     if (tableView == self.tableView) {
         cell.textLabel.text = self.keywords[indexPath.row];
     } else {
-        NSString *keyword = self.searchResultsKeywords[indexPath.row];
+        NSString *keyword = self.searchResultsKeywords[indexPath.row / 20];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:keyword attributes:@{NSForegroundColorAttributeName: TableViewCellTitleLabelColor}];
         NSRange range = [keyword rangeOfString:self.mySearchController.searchBar.text];
         if (range.location != NSNotFound) {

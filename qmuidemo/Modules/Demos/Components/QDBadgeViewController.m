@@ -18,7 +18,11 @@
 
 - (void)setupNavigationItems {
     [super setupNavigationItems];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:nil action:NULL];
+    self.navigationItem.rightBarButtonItems = @[
+        [UIBarButtonItem qmui_itemWithTitle:@"文字" target:nil action:NULL],
+        [UIBarButtonItem qmui_itemWithImage:UIImageMake(@"icon_nav_about") target:nil action:NULL],
+        [UIBarButtonItem qmui_itemWithButton:[[QMUINavigationButton alloc] initWithType:QMUINavigationButtonTypeNormal title:@"自定义"] target:nil action:NULL],
+    ];
 }
 
 - (void)initSubviews {
@@ -91,8 +95,9 @@
     } else if ([title isEqualToString:@"在 UIBarButtonItem 上显示红点"]) {
         
         // 有使用配置表的时候，最简单的代码就只是控制显隐即可，没使用配置表的话，还需要设置其他的属性才能使红点样式正确，具体请看 UIBarButton+QMUIBadge.h 注释
-        self.navigationItem.rightBarButtonItem.qmui_shouldShowUpdatesIndicator = YES;
-        
+        self.navigationItem.rightBarButtonItems[0].qmui_badgeString = @"8";
+        self.navigationItem.rightBarButtonItems[1].qmui_badgeString = @"9";
+        self.navigationItem.rightBarButtonItems[2].qmui_shouldShowUpdatesIndicator = YES;
     } else if ([title isEqualToString:@"在 UITabBarItem 上显示红点"]) {
         
         UITabBarItem *item = self.tabBar.items.firstObject;
